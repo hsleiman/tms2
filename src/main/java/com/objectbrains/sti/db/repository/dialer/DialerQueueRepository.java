@@ -7,7 +7,7 @@ package com.objectbrains.sti.db.repository.dialer;
 
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
-import com.objectbrains.sti.constants.CallerIdEnum;
+import com.objectbrains.sti.constants.CallerId;
 import com.objectbrains.sti.constants.DialerQueueType;
 import com.objectbrains.sti.constants.DoNotCallCodes;
 import com.objectbrains.sti.db.entity.agent.DialerGroup;

@@ -7,7 +7,7 @@ package com.objectbrains.tms.freeswitch.pojo;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
-import com.objectbrains.svc.iws.PopupDisplayMode;
+import com.objectbrains.sti.constants.PopupDisplayMode;
 import com.objectbrains.svc.iws.SvInboundDialerQueueSettings;
 import com.objectbrains.svc.iws.TmsCallDetails;
 import com.objectbrains.tms.hazelcast.entity.Agent;
@@ -16,7 +16,6 @@ import com.objectbrains.tms.pojo.BorrowerInfo;
 import com.objectbrains.tms.utility.GsonUtility;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.joda.time.LocalDateTime;

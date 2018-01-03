@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.db.entity.freeswitch;
 
-import com.objectbrains.svc.iws.CallerId;
+import com.objectbrains.sti.constants.CallerId;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
 import com.objectbrains.tms.freeswitch.FreeswitchVariables;

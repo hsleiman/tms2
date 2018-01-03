@@ -450,7 +450,7 @@ public class DialerQueueService {
             dqSettings.setPreviewDialerType(PreviewDialerType.REGULAR);
         }
         if (dqSettings.getCallerId() == null) {
-            dqSettings.setCallerId(CallerIdEnum.ACTUAL);
+            dqSettings.setCallerId(CallerId.ACTUAL);
         }
         if (dqSettings.getPhoneTypesAllowed() == null) {
             dqSettings.setPhoneTypesAllowed("0,2,3");
