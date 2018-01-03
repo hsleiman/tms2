@@ -1,0 +1,21 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.objectbrains.sti.exception;
+
+import javax.xml.ws.WebFault;
+
+/**
+ *
+ * @author David
+ */
+@WebFault(targetNamespace = "http://exception.sti.objectbrains.com")
+public class TooManyObjectFoundException extends StiRuntimeException {
+    
+    public TooManyObjectFoundException(String msg){
+        super(msg);
+    }
+
+}
