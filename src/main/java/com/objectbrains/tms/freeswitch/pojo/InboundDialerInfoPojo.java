@@ -5,9 +5,9 @@
  */
 package com.objectbrains.tms.freeswitch.pojo;
 
-import com.objectbrains.svc.iws.DialerMode;
-import com.objectbrains.svc.iws.PreviewDialerType;
-import com.objectbrains.svc.iws.SvInboundDialerQueueSettings;
+import com.objectbrains.sti.constants.DialerMode;
+import com.objectbrains.sti.constants.PreviewDialerType;
+import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.objectbrains.tms.websocket.message.outbound.PhoneToType;
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class InboundDialerInfoPojo {
     private DialerMode dialerMode;
     private PreviewDialerType previewDialerType;
     
-    private SvInboundDialerQueueSettings settings;
+    private InboundDialerQueueSettings settings;
     private Long agentGroupId;
     private Long loanId;
     private String borrowerFirstName;
@@ -54,11 +54,11 @@ public class InboundDialerInfoPojo {
         this.previewDialerType = previewDialerType;
     }
 
-    public SvInboundDialerQueueSettings getSettings() {
+    public InboundDialerQueueSettings getSettings() {
         return settings;
     }
 
-    public void setSettings(SvInboundDialerQueueSettings settings) {
+    public void setSettings(InboundDialerQueueSettings settings) {
         this.settings = settings;
     }
 

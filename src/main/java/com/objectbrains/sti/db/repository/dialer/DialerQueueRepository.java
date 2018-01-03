@@ -12,7 +12,7 @@ import com.objectbrains.sti.constants.DialerQueueType;
 import com.objectbrains.sti.constants.DoNotCallCodes;
 import com.objectbrains.sti.db.entity.agent.DialerGroup;
 import com.objectbrains.sti.db.entity.base.account.Account;
-import com.objectbrains.sti.db.entity.base.dialer.CallerId;
+import com.objectbrains.sti.db.entity.base.dialer.StiCallerId;
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueue;
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueueGroupAssociation;
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;

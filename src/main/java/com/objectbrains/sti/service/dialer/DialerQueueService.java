@@ -12,10 +12,11 @@ import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.sti.constants.*;
+import static com.objectbrains.sti.constants.DialerQueueType.OUTBOUND;
 import com.objectbrains.sti.db.entity.agent.AgentDialerGroup;
 import com.objectbrains.sti.db.entity.agent.DialerGroup;
-import com.objectbrains.sti.db.entity.base.account.Account;
 import com.objectbrains.sti.db.entity.base.WorkQueue;
+import com.objectbrains.sti.db.entity.base.account.Account;
 import com.objectbrains.sti.db.entity.base.customer.Customer;
 import com.objectbrains.sti.db.entity.base.customer.Phone;
 import com.objectbrains.sti.db.entity.base.dialer.*;
@@ -38,7 +39,15 @@ import com.objectbrains.sti.service.tms.DialerGroupService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.sti.service.utility.HttpClient;
 import com.objectbrains.sti.service.utility.PhoneUtils;
-//import org.apache.commons.io.IOUtils;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
@@ -52,18 +61,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static com.objectbrains.sti.constants.DialerQueueType.OUTBOUND;
 
 /**
  * @author David
@@ -450,7 +447,7 @@ public class DialerQueueService {
             dqSettings.setPreviewDialerType(PreviewDialerType.REGULAR);
         }
         if (dqSettings.getCallerId() == null) {
-            dqSettings.setCallerId(CallerId.ACTUAL);
+            dqSettings.setCallerId(com.objectbrains.sti.constants.CallerId.ACTUAL);
         }
         if (dqSettings.getPhoneTypesAllowed() == null) {
             dqSettings.setPhoneTypesAllowed("0,2,3");

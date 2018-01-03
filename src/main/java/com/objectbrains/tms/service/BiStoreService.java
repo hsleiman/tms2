@@ -10,9 +10,9 @@ import com.objectbrains.gce.GCEException;
 import com.objectbrains.gce.GCEService;
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
-import com.objectbrains.svc.iws.BiPlaybackData;
-import com.objectbrains.svc.iws.SvBIMessage;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.sti.db.entity.base.dialer.BIMessage;
+import com.objectbrains.sti.embeddable.BIPlaybackData;
+import com.objectbrains.sti.service.tms.TMSService;
 import static com.objectbrains.tms.constants.Constants.SCREENSHOTS_PATH;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.websocket.message.BiMessage;
@@ -53,7 +53,7 @@ public class BiStoreService {
     private CallDetailRecordService callDetailRecordService;
 
     @Autowired
-    private TMSServiceIWS tmsService;
+    private TMSService tmsService;
 
     @Autowired
     @Qualifier("tms-executor")
@@ -78,7 +78,7 @@ public class BiStoreService {
 
     public void saveBiMessage(Integer extension, BiMessage data, String callUUID) {
 
-        SvBIMessage message = new SvBIMessage();
+        BIMessage message = new BIMessage();
         message.setCallUUID(callUUID);
 
 //        AgentCall call = agentCallService.getActiveCall(extension);
@@ -124,9 +124,9 @@ public class BiStoreService {
             message.setDelay(data.getDelay());
             message.setEvent(data.getEvent());
             message.setFlagged(data.getFlagged());
-            message.setBiLoanPk(data.getLoanFromBi());
+            message.setBiAccountPk(data.getLoanFromBi());
             message.setPtp(data.getPtp());
-            message.setTimestamp(data.getTimeStamp());
+//            message.setTimestamp(data.getTimeStamp());
             message.setUrl(data.getUrl());
 
             BiMessage.ToElement toElement = data.getToElement();
@@ -239,7 +239,7 @@ public class BiStoreService {
         tmsService.saveBIMessage(message);
     }
 
-    public BiPlaybackData getBiPlaybackData(String callUUID) {
+    public BIPlaybackData getBiPlaybackData(String callUUID) {
         return tmsService.getBIPlaybackData(callUUID);
 
 //        callUUID = callUUID.trim();

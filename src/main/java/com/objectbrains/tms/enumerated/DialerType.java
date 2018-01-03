@@ -7,10 +7,10 @@ package com.objectbrains.tms.enumerated;
 
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
-import com.objectbrains.svc.iws.DialerMode;
-import com.objectbrains.svc.iws.SvDialerQueueSettings;
-import com.objectbrains.svc.iws.SvInboundDialerQueueSettings;
-import com.objectbrains.svc.iws.SvOutboundDialerQueueSettings;
+import com.objectbrains.sti.constants.DialerMode;
+import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
 import java.io.IOException;
 
 /**
@@ -37,14 +37,14 @@ public enum DialerType {
         return DialerType.values()[ordinal];
     }
 
-    public static DialerType valueFrom(SvDialerQueueSettings settings) {
+    public static DialerType valueFrom(DialerQueueSettings settings) {
         if (settings == null) {
             return null;
         }
-        if (settings instanceof SvInboundDialerQueueSettings) {
+        if (settings instanceof InboundDialerQueueSettings) {
             return INBOUND;
         } else {
-            DialerMode mode = ((SvOutboundDialerQueueSettings) settings).getDialerMode();
+            DialerMode mode = ((OutboundDialerQueueSettings) settings).getDialerMode();
             if (mode == null) {
                 return null;
             }

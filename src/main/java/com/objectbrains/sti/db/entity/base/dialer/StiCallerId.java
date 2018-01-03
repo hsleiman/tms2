@@ -29,7 +29,7 @@ import javax.persistence.Table;
 })
 @Entity
 @Table(schema = "sti")
-public class CallerId extends SuperEntity {
+public class StiCallerId extends SuperEntity {
 
     @Column(nullable = false, unique = true)
     private Long callerIdNumber;
@@ -77,7 +77,7 @@ public class CallerId extends SuperEntity {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final CallerId other = (CallerId) obj;
+        final StiCallerId other = (StiCallerId) obj;
         if (!Objects.equals(this.callerIdNumber, other.callerIdNumber)) {
             return false;
         }

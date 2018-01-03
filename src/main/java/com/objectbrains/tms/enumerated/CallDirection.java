@@ -15,17 +15,17 @@ import java.io.IOException;
  */
 public enum CallDirection {
 
-    INTERNAL(com.objectbrains.svc.iws.CallDirection.INTERNAL),
-    INBOUND(com.objectbrains.svc.iws.CallDirection.INBOUND),
-    OUTBOUND(com.objectbrains.svc.iws.CallDirection.OUTBOUND);
+    INTERNAL(com.objectbrains.sti.constants.CallDirection.INTERNAL),
+    INBOUND(com.objectbrains.sti.constants.CallDirection.INBOUND),
+    OUTBOUND(com.objectbrains.sti.constants.CallDirection.OUTBOUND);
 
-    private final com.objectbrains.svc.iws.CallDirection svcCallDirection;
+    private final com.objectbrains.sti.constants.CallDirection svcCallDirection;
 
-    private CallDirection(com.objectbrains.svc.iws.CallDirection svcCallDirection) {
+    private CallDirection(com.objectbrains.sti.constants.CallDirection svcCallDirection) {
         this.svcCallDirection = svcCallDirection;
     }
 
-    public com.objectbrains.svc.iws.CallDirection getSvcCallDirection() {
+    public com.objectbrains.sti.constants.CallDirection getSvcCallDirection() {
         return svcCallDirection;
     }
 
