@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.incoming;
 
-import com.objectbrains.svc.iws.CallerId;
+import com.objectbrains.sti.constants.CallerId;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.refrence.IVROrder;
