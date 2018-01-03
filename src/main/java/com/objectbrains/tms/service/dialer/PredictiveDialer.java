@@ -6,6 +6,8 @@
 package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.spring.context.SpringAware;
+import com.objectbrains.sti.constants.CallRoutingOption;
+import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.exception.CallNotFoundException;
@@ -78,7 +80,7 @@ public class PredictiveDialer extends AbstractDialer {
     protected String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueLoanDetails details) {
         PhoneToType type = Utils.getPhoneToType(loanNumber, details);
         //ignore ext
-        return callService.initiatePredictiveCall(record.getSvDialerQueueSettings(), loanNumber.getLoanPk(), type);
+        return callService.initiatePredictiveCall(record.getDialerQueueSettings(), loanNumber.getLoanPk(), type);
     }
 
     @Override
@@ -96,7 +98,7 @@ public class PredictiveDialer extends AbstractDialer {
                 int ext = agent.getExtension();
                 try {
                     if (callback.connectOutboundCallToAgent(ext,
-                            call.getCallUUID(), record.getSvDialerQueueSettings(), loanPk, type)) {
+                            call.getCallUUID(), record.getDialerQueueSettings(), loanPk, type)) {
                         return;
                     }
                 } catch (CallNotFoundException ex) {

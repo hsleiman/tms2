@@ -12,6 +12,7 @@ import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.DialerQueueRecord;
 import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.repository.DialerQueueRepository;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;

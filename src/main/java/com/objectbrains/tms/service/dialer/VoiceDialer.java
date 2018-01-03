@@ -6,9 +6,8 @@
 package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.spring.context.SpringAware;
-import com.objectbrains.svc.iws.CallDispositionCode;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
-import com.objectbrains.svc.iws.OutboundDialerQueueRecord;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.hazelcast.entity.DialerCall;
 import com.objectbrains.tms.websocket.message.outbound.PhoneToType;
@@ -38,7 +37,7 @@ public class VoiceDialer extends AbstractDialer {
     @Override
     protected String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueLoanDetails details) {
         PhoneToType phoneToType = Utils.getPhoneToType(loanNumber, details);
-        callService.initiateBroadcast(record.getSvDialerQueueSettings(), details.getLoanPk(), phoneToType);
+        callService.initiateBroadcast(record.getDialerQueueSettings(), details.getLoanPk(), phoneToType);
         return "";
     }
 

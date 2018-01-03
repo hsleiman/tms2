@@ -5,9 +5,6 @@
  */
 package com.objectbrains.tms.service.dialer;
 
-import com.objectbrains.svc.iws.BasicPhoneData;
-import com.objectbrains.svc.iws.BorrowerPhoneData;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
 import com.objectbrains.tms.websocket.message.outbound.PhoneToType;
 import java.util.ArrayList;
 import java.util.Iterator;

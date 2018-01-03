@@ -7,13 +7,8 @@ package com.objectbrains.tms.websocket;
 
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
-import com.objectbrains.svc.iws.AgentWeightPriority;
-import com.objectbrains.svc.iws.CallDispositionCode;
-import com.objectbrains.svc.iws.CallDispositionLogData;
-import com.objectbrains.svc.iws.PhoneNumberLoanData;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSService;
-import com.objectbrains.svc.iws.UserData;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.pojo.UserData;
 import com.objectbrains.tms.db.entity.Chat;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.repository.CallDetailRecordRepository;
@@ -513,7 +508,7 @@ public class WebsocketService {
                         if (avail.getQueuePk() != null) {
                             try {
                                 awpList = tmsIws.getAgentWeightPriorityListForDq(avail.getQueuePk());
-                            } catch (SvcException ex) {
+                            } catch (Exception ex) {
                                 LOG.error("ext [{}]. Could not get agents for queue {}", ext, avail.getQueuePk(), ex);
                                 break buildResponse;
                             }

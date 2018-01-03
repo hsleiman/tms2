@@ -9,7 +9,7 @@ package com.objectbrains.tms.service.freeswitch;
  *
  * @author hsleiman
  */
-import com.objectbrains.svc.iws.CallDispositionCode;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.freeswitch.CDR;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
@@ -31,14 +31,12 @@ import com.objectbrains.tms.service.InboundCallService;
 import com.objectbrains.tms.service.TransferService;
 import com.objectbrains.tms.service.dialer.CallService;
 import com.objectbrains.tms.service.freeswitch.common.CommonService;
-import com.objectbrains.tms.websocket.Websocket;
 import com.objectbrains.tms.websocket.message.outbound.PhoneToType;
 import javax.servlet.http.HttpServletRequest;
 import org.joda.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**

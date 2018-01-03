@@ -6,10 +6,9 @@
 package com.objectbrains.tms.service;
 
 import com.objectbrains.ams.iws.User;
-import com.objectbrains.svc.iws.AgentWeightPriority;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
 import com.objectbrains.tms.hazelcast.entity.Agent;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
-import com.objectbrains.tms.hazelcast.entity.WeightedPriority;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;

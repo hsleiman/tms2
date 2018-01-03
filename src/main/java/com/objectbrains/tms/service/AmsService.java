@@ -12,7 +12,7 @@ import com.objectbrains.ams.iws.Status;
 import com.objectbrains.ams.iws.User;
 import com.objectbrains.ams.iws.UserNotFoundException;
 import com.objectbrains.scheduler.annotation.Sync;
-import com.objectbrains.svc.iws.AgentWeightPriority;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;

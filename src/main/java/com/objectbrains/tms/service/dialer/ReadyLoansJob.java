@@ -6,7 +6,6 @@
 package com.objectbrains.tms.service.dialer;
 
 import com.objectbrains.scheduler.annotation.QuartzJob;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
 import com.objectbrains.tms.hazelcast.entity.DialerLoan;
 import java.util.Map;
 import java.util.Queue;

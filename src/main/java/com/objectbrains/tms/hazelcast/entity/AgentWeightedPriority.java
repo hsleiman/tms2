@@ -47,17 +47,17 @@ public class AgentWeightedPriority extends WeightedPriority {
     public AgentWeightedPriority(AgentWeightPriority awp) {
         super(awp.getWeightedPriority());
         this.leader = awp.isLeader();
-        this.allowAfterHours = awp.isAllowAfterHours();
+        this.allowAfterHours = awp.getAllowAfterHours();
         this.groupPk = awp.getGroupPk();
         this.primaryGroup = awp.isIsPrimaryGroup();
     }
 
     public AgentWeightedPriority(QueueAgentWeightPriority qawp) {
         super(qawp.getWeightedPriority());
-        this.leader = qawp.isLeader();
-        this.allowAfterHours = qawp.isAllowAfterHours();
+        this.leader = qawp.getLeader();
+        this.allowAfterHours = qawp.getAllowAfterHours();
         this.groupPk = qawp.getGroupPk();
-        this.primaryGroup = qawp.isIsPrimary();
+        this.primaryGroup = qawp.getIsPrimary();
     }
 
     public final void copyFrom(AgentWeightedPriority awp) {

@@ -6,8 +6,13 @@
 package com.objectbrains.tms.service;
 
 import com.objectbrains.scheduler.annotation.RunOnce;
+import com.objectbrains.sti.constants.CallRoutingOption;
+import com.objectbrains.sti.constants.IncomingCallAgent;
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.objectbrains.sti.embeddable.AgentCallOrder;
+import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.freeswitch.pojo.AgentIncomingDistributionOrder;
@@ -184,14 +189,14 @@ public class InboundCallService {
         try {
             LOG.trace("Getting Inbound Dialer Queue Settings for {}", queuePk);
             record = tmsIws.getInboundDialerQueueRecord(queuePk);
-        } catch (SvcException ex) {
+        } catch (Exception ex) {
             LOG.error("Failed to get InboundDialerQueueRecord for queue [{}]", queuePk, ex);
             return null;
         }
         LOG.trace("[AIDO]-2 running queue: {} - {}", queuePk, callUUID);
         dialerQueueRecordRepository.storeInboundDialerQueueRecord(record);
 
-        SvInboundDialerQueueSettings settings = record.getSvDialerQueueSettings();
+        InboundDialerQueueSettings settings = record.getDialerQueueSettings();
         CallRoutingOption callOrder = settings.getCallRoutingOption();
 
         if (details != null) {

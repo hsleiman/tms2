@@ -6,8 +6,7 @@
 package com.objectbrains.tms.service.freeswitch.common;
 
 import com.objectbrains.ams.iws.User;
-import com.objectbrains.svc.iws.TMSService;
-import com.objectbrains.svc.iws.TmsBasicLoanInfo;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.IncomingCallRouting;
 import com.objectbrains.tms.enumerated.WorkHours;

@@ -92,7 +92,7 @@ public class ProgressiveCallBatchJob extends DialerQuartzJob {
     protected double calculateNumberOfCallsToMake(Dialer dialer, Map<Integer, AgentWeightedPriority> participatingAgents) {
         DialerStats stats = dialer.getDialerStats();
         int nCallsInProgress = stats.getInProgressCallCount() + stats.getPendingCallCount();
-        double nCallsExpected = primaryAgentCount(participatingAgents) * dialer.getRecord().getSvDialerQueueSettings().getProgressiveCallsPerAgent();
+        double nCallsExpected = primaryAgentCount(participatingAgents) * dialer.getRecord().getDialerQueueSettings().getProgressiveCallsPerAgent();
         return nCallsExpected - nCallsInProgress;
     }
 

@@ -13,6 +13,11 @@ import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.DataSerializable;
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
+import com.objectbrains.sti.constants.CallDispositionActionType;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.db.entity.disposition.action.DoNotCallAction;
+import com.objectbrains.sti.db.entity.disposition.action.DoNotCallPhoneAction;
+import com.objectbrains.sti.db.entity.disposition.action.RetryCallAction;
 import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.AgentState;
@@ -384,7 +389,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
         if (dispositionCode.isSuccess()) {
             LOG.info("call succeeded {}", call.getCallUUID());
             setCallState(call, DialerCall.State.SUCCESSFUL);
-            type = CallDispositionActionType.MARK_LOAN_AS_COMPLETED;
+            type = CallDispositionActionType.MARK_ACCOUNT_AS_COMPLETED;
         } else {
             LOG.info("call failed {}", call.getCallUUID());
             setCallState(call, DialerCall.State.FAILED);
@@ -424,7 +429,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
         }
         LOG.debug("performing action [{}] for call [{}] ", type, call.getCallUUID());
         switch (type) {
-            case MARK_LOAN_AS_COMPLETED:
+            case MARK_ACCOUNT_AS_COMPLETED:
                 loanCompleted(call.getLoanPk(), DialerLoan.CompleteReason.DISPOSITIONED);
                 return;
             case DO_NOT_CALL://do not call loan
@@ -565,7 +570,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
         Trigger readyLoansTrigger = TriggerBuilder.newTrigger()
                 .withIdentity(readyLoansTriggerKey())
                 .forJob(ReadyLoansJob.NAME, ReadyLoansJob.GROUP)
-                .usingJobData(ReadyLoansJob.buildDataMap(getDialerPk(), record.getSvDialerQueueSettings().isBestTimeToCall()))
+                .usingJobData(ReadyLoansJob.buildDataMap(getDialerPk(), record.getDialerQueueSettings().isBestTimeToCall()))
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
                         .withMisfireHandlingInstructionFireNow())
                 .startAt(startTime.toDate())
@@ -590,7 +595,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
                 }
                 websocketService.sendPushNotification(agents, message.toString());
             }
-        } catch (SchedulerException | SvcException ex) {
+        } catch (SchedulerException | Exception ex) {
             throw new DialerException(this, ex);
         }
 
@@ -646,7 +651,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
             List<DialerQueueLoanDetails> detailsList = new ArrayList<>(record.getLoanDetails());
 //            dialerPk = dialerStatsService.startStats(getQueuePk(), detailsList.size(), getDialerType());
             dialerStatsService.startStats(getDialerPk(), detailsList.size(), getDialerType());
-            if (record.getSvDialerQueueSettings().isBestTimeToCall()) {
+            if (record.getDialerQueueSettings().isBestTimeToCall()) {
                 Collections.sort(detailsList, new LoanDetailsComparator());
             }
             notReadyLoans.addAll(detailsList);

@@ -6,7 +6,7 @@
 package com.objectbrains.tms.service.freeswitch;
 
 import com.objectbrains.ams.iws.User;
-import com.objectbrains.svc.iws.CallDispositionCode;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import com.objectbrains.tms.constants.Constants;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.freeswitch.CDR;

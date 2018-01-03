@@ -8,6 +8,8 @@ package com.objectbrains.tms.service.dialer;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.exception.CallNotFoundException;
 import com.objectbrains.tms.hazelcast.entity.DialerCall;

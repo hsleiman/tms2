@@ -5,14 +5,13 @@
  */
 package com.objectbrains.tms.service.freeswitch;
 
-import com.objectbrains.svc.iws.AgentWeightPriority;
-import com.objectbrains.svc.iws.CallDispositionCode;
-import com.objectbrains.svc.iws.CallRoutingOption;
-import com.objectbrains.svc.iws.SvDialerQueueSettings;
-import com.objectbrains.svc.iws.SvInboundDialerQueueSettings;
-import com.objectbrains.svc.iws.SvOutboundDialerQueueSettings;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSService;
+import com.objectbrains.sti.constants.CallRoutingOption;
+import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
+import com.objectbrains.sti.embeddable.WeightedPriority;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.exception.CallNotFoundException;
 import com.objectbrains.tms.hazelcast.entity.Agent;
@@ -246,7 +245,7 @@ public class CallingOutService {
         List<AgentWeightPriority> awpList;
         try {
             awpList = tmsIws.getAgentWeightPriorityListForDq(queuePK);
-        } catch (SvcException | RuntimeException ex) {
+        } catch (RuntimeException ex) {
             log.error("Could not get agents for queue {}", queuePK, ex);
             return;
         }
@@ -284,15 +283,15 @@ public class CallingOutService {
         dialplanRepository.LogDialplanInfoIntoDb(callUUID, "putCallOnWaitAsync {}, {} isEmpty: {}", callUUID, loanId, map.isEmpty());
 
         if (!map.isEmpty()) {
-            SvDialerQueueSettings queueSettings = recordService.getQueueSettings(queuePk);
+            DialerQueueSettings queueSettings = recordService.getQueueSettings(queuePk);
 
             boolean isInbound = false;
             CallRoutingOption order = CallRoutingOption.ROUND_ROBIN;
-            if (queueSettings instanceof SvInboundDialerQueueSettings) {
-                order = ((SvInboundDialerQueueSettings) queueSettings).getCallRoutingOption();
+            if (queueSettings instanceof InboundDialerQueueSettings) {
+                order = ((InboundDialerQueueSettings) queueSettings).getCallRoutingOption();
                 isInbound = true;
             }
-            com.objectbrains.svc.iws.WeightedPriority defaultWeightedPriorioty = null;
+            WeightedPriority defaultWeightedPriorioty = null;
             if (queueSettings != null) {
                 defaultWeightedPriorioty = queueSettings.getWeightedPriority();
             }
@@ -304,7 +303,7 @@ public class CallingOutService {
                     if (isInbound) {
                         log.info("callService.connectInboundCallToAgent {}, {} isisInbound: {} agentExt: {}", callUUID, loanId, isInbound, agent.getExtension());
                         dialplanRepository.LogDialplanInfoIntoDb(callUUID, "callService.connectInboundCallToAgent {}, {} isisInbound: {} agentExt: {}", callUUID, loanId, isInbound, agent.getExtension());
-                        if (filterAgent(agent) && callService.connectInboundCallToAgent(agent.getExtension(), callUUID, (SvInboundDialerQueueSettings) queueSettings, loanId, phoneToTypes)) {
+                        if (filterAgent(agent) && callService.connectInboundCallToAgent(agent.getExtension(), callUUID, (InboundDialerQueueSettings) queueSettings, loanId, phoneToTypes)) {
                             log.info("callService.connectInboundCallToAgent {}, {} agentExt: {} true", callUUID, loanId, agent.getExtension());
                             dialplanRepository.LogDialplanInfoIntoDb(callUUID, "callService.connectInboundCallToAgent {}, {} agentExt: {} true", callUUID, loanId, agent.getExtension());
                             return;
@@ -312,7 +311,7 @@ public class CallingOutService {
                     } else {
                         log.info("callService.connectInboundCallToAgent {}, {} isisInbound: {} agentExt: {}", callUUID, loanId, isInbound, agent.getExtension());
                         dialplanRepository.LogDialplanInfoIntoDb(callUUID, "callService.connectInboundCallToAgent {}, {} isisInbound: {} agentExt: {}", callUUID, loanId, isInbound, agent.getExtension());
-                        if (filterAgent(agent) && callService.connectOutboundCallToAgent(agent.getExtension(), callUUID, (SvOutboundDialerQueueSettings) queueSettings, loanId, phoneToTypes)) {
+                        if (filterAgent(agent) && callService.connectOutboundCallToAgent(agent.getExtension(), callUUID, (OutboundDialerQueueSettings) queueSettings, loanId, phoneToTypes)) {
                             log.info("callService.connectInboundCallToAgent {}, {} agentExt: {} true", callUUID, loanId, agent.getExtension());
                             dialplanRepository.LogDialplanInfoIntoDb(callUUID, "callService.connectInboundCallToAgent {}, {} agentExt: {} true", callUUID, loanId, agent.getExtension());
                             return;

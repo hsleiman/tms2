@@ -6,8 +6,7 @@
 package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.spring.context.SpringAware;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
-import com.objectbrains.svc.iws.OutboundDialerQueueRecord;
+import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.DialerType;
 import org.joda.time.LocalTime;
 import org.slf4j.Logger;
@@ -31,7 +30,7 @@ public class PreviewDialer extends AbstractDialer {
 
     @Override
     protected String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueLoanDetails details) {
-        return callService.initiateCallPreviewSelect(getRecord().getSvDialerQueueSettings(), loanNumber.getLoanPk(), ext,
+        return callService.initiateCallPreviewSelect(getRecord().getDialerQueueSettings(), loanNumber.getLoanPk(), ext,
                 Utils.getPhoneToTypes(details));
     }
 

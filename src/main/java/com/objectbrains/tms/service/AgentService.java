@@ -17,8 +17,8 @@ import com.objectbrains.ams.iws.User;
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
-import com.objectbrains.svc.iws.AgentWeightPriority;
-import com.objectbrains.svc.iws.CallRoutingOption;
+import com.objectbrains.sti.constants.CallRoutingOption;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
 import com.objectbrains.tms.db.entity.freeswitch.CDR;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.db.repository.AgentRepository;
@@ -205,7 +205,7 @@ public class AgentService {
     }
 
     public List<Agent> getAgents(List<AgentWeightPriority> agentWeightPriorities,
-            com.objectbrains.svc.iws.WeightedPriority defaultWeightedPriorioty,
+            com.objectbrains.sti.embeddable.WeightedPriority defaultWeightedPriorioty,
             CallRoutingOption callOrder) {
         return getAgents(Utils.convertToMap(agentWeightPriorities),
                 defaultWeightedPriorioty == null ? null : new WeightedPriority(defaultWeightedPriorioty),
@@ -213,7 +213,7 @@ public class AgentService {
     }
 
     public List<Agent> getAgents(Map<Integer, AgentWeightedPriority> agentWeightPriorities,
-            com.objectbrains.svc.iws.WeightedPriority defaultWeightedPriorioty,
+            com.objectbrains.sti.embeddable.WeightedPriority defaultWeightedPriorioty,
             CallRoutingOption callOrder) {
         if (agentWeightPriorities.isEmpty()) {
             return Collections.emptyList();

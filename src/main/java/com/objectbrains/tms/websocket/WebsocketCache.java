@@ -5,10 +5,11 @@
  */
 package com.objectbrains.tms.websocket;
 
-import com.objectbrains.svc.iws.DialerQueueDetails;
-import com.objectbrains.svc.iws.DialerQueueType;
-import com.objectbrains.svc.iws.SvCallerId;
-import com.objectbrains.svc.iws.TMSService;
+
+import com.objectbrains.sti.constants.DialerQueueType;
+import com.objectbrains.sti.db.entity.base.dialer.StiCallerId;
+import com.objectbrains.sti.embeddable.DialerQueueDetails;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.pojo.DialerQueueDetailPojo;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,10 +92,10 @@ public class WebsocketCache {
     private synchronized List<Long> buildCallerIdNumbers() {
         if (isCallerIdNumbersExpired()) {
             LOG.info("Rebuilding Caller ID..");
-            List<SvCallerId> callerIds = tmsIws.getAllCallerIds();
+            List<StiCallerId> callerIds = tmsIws.getAllCallerIds();
             ArrayList<Long> numbers = new ArrayList<>();
             for (int i = 0; i < callerIds.size(); i++) {
-                SvCallerId get = callerIds.get(i);
+                StiCallerId get = callerIds.get(i);
                 numbers.add(get.getCallerIdNumber());
             }
             callerIdNumbers = numbers;

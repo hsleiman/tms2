@@ -7,6 +7,11 @@ package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.core.IMap;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
+import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.DialerScheduleEntity;
 import com.objectbrains.tms.db.repository.DialerQueueStatsRepository;
 import com.objectbrains.tms.db.repository.DialerScheduleRepository;
@@ -107,7 +112,7 @@ public class DialerService implements BeanFactoryAware {
     }
 
     private Dialer createDialer(long dialerPk, OutboundDialerQueueRecord record, LocalTime stopTime) throws DialerException {
-        SvOutboundDialerQueueSettings settings = record.getSvDialerQueueSettings();
+        OutboundDialerQueueSettings settings = record.getDialerQueueSettings();
         switch (settings.getDialerMode()) {
             case PREDICTIVE:
                 return new PredictiveDialer(dialerPk, record, stopTime);
@@ -129,15 +134,15 @@ public class DialerService implements BeanFactoryAware {
         }
     }
 
-    public void startQueue(final long queuePk) throws SvcException, DialerException {
+    public void startQueue(final long queuePk) throws Exception, DialerException {
         startQueue(queuePk, null);
     }
 
-    public void startQueue(final long queuePk, LocalTime stopTime) throws SvcException, DialerException {
+    public void startQueue(final long queuePk, LocalTime stopTime) throws Exception, DialerException {
 
         OutboundDialerQueueRecord record = tmsIws.getOutboundDialerQueueRecord(queuePk);
 
-        SvOutboundDialerQueueSettings settings = record.getSvDialerQueueSettings();
+        OutboundDialerQueueSettings settings = record.getDialerQueueSettings();
         LocalTime now = LocalTime.now();
         LocalTime startTime = settings.getStartTime();
         LocalTime endTime = settings.getEndTime();
@@ -395,7 +400,7 @@ public class DialerService implements BeanFactoryAware {
             }
         }
 
-        Map<Long, SvDialerQueueSettings> settingsMap = dialerQueueRecordService.getQueueSettings(inboundQueuePks);
+        Map<Long, DialerQueueSettings> settingsMap = dialerQueueRecordService.getQueueSettings(inboundQueuePks);
 
         //now build the primary tree map
         TreeMap<Integer, Map<DialerType, List<QueueWeight>>> priorityMap = new TreeMap<>();
@@ -518,10 +523,10 @@ public class DialerService implements BeanFactoryAware {
     public static class QueueWeight implements WeightedObject {
 
         public final long queuePk;
-        public final SvDialerQueueSettings settings;
+        public final DialerQueueSettings settings;
         public final AgentWeightedPriority awp;
 
-        public QueueWeight(long queuePk, AgentWeightedPriority awp, SvDialerQueueSettings settings) {
+        public QueueWeight(long queuePk, AgentWeightedPriority awp, DialerQueueSettings settings) {
             this.queuePk = queuePk;
             this.awp = awp;
             this.settings = settings;

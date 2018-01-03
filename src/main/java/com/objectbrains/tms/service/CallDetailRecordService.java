@@ -13,11 +13,8 @@ import com.hazelcast.nio.serialization.DataSerializable;
 import com.hazelcast.spring.context.SpringAware;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.scheduler.annotation.QuartzJob;
-import com.objectbrains.svc.iws.CallDispositionCode;
-import com.objectbrains.svc.iws.SvCallDetailRecord;
-import com.objectbrains.svc.iws.TMSService;
-import com.objectbrains.svc.iws.TmsBasicLoanInfo;
-import com.objectbrains.svc.iws.TmsCallDetails;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.cdr.SpeechToText;
 import com.objectbrains.tms.db.entity.freeswitch.CDR;
@@ -260,7 +257,7 @@ public class CallDetailRecordService {
     }
 
     @Async
-    public void saveInitialMasterRecordIntoSVC(SvCallDetailRecord callDetailRecordMaster) {
+    public void saveInitialMasterRecordIntoSVC(com.objectbrains.sti.db.entity.base.dialer.CallDetailRecord callDetailRecordMaster) {
         tmsIWS.createOrUpdateCallDetailRecord(callDetailRecordMaster);
     }
 

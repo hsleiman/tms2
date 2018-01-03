@@ -6,9 +6,8 @@
 package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.spring.context.SpringAware;
-import com.objectbrains.svc.iws.CallRoutingOption;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
-import com.objectbrains.svc.iws.OutboundDialerQueueRecord;
+import com.objectbrains.sti.constants.CallRoutingOption;
+import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.exception.CallNotFoundException;
@@ -19,7 +18,6 @@ import com.objectbrains.tms.service.AgentQueueAssociationService;
 import com.objectbrains.tms.websocket.message.outbound.PhoneToType;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import org.joda.time.LocalTime;
 import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
@@ -48,7 +46,7 @@ public class ProgressiveDialer extends AbstractDialer {
 
     public ProgressiveDialer(long dialerPk, OutboundDialerQueueRecord rec, LocalTime endTime) throws DialerException {
         super(dialerPk, rec, endTime);
-        if (rec.getSvDialerQueueSettings().getProgressiveCallsPerAgent() == null) {
+        if (rec.getDialerQueueSettings().getProgressiveCallsPerAgent() == null) {
             throw new DialerException(getQueuePk(), "Progressive Dialer is missing ProgressiveCallsPerAgent");
         }
     }
@@ -92,7 +90,7 @@ public class ProgressiveDialer extends AbstractDialer {
     protected String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueLoanDetails details) {
         PhoneToType type = Utils.getPhoneToType(loanNumber, details);
         //ignore ext
-        return callService.initiatePredictiveCall(record.getSvDialerQueueSettings(), details.getLoanPk(), type);
+        return callService.initiatePredictiveCall(record.getDialerQueueSettings(), details.getLoanPk(), type);
     }
 
     @Override
@@ -111,7 +109,7 @@ public class ProgressiveDialer extends AbstractDialer {
                 LOG.info("Try to connect agent {} to outbound call {}", agent, type.getPhoneNumber());
                 try {
                     if (callback.connectOutboundCallToAgent(ext,
-                            call.getCallUUID(), record.getSvDialerQueueSettings(), loanPk, type)) {
+                            call.getCallUUID(), record.getDialerQueueSettings(), loanPk, type)) {
                         LOG.info("Connecting agent {} to outbound call {}", agent, type.getPhoneNumber());
                         return;
                     }

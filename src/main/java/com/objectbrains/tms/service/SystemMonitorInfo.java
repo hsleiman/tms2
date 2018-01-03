@@ -7,10 +7,6 @@ package com.objectbrains.tms.service;
 
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
-import com.objectbrains.svc.iws.CorrespondenceServiceIWS;
-import com.objectbrains.svc.iws.DmsException;
-import com.objectbrains.svc.iws.EmailInfo;
-import com.objectbrains.svc.iws.UserData;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +15,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +34,12 @@ public class SystemMonitorInfo {
     @Autowired
     private FreeswitchConfiguration configuration;
 
-    @Autowired
-    private CorrespondenceServiceIWS correspondenceServiceIWS;
+
 
     private static final Logger LOG = LoggerFactory.getLogger(SystemMonitorInfo.class);
 
     final ConcurrentHashMap<String, ConcurrentHashMap<String, Long>> info = new ConcurrentHashMap<>();
     final ConcurrentHashMap<String, ConcurrentHashMap<String, String>> memoryInfo = new ConcurrentHashMap<>();
-    final ConcurrentLinkedQueue<EmailInfo> emailInfos = new ConcurrentLinkedQueue<>();
 
     final NumberFormat formatter = new DecimalFormat("#.##");
 
@@ -59,7 +52,6 @@ public class SystemMonitorInfo {
                 memInfo();
                 vmstat();
             }
-            sendEmails();
         } catch (IOException ex) {
             LOG.error("Error: " + ex.getMessage());
         } catch (InterruptedException ex) {
@@ -68,39 +60,9 @@ public class SystemMonitorInfo {
 
     }
 
-    public void addEmail(EmailInfo emailInfo) {
-        LOG.info("Adding email.");
-        emailInfos.offer(emailInfo);
-    }
 
-    private void sendEmails() {
-        try {
-            int i = 50;
-            boolean hasMore = true;
-            while (hasMore) {
-                i--;
-                if (i <= 0 || emailInfos.isEmpty()) {
-                    hasMore = false;
-                } else {
-                    EmailInfo emailInfo = emailInfos.poll();
-                    if (emailInfo.getSubject().equals("New Voicemail.") && config.getBoolean("enable.voicemail.email.address.notification", false)) {
-                        emailInfo.setReceiverList(configuration.getDefaultVoicmailEmail());
-                        UserData userData = new UserData();
-                        userData.setUserName("System");
-                        correspondenceServiceIWS.sendDirectlyToEmailQueue(userData, emailInfo, null, null, "System");
-                    } else {
-                        UserData userData = new UserData();
-                        userData.setUserName("System");
-                        correspondenceServiceIWS.sendDirectlyToEmailQueue(userData, emailInfo, null, null, "System");
-                    }
-                }
-            }
 
-        } catch (DmsException ex) {
-            LOG.error("Exception: ", ex);
-        }
-    }
-
+   
     private void MemoryCheck() throws IOException, InterruptedException {
         String key = "free -m";
         String result = executeCommand("free", "-m");

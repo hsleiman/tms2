@@ -15,19 +15,18 @@ import com.hazelcast.query.Predicate;
 import com.hazelcast.spring.context.SpringAware;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.scheduler.annotation.QuartzJob;
-import com.objectbrains.svc.iws.SvDialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
 import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
 import com.objectbrains.tms.hazelcast.Configs;
 import com.objectbrains.tms.hazelcast.entity.Agent;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.service.dialer.DialerService;
-import com.objectbrains.tms.websocket.message.Function;
 import com.objectbrains.tms.websocket.Websocket;
 import com.objectbrains.tms.websocket.WebsocketService;
+import com.objectbrains.tms.websocket.message.Function;
 import com.objectbrains.tms.websocket.message.outbound.Send;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -132,9 +131,9 @@ public class AgentStatsService {
 
     public void setAgentToIdle(int agentExt) {
         Set<Long> queuePks = associationService.getAgentQueues(agentExt);
-        Map<Long, SvDialerQueueSettings> settings = recordService.getQueueSettings(queuePks);
+        Map<Long, DialerQueueSettings> settings = recordService.getQueueSettings(queuePks);
         int minIdleMinutes = Integer.MAX_VALUE;
-        for (SvDialerQueueSettings setting : settings.values()) {
+        for (DialerQueueSettings setting : settings.values()) {
             if (setting.getIdleMaxMinutes() != null
                     && setting.getIdleMaxMinutes() < minIdleMinutes) {
                 minIdleMinutes = setting.getIdleMaxMinutes();
@@ -152,9 +151,9 @@ public class AgentStatsService {
      * @param queuePks
      */
     public void setAgentToWrap(int agentExt, Set<Long> queuePks) {
-        Map<Long, SvDialerQueueSettings> settings = recordService.getQueueSettings(queuePks);
+        Map<Long, DialerQueueSettings> settings = recordService.getQueueSettings(queuePks);
         int minWrapMinutes = Integer.MAX_VALUE;
-        for (SvDialerQueueSettings setting : settings.values()) {
+        for (DialerQueueSettings setting : settings.values()) {
             if (setting.getWrapMaxMinutes() != null
                     && setting.getWrapMaxMinutes() < minWrapMinutes) {
                 minWrapMinutes = setting.getWrapMaxMinutes();

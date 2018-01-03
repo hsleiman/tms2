@@ -24,10 +24,9 @@ import com.hazelcast.util.executor.StripedRunnable;
 import com.objectbrains.ams.iws.User;
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
+import com.objectbrains.sti.constants.PreviewDialerType;
+import com.objectbrains.sti.pojo.QueueAgentWeightPriority;
 import com.objectbrains.sti.service.tms.TMSService;
-import com.objectbrains.svc.iws.PreviewDialerType;
-import com.objectbrains.svc.iws.QueueAgentWeightPriority;
-import com.objectbrains.svc.iws.SvcException;
 import com.objectbrains.tms.db.repository.WebsocketRepository;
 import com.objectbrains.tms.freeswitch.pojo.DialerInfoPojo;
 import com.objectbrains.tms.hazelcast.Configs;
@@ -564,7 +563,7 @@ public class Websocket {
                 awps.add(awp);
             }
             associationService.setAgentQueueAssociations(ext, queuePks, awps);
-        } catch (SvcException ex) {
+        } catch (Exception ex) {
             LOG.error("failed to set queues for agent '{}'", userName, ex);
         }
 

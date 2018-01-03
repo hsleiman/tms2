@@ -9,7 +9,7 @@ package com.objectbrains.tms.service.freeswitch;
  *
  * @author hsleiman
  */
-import com.objectbrains.svc.iws.CallDispositionCode;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.freeswitch.CDR;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;

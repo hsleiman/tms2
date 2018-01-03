@@ -10,7 +10,6 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import com.objectbrains.gce.GCEException;
 import com.objectbrains.gce.GCEService;
-import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.cdr.SpeechToText;
 import com.objectbrains.tms.db.repository.CallDetailRecordRepository;
@@ -35,9 +34,6 @@ public class SpeechToTextService {
 
     @Autowired
     private CallDetailRecordRepository callDetailRecordRepository;
-
-    @Autowired
-    private TMSService tmsIWS;
 
     @Autowired
     private CdrService cdrService;
@@ -89,10 +85,7 @@ public class SpeechToTextService {
             mcdr.setSpeechToTextConfidence(confidence);
             mcdr.setSpeechToTextConfidenceRight(confidenceRight);
             mcdr.setSpeechToTextConfidenceLeft(confidenceLeft);
-            cdrService.offerNewMasterCallDetailRecordToSVCONLY(mcdr);
-
-            tmsIWS.saveSpeechToTextForCallUuid(mcdr.getCall_uuid(), toText.getBothChannal(), toText.getLeftChannal(), toText.getRightChannal());
-
+           
             log.info("Both \n{}", toText.getBothChannal());
             log.info("Right \n{}", toText.getRightChannal());
             log.info("Left \n{}", toText.getLeftChannal());
