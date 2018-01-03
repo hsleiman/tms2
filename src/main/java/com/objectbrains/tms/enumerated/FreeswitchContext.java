@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.enumerated;
 
-import com.objectbrains.svc.iws.DialPlanContext;
+import com.objectbrains.sti.constants.DialPlanContext;
 
 /**
  *

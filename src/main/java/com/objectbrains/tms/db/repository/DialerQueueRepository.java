@@ -5,8 +5,8 @@
  */
 package com.objectbrains.tms.db.repository;
 
-import com.objectbrains.svc.iws.SvDialerQueueSettings;
-import com.objectbrains.svc.iws.WeightedPriority;
+import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
+import com.objectbrains.sti.embeddable.WeightedPriority;
 import com.objectbrains.tms.db.entity.DialerQueue;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.service.SvcQueueService;
@@ -97,7 +97,7 @@ public class DialerQueueRepository {
     }
 
     private DialerQueue loadQueue(long queuePk) {
-        SvDialerQueueSettings settings = queueService.getQueueSettings(queuePk);
+        DialerQueueSettings settings = queueService.getQueueSettings(queuePk);
         if (settings == null) {
             return null;
         }

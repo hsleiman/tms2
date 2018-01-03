@@ -6,9 +6,8 @@
 package com.objectbrains.tms.service;
 
 import com.objectbrains.scheduler.annotation.Sync;
-import com.objectbrains.svc.iws.SvDialerQueueSettings;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
+import com.objectbrains.sti.service.tms.TMSService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -28,12 +27,12 @@ public class SvcQueueService {
     private static final Logger LOG = LoggerFactory.getLogger(SvcQueueService.class);
     
     @Autowired
-    private TMSServiceIWS tmsIws;
+    private TMSService tmsIws;
 
-    public List<SvDialerQueueSettings> getQueueSettings(Set<Long> queuePks) {
-        List<SvDialerQueueSettings> ret = new ArrayList<>();
+    public List<DialerQueueSettings> getQueueSettings(Set<Long> queuePks) {
+        List<DialerQueueSettings> ret = new ArrayList<>();
         for (Long queuePk : queuePks) {
-            SvDialerQueueSettings settings = getQueueSettings(queuePk);
+            DialerQueueSettings settings = getQueueSettings(queuePk);
             if (settings != null) {
                 ret.add(settings);
             }
@@ -41,11 +40,11 @@ public class SvcQueueService {
         return ret;
     }
 
-    public SvDialerQueueSettings getQueueSettings(Long queuePk) {
+    public DialerQueueSettings getQueueSettings(Long queuePk) {
         if (queuePk != null) {
             try {
                 return tmsIws.getDialerQueueSettingsByDQPk(queuePk);
-            } catch (SvcException ex) {
+            } catch (Exception ex) {
                 LOG.error(ex.getMessage());
             }
         }

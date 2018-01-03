@@ -8,8 +8,7 @@ package com.objectbrains.tms.freeswitch.pojo;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.objectbrains.sti.constants.PopupDisplayMode;
-import com.objectbrains.svc.iws.SvInboundDialerQueueSettings;
-import com.objectbrains.svc.iws.TmsCallDetails;
+import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.objectbrains.tms.hazelcast.entity.Agent;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.pojo.BorrowerInfo;
@@ -46,7 +45,7 @@ public class AgentIncomingDistributionOrder implements Serializable {
     @Expose
     private Long maxDelayBeforeAgentAnswer;
     @Expose
-    private SvInboundDialerQueueSettings settings;
+    private InboundDialerQueueSettings settings;
     @Expose
     private boolean directLine = false;
     @Expose
@@ -196,11 +195,11 @@ public class AgentIncomingDistributionOrder implements Serializable {
         this.maxDelayBeforeAgentAnswer = maxDelayBeforeAgentAnswer;
     }
 
-    public SvInboundDialerQueueSettings getSettings() {
+    public InboundDialerQueueSettings getSettings() {
         return settings;
     }
 
-    public void setSettings(SvInboundDialerQueueSettings settings) {
+    public void setSettings(InboundDialerQueueSettings settings) {
         this.settings = settings;
     }
 
