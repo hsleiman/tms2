@@ -5,7 +5,7 @@
  */
 package com.objectbrains.sti.embeddable;
 
-import com.objectbrains.sti.constants.CallerIdEnum;
+import com.objectbrains.sti.constants.CallerId;
 import com.objectbrains.sti.constants.ContactTimeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -42,7 +42,7 @@ public class AccountData {
     private LocalDateTime welcomeCallTimestamp;
     private String assignedAgent;
     @Enumerated(EnumType.STRING)
-    private CallerIdEnum callerIdStatus;
+    private CallerId callerIdStatus;
     private LocalDateTime callBackShownDateTime;
     private LocalDate cotractCreatedDate;
     private LocalDate contractSignDate;
@@ -202,11 +202,11 @@ public class AccountData {
         this.assignedAgent = assignedAgent;
     }
 
-    public CallerIdEnum getCallerIdStatus() {
+    public CallerId getCallerIdStatus() {
         return callerIdStatus;
     }
 
-    public void setCallerIdStatus(CallerIdEnum callerIdStatus) {
+    public void setCallerIdStatus(CallerId callerIdStatus) {
         this.callerIdStatus = callerIdStatus;
     }
 

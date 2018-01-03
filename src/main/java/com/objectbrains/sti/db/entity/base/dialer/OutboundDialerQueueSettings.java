@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.objectbrains.sti.common.LocalDateTimeDeserializer;
 import com.objectbrains.sti.common.LocalDateTimeSerializer;
-import com.objectbrains.sti.constants.CallerIdEnum;
+import com.objectbrains.sti.constants.CallerId;
 import com.objectbrains.sti.constants.DialerMode;
 import com.objectbrains.sti.constants.LeaveVoiceMailAtOptions;
 import com.objectbrains.sti.constants.PreviewDialerType;
@@ -40,7 +40,7 @@ public class OutboundDialerQueueSettings extends DialerQueueSettings {
     @Enumerated(EnumType.STRING)
     private PreviewDialerType previewDialerType;
     @Enumerated(EnumType.STRING)
-    private CallerIdEnum callerId;
+    private CallerId callerId;
     private Long callerIdNumber;
     private String voiceMailName;
     private String holdMusicName;
@@ -87,11 +87,11 @@ public class OutboundDialerQueueSettings extends DialerQueueSettings {
         this.previewDialerType = previewDialerType;
     }
     
-    public CallerIdEnum getCallerId() {
+    public CallerId getCallerId() {
         return callerId;
     }
     
-    public void setCallerId(CallerIdEnum callerId) {
+    public void setCallerId(CallerId callerId) {
         this.callerId = callerId;
     }
     

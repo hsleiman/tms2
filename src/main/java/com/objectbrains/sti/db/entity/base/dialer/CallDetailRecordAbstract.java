@@ -6,7 +6,7 @@
 package com.objectbrains.sti.db.entity.base.dialer;
 
 import com.objectbrains.sti.constants.CallDirection;
-import com.objectbrains.sti.constants.CallerIdEnum;
+import com.objectbrains.sti.constants.CallerId;
 import com.objectbrains.sti.constants.DialPlanContext;
 import com.objectbrains.sti.constants.DialerMode;
 import com.objectbrains.sti.db.entity.superentity.SuperEntity;
@@ -30,7 +30,7 @@ public abstract class CallDetailRecordAbstract extends SuperEntity {
     private String destinationNumber;
 
     private String effectiveCallerIdNumber;
-    private CallerIdEnum callerId;
+    private CallerId callerId;
     private String networkAddr;
     
     @Column(nullable = false, name = "call_uuid")
@@ -123,11 +123,11 @@ public abstract class CallDetailRecordAbstract extends SuperEntity {
         this.effectiveCallerIdNumber = effectiveCallerIdNumber;
     }
 
-    public CallerIdEnum getCallerId() {
+    public CallerId getCallerId() {
         return callerId;
     }
 
-    public void setCallerId(CallerIdEnum callerId) {
+    public void setCallerId(CallerId callerId) {
         this.callerId = callerId;
     }
 

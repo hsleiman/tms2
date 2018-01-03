@@ -9,7 +9,7 @@ package com.objectbrains.sti.constants;
  *
  * @author raine.cabal
  */
-public enum CallerIdEnum {
+public enum CallerId {
 
     ACTUAL,
     CUSTOM,

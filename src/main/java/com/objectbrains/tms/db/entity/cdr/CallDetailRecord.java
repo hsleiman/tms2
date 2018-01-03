@@ -7,7 +7,7 @@ package com.objectbrains.tms.db.entity.cdr;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
-import com.objectbrains.svc.iws.CallerId;
+import com.objectbrains.sti.constants.CallerId;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import com.objectbrains.tms.utility.GsonUtility;
