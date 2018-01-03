@@ -7,8 +7,8 @@ package com.objectbrains.tms.hazelcast.entity;
 
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
-import com.objectbrains.svc.iws.AgentWeightPriority;
-import com.objectbrains.svc.iws.QueueAgentWeightPriority;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
+import com.objectbrains.sti.pojo.QueueAgentWeightPriority;
 import com.objectbrains.tms.enumerated.DialerType;
 import java.io.IOException;
 import java.util.Objects;

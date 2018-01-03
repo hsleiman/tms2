@@ -10,9 +10,17 @@ package com.objectbrains.sti.constants;
  * @author David
  */
 public enum PopupDisplayMode {
-    
+
     NEW_WINDOW,
     NEW_TAB,
-    SAME_WINDOW
-    
+    SAME_WINDOW;
+
+    public String value() {
+        return name();
+    }
+
+    public static PopupDisplayMode fromValue(String v) {
+        return valueOf(v);
+    }
+
 }

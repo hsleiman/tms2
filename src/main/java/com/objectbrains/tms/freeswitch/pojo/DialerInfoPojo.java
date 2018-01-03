@@ -7,9 +7,9 @@ package com.objectbrains.tms.freeswitch.pojo;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
-import com.objectbrains.svc.iws.DialerMode;
-import com.objectbrains.svc.iws.PreviewDialerType;
-import com.objectbrains.svc.iws.SvOutboundDialerQueueSettings;
+import com.objectbrains.sti.constants.DialerMode;
+import com.objectbrains.sti.constants.PreviewDialerType;
+import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.objectbrains.tms.utility.GsonUtility;
 import com.objectbrains.tms.websocket.message.outbound.PhoneToType;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class DialerInfoPojo {
     @Expose
     private PreviewDialerType previewDialerType;
 
-    private SvOutboundDialerQueueSettings settings;
+    private OutboundDialerQueueSettings settings;
     @Expose
     private Long loanId;
     @Expose
@@ -63,11 +63,11 @@ public class DialerInfoPojo {
         this.previewDialerType = previewDialerType;
     }
 
-    public SvOutboundDialerQueueSettings getSettings() {
+    public OutboundDialerQueueSettings getSettings() {
         return settings;
     }
 
-    public void setSettings(SvOutboundDialerQueueSettings settings) {
+    public void setSettings(OutboundDialerQueueSettings settings) {
         this.settings = settings;
     }
 

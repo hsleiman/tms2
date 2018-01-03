@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.restfull;
 
-import com.objectbrains.svc.iws.BiPlaybackData;
+import com.objectbrains.sti.embeddable.BIPlaybackData;
 import com.objectbrains.tms.service.BiStoreService;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,7 +27,7 @@ public class CallRest {
 
     @GET
     @Path("/get-playback-data/{callUUID}")
-    public BiPlaybackData getBiPlaybackData(@PathParam("callUUID") String callUUID) {
+    public BIPlaybackData getBiPlaybackData(@PathParam("callUUID") String callUUID) {
         return biStoreService.getBiPlaybackData(callUUID);
     }
 

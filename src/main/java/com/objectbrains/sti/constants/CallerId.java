@@ -13,6 +13,14 @@ public enum CallerId {
 
     ACTUAL,
     CUSTOM,
-    BLOCK_CALLER_ID
-    
+    BLOCK_CALLER_ID;
+
+    public String value() {
+        return name();
+    }
+
+    public static CallerId fromValue(String v) {
+        return valueOf(v);
+    }
+
 }

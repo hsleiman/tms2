@@ -7,7 +7,7 @@ package com.objectbrains.tms.freeswitch.pojo;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
-import com.objectbrains.svc.iws.CallerId;
+import com.objectbrains.sti.constants.CallerId;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
 import com.objectbrains.tms.freeswitch.FreeswitchVariables;
