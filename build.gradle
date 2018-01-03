@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.9.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -17,25 +17,55 @@ apply plugin: 'org.springframework.boot'
 group = 'com.objectbrains.sti'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.7
+ext['hibernate.version'] = '4.3.11.Final'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-data-rest')
-	compile('org.springframework.boot:spring-boot-starter-jdbc')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-web-services')
-	compile('org.springframework.boot:spring-boot-starter-websocket')
-	runtime('org.postgresql:postgresql')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-        compile(group: 'joda-time', name: 'joda-time', version: '2.3')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-rest')
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-web-services')
+    compile('org.springframework.boot:spring-boot-starter-websocket')
+    runtime('org.postgresql:postgresql')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile(group: 'joda-time', name: 'joda-time', version: '2.3')
         
-        compile group: 'com.hazelcast', name: 'hazelcast', version: '3.5.3'
-        compile group: 'com.hazelcast', name: 'hazelcast-spring', version: '3.5.3'
+    compile group: 'com.hazelcast', name: 'hazelcast', version: '3.5.3'
+    compile group: 'com.hazelcast', name: 'hazelcast-spring', version: '3.5.3'
         
-        compile fileTree(dir: 'libs', include: '*.jar')
+    compile fileTree(dir: 'libs', include: '*.jar')
+        
+    
+    
+    // HS
+    
+    compile 'org.hibernate:hibernate-entitymanager'
+    compile 'org.hibernate:hibernate-envers'
+    
+    compile 'org.springframework:spring-context-support'
+    compile 'org.springframework:spring-orm'
+    compile 'org.springframework:spring-aop'
+    compile 'org.springframework:spring-websocket'
+    
+    String jacksonVersion = '2.2.1'
+    compile (group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion)
+    runtime (group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: jacksonVersion)
+    runtime (group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-xml-provider', version: jacksonVersion)
+    runtime (group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda', version: jacksonVersion)
+    
+    compile (group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0.1')
+    
+    
+    compile (group: 'org.apache.commons', name:'commons-math3', version: '3.6')
+    
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.1'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+
+    
+    compile (group: 'org.codehaus.jackson', name:'jackson-mapper-asl', version: '1.9.13')
 }
