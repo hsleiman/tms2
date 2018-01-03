@@ -7,14 +7,11 @@ package com.objectbrains.tms.service;
 
 import com.hazelcast.core.IMap;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
-import com.objectbrains.svc.iws.AgentWeightPriority;
-import com.objectbrains.svc.iws.DialerQueueRecord;
-import com.objectbrains.svc.iws.InboundDialerQueueRecord;
-import com.objectbrains.svc.iws.OutboundDialerQueueRecord;
-import com.objectbrains.svc.iws.SvDialerQueueSettings;
-import com.objectbrains.svc.iws.SvOutboundDialerQueueSettings;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
+import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
+import com.objectbrains.sti.pojo.DialerQueueRecord;
+import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.db.repository.DialerQueueRepository;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
@@ -57,7 +54,7 @@ public class DialerQueueRecordService {
     private DialerQueueRepository dialerQueueRepository;
 
     @Autowired
-    private TMSServiceIWS tmsIws;
+    private TMSService tmsIws;
 
     @Autowired
     @Lazy
@@ -114,7 +111,7 @@ public class DialerQueueRecordService {
         if (recordMap.tryLock(queuePk)) {
             try {
                 recordMap.put(queuePk, record);
-                SvOutboundDialerQueueSettings settings = record.getSvDialerQueueSettings();
+                OutboundDialerQueueSettings settings = record.getDialerQueueSettings();
                 setAgentQueueAssociations(queuePk, DialerType.valueFrom(settings), record);
             } finally {
                 recordMap.unlock(queuePk);
@@ -128,7 +125,7 @@ public class DialerQueueRecordService {
         if (record == null) {
             try {
                 record = tmsIws.getDialerQueueRecord(queuePk);
-            } catch (SvcException | RuntimeException ex) {
+            } catch (Exception ex) {
                 LOG.error(ex.getMessage(), ex);
             }
             if (record != null) {
@@ -139,16 +136,16 @@ public class DialerQueueRecordService {
     }
 
     @SuppressWarnings("unchecked")
-    public Map<Long, SvDialerQueueSettings> getQueueSettings(Set<Long> queuePks) {
+    public Map<Long, DialerQueueSettings> getQueueSettings(Set<Long> queuePks) {
         if (queuePks == null || queuePks.isEmpty()) {
             return Collections.emptyMap();
         }
         Set<Long> missingKeys = new HashSet<>(queuePks);
-        Map<Long, SvDialerQueueSettings> resp = (Map) recordMap.executeOnKeys(queuePks, new GetQueueSettingsEntryProcessor());
-        Map<Long, SvDialerQueueSettings> ret = new HashMap<>(resp);
+        Map<Long, DialerQueueSettings> resp = (Map) recordMap.executeOnKeys(queuePks, new GetQueueSettingsEntryProcessor());
+        Map<Long, DialerQueueSettings> ret = new HashMap<>(resp);
         missingKeys.removeAll(resp.keySet());
         for (Long missingKey : missingKeys) {
-            SvDialerQueueSettings settings = getSettings(getDialerQueueRecord(missingKey));
+            DialerQueueSettings settings = getSettings(getDialerQueueRecord(missingKey));
             if (settings != null) {
                 ret.put(missingKey, settings);
             }
@@ -168,22 +165,22 @@ public class DialerQueueRecordService {
 //        return settings;
     }
 
-    public SvDialerQueueSettings getQueueSettings(Long queuePk) {
+    public DialerQueueSettings getQueueSettings(Long queuePk) {
         if (queuePk == null) {
             return null;
         }
-        SvDialerQueueSettings settings = (SvDialerQueueSettings) recordMap.executeOnKey(queuePk, new GetQueueSettingsEntryProcessor());
+        DialerQueueSettings settings = (DialerQueueSettings) recordMap.executeOnKey(queuePk, new GetQueueSettingsEntryProcessor());
         if (settings == null) {
             settings = getSettings(getDialerQueueRecord(queuePk));
         }
         return settings;
     }
 
-    private static SvDialerQueueSettings getSettings(DialerQueueRecord record) {
+    private static DialerQueueSettings getSettings(DialerQueueRecord record) {
         if (record instanceof InboundDialerQueueRecord) {
-            return ((InboundDialerQueueRecord) record).getSvDialerQueueSettings();
+            return ((InboundDialerQueueRecord) record).getDialerQueueSettings();
         } else if (record instanceof OutboundDialerQueueRecord) {
-            return ((OutboundDialerQueueRecord) record).getSvDialerQueueSettings();
+            return ((OutboundDialerQueueRecord) record).getDialerQueueSettings();
         }
         return null;
     }
@@ -229,7 +226,7 @@ public class DialerQueueRecordService {
         }
 
         @Override
-        public SvDialerQueueSettings process(Map.Entry<Long, DialerQueueRecord> entry, boolean isPrimary) {
+        public DialerQueueSettings process(Map.Entry<Long, DialerQueueRecord> entry, boolean isPrimary) {
             return getSettings(entry.getValue());
         }
 

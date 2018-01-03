@@ -83,7 +83,7 @@ public class TMSOutboundDialerCommand {
     private DialerService dialerService;
 
     @Autowired
-    private com.objectbrains.svc.iws.TMSServiceIWS tmsIWS;
+    private com.objectbrains.svc.iws.TMSService tmsIWS;
 
     @Autowired
     private HazelcastService hazelcastService;

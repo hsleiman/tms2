@@ -10,7 +10,7 @@ import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
 import com.objectbrains.tms.hazelcast.Configs;
@@ -44,7 +44,7 @@ public class DialerStatsService {
     private static final Logger LOG = LoggerFactory.getLogger(DialerStatsService.class);
 
     @Autowired
-    protected TMSServiceIWS tmsIws;
+    protected TMSService tmsIws;
 
     @Autowired
     private HazelcastService hazelcastService;

@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.incoming.service;
 
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.svc.iws.TmsBasicLoanInfo;
 import com.objectbrains.svc.iws.TmsCallDetails;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
@@ -56,7 +56,7 @@ public class IVRCallerIdentity {
     protected final static Logger log = LoggerFactory.getLogger(IVRCallerIdentity.class);
 
     @Autowired
-    private TMSServiceIWS tmsIWS;
+    private TMSService tmsIWS;
     @Autowired
     private DncService dnc;
 

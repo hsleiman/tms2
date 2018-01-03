@@ -6,9 +6,6 @@
 package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.spring.context.SpringAware;
-import com.objectbrains.svc.iws.CallRoutingOption;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
-import com.objectbrains.svc.iws.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.exception.CallNotFoundException;
@@ -19,7 +16,6 @@ import com.objectbrains.tms.service.AgentQueueAssociationService;
 import com.objectbrains.tms.websocket.message.outbound.PhoneToType;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import org.joda.time.LocalTime;
 import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;

@@ -11,7 +11,7 @@ import com.google.gson.annotations.Expose;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.DataSerializable;
-import com.objectbrains.svc.iws.PopupDisplayMode;
+import com.objectbrains.sti.constants.PopupDisplayMode;
 import com.objectbrains.tms.utility.GsonUtility;
 import java.io.IOException;
 import java.io.Serializable;

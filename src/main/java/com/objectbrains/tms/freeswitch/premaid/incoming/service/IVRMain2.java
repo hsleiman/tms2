@@ -13,7 +13,7 @@ import com.objectbrains.svc.iws.IvrAchInformationPojo;
 import com.objectbrains.svc.iws.PaymentServiceIWS;
 import com.objectbrains.svc.iws.SvBankData;
 import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.svc.iws.TmsBasicLoanInfo;
 import com.objectbrains.svc.iws.TmsCallDetails;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
@@ -68,7 +68,7 @@ public class IVRMain2 {
     private CallDetailRecordService callDetailRecordService;
 
     @Autowired
-    private TMSServiceIWS tmsIWS;
+    private TMSService tmsIWS;
 
     @Autowired
     private FreeswitchConfiguration freeswitchConfiguration;

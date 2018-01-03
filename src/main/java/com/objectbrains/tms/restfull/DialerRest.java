@@ -56,7 +56,7 @@ public class DialerRest {
     @Autowired
     private DialerService dialerService;
 //    @Autowired
-//    private TMSServiceIWS tmsIws;
+//    private TMSService tmsIws;
     @Autowired
     private AgentService agentService;
     @Autowired

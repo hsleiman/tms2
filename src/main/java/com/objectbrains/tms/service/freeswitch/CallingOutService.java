@@ -12,7 +12,7 @@ import com.objectbrains.svc.iws.SvDialerQueueSettings;
 import com.objectbrains.svc.iws.SvInboundDialerQueueSettings;
 import com.objectbrains.svc.iws.SvOutboundDialerQueueSettings;
 import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.exception.CallNotFoundException;
 import com.objectbrains.tms.hazelcast.entity.Agent;
@@ -71,7 +71,7 @@ public class CallingOutService {
     private DialplanService dialplanRepository;
 
     @Autowired
-    private TMSServiceIWS tmsIws;
+    private TMSService tmsIws;
 
     @Autowired
     private AgentQueueAssociationService associationService;

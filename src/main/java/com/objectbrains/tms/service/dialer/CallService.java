@@ -10,10 +10,10 @@ import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.spring.context.SpringAware;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
-import com.objectbrains.svc.iws.PreviewDialerType;
-import com.objectbrains.svc.iws.SvDialerQueueSettings;
-import com.objectbrains.svc.iws.SvInboundDialerQueueSettings;
-import com.objectbrains.svc.iws.SvOutboundDialerQueueSettings;
+import com.objectbrains.sti.constants.PreviewDialerType;
+import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
@@ -187,7 +187,7 @@ public class CallService implements Dialer.CallRespondedCallback {
             } else if (call.getOrginalAgentForTransfer() == 1010) {
                 successful = true;
                 LOG.info("Sending Transfer Call to {} from {} for Call UUID {} call started true fifo", ext, call.getOrginalAgentForTransfer(), call.getCallUUID());
-                successful = connectInboundCallToAgent(ext, call.getCallUUID(), (SvInboundDialerQueueSettings) recordService.getQueueSettings(queuePk), call.getLoanPk(), call.getPhoneToType());
+                successful = connectInboundCallToAgent(ext, call.getCallUUID(), (InboundDialerQueueSettings) recordService.getQueueSettings(queuePk), call.getLoanPk(), call.getPhoneToType());
                 LOG.info("Result: {}", successful);
             } else {
                 if (agentCallService.callStarted(ext, call.getCallUUID(), null, true, null, CallDirection.INTERNAL, queuePk, null, false, 30)) {
@@ -207,12 +207,12 @@ public class CallService implements Dialer.CallRespondedCallback {
         }
 
         Map<Integer, Object> removedEntries = primaryCallMap.executeOnEntries(new RemovePrimaryCallEntryProcessor(call.getCallUUID()));
-        SvDialerQueueSettings callSettings = recordService.getQueueSettings(queuePk);
+        DialerQueueSettings callSettings = recordService.getQueueSettings(queuePk);
 
-        if (callSettings instanceof SvOutboundDialerQueueSettings) {
-            successful = connectOutboundCallToAgent(ext, call.getCallUUID(), (SvOutboundDialerQueueSettings) callSettings, call.getLoanPk(), call.getPhoneToType());
-        } else if (callSettings instanceof SvInboundDialerQueueSettings) {
-            successful = connectInboundCallToAgent(ext, call.getCallUUID(), (SvInboundDialerQueueSettings) callSettings, call.getLoanPk(), call.getPhoneToType());
+        if (callSettings instanceof OutboundDialerQueueSettings) {
+            successful = connectOutboundCallToAgent(ext, call.getCallUUID(), (OutboundDialerQueueSettings) callSettings, call.getLoanPk(), call.getPhoneToType());
+        } else if (callSettings instanceof InboundDialerQueueSettings) {
+            successful = connectInboundCallToAgent(ext, call.getCallUUID(), (InboundDialerQueueSettings) callSettings, call.getLoanPk(), call.getPhoneToType());
         } else {
             throw new IllegalStateException(call + " has unsupported SvDialerQueueSettings class: " + callSettings.getClass());
         }
@@ -255,7 +255,7 @@ public class CallService implements Dialer.CallRespondedCallback {
         return (WaitingCall) waitingQueuesMap.executeOnKey(queuePk, new RemoveWaitingCallEntryProcessor(callUUID));
     }
 
-    public String initiatePredictiveCall(SvOutboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes) {
+    public String initiatePredictiveCall(OutboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes) {
         DialerInfoPojo dialerInfoPojo = new DialerInfoPojo();
         dialerInfoPojo.setBorrowerFirstName(phoneToTypes.getFirstName());
         dialerInfoPojo.setBorrowerLastName(phoneToTypes.getLastName());
@@ -268,7 +268,7 @@ public class CallService implements Dialer.CallRespondedCallback {
         return builder.getTMS_UUID();
     }
 
-    public String initiateCall(SvOutboundDialerQueueSettings settings, Long loanId, Integer agentExt, PhoneToType phoneToTypes) {
+    public String initiateCall(OutboundDialerQueueSettings settings, Long loanId, Integer agentExt, PhoneToType phoneToTypes) {
 
         DialerInfoPojo dialerInfoPojo = new DialerInfoPojo();
         dialerInfoPojo.setAgentExt(agentExt);
@@ -303,7 +303,7 @@ public class CallService implements Dialer.CallRespondedCallback {
         return dialerInfoPojo.getCallUUID();
     }
 
-    public String initiateCallPreviewSelect(SvOutboundDialerQueueSettings settings, Long loanId, Integer agentExt, ArrayList<PhoneToType> phoneToTypes) {
+    public String initiateCallPreviewSelect(OutboundDialerQueueSettings settings, Long loanId, Integer agentExt, ArrayList<PhoneToType> phoneToTypes) {
 
         DialerInfoPojo dialerInfoPojo = new DialerInfoPojo();
         dialerInfoPojo.setAgentExt(agentExt);
@@ -328,12 +328,12 @@ public class CallService implements Dialer.CallRespondedCallback {
         return dialerInfoPojo.getCallUUID();
     }
 
-    public String initiateBroadcast(SvOutboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes) {
+    public String initiateBroadcast(OutboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes) {
         return "";
     }
 
     @Override
-    public boolean connectOutboundCallToAgent(int ext, String CallUUID, SvOutboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes)
+    public boolean connectOutboundCallToAgent(int ext, String CallUUID, OutboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes)
             throws CallNotFoundException {
         LOG.info("Connect outbound call to agent {} {}", ext, CallUUID);
         BorrowerInfo info = new BorrowerInfo();
@@ -399,7 +399,7 @@ public class CallService implements Dialer.CallRespondedCallback {
 //        builder.execute();
 //        return true;
 //    }
-    public boolean connectInboundCallToAgent(int ext, String CallUUID, SvInboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes)
+    public boolean connectInboundCallToAgent(int ext, String CallUUID, InboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes)
             throws CallNotFoundException {
 
         LOG.info("Looking for Old TMSDialplan {} {}, {}", CallUUID, FreeswitchContext.fifo_dp, HOLDOrder.PLACE_ON_HOLD.name());

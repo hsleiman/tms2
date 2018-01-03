@@ -6,7 +6,7 @@
 package com.objectbrains.tms.freeswitch.premaid;
 
 import com.objectbrains.svc.iws.SvCallDetailRecord;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.db.hibernate.ApplicationContextProvider;
@@ -58,7 +58,7 @@ public abstract class DialplanBuilder implements DialplanInterface {
     protected AgentCallService agentCallService;
     protected AgentStatsService agentStatsService;
     protected DialplanService dialplanService;
-    protected TMSServiceIWS tmsIWS;
+    protected TMSService tmsIWS;
     protected DncService dnc;
     protected FreeswitchConfiguration configuration;
     protected Websocket websocket;

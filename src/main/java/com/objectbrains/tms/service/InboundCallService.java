@@ -6,15 +6,8 @@
 package com.objectbrains.tms.service;
 
 import com.objectbrains.scheduler.annotation.RunOnce;
-import com.objectbrains.svc.iws.AgentCallOrder;
-import com.objectbrains.svc.iws.CallRoutingOption;
-import com.objectbrains.svc.iws.InboundDialerQueueRecord;
-import com.objectbrains.svc.iws.IncomingCallAgent;
-import com.objectbrains.svc.iws.SvDialerQueueSettings;
-import com.objectbrains.svc.iws.SvInboundDialerQueueSettings;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
-import com.objectbrains.svc.iws.TmsCallDetails;
+import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
+import com.objectbrains.sti.embeddable.AgentCallOrder;
 import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.freeswitch.pojo.AgentIncomingDistributionOrder;
@@ -58,7 +51,7 @@ public class InboundCallService {
     private AgentCallService agentCallService;
 
     @Autowired
-    private TMSServiceIWS tmsIws;
+    private TMSService tmsIws;
 
     @Autowired
     private DialerQueueRecordService dialerQueueRecordRepository;
@@ -101,7 +94,7 @@ public class InboundCallService {
         return shouldRecieveCall(inline, state, callState, awp, null);
     }
 
-    public static boolean shouldRecieveCall(boolean inline, AgentState state, AgentCallState callState, AgentWeightedPriority awp, SvDialerQueueSettings settings) {
+    public static boolean shouldRecieveCall(boolean inline, AgentState state, AgentCallState callState, AgentWeightedPriority awp, DialerQueueSettings settings) {
         Boolean leader = null;
         Boolean allowAfterHours = null;
         if (awp != null) {

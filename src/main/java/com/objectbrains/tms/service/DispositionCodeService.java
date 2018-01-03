@@ -6,8 +6,8 @@
 package com.objectbrains.tms.service;
 
 import com.objectbrains.scheduler.annotation.Sync;
-import com.objectbrains.svc.iws.CallDispositionCode;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.service.tms.TMSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class DispositionCodeService {
 
     @Autowired
-    private TMSServiceIWS tmsIWS;
+    private TMSService tmsIWS;
 
     public CallDispositionCode answeringMachineCode() {
         return tmsIWS.getCallDispositionCode(7);

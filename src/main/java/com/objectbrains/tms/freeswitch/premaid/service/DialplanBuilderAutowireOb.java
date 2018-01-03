@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.service;
 
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.tms.service.AgentCallService;
 import com.objectbrains.tms.service.AgentService;
 import com.objectbrains.tms.service.AgentStatsService;
@@ -48,7 +48,7 @@ public class DialplanBuilderAutowireOb {
     @Autowired
     private DialplanService dialplanService;
     @Autowired
-    private TMSServiceIWS tmsIWS;
+    private TMSService tmsIWS;
     @Autowired
     private DncService dnc;
     @Autowired
@@ -102,7 +102,7 @@ public class DialplanBuilderAutowireOb {
         this.agentService = agentService;
     }
 
-    public TMSServiceIWS getTmsIWS() {
+    public TMSService getTmsIWS() {
         return tmsIWS;
     }
 

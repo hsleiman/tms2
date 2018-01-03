@@ -21,7 +21,7 @@ import com.objectbrains.svc.iws.PaymentHistoryData;
 import com.objectbrains.svc.iws.PaymentServiceIWS;
 import com.objectbrains.svc.iws.PayoffQuote;
 import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.svc.iws.TmsBasicLoanInfo;
 import com.objectbrains.svc.iws.TmsCallDetails;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
@@ -75,7 +75,7 @@ public class IVRMain {
     private CallDetailRecordService callDetailRecordService;
 
     @Autowired
-    private TMSServiceIWS tmsIWS;
+    private TMSService tmsIWS;
 
     @Autowired
     private FreeswitchConfiguration configuration;

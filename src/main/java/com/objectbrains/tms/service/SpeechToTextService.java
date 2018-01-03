@@ -10,7 +10,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import com.objectbrains.gce.GCEException;
 import com.objectbrains.gce.GCEService;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.cdr.SpeechToText;
 import com.objectbrains.tms.db.repository.CallDetailRecordRepository;
@@ -37,7 +37,7 @@ public class SpeechToTextService {
     private CallDetailRecordRepository callDetailRecordRepository;
 
     @Autowired
-    private TMSServiceIWS tmsIWS;
+    private TMSService tmsIWS;
 
     @Autowired
     private CdrService cdrService;

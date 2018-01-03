@@ -7,12 +7,6 @@ package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.core.IMap;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
-import com.objectbrains.svc.iws.CallDispositionCode;
-import com.objectbrains.svc.iws.OutboundDialerQueueRecord;
-import com.objectbrains.svc.iws.SvDialerQueueSettings;
-import com.objectbrains.svc.iws.SvOutboundDialerQueueSettings;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
 import com.objectbrains.tms.db.entity.DialerScheduleEntity;
 import com.objectbrains.tms.db.repository.DialerQueueStatsRepository;
 import com.objectbrains.tms.db.repository.DialerScheduleRepository;
@@ -67,7 +61,7 @@ public class DialerService implements BeanFactoryAware {
     private HazelcastService hazelcastService;
 
     @Autowired
-    private TMSServiceIWS tmsIws;
+    private TMSService tmsIws;
 
     @Autowired
     private AgentQueueAssociationService associationService;

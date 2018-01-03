@@ -7,7 +7,7 @@ package com.objectbrains.tms.service.freeswitch.common;
 
 import com.objectbrains.ams.iws.User;
 import com.objectbrains.svc.iws.IvrAchInformationPojo;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.svc.iws.TmsBasicLoanInfo;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.IncomingCallRouting;
@@ -51,7 +51,7 @@ public class Incoming2 {
     private InboundCallService inboundCallService;
 
     @Autowired
-    private TMSServiceIWS tmsIWS;
+    private TMSService tmsIWS;
 
     @Autowired
     private AmsService amsService;

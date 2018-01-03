@@ -12,7 +12,7 @@ import com.objectbrains.svc.iws.CallDispositionCode;
 import com.objectbrains.svc.iws.CallDispositionLogData;
 import com.objectbrains.svc.iws.PhoneNumberLoanData;
 import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.svc.iws.UserData;
 import com.objectbrains.tms.db.entity.Chat;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
@@ -117,7 +117,7 @@ public class WebsocketService {
     private CallDetailRecordService callDetailRecordService;
 
     @Autowired
-    private TMSServiceIWS tmsIws;
+    private TMSService tmsIws;
 
     @Autowired
     private CallService callService;

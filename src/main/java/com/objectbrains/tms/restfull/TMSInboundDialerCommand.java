@@ -8,7 +8,7 @@ package com.objectbrains.tms.restfull;
 import com.objectbrains.svc.iws.BasicLoanInformationPojo;
 import com.objectbrains.svc.iws.InboundDialerQueueRecord;
 import com.objectbrains.svc.iws.LoanInformationIWS;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.svc.iws.TmsBasicLoanInfo;
 import com.objectbrains.svc.iws.TmsCallDetails;
 import com.objectbrains.tms.freeswitch.pojo.AgentIncomingDistributionOrder;
@@ -36,7 +36,7 @@ public class TMSInboundDialerCommand {
 
     private static final Logger LOG = LoggerFactory.getLogger(TMSInboundDialerCommand.class);
     @Autowired
-    private TMSServiceIWS tmsIws;
+    private TMSService tmsIws;
     @Autowired
     private AgentService agentService;
 
@@ -53,7 +53,7 @@ public class TMSInboundDialerCommand {
     private DialerQueueRecordService recordRepository;
 
     @Autowired
-    private com.objectbrains.svc.iws.TMSServiceIWS tmsIWS;
+    private com.objectbrains.svc.iws.TMSService tmsIWS;
     
 //    @Path("/set-ready-status/{ext}/{ready}")
 //    @GET

@@ -7,7 +7,7 @@ package com.objectbrains.tms.restfull;
 
 import com.objectbrains.svc.iws.AgentWeightPriority;
 import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.tms.hazelcast.entity.Agent;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
@@ -36,7 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class DialerGroupRest {
 
     @Autowired
-    private TMSServiceIWS tmsIws;
+    private TMSService tmsIws;
 
     @Autowired
     private AgentService agentService;

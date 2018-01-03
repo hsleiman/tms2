@@ -7,10 +7,7 @@ package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
-import com.objectbrains.svc.iws.CallDispositionCode;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
-import com.objectbrains.svc.iws.OutboundDialerQueueRecord;
-import com.objectbrains.svc.iws.SvOutboundDialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.exception.CallNotFoundException;
 import com.objectbrains.tms.hazelcast.entity.DialerCall;
@@ -104,7 +101,7 @@ public interface Dialer {
 
     public interface CallRespondedCallback {
 
-        public boolean connectOutboundCallToAgent(int ext, String CallUUID, SvOutboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes)
+        public boolean connectOutboundCallToAgent(int ext, String CallUUID, OutboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes)
                 throws CallNotFoundException;
 
         public void putCallOnWait(long queuePk, String callUUID, Long loanId, PhoneToType phoneToTypes);

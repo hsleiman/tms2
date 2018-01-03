@@ -13,22 +13,8 @@ import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.DataSerializable;
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
-import com.objectbrains.svc.iws.AgentWeightPriority;
-import com.objectbrains.svc.iws.BasicPhoneData;
-import com.objectbrains.svc.iws.BorrowerPhoneData;
-import com.objectbrains.svc.iws.CallDispositionAction;
-import com.objectbrains.svc.iws.CallDispositionActionType;
-import com.objectbrains.svc.iws.CallDispositionCode;
-import com.objectbrains.svc.iws.CallTimeCode;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
-import com.objectbrains.svc.iws.DoNotCallAction;
-import com.objectbrains.svc.iws.DoNotCallPhoneAction;
-import com.objectbrains.svc.iws.LoanNotInQueueException;
-import com.objectbrains.svc.iws.OutboundDialerQueueRecord;
-import com.objectbrains.svc.iws.PhoneNumberCallable;
-import com.objectbrains.svc.iws.RetryCallAction;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.hazelcast.AgentDialerState;
@@ -123,7 +109,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
     protected DialerCallService dialerCallService;
 
     @Autowired
-    protected TMSServiceIWS tmsIws;
+    protected TMSService tmsIws;
 
     @Autowired
     protected Scheduler scheduler;
@@ -150,7 +136,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
             this.endTime = stopTime.toDateTimeToday();
         } else {
             //we save as a DateTime to basically pin down the endtime to today
-            this.endTime = record.getSvDialerQueueSettings().getEndTime().toDateTimeToday();
+            this.endTime = record.getDialerQueueSettings().getEndTime().toDateTimeToday();
         }
     }
 

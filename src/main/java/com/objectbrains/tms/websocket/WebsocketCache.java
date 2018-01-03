@@ -8,7 +8,7 @@ package com.objectbrains.tms.websocket;
 import com.objectbrains.svc.iws.DialerQueueDetails;
 import com.objectbrains.svc.iws.DialerQueueType;
 import com.objectbrains.svc.iws.SvCallerId;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.tms.pojo.DialerQueueDetailPojo;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class WebsocketCache {
     private static final Logger LOG = LoggerFactory.getLogger(WebsocketCache.class);
 
     @Autowired
-    private TMSServiceIWS tmsIws;
+    private TMSService tmsIws;
 
     private List<DialerQueueDetailPojo> dialerQueueDetailPojos;
     private long dialerQueueDetailPojosTimestamp = 0l;

@@ -5,7 +5,6 @@
  */
 package com.objectbrains.tms.service.dialer;
 
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
 import java.io.Serializable;
 
 /**

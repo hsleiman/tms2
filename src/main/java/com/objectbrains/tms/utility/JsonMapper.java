@@ -14,11 +14,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
-import com.objectbrains.svc.iws.BiPlaybackData;
+import com.objectbrains.sti.embeddable.BIPlaybackData;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import org.joda.time.Period;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 /**
@@ -34,8 +33,8 @@ public class JsonMapper extends ObjectMapper{
         disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
 
-        addMixInAnnotations(BiPlaybackData.class, BiPlaybackDataMixin.class);
-        addMixInAnnotations(BiPlaybackData.PlaybackElements.class, PlaybackElementsMixin.class);
+        addMixInAnnotations(BIPlaybackData.class, BiPlaybackDataMixin.class);
+        addMixInAnnotations(BIPlaybackData.PlaybackElement.class, PlaybackElementsMixin.class);
     }
     
     public String toPrettyJson(Object message) throws JsonProcessingException {

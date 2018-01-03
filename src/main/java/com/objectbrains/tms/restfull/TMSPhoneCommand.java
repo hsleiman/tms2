@@ -11,7 +11,7 @@ import com.objectbrains.svc.iws.AgentWeightPriority;
 import com.objectbrains.svc.iws.BiPlaybackData;
 import com.objectbrains.svc.iws.CallRoutingOption;
 import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.tms.db.entity.freeswitch.FreeswitchNode;
 import com.objectbrains.tms.db.repository.CdrRepository;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
@@ -113,7 +113,7 @@ public class TMSPhoneCommand {
     private FreeswitchService freeswitchService;
     
     @Autowired
-    private TMSServiceIWS tmsIws;
+    private TMSService tmsIws;
     
     private static final Logger log = LoggerFactory.getLogger(TMSPhoneCommand.class);
     

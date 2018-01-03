@@ -28,4 +28,12 @@ public enum PreviewDialerType {
         this.code = code;
     }
     
+    public String value() {
+        return name();
+    }
+
+    public static PreviewDialerType fromValue(String v) {
+        return valueOf(v);
+    }
+    
 }

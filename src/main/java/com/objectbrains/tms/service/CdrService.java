@@ -15,7 +15,7 @@ import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.scheduler.annotation.QuartzJob;
 import com.objectbrains.svc.iws.SvCallDetailRecord;
 import com.objectbrains.svc.iws.SvCollectionCallLog;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.freeswitch.CDR;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
@@ -71,7 +71,7 @@ public class CdrService {
     private FreeswitchService freeswitchService;
 
     @Autowired
-    private TMSServiceIWS tmsIWS;
+    private TMSService tmsIWS;
 
     @ConfigContext
     private ConfigurationUtility config;

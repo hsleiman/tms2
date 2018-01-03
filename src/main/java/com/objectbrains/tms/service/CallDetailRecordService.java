@@ -15,7 +15,7 @@ import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.scheduler.annotation.QuartzJob;
 import com.objectbrains.svc.iws.CallDispositionCode;
 import com.objectbrains.svc.iws.SvCallDetailRecord;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.svc.iws.TmsBasicLoanInfo;
 import com.objectbrains.svc.iws.TmsCallDetails;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
@@ -73,7 +73,7 @@ public class CallDetailRecordService {
     private FreeswitchConfiguration configuration;
 
     @Autowired
-    private TMSServiceIWS tmsIWS;
+    private TMSService tmsIWS;
 
     @Autowired
     private CallingOutService callingOutService;
@@ -1136,7 +1136,7 @@ public class CallDetailRecordService {
         private AgentCallService agentCallService;
 
         @Autowired
-        private TMSServiceIWS tmsIWS;
+        private TMSService tmsIWS;
 //        
         @Autowired
         private CallingOutService callingOutService;

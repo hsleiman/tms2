@@ -8,7 +8,7 @@ package com.objectbrains.tms.freeswitch.premaid.incoming.service;
 import com.objectbrains.svc.iws.InboundDialerQueueRecord;
 import com.objectbrains.svc.iws.IvrInformationVerificationPojo;
 import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSServiceIWS;
+import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.svc.iws.TmsBasicLoanInfo;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
@@ -58,7 +58,7 @@ public class IVRCallerIdentity2 {
     protected final static Logger log = LoggerFactory.getLogger(IVRCallerIdentity2.class);
 
     @Autowired
-    private TMSServiceIWS tmsIWS;
+    private TMSService tmsIWS;
     @Autowired
     private DncService dnc;
 
