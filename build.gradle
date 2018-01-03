@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.9.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 
@@ -18,9 +18,10 @@ apply plugin: 'org.springframework.boot'
 group = 'com.objectbrains.sti'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.7
+ext['hibernate.version'] = '4.3.11.Final'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 
@@ -35,8 +36,8 @@ dependencies {
 //	testCompile('org.springframework.boot:spring-boot-starter-test')
         compile(group: 'joda-time', name: 'joda-time', version: '2.3')
         
-        compile group: 'com.hazelcast', name: 'hazelcast', version: '3.5.3'
-        compile group: 'com.hazelcast', name: 'hazelcast-spring', version: '3.5.3'
+    compile group: 'com.hazelcast', name: 'hazelcast', version: '3.5.3'
+    compile group: 'com.hazelcast', name: 'hazelcast-spring', version: '3.5.3'
         
         compile fileTree(dir: 'libs', include: '*.jar')
         
