@@ -10,7 +10,7 @@ import com.objectbrains.sti.exception.ForbiddenException;
 import com.objectbrains.sti.exception.UnauthenticatedException;
 import com.objectbrains.sti.service.auth.UserAuth;
 import java.lang.reflect.Method;
-//import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;

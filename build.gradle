@@ -98,10 +98,7 @@ dependencies {
     compile (group: 'com.googlecode.usc', name: 'jdbcdslog', version: '1.0.6.2')
     
     //compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
-    
-    //provided group: 'javax.servlet', name: 'servlet-api', version: '2.5'
-    
-    
+    //provided group: 'org.jboss.spec.javax.servlet', name: 'jboss-servlet-api_3.0_spec', version: '1.0.2.Final'    
     
     
 
