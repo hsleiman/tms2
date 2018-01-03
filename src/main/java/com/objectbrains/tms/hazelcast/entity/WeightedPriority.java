@@ -31,7 +31,7 @@ public class WeightedPriority implements DataSerializable {
         this.weight = weight;
     }
 
-    public WeightedPriority(com.objectbrains.svc.iws.WeightedPriority weightedPriority) {
+    public WeightedPriority(com.objectbrains.sti.embeddable.WeightedPriority weightedPriority) {
         copyFrom(weightedPriority);
     }
 
@@ -39,7 +39,7 @@ public class WeightedPriority implements DataSerializable {
         copyFrom(copy);
     }
 
-    public final void copyFrom(com.objectbrains.svc.iws.WeightedPriority copy) {
+    public final void copyFrom(com.objectbrains.sti.embeddable.WeightedPriority copy) {
         priority = copy.getPriority();
         if (copy.getWeight() != null) {
             this.weight = copy.getWeight().doubleValue();
