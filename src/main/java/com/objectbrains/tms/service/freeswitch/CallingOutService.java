@@ -8,9 +8,12 @@ package com.objectbrains.tms.service.freeswitch;
 import com.objectbrains.sti.constants.CallRoutingOption;
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
 import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import com.objectbrains.sti.embeddable.AgentWeightPriority;
 import com.objectbrains.sti.embeddable.WeightedPriority;
+import com.objectbrains.sti.exception.StiException;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.exception.CallNotFoundException;
@@ -71,6 +74,9 @@ public class CallingOutService {
 
     @Autowired
     private TMSService tmsIws;
+    
+    @Autowired 
+    private DialerQueueService dialerQueueService;
 
     @Autowired
     private AgentQueueAssociationService associationService;
@@ -244,8 +250,11 @@ public class CallingOutService {
 
         List<AgentWeightPriority> awpList;
         try {
-            awpList = tmsIws.getAgentWeightPriorityListForDq(queuePK);
+            awpList = dialerQueueService.getAgentWeightPriorityListForDq(queuePK);
         } catch (RuntimeException ex) {
+            log.error("Could not get agents for queue {}", queuePK, ex);
+            return;
+        } catch (StiException ex) {
             log.error("Could not get agents for queue {}", queuePK, ex);
             return;
         }

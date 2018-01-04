@@ -48,7 +48,7 @@ public class AgentService {
 
     public void syncAllUsersFromAMS() {
         FindUsersRequest fur = new FindUsersRequest();
-        fur.setStatus(Status.ACTIVE);
+        //fur.setStatus(Status.ACTIVE);
         List<User> users = accountManagerIWS.findUsers(fur);
         for (User u : users) {
             agentRepo.locateByAgentUserName(u.getUserName());

@@ -26,11 +26,15 @@ public enum DialerMode {
     public int getMode() {
         return mode;
     }
+    
+    
     public String value() {
         return name();
     }
 
+
     public static DialerMode fromValue(String v) {
         return valueOf(v);
     }
+   
 }

@@ -391,15 +391,15 @@ public class DialerQueueRepository {
         return list.isEmpty() ? null : list.get(0);
     }
 
-    public List<CallerId> getAllCallerIds() {
-        TypedQuery<CallerId> q = entityManager.createNamedQuery("CallerId.GetAllCallerIds", CallerId.class);
+    public List<StiCallerId> getAllCallerIds() {
+        TypedQuery<StiCallerId> q = entityManager.createNamedQuery("CallerId.GetAllCallerIds", StiCallerId.class);
         return q.getResultList();
     }
 
-    public CallerId getCallerIdByNumber(Long callerIdNumber) {
-        TypedQuery<CallerId> q = entityManager.createNamedQuery("CallerId.GetCallerIdByNumber", CallerId.class);
+    public StiCallerId getCallerIdByNumber(Long callerIdNumber) {
+        TypedQuery<StiCallerId> q = entityManager.createNamedQuery("CallerId.GetCallerIdByNumber", StiCallerId.class);
         q.setParameter("callerIdNumber", callerIdNumber);
-        List<CallerId> list = q.getResultList();
+        List<StiCallerId> list = q.getResultList();
         return list.isEmpty() ? null : list.get(0);
     }
 

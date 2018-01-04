@@ -5,6 +5,7 @@
  */
 package com.objectbrains.tms.service.dialer;
 
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import java.io.Serializable;
 
 /**
@@ -13,19 +14,19 @@ import java.io.Serializable;
  */
 public class CompletedLoan implements Serializable {
 
-    private DialerQueueLoanDetails details;
+    private DialerQueueAccountDetails details;
     private boolean succeded;
 
-    public CompletedLoan(DialerQueueLoanDetails details, boolean succeded) {
+    public CompletedLoan(DialerQueueAccountDetails details, boolean succeded) {
         this.details = details;
         this.succeded = succeded;
     }
 
-    public DialerQueueLoanDetails getDetails() {
+    public DialerQueueAccountDetails getDetails() {
         return details;
     }
 
-    public void setDetails(DialerQueueLoanDetails details) {
+    public void setDetails(DialerQueueAccountDetails details) {
         this.details = details;
     }
 

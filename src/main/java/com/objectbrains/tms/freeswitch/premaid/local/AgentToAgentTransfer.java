@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.local;
 
-import com.objectbrains.svc.iws.TmsCallDetails;
+import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
 import com.objectbrains.tms.enumerated.RecordedPhrases;
@@ -181,7 +181,7 @@ public class AgentToAgentTransfer extends DialplanBuilder {
         } else {
             //attempt to look it up from svc
             Long loanId = fifoDialplan.getBorrowerInfo().getLoanId();
-            TmsCallDetails callDetails = null;
+            TMSCallDetails callDetails = null;
             if (loanId != null) {
                 callDetails = tmsIWS.getLoanInfoByLoanPk(loanId);
             }

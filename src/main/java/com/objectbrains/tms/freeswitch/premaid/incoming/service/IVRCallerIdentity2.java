@@ -5,11 +5,7 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.incoming.service;
 
-import com.objectbrains.svc.iws.InboundDialerQueueRecord;
-import com.objectbrains.svc.iws.IvrInformationVerificationPojo;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSService;
-import com.objectbrains.svc.iws.TmsBasicLoanInfo;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
 import com.objectbrains.tms.enumerated.RecordedPhrases;

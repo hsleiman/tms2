@@ -5,8 +5,8 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.outbound;
 
-import com.objectbrains.svc.iws.PopupDisplayMode;
-import com.objectbrains.svc.iws.PreviewDialerType;
+import com.objectbrains.sti.constants.PopupDisplayMode;
+import com.objectbrains.sti.constants.PreviewDialerType;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.FreeswitchContext;

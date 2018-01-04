@@ -5,6 +5,7 @@
  */
 package com.objectbrains.sti.ows;
 
+import com.objectbrains.ams.iws.Status;
 import org.joda.time.LocalDateTime;
 
 /**
@@ -22,6 +23,15 @@ public class AmsUser {
     private boolean active;
     private LocalDateTime lastAccessTime;
     private String effectiveCallerId;
+    private Status status;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public String getEffectiveCallerId() {
         return effectiveCallerId;

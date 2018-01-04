@@ -6,6 +6,7 @@
 package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.spring.context.SpringAware;
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.DialerType;
 import org.joda.time.LocalTime;
@@ -29,13 +30,13 @@ public class PreviewDialer extends AbstractDialer {
     }
 
     @Override
-    protected String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueLoanDetails details) {
+    protected String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueAccountDetails details) {
         return callService.initiateCallPreviewSelect(getRecord().getDialerQueueSettings(), loanNumber.getLoanPk(), ext,
                 Utils.getPhoneToTypes(details));
     }
 
     @Override
-    protected LoanNumber getNextRetryNumber(LoanNumber call, DialerQueueLoanDetails details) {
+    protected LoanNumber getNextRetryNumber(LoanNumber call, DialerQueueAccountDetails details) {
         //for preview strategy we just reuse the same phone number over and over
         //until it has been dialed.
         return call;

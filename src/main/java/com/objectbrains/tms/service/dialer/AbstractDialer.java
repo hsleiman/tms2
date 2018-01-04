@@ -14,11 +14,19 @@ import com.hazelcast.nio.serialization.DataSerializable;
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.sti.constants.CallDispositionActionType;
+import com.objectbrains.sti.constants.CallTimeCode;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.db.entity.disposition.action.CallDispositionAction;
 import com.objectbrains.sti.db.entity.disposition.action.DoNotCallAction;
 import com.objectbrains.sti.db.entity.disposition.action.DoNotCallPhoneAction;
 import com.objectbrains.sti.db.entity.disposition.action.RetryCallAction;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
+import com.objectbrains.sti.pojo.BasicPhoneData;
+import com.objectbrains.sti.pojo.CustomerPhoneData;
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
+import com.objectbrains.sti.service.dialer.PhoneNumberCallable;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.CallDirection;
@@ -45,6 +53,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import javax.security.auth.login.AccountNotFoundException;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -71,11 +80,11 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
 
     protected OutboundDialerQueueRecord record;
 
-    protected IQueue<DialerQueueLoanDetails> notReadyLoans;
-    protected IQueue<DialerQueueLoanDetails> readyLoans;
+    protected IQueue<DialerQueueAccountDetails> notReadyLoans;
+    protected IQueue<DialerQueueAccountDetails> readyLoans;
     protected IQueue<LoanNumber> retryCalls;
 
-    protected IMap<Long, DialerQueueLoanDetails> loanDetailsMap;
+    protected IMap<Long, DialerQueueAccountDetails> loanDetailsMap;
     protected IMap<Long, DialerLoan> loanMap;
     protected ILock dialerLock;
 
@@ -115,6 +124,9 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
 
     @Autowired
     protected TMSService tmsIws;
+    
+    @Autowired
+    protected DialerQueueService dialerQueueService;
 
     @Autowired
     protected Scheduler scheduler;
@@ -225,11 +237,11 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
     private LoanNumber pollNextLoanNumber() {
         LoanNumber loanNumber = pollReadyCall();
         while (loanNumber == null) {
-            DialerQueueLoanDetails details = readyLoans.poll();
+            DialerQueueAccountDetails details = readyLoans.poll();
             if (details == null) {
                 return null;
             }
-            long loanPk = details.getLoanPk();
+            long loanPk = details.getAccountPk();
             loanNumber = Utils.getFirstNumber(details);
             if (loanNumber == null) {
                 //this loan has no numbers so just mark it as completed
@@ -253,7 +265,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
                 return false;
             }
             Long loanPk = loanNumber.getLoanPk();
-            DialerQueueLoanDetails details = loanDetailsMap.get(loanPk);
+            DialerQueueAccountDetails details = loanDetailsMap.get(loanPk);
             PhoneToType callData = Utils.getPhoneToType(loanNumber, details);
             Long phoneNumber = callData.getPhoneNumber();
             try {
@@ -270,7 +282,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
                     dialplanRepository.LogDialplanInfoIntoDb("DIALER_DIALER", "Skipping Call, is called recently[ext: {}, phoneNumber: {}, loanPk: {}, timeout: {}, QueuePK: {}]", ext, phoneNumber, loanPk, callDetailRecordService.getNumberToCallForDialerTimeout(normalizeDnc(phoneNumber)), getQueuePk());
 
                 } else {
-                    PhoneNumberCallable callable = tmsIws.canCallNumber(getQueuePk(), loanPk, phoneNumber);
+                    PhoneNumberCallable callable = dialerQueueService.canCallNumber(getQueuePk(), loanPk, phoneNumber);
                     CallTimeCode timeCode = callable.getCallTimeCode();
                     switch (timeCode) {
                         case OK_TO_CALL:
@@ -293,10 +305,10 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
                 }
                 //skip phone number but try next one
                 prepareNextCall(loanNumber, details);
-            } catch (SvcException ex) {
+            } catch (Exception ex) {
                 LOG.error("Error occurred while checking whether loanPk: [{}] is in QueuePK: [{}], skipping loan", loanPk, getQueuePk(), ex);
                 scheduleRetry(loanNumber, LocalDateTime.now().plusMinutes(1));
-            } catch (LoanNotInQueueException ex) {
+            } catch (AccountNotFoundException ex) {
                 //let loan die and pick next loan
                 loanCompleted(loanPk, DialerLoan.CompleteReason.NOT_IN_QUEUE);
             }
@@ -307,7 +319,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
         return true;
     }
 
-    protected abstract String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueLoanDetails details);
+    protected abstract String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueAccountDetails details);
 
     private void loanCompleted(Long loanPk, DialerLoan.CompleteReason reason) {
         Map<Long, DialerLoan> loanMap = getLoans();
@@ -416,7 +428,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
         LOG.info("handling disposition: [{} - {}] for call [{}]",
                 dispositionCode.getDispositionId(), dispositionCode.getDisposition(), call.getCallUUID());
         CallDispositionActionType type = defaultActionType;
-        DialerQueueLoanDetails details = loanDetailsMap.get(call.getLoanPk());
+        DialerQueueAccountDetails details = loanDetailsMap.get(call.getLoanPk());
         if (getState() == State.STOPPED) {
             loanCompleted(call.getLoanPk(), DialerLoan.CompleteReason.DIALER_STOPPED);
             return;
@@ -435,7 +447,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
             case DO_NOT_CALL://do not call loan
                 DoNotCallAction dncAction = (DoNotCallAction) action;
                 LocalDateTime expireTime = calculateExpireTime(dncAction.getDncDurationInSeconds());
-                for (BorrowerPhoneData data : details.getBorrowerPhoneData()) {
+                for (CustomerPhoneData data : details.getCustomerPhoneData()) {
                     for (BasicPhoneData phoneData : data.getBasicPhoneData()) {
                         dncService.createDNC(normalizeDnc(phoneData.getPhoneNumber()), "DIALER_ACTION", expireTime);
                     }
@@ -468,7 +480,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
         prepareNextCall(call, details);
     }
 
-    private CallDispositionAction findResponseAction(DialerQueueLoanDetails details, CallDispositionCode dispositionCode) {
+    private CallDispositionAction findResponseAction(DialerQueueAccountDetails details, CallDispositionCode dispositionCode) {
         return dispositionCode.getAction();
     }
 
@@ -490,7 +502,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
         }
     }
 
-    private void prepareNextCall(LoanNumber call, DialerQueueLoanDetails details) {
+    private void prepareNextCall(LoanNumber call, DialerQueueAccountDetails details) {
         //get next number
         LoanNumber nextNumber = getNextRetryNumber(call, details);
         if (nextNumber != null) {
@@ -501,7 +513,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
         }
     }
 
-    protected LoanNumber getNextRetryNumber(LoanNumber call, DialerQueueLoanDetails details) {
+    protected LoanNumber getNextRetryNumber(LoanNumber call, DialerQueueAccountDetails details) {
         return Utils.getNextNumber(call, details);
     }
 
@@ -530,7 +542,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
         dialerCallService.save(call);
         dialerStatsService.addWaitTimeMillis(getDialerPk(), waitTimeMillis);
 
-        handleDispositionCode(call, dispositionCode, CallDispositionActionType.MARK_LOAN_AS_COMPLETED);
+        handleDispositionCode(call, dispositionCode, CallDispositionActionType.MARK_ACCOUNT_AS_COMPLETED);
     }
 
     @Override
@@ -545,12 +557,12 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
     }
 
     @Override
-    public Queue<DialerQueueLoanDetails> getNotReadyLoans() {
+    public Queue<DialerQueueAccountDetails> getNotReadyLoans() {
         return notReadyLoans;
     }
 
     @Override
-    public Queue<DialerQueueLoanDetails> getReadyLoans() {
+    public Queue<DialerQueueAccountDetails> getReadyLoans() {
         return readyLoans;
     }
 
@@ -595,7 +607,9 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
                 }
                 websocketService.sendPushNotification(agents, message.toString());
             }
-        } catch (SchedulerException | Exception ex) {
+        } catch (SchedulerException ex) {
+            throw new DialerException(this, ex);
+        } catch (Exception ex) {
             throw new DialerException(this, ex);
         }
 
@@ -648,7 +662,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
             unscheduleTriggers();
 
 //            clearData();
-            List<DialerQueueLoanDetails> detailsList = new ArrayList<>(record.getLoanDetails());
+            List<DialerQueueAccountDetails> detailsList = new ArrayList<>(record.getLoanDetails());
 //            dialerPk = dialerStatsService.startStats(getQueuePk(), detailsList.size(), getDialerType());
             dialerStatsService.startStats(getDialerPk(), detailsList.size(), getDialerType());
             if (record.getDialerQueueSettings().isBestTimeToCall()) {
@@ -657,15 +671,15 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
             notReadyLoans.addAll(detailsList);
 
             //populate the loan maps
-            for (DialerQueueLoanDetails details : detailsList) {
-                Long loanPk = details.getLoanPk();
+            for (DialerQueueAccountDetails details : detailsList) {
+                Long loanPk = details.getAccountPk();
                 loanDetailsMap.put(loanPk, details);
 
-                List<BorrowerPhoneData> borrowerPhoneDatas = details.getBorrowerPhoneData();
+                List<CustomerPhoneData> borrowerPhoneDatas = details.getCustomerPhoneData();
                 StringBuilder sb = new StringBuilder();
                 sb.append("LoanID: ").append(loanPk).append(" ");
                 for (int i = 0; i < borrowerPhoneDatas.size(); i++) {
-                    BorrowerPhoneData get = borrowerPhoneDatas.get(i);
+                    CustomerPhoneData get = borrowerPhoneDatas.get(i);
                     List<BasicPhoneData> basicPhoneDatas = get.getBasicPhoneData();
                     sb.append(i).append("_Phones: ");
                     for (BasicPhoneData get1 : basicPhoneDatas) {
@@ -787,10 +801,10 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
         return dialerStatsService.getStats(getDialerPk());
     }
 
-    private static class LoanDetailsComparator implements Comparator<DialerQueueLoanDetails> {
+    private static class LoanDetailsComparator implements Comparator<DialerQueueAccountDetails> {
 
         @Override
-        public int compare(DialerQueueLoanDetails o1, DialerQueueLoanDetails o2) {
+        public int compare(DialerQueueAccountDetails o1, DialerQueueAccountDetails o2) {
             LocalTime time1 = o1.getBestTimeToCall();
             LocalTime time2 = o2.getBestTimeToCall();
 

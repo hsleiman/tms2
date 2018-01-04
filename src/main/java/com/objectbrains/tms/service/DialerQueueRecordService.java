@@ -9,9 +9,11 @@ import com.hazelcast.core.IMap;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
 import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
 import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.DialerQueueRecord;
 import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
+import com.objectbrains.sti.service.dialer.OutboundDialerService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.repository.DialerQueueRepository;
 import com.objectbrains.tms.enumerated.DialerType;
@@ -53,9 +55,13 @@ public class DialerQueueRecordService {
 
     @Autowired
     private DialerQueueRepository dialerQueueRepository;
+   
 
     @Autowired
     private TMSService tmsIws;
+    
+    @Autowired 
+    private OutboundDialerService outboundDialerService;
 
     @Autowired
     @Lazy
@@ -125,7 +131,7 @@ public class DialerQueueRecordService {
         DialerQueueRecord record = recordMap.get(queuePk);
         if (record == null) {
             try {
-                record = tmsIws.getDialerQueueRecord(queuePk);
+                record = outboundDialerService.getDialerQueueRecord(queuePk);
             } catch (Exception ex) {
                 LOG.error(ex.getMessage(), ex);
             }

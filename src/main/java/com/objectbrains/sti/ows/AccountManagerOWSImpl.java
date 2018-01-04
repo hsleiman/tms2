@@ -37,6 +37,7 @@ public class AccountManagerOWSImpl implements AccountManagerOWS {
         amsUser.setLastAccessTime(user.getLastAccessTime());
         amsUser.setEffectiveCallerId(user.getEffectiveCallerId());
         amsUser.setActive(user.getStatus() == Status.ACTIVE);
+        amsUser.setStatus(Status.ACTIVE);
         return amsUser;
     }
 

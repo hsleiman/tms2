@@ -5,7 +5,8 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.service;
 
-import com.objectbrains.svc.iws.TMSService;
+
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.service.AgentCallService;
 import com.objectbrains.tms.service.AgentService;
 import com.objectbrains.tms.service.AgentStatsService;
@@ -19,7 +20,6 @@ import com.objectbrains.tms.service.GCESignedUtility;
 import com.objectbrains.tms.service.InboundCallService;
 import com.objectbrains.tms.service.TextToSpeechService;
 import com.objectbrains.tms.service.freeswitch.CallingOutService;
-import com.objectbrains.tms.service.freeswitch.common.Incoming;
 import com.objectbrains.tms.service.freeswitch.common.Incoming2;
 import com.objectbrains.tms.websocket.Websocket;
 import org.slf4j.Logger;

@@ -6,156 +6,139 @@
 package com.objectbrains.sti.db.entity.agent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.objectbrains.sti.db.entity.base.account.Account;
+import com.objectbrains.ams.iws.Status;
 import com.objectbrains.sti.db.entity.base.WorkQueue;
+import com.objectbrains.sti.db.entity.base.account.Account;
 import com.objectbrains.sti.db.entity.superentity.SuperEntity;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.envers.AuditTable;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
- *
  * @author David
  */
 @NamedQueries({
-    @NamedQuery(
-            name = "Agent.LocateByPk",
-            query = "SELECT s FROM Agent s WHERE s.pk = :pk"
+        @NamedQuery(
+                name = "Agent.LocateByPk",
+                query = "SELECT s FROM Agent s WHERE s.pk = :pk"
         ),
-    @NamedQuery(
-            name = "Agent.locateByAgentUserName",
-            query = "SELECT s FROM Agent s WHERE LOWER(s.userName) = LOWER(:userName)"
+        @NamedQuery(
+                name = "Agent.locateByAgentUserName",
+                query = "SELECT s FROM Agent s WHERE LOWER(s.userName) = LOWER(:userName)"
         ),
-    @NamedQuery(
-            name = "Agent.getAllAgents",
-            query = "SELECT s FROM Agent s"
+        @NamedQuery(
+                name = "Agent.getAllAgents",
+                query = "SELECT s FROM Agent s"
         ),
-    @NamedQuery(
-            name = "Agent.getAllAgentsForManager",
-            query = "SELECT s FROM Agent s WHERE s.manager1ToTeam.manager1 = :manager1"
+        @NamedQuery(
+                name = "Agent.getAllAgentsForManager",
+                query = "SELECT s FROM Agent s WHERE s.manager1ToTeam.manager1 = :manager1"
         ),
-    @NamedQuery(
-            name = "Agent.locateByAgentPhoneExtension",
-            query = "SELECT s FROM Agent s WHERE s.phoneExtension = :phoneExtension"
+        @NamedQuery(
+                name = "Agent.locateByAgentPhoneExtension",
+                query = "SELECT s FROM Agent s WHERE s.extension = :phoneExtension"
         )
 })
 @Entity
 @AuditTable(value = "agent_history", schema = "sti")
 //@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@Table(name="agent",schema = "sti", uniqueConstraints = {           
-            @UniqueConstraint(name = "userName", columnNames = {"userName"})
-        })
+@Table(name = "agent", schema = "sti", uniqueConstraints = {
+        @UniqueConstraint(name = "userName", columnNames = {"userName"})
+})
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Agent extends SuperEntity{
-    
-    @Column(nullable = false,unique = true)
-    private String userName;
-    
-    private String firstName;
-    private String lastName;
-    private String lastChangedBy;
-    
-    private String emailAddress;
-    
-    private Long phoneNumber;
-    @Column(unique = true)
-    private Long phoneExtension;
-    private Boolean isActive;
-    
-    private Boolean isCurrent;
-    
-    private Boolean isCancelled;
-    
-    private String primaryQueueName;
-    
-    private Integer type;
-    
-    private LocalDate effectiveDate;
-    private LocalDate pointsAdjustmentDate;
-    
-    private String comment;
-    private Integer lastReturnedSortNumberForLoan = 0;
-    private LocalDateTime lastAccessTime;
-    private String effectiveCallerId;
-
-    
-//    @XmlTransient
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "AgentAssignedToLoan")
-//    private Set<SvLoan> svLoans = new HashSet<>(0);
-    
-    @XmlTransient
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "agentAssignedToAccount")
-    private Set<Account> account = new HashSet<>(0);
-    
-    /* Address of an Agent is not stored anywhere currently. May be this can be implemented in phase 2 if required? 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "AgentAddress")
-    private Set<SvAddress> svAddresses = new HashSet<>(0);
-    */
-    
-    @XmlTransient
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "teamLeader")
-    private Team leaderToTeam;
-    
-    @XmlTransient
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "teamManager1")
-    private Team manager1ToTeam;
-    
-    @XmlTransient
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "teamManager2")
-    private Team manager2ToTeam;
-    
-    @XmlTransient
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "team_name", referencedColumnName = "teamName")
-    @ForeignKey(name="fk_agent_team")
-    private Team team;
+public class Agent extends SuperEntity {
 
     @XmlTransient
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "secondaryAgent")
     Set<AgentQueue> AgentQueues = new HashSet<>();
-
     @XmlTransient
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "dialerAgent")
     Set<AgentDialerGroup> AgentDialerGroups = new HashSet<>();
-    
-    
+    @Column(nullable = false, unique = true)
+    private String userName;
+    private String firstName;
+    private String lastName;
+    private String lastChangedBy;
+    private String emailAddress;
+    private Long phoneNumber;
+    @Column(unique = true)
+    private Long extension;
+    private Boolean isActive;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ACTIVE;
+    private Boolean isCurrent;
+    private Boolean isCancelled;
+    private String primaryQueueName;
+    private Integer type;
+    private LocalDate effectiveDate;
+    private LocalDate pointsAdjustmentDate;
+    private String comment;
+    private Integer lastReturnedSortNumberForLoan = 0;
+
+
+    //    @XmlTransient
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "AgentAssignedToLoan")
+//    private Set<SvLoan> svLoans = new HashSet<>(0);
+    private LocalDateTime lastAccessTime;
+
+    /* Address of an Agent is not stored anywhere currently. May be this can be implemented in phase 2 if required? 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "AgentAddress")
+    private Set<SvAddress> svAddresses = new HashSet<>(0);
+    */
+    private String effectiveCallerId;
     @XmlTransient
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "queueSupervisor")  
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "agentAssignedToAccount")
+    private Set<Account> account = new HashSet<>(0);
+    @XmlTransient
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "teamLeader")
+    private Team leaderToTeam;
+    @XmlTransient
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "teamManager1")
+    private Team manager1ToTeam;
+    @XmlTransient
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "teamManager2")
+    private Team manager2ToTeam;
+    @XmlTransient
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "team_name", referencedColumnName = "teamName")
+    @ForeignKey(name = "fk_agent_team")
+    private Team team;
+    @XmlTransient
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "queueSupervisor")
     private Set<WorkQueue> supervisorQueues = new HashSet<>(0);
-         
+
     @XmlTransient
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "primaryAgent")
     private Set<WorkQueue> primaryQueues = new HashSet<>(0);
-    
-    public Agent(){
+
+    public Agent() {
         this.setIsCurrent(true);
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public String getEffectiveCallerId() {
@@ -165,7 +148,7 @@ public class Agent extends SuperEntity{
     public void setEffectiveCallerId(String effectiveCallerId) {
         this.effectiveCallerId = effectiveCallerId;
     }
-    
+
     public String getUserName() {
         return userName;
     }
@@ -253,7 +236,7 @@ public class Agent extends SuperEntity{
 
     public void setLastAccessTime(LocalDateTime lastAccessTime) {
         this.lastAccessTime = lastAccessTime;
-    }   
+    }
 
     public Set<Account> getAccount() {
         return account;
@@ -262,8 +245,7 @@ public class Agent extends SuperEntity{
     public void setAccount(Set<Account> account) {
         this.account = account;
     }
-    
-    
+
 
     public Team getTeam() {
         return team;
@@ -312,7 +294,7 @@ public class Agent extends SuperEntity{
     public void setPrimaryQueues(Set<WorkQueue> primaryQueues) {
         this.primaryQueues = primaryQueues;
     }
-    
+
     public Set<AgentQueue> getAgentQueues() {
         return AgentQueues;
     }
@@ -354,11 +336,11 @@ public class Agent extends SuperEntity{
     }
 
     public Long getPhoneExtension() {
-        return phoneExtension;
+        return extension;
     }
 
     public void setPhoneExtension(Long phoneExtension) {
-        this.phoneExtension = phoneExtension;
+        this.extension = phoneExtension;
     }
 
     public Integer getType() {

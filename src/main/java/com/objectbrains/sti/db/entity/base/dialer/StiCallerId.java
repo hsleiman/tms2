@@ -19,12 +19,12 @@ import javax.persistence.Table;
  */
 @NamedQueries({
     @NamedQuery(
-            name = "CallerId.GetAllCallerIds",
-            query = "SELECT s FROM CallerId s"
+            name = "StiCallerId.GetAllCallerIds",
+            query = "SELECT s FROM StiCallerId s"
     ),
     @NamedQuery(
-            name = "CallerId.GetCallerIdByNumber",
-            query = "SELECT s FROM CallerId s where s.callerIdNumber = :callerIdNumber"
+            name = "StiCallerId.GetCallerIdByNumber",
+            query = "SELECT s FROM StiCallerId s where s.callerIdNumber = :callerIdNumber"
     )
 })
 @Entity

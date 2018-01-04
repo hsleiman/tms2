@@ -6,6 +6,7 @@
 package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.spring.context.SpringAware;
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.websocket.message.outbound.PhoneToType;
@@ -30,7 +31,7 @@ public class PowerDialer extends AbstractDialer {
     }
 
     @Override
-    protected String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueLoanDetails details) {
+    protected String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueAccountDetails details) {
         PhoneToType phoneToType = Utils.getPhoneToType(loanNumber, details);
         return callService.initiateCall(getRecord().getDialerQueueSettings(),
                 loanNumber.getLoanPk(),

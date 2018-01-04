@@ -5,6 +5,9 @@
  */
 package com.objectbrains.tms.service.dialer;
 
+import com.objectbrains.sti.pojo.BasicPhoneData;
+import com.objectbrains.sti.pojo.CustomerPhoneData;
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import com.objectbrains.tms.websocket.message.outbound.PhoneToType;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -47,17 +50,17 @@ public class Utils {
         return null;//this will happen if list is empty
     }
 
-    public static LoanNumber getFirstNumber(DialerQueueLoanDetails details) {
+    public static LoanNumber getFirstNumber(DialerQueueAccountDetails details) {
         return getNextNumber((LoanNumber) null, details);
     }
 
-    public static LoanNumber getNextNumber(LoanNumber oldLoanNumber, DialerQueueLoanDetails details) {
+    public static LoanNumber getNextNumber(LoanNumber oldLoanNumber, DialerQueueAccountDetails details) {
         int oldIndex = oldLoanNumber != null ? oldLoanNumber.getNumberIndex() : -1;
         int index = 0;
-        for (BorrowerPhoneData data : details.getBorrowerPhoneData()) {
+        for (CustomerPhoneData data : details.getCustomerPhoneData()) {
             for (BasicPhoneData phoneData : data.getBasicPhoneData()) {
                 if (index > oldIndex) {
-                    return new LoanNumber(details.getLoanPk(), index);
+                    return new LoanNumber(details.getAccountPk(), index);
                 }
                 index++;
             }
@@ -65,10 +68,10 @@ public class Utils {
         return null;
     }
 
-    public static PhoneToType getPhoneToType(LoanNumber loanNumber, DialerQueueLoanDetails details) {
+    public static PhoneToType getPhoneToType(LoanNumber loanNumber, DialerQueueAccountDetails details) {
         int targetIndex = loanNumber.getNumberIndex();
         int index = 0;
-        for (BorrowerPhoneData borrowerData : details.getBorrowerPhoneData()) {
+        for (CustomerPhoneData borrowerData : details.getCustomerPhoneData()) {
             for (BasicPhoneData phoneData : borrowerData.getBasicPhoneData()) {
                 Long phoneNumber = phoneData.getPhoneNumber();
                 if (index == targetIndex) {
@@ -85,9 +88,9 @@ public class Utils {
         return null;
     }
 
-    public static ArrayList<PhoneToType> getPhoneToTypes(DialerQueueLoanDetails details) {
+    public static ArrayList<PhoneToType> getPhoneToTypes(DialerQueueAccountDetails details) {
         ArrayList<PhoneToType> types = new ArrayList<>();
-        for (BorrowerPhoneData borrowerData : details.getBorrowerPhoneData()) {
+        for (CustomerPhoneData borrowerData : details.getCustomerPhoneData()) {
             for (BasicPhoneData pn : borrowerData.getBasicPhoneData()) {
                 PhoneToType pojo = new PhoneToType();
                 pojo.setFirstName(borrowerData.getFirstName());

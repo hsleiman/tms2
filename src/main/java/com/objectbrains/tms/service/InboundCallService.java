@@ -12,6 +12,7 @@ import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
 import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.objectbrains.sti.embeddable.AgentCallOrder;
 import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
+import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.CallDirection;
@@ -154,7 +155,7 @@ public class InboundCallService {
         return state == AgentState.IDLE;
     }
 
-    private AgentIncomingDistributionOrder inboundCallOrder(Long queuePk, Long phoneNumber, String callUUID, TmsCallDetails details) {
+    private AgentIncomingDistributionOrder inboundCallOrder(Long queuePk, Long phoneNumber, String callUUID, TMSCallDetails details) {
         AgentIncomingDistributionOrder aido = new AgentIncomingDistributionOrder();
 
         if (details != null) {

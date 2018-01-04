@@ -5,9 +5,9 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.incoming.service;
 
-import com.objectbrains.svc.iws.TMSService;
-import com.objectbrains.svc.iws.TmsBasicLoanInfo;
-import com.objectbrains.svc.iws.TmsCallDetails;
+import com.objectbrains.sti.pojo.TMSBasicAccountInfo;
+import com.objectbrains.sti.pojo.TMSCallDetails;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
@@ -207,7 +207,7 @@ public class IVRCallerIdentity {
             CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
             String ssn = callDetailRecord.getIvrSSN();
             String zipCode = callDetailRecord.getIvrZipCode();
-            TmsCallDetails callDetails = tmsIWS.getLoanInfoBySsnAndZip(ssn, zipCode);
+            TMSCallDetails callDetails = null;// tmsIWS.getLoanInfoBySsnAndZip(ssn, zipCode);
 
             if (callDetails != null && callDetails.getZip() != null && callDetails.getZip().equalsIgnoreCase(zipCode)) {
 
@@ -275,8 +275,8 @@ public class IVRCallerIdentity {
             } else {
                 aido = inboundCallService.inboundCallOrder(null, 0l, tmsDialplan.getCall_uuid(), variable.getLoanId());
             }
-            TmsBasicLoanInfo basicLoanInfo = null;
-            basicLoanInfo = tmsIWS.getBasicLoanInfoForTMS(variable.getLoanId());
+            TMSBasicAccountInfo basicLoanInfo = null;
+            basicLoanInfo = tmsIWS.getBasicAccountInfoForTMS(variable.getLoanId());
 
             log.info("incoming.isNotDelinquent: " + incoming.isNotDelinquent(basicLoanInfo));
             log.info("aido: " + aido.toJson());

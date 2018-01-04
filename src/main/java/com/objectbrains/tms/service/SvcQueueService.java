@@ -7,6 +7,7 @@ package com.objectbrains.tms.service;
 
 import com.objectbrains.scheduler.annotation.Sync;
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,12 @@ import org.springframework.stereotype.Service;
 public class SvcQueueService {
 
     private static final Logger LOG = LoggerFactory.getLogger(SvcQueueService.class);
-    
+
     @Autowired
     private TMSService tmsIws;
+
+    @Autowired
+    private DialerQueueService dialerQueueService;
 
     public List<DialerQueueSettings> getQueueSettings(Set<Long> queuePks) {
         List<DialerQueueSettings> ret = new ArrayList<>();
@@ -43,7 +47,7 @@ public class SvcQueueService {
     public DialerQueueSettings getQueueSettings(Long queuePk) {
         if (queuePk != null) {
             try {
-                return tmsIws.getDialerQueueSettingsByDQPk(queuePk);
+                return dialerQueueService.getDialerQueueSettingsByDQPk(queuePk);
             } catch (Exception ex) {
                 LOG.error(ex.getMessage());
             }

@@ -20,14 +20,5 @@ public enum CallDispositionActionType {
     public static final String DO_NOT_CALL_NUMBER_ACTION = "DO_NOT_CALL_NUMBER";
     public static final String MARK_ACCOUNT_AS_COMPLETED_ACTION = "MARK_ACCOUNT_AS_COMPLETED";
     public static final String TRY_NEXT_PHONE_NUMBER_ACTION = "TRY_NEXT_PHONE_NUMBER";
-    
-    
-    public String value() {
-        return name();
-    }
-
-    public static CallDispositionActionType fromValue(String v) {
-        return valueOf(v);
-    }
    
 }

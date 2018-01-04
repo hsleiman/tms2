@@ -5,10 +5,11 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.outbound.service;
 
-import com.objectbrains.svc.iws.CallDispositionCode;
-import com.objectbrains.svc.iws.LeaveVoiceMailAtOptions;
-import com.objectbrains.svc.iws.SvOutboundDialerQueueSettings;
-import com.objectbrains.svc.iws.VoiceMailOption;
+
+import com.objectbrains.sti.constants.LeaveVoiceMailAtOptions;
+import com.objectbrains.sti.constants.VoiceMailOption;
+import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.CallDirection;
@@ -180,7 +181,7 @@ public class DDDialplan {
         log.info("Progresive Dialer AMD detectedAsMachine Progresive: {} {} {} {} {}", tmsDialplan.getBorrowerInfo().getBorrowerPhoneNumber(), tmsDialplan.getBorrowerInfo().getBorrowerFirstName(), tmsDialplan.getBorrowerInfo().getLoanId(), "", tmsDialplan.getTms_type());
         log.info("********* Progresive Dialer AMD detectedAsMachine Progresive");
 
-        SvOutboundDialerQueueSettings queueSettings = (SvOutboundDialerQueueSettings) dialerQueueRecordService.getQueueSettings(tmsDialplan.getDialerQueueId());
+        OutboundDialerQueueSettings queueSettings = (OutboundDialerQueueSettings) dialerQueueRecordService.getQueueSettings(tmsDialplan.getDialerQueueId());
 
         CallDispositionCode callDispositionCode = dispositionCodeService.answeringMachineCode();
         boolean canLeaveMsg = false;
@@ -275,7 +276,7 @@ public class DDDialplan {
         callDetailRecord.setAmdStartFifoTime(LocalDateTime.now());
         callDetailRecord.setAmdConnectToAgentNow(Boolean.FALSE);
 
-        SvOutboundDialerQueueSettings queueSettings = (SvOutboundDialerQueueSettings) dialerQueueRecordService.getQueueSettings(tmsDialplan.getDialerQueueId());
+        OutboundDialerQueueSettings queueSettings = (OutboundDialerQueueSettings) dialerQueueRecordService.getQueueSettings(tmsDialplan.getDialerQueueId());
 
         log.info(tmsDialplan.getCallDirection() + " putting call on wait: " + tmsDialplan.getCall_uuid());
         log.info(tmsDialplan.getCallDirection() + " putting call on wait: " + tmsDialplan.getCallee());
@@ -338,7 +339,7 @@ public class DDDialplan {
         private boolean connectNow = true;
 
         @Override
-        public boolean connectOutboundCallToAgent(int ext, String CallUUID, SvOutboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes) {
+        public boolean connectOutboundCallToAgent(int ext, String CallUUID, OutboundDialerQueueSettings settings, Long loanId, PhoneToType phoneToTypes) {
             dialerInfoPojo = new DialerInfoPojo();
             dialerInfoPojo.setBorrowerFirstName(phoneToTypes.getFirstName());
             dialerInfoPojo.setBorrowerLastName(phoneToTypes.getLastName());

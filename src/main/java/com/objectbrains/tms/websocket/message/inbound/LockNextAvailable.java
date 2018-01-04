@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.websocket.message.inbound;
 
-import com.objectbrains.svc.iws.CallRoutingOption;
+import com.objectbrains.sti.constants.CallRoutingOption;
 import java.io.Serializable;
 
 /**

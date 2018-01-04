@@ -69,8 +69,6 @@ public abstract class DialerQueueSettings {
     @JoinColumn(name = "dialer_queue_pk", referencedColumnName = "pk")
     @ForeignKey(name = "fk_dq_settings_dialer_queue")
     private DialerQueue dialerQueue;
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonIgnore
     private LocalDateTime creationTime;
     private PopupDisplayMode popupDisplayMode;

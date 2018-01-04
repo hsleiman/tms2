@@ -9,7 +9,7 @@ import com.google.gson.annotations.Expose;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.DataSerializable;
-import com.objectbrains.svc.iws.CallDispositionCode;
+import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import java.io.IOException;
 
 /**

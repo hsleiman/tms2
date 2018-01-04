@@ -10,20 +10,34 @@ import com.objectbrains.sti.constants.DialerQueueType;
 import com.objectbrains.sti.constants.Permission;
 import com.objectbrains.sti.db.entity.agent.Agent;
 import com.objectbrains.sti.db.entity.agent.DialerGroup;
+import com.objectbrains.sti.db.entity.base.dialer.BIMessage;
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
 import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
+import com.objectbrains.sti.db.entity.base.dialer.StiCallerId;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionGroup;
 import com.objectbrains.sti.db.entity.qualityAssurance.QualityAssuranceForm;
 import com.objectbrains.sti.db.entity.qualityAssurance.QualityAssuranceFormQuestionRelation;
 import com.objectbrains.sti.db.entity.qualityAssurance.QualityAssuranceQuestion;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
+import com.objectbrains.sti.embeddable.BIPlaybackData;
 import com.objectbrains.sti.embeddable.DialerQueueDetails;
+import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
+import com.objectbrains.sti.embeddable.OutboundDialerQueueRecord;
 import com.objectbrains.sti.exception.StiException;
+import com.objectbrains.sti.pojo.AccountCustomerName;
 import com.objectbrains.sti.pojo.CallDetailRecordResult;
 import com.objectbrains.sti.pojo.CallHistoryCriteria;
 import com.objectbrains.sti.pojo.DialerQueueGroup;
+import com.objectbrains.sti.pojo.PhoneNumberAccountData;
+import com.objectbrains.sti.pojo.QueueAgentWeightPriority;
+import com.objectbrains.sti.pojo.TMSBasicAccountInfo;
+import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.sti.service.dialer.DialerQueueService;
+import com.objectbrains.sti.service.dialer.OutboundDialerService;
+import com.objectbrains.sti.service.dialer.PhoneNumberCallable;
+import com.objectbrains.sti.service.tms.BIMessageService;
 import com.objectbrains.sti.service.tms.CallDispositionService;
 import com.objectbrains.sti.service.tms.CallQualityManagementService;
 import com.objectbrains.sti.service.tms.DialerGroupService;
@@ -62,8 +76,36 @@ public class TmsRestController {
     private TMSService tmsService;
     @Autowired
     private CallQualityManagementService callQualityManagementService;
+    @Autowired
+    private BIMessageService bIMessageService;
+    @Autowired
+    private OutboundDialerService outboundDialerService;
 
+    
+    @RequestMapping(value = "/getAccountsForPhoneNumber{phoneNumber}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public List<PhoneNumberAccountData> getAllDialerGroups(@PathVariable long phoneNumber) throws IOException {
+        return tmsService.getAccountsForPhoneNumber(phoneNumber);
+    }
+    
+    @RequestMapping(value = "/getDialerQueuePkForPhoneNumber{phoneNumber}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public Long getAllDialerGroups(@PathVariable String phoneNumber) throws IOException {
+        return dialerQueueService.getDialerQueuePkForPhoneNumber(phoneNumber);
+    }
 
+    @RequestMapping(value = "/getBasicAccountInfoForTMS{accountPk}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public TMSBasicAccountInfo getBasicAccountInfoForTMS(@PathVariable long accountPk) throws IOException {
+        return tmsService.getBasicAccountInfoForTMS(accountPk);
+    }
+    
+//    @RequestMapping(value = "/getAgentWeightPriorityListForDq{dialerQueuePk}", method = GET)
+//    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+//    public List<AgentWeightPriority> getAgentWeightPriorityListForDq (@PathVariable long dialerQueuePk) throws IOException, StiException {
+//        return dialerQueueService.getAgentWeightPriorityListForDq(dialerQueuePk);
+//    }
+    
     @RequestMapping(value = "/getAllDialerGroups", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
     public List<DialerGroup> getAllDialerGroups() throws IOException {
@@ -111,12 +153,6 @@ public class TmsRestController {
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
     public CallDispositionCode addOrUpdateCallDisposition(@RequestBody CallDispositionCode callDispositionCode) throws IOException, StiException {
         return callDispositionService.addOrUpdateCallDisposition(callDispositionCode);
-    }
-
-    @RequestMapping(value = "/getCallDispositionCode/{dispositionCodeId}", method = GET)
-    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public CallDispositionCode getCallDispositionCode(@PathVariable long dispositionCodeId) throws IOException, StiException {
-        return callDispositionService.getCallDispositionCode(dispositionCodeId);
     }
 
     @RequestMapping(value = "/getAllCallDispositionCodes", method = GET)
@@ -363,5 +399,122 @@ public class TmsRestController {
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
     public boolean saveQualityAssuranceFormQuestionRelations(@RequestBody List<QualityAssuranceFormQuestionRelation> qualityAssuranceFormQuestionRelationList) throws Exception {
         return callQualityManagementService.saveQualityAssuranceFormQuestionRelations(qualityAssuranceFormQuestionRelationList);
+    }
+    
+    // *********** BI Message 
+    
+    @RequestMapping(value = "/saveBIMessage", method = POST)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public void saveBIMessage(BIMessage biMessage) {
+        tmsService.saveBIMessage(biMessage);
+    }
+    
+    @RequestMapping(value = "/getBIPlaybackData/{callUUID}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public BIPlaybackData getBIPlaybackData(@PathVariable("callUUID") String callUUID) {
+        return tmsService.getBIPlaybackData(callUUID);
+    }
+    
+    // *********** Dialer Queue
+    
+    @RequestMapping(value = "/getAllDialerQueues", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public List<DialerQueueDetails> getAllDialerQueues() {
+        return tmsService.getAllDialerQueues();
+    }
+    
+    @RequestMapping(value = "/getDialerQueueByPk/{queuePk}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public DialerQueueDetails getDialerQueueByPk(@PathVariable("queuePk") long queuePk) throws StiException {
+         return tmsService.getDialerQueueByPk(queuePk);
+    }
+    
+    @RequestMapping(value = "/getBasicLoanDataForQueue/{queuePk}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public List<AccountCustomerName> getBasicLoanDataForQueue(@PathVariable("queuePk") long queuePk) throws StiException {
+         return dialerQueueService.getBasicLoanDataForQueue(queuePk, null, null);
+    }
+    
+    @RequestMapping(value = "/canCallNumberInQueue/{dqPk}/{accountPk}/{phoneNumber}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public PhoneNumberCallable canCallNumberInQueue(@PathVariable("dqPk") long dqPk,@PathVariable("accountPk") long accountPk,@PathVariable("phoneNumber") long phoneNumber) throws StiException {
+         return dialerQueueService.canCallNumberInQueue(dqPk,accountPk,phoneNumber);
+    }
+    
+    // *********** DIALER QUEUE SETTINGS
+    
+    @RequestMapping(value = "/getOutboundDialerQueueRecord/{queuePk}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public OutboundDialerQueueRecord getOutboundDialerQueueRecord(@PathVariable("queuePk") long queuePk) throws StiException {
+        return outboundDialerService.getOutboundDialerQueueRecord(queuePk);
+    }
+    
+    // ************ Queue Group Association
+    
+    @RequestMapping(value = "/getQueueAgentWeightPriorityForUsername/{username}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public List<QueueAgentWeightPriority> getQueueAgentWeightPriorityForUsername(@PathVariable("username") String username) {
+        return dialerQueueService.getQueueAgentWeightPriorityForUsername(username);
+    }
+    
+    @RequestMapping(value = "/getAgentWeightPriorityListForGroup/{dialerGroupPk}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public List<AgentWeightPriority> getAgentWeightPriorityListForGroup(@PathVariable("username") long dialerGroupPk) throws StiException {
+        return dialerQueueService.getAgentWeightPriorityListForGroup(dialerGroupPk);
+    }
+    
+    @RequestMapping(value = "/getAgentWeightPriorityListForDq{dialerQueuePk}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public List<AgentWeightPriority> getAgentWeightPriorityListForDq (@PathVariable long dialerQueuePk) throws IOException, StiException {
+        return dialerQueueService.getAgentWeightPriorityListForDq(dialerQueuePk);
+    }
+    
+    // ************ Inbound Call Service
+    
+    // tmsIws.getLoanInfoByLoanPk(loanPk)
+    
+    
+    @RequestMapping(value = "/getLoanInfoByPhoneNumber/{phoneNumber}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public TMSCallDetails getLoanInfoByPhoneNumber(@PathVariable("phoneNumber") long phoneNumber) throws StiException {
+        return tmsService.getLoanInfoByPhoneNumber(phoneNumber);
+    }
+    
+    // tmsIws.getLoansForPhoneNumber(phoneNumber)
+    
+    // ************ Dialer Queue Setting
+    
+    @RequestMapping(value = "/getInboundDialerQueueRecord/{queuePk}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public InboundDialerQueueRecord getInboundDialerQueueRecord(@PathVariable("queuePk") long queuePk) throws StiException {
+        return tmsService.getInboundDialerQueueRecord(queuePk);
+    }
+
+    // ************ Call Disposition
+    
+    @RequestMapping(value = "/getCallDispositionCode/{dispositionCodeId}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public CallDispositionCode getCallDispositionCode(@PathVariable long dispositionCodeId) throws IOException, StiException {
+        return tmsService.getCallDispositionCode(dispositionCodeId);
+    }
+    
+    @RequestMapping(value = "/getCallDispositionCodeByQCode/{qCode}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public CallDispositionCode getCallDispositionCodeByQCode(@PathVariable int qCode) {
+        return tmsService.getCallDispositionCodeByQCode(qCode);
+    }
+    
+    @RequestMapping(value = "/getCallDispositionCodeByDispositionName/{dispositionName}", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public CallDispositionCode getCallDispositionCodeByDispositionName(@PathVariable String dispositionName) {
+        return tmsService.getCallDispositionCodeByDispositionName(dispositionName);
+    }
+    
+    // ************ MISC
+    
+    @RequestMapping(value = "/getAllCallerIds", method = GET)
+    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
+    public List<StiCallerId> getAllCallerIds() {
+        return tmsService.getAllCallerIds();
     }
 }

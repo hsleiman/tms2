@@ -24,8 +24,8 @@ import com.objectbrains.hcms.hazelcast.HazelcastService.MapKey;
 import com.objectbrains.hcms.hazelcast.HazelcastService.MultiMapKey;
 import com.objectbrains.hcms.hazelcast.HazelcastService.QueueKey;
 import com.objectbrains.hcms.hazelcast.HazelcastService.ReplicatedMapKey;
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import com.objectbrains.sti.pojo.DialerQueueRecord;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
 import com.objectbrains.tms.db.entity.DNC;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.freeswitch.FreeswitchNode;
@@ -44,7 +44,6 @@ import com.objectbrains.tms.hazelcast.keys.AgentQueueKey;
 import com.objectbrains.tms.hazelcast.keys.StaticDialplanKey;
 import com.objectbrains.tms.hazelcast.keys.TMSDialplanKey;
 import com.objectbrains.tms.pojo.UploadCallRecordingPOJO;
-import com.objectbrains.tms.service.CdrService;
 import com.objectbrains.tms.service.ReportService;
 import com.objectbrains.tms.service.dialer.Dialer;
 import com.objectbrains.tms.service.dialer.LoanNumber;
@@ -102,8 +101,6 @@ public class Configs implements BeanFactoryAware {
     public static final MapKey<Integer, String> FREESWITCH_NODE_TO_EXT_MAP = new MapKey<>("freeswitchNodeToExt");
 
     public static final MapKey<StaticDialplanKey, StaticDialplan> STATIC_DIALPLAN_MAP = new MapKey<>("staticDialplan");
-    public static final QueueKey<CdrService.SCdrEntry> SCDR_QUEUE = new QueueKey<>("scdr");
-    public static final QueueKey<CdrService.MCdrEntry> MCDR_QUEUE = new QueueKey<>("mcdr");
 
     //public static final MultiMapKey<FreeswitchContext, FreeswitchNode> FREESWITCH_NODE_MULTI_MAP = new HazelcastService.MultiMapKey<>("freeswitchNode");
     public static final MapKey<AgentQueueKey, AgentWeightedPriority> QUEUE_WEIGHTED_PRIORITY_MAP = new MapKey<>("queueWeightedPriority");
@@ -135,11 +132,11 @@ public class Configs implements BeanFactoryAware {
     private static final String DIALER_LOANS_MAP_PREFIX = "dialerLoans:";
     private static final String DIALER_LOAN_DETAILS_MAP_PREFIX = "dialerLoanDetails:";
 
-    public static IQueue<DialerQueueLoanDetails> getNotReadyLoansQueue(HazelcastService hazelcastService, long dialerPk) {
+    public static IQueue<DialerQueueAccountDetails> getNotReadyLoansQueue(HazelcastService hazelcastService, long dialerPk) {
         return hazelcastService.getQueue("notReadyLoans: " + dialerPk);
     }
 
-    public static IQueue<DialerQueueLoanDetails> getReadyLoansQueue(HazelcastService hazelcastService, long dialerPk) {
+    public static IQueue<DialerQueueAccountDetails> getReadyLoansQueue(HazelcastService hazelcastService, long dialerPk) {
         return hazelcastService.getQueue("readyLoans:" + dialerPk);
     }
 
@@ -151,7 +148,7 @@ public class Configs implements BeanFactoryAware {
         return hazelcastService.getMap(DIALER_LOANS_MAP_PREFIX + dialerPk);
     }
 
-    public static IMap<Long, DialerQueueLoanDetails> getDialerLoanDetailsMap(HazelcastService hazelcastService, long dialerPk) {
+    public static IMap<Long, DialerQueueAccountDetails> getDialerLoanDetailsMap(HazelcastService hazelcastService, long dialerPk) {
         return hazelcastService.getMap(DIALER_LOAN_DETAILS_MAP_PREFIX + dialerPk);
     }
 

@@ -5,9 +5,9 @@
  */
 package com.objectbrains.tms.restfull;
 
-import com.objectbrains.svc.iws.AgentWeightPriority;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSService;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
+import com.objectbrains.sti.exception.StiException;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.hazelcast.entity.Agent;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
@@ -49,7 +49,7 @@ public class DialerGroupRest {
 
     @Path("/{groupPk}/agent/status")
     @GET
-    public List<QueueAgentStatus> getAllAgentStatusInQueue(@PathParam("groupPk") int groupPk) throws SvcException {
+    public List<QueueAgentStatus> getAllAgentStatusInQueue(@PathParam("groupPk") int groupPk) throws StiException {
         List<QueueAgentStatus> retList = new ArrayList<>();
         List<AgentWeightPriority> awps = tmsIws.getAgentWeightPriorityListForGroup(groupPk);
         Map<String, AgentWeightedPriority> weightedPriorities = Utils.convertToMap(awps);

@@ -6,10 +6,9 @@
 package com.objectbrains.tms.restfull;
 
 import com.objectbrains.commons.joda.LocalDateTimeAdapter;
-import com.objectbrains.svc.iws.BorrowerPhoneData;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
-import com.objectbrains.svc.iws.OutboundDialerQueueRecord;
-import com.objectbrains.svc.iws.SvcException;
+import com.objectbrains.sti.pojo.CustomerPhoneData;
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
+import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.db.repository.ReportRepository;
 import com.objectbrains.tms.hazelcast.entity.DialerStats;
 import com.objectbrains.tms.hazelcast.entity.WaitingCall;
@@ -71,7 +70,7 @@ public class DialerRest {
 
     @Path("/{queuePk}/start")
     @POST
-    public void startQueue(@PathParam("queuePk") Long queuePk) throws SvcException, DialerException {
+    public void startQueue(@PathParam("queuePk") Long queuePk) throws DialerException, Exception {
         dialerService.startQueue(queuePk);
     }
 
@@ -192,31 +191,31 @@ public class DialerRest {
 //        }
 //        return retList;
 //    }
-    private LoanInfoRecord createLoanRecord(DialerQueueLoanDetails details, Dialer dialer) {
-        List<BorrowerPhoneData> data = details.getBorrowerPhoneData();
+    private LoanInfoRecord createLoanRecord(DialerQueueAccountDetails details, Dialer dialer) {
+        List<CustomerPhoneData> data = details.getCustomerPhoneData();
         if (data.isEmpty()) {
             return null;
         }
-        BorrowerPhoneData borrower = data.get(0);
+        CustomerPhoneData borrower = data.get(0);
         LoanInfoRecord loanRecord = new LoanInfoRecord();
         loanRecord.setFirstName(borrower.getFirstName());
         loanRecord.setLastName(borrower.getLastName());
-        loanRecord.setLoanPk(details.getLoanPk());
-        loanRecord.setCompleted(dialer != null && dialer.isLoanComplete(details.getLoanPk()));
+        loanRecord.setLoanPk(details.getAccountPk());
+        loanRecord.setCompleted(dialer != null && dialer.isLoanComplete(details.getAccountPk()));
         return loanRecord;
     }
 
     @Path("/{queuePk}/loans/count")
     @GET
-    public int getLoanCount(@PathParam("queuePk") long queuePk) throws SvcException {
+    public int getLoanCount(@PathParam("queuePk") long queuePk) throws Exception {
         Dialer dialer = dialerService.getDialer(queuePk);
         if (dialer == null) {
             return 0;
         }
         OutboundDialerQueueRecord record = dialer.getRecord();
         int count = 0;
-        for (DialerQueueLoanDetails details : record.getLoanDetails()) {
-            List<BorrowerPhoneData> data = details.getBorrowerPhoneData();
+        for (DialerQueueAccountDetails details : record.getLoanDetails()) {
+            List<CustomerPhoneData> data = details.getCustomerPhoneData();
             if (!data.isEmpty()) {
                 count++;
             }
@@ -226,12 +225,12 @@ public class DialerRest {
 
     @Path("/{queuePk}/loans")
     @GET
-    public List<LoanInfoRecord> getLoans(@PathParam("queuePk") long queuePk) throws SvcException {
+    public List<LoanInfoRecord> getLoans(@PathParam("queuePk") long queuePk) throws Exception {
         List<LoanInfoRecord> retList = new ArrayList<>();
         Dialer dialer = dialerService.getDialer(queuePk);
         if (dialer != null) {
             OutboundDialerQueueRecord record = dialer.getRecord();
-            for (DialerQueueLoanDetails details : record.getLoanDetails()) {
+            for (DialerQueueAccountDetails details : record.getLoanDetails()) {
                 LoanInfoRecord loanRecord = createLoanRecord(details, dialer);
                 if (loanRecord != null) {
                     retList.add(loanRecord);
@@ -244,17 +243,17 @@ public class DialerRest {
     @Path("/{queuePk}/loans/{page}/{size}")
     @GET
     public List<LoanInfoRecord> getLoans(@PathParam("queuePk") long queuePk,
-            @PathParam("page") int page, @PathParam("size") int size) throws SvcException {
+            @PathParam("page") int page, @PathParam("size") int size) throws Exception {
         List<LoanInfoRecord> retList = new ArrayList<>();
         Dialer dialer = dialerService.getDialer(queuePk);
         if (dialer != null) {
             OutboundDialerQueueRecord record = dialer.getRecord();
             int index = 0;
-            for (DialerQueueLoanDetails details : record.getLoanDetails()) {
+            for (DialerQueueAccountDetails details : record.getLoanDetails()) {
                 if (retList.size() >= size) {
                     break;
                 }
-                List<BorrowerPhoneData> data = details.getBorrowerPhoneData();
+                List<CustomerPhoneData> data = details.getCustomerPhoneData();
                 if (data.isEmpty()) {
                     continue;
                 }
@@ -263,12 +262,12 @@ public class DialerRest {
                     continue;
                 }
 
-                BorrowerPhoneData borrower = data.get(0);
+                CustomerPhoneData borrower = data.get(0);
                 LoanInfoRecord loanRecord = new LoanInfoRecord();
                 loanRecord.setFirstName(borrower.getFirstName());
                 loanRecord.setLastName(borrower.getLastName());
-                loanRecord.setLoanPk(details.getLoanPk());
-                loanRecord.setCompleted(dialer.isLoanComplete(details.getLoanPk()));
+                loanRecord.setLoanPk(details.getAccountPk());
+                loanRecord.setCompleted(dialer.isLoanComplete(details.getAccountPk()));
                 retList.add(loanRecord);
             }
         }

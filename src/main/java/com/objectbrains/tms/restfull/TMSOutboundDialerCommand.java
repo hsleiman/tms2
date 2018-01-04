@@ -8,14 +8,15 @@ package com.objectbrains.tms.restfull;
 import com.google.gson.Gson;
 import com.objectbrains.ams.iws.UserNotFoundException;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
-import com.objectbrains.svc.iws.BorrowerPhoneData;
-import com.objectbrains.svc.iws.DialerMode;
-import com.objectbrains.svc.iws.DialerQueueLoanDetails;
-import com.objectbrains.svc.iws.LoanBorrowerName;
-import com.objectbrains.svc.iws.OutboundDialerQueueRecord;
-import com.objectbrains.svc.iws.PopupDisplayMode;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TmsCallDetails;
+import com.objectbrains.sti.constants.DialerMode;
+import com.objectbrains.sti.constants.PopupDisplayMode;
+import com.objectbrains.sti.pojo.AccountCustomerName;
+import com.objectbrains.sti.pojo.CustomerPhoneData;
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
+import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
+import com.objectbrains.sti.pojo.TMSCallDetails;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.DialerActiveStatus;
 import com.objectbrains.tms.freeswitch.pojo.DialerInfoPojo;
 import com.objectbrains.tms.freeswitch.premaid.DialplanBuilder;
@@ -35,13 +36,12 @@ import com.objectbrains.tms.service.AgentQueueAssociationService;
 import com.objectbrains.tms.service.AgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.dialer.Dialer;
-import com.objectbrains.tms.service.dialer.DialerException;
 import com.objectbrains.tms.service.dialer.DialerService;
 import com.objectbrains.tms.service.dialer.predict.AgentQueueWeightedPriority;
 import com.objectbrains.tms.utility.GsonUtility;
-import com.objectbrains.tms.websocket.message.Function;
 import com.objectbrains.tms.websocket.Websocket;
 import com.objectbrains.tms.websocket.WebsocketService;
+import com.objectbrains.tms.websocket.message.Function;
 import com.objectbrains.tms.websocket.message.outbound.PhoneToType;
 import com.objectbrains.tms.websocket.message.outbound.PreviewDialerSend;
 import com.objectbrains.tms.websocket.message.outbound.Send;
@@ -83,7 +83,10 @@ public class TMSOutboundDialerCommand {
     private DialerService dialerService;
 
     @Autowired
-    private com.objectbrains.svc.iws.TMSService tmsIWS;
+    private TMSService tmsIWS;
+    
+    @Autowired
+    private DialerQueueService dialerQueueService;
 
     @Autowired
     private HazelcastService hazelcastService;
@@ -158,9 +161,9 @@ public class TMSOutboundDialerCommand {
 
     @Path("/get-all-agents-status-in-queue/{queueId}")
     @GET
-    public List<AgentStatus> getAllAgentStatusInQueue(@PathParam("queueId") int queueId) throws SvcException {
+    public List<AgentStatus> getAllAgentStatusInQueue(@PathParam("queueId") int queueId) throws Exception {
         List<AgentStatus> retList = new ArrayList<>();
-        List<Agent> agents = agentService.getAgents(tmsIWS.getAgentWeightPriorityListForDq(queueId), null, null);
+        List<Agent> agents = agentService.getAgents(dialerQueueService.getAgentWeightPriorityListForDq(queueId), null, null);
         Map<Integer, AgentStats> stats = statsService.getAgentStats(agents);
         Map<Integer, AgentCall> callMap = agentCallService.getActiveCalls(agents);
         for (Agent agent : agents) {
@@ -235,7 +238,7 @@ public class TMSOutboundDialerCommand {
 //    }
     @Path("/get-loan-list-for-queue/{queueId}")
     @GET
-    public List<LoanInfoRecord> getLoanListForQueue(@PathParam("queueId") long queuePk) throws SvcException, UserNotFoundException {
+    public List<LoanInfoRecord> getLoanListForQueue(@PathParam("queueId") long queuePk) throws Exception, UserNotFoundException {
         List<LoanInfoRecord> retList = new ArrayList<>();
         Dialer dialer = dialerService.getDialer(queuePk);
         OutboundDialerQueueRecord record;
@@ -244,17 +247,17 @@ public class TMSOutboundDialerCommand {
         } else {
             record = tmsIWS.getOutboundDialerQueueRecord(queuePk);
         }
-        for (DialerQueueLoanDetails details : record.getLoanDetails()) {
-            List<BorrowerPhoneData> data = details.getBorrowerPhoneData();
+        for (DialerQueueAccountDetails details : record.getLoanDetails()) {
+            List<CustomerPhoneData> data = details.getCustomerPhoneData();
             if (data.isEmpty()) {
                 continue;
             }
-            BorrowerPhoneData borrower = data.get(0);
+            CustomerPhoneData borrower = data.get(0);
             LoanInfoRecord loanRecord = new LoanInfoRecord();
             loanRecord.setFirstName(borrower.getFirstName());
             loanRecord.setLastName(borrower.getLastName());
-            loanRecord.setLoanPk(details.getLoanPk());
-            loanRecord.setCompleted(dialer != null && dialer.isLoanComplete(details.getLoanPk()));
+            loanRecord.setLoanPk(details.getAccountPk());
+            loanRecord.setCompleted(dialer != null && dialer.isLoanComplete(details.getAccountPk()));
             retList.add(loanRecord);
         }
         return retList;
@@ -263,17 +266,17 @@ public class TMSOutboundDialerCommand {
     @Path("/get-loan-list-for-queue/{queueId}/{page}/{size}")
     @GET
     public List<LoanInfoRecord> getLoanListForQueue(@PathParam("queueId") long queuePk,
-            @PathParam("page") int page, @PathParam("size") int size) throws SvcException, UserNotFoundException {
+            @PathParam("page") int page, @PathParam("size") int size) throws Exception, UserNotFoundException {
         List<LoanInfoRecord> retList = new ArrayList<>();
         Dialer dialer = dialerService.getDialer(queuePk);
         if (dialer != null) {
             OutboundDialerQueueRecord record = dialer.getRecord();
             int index = 0;
-            for (DialerQueueLoanDetails details : record.getLoanDetails()) {
+            for (DialerQueueAccountDetails details : record.getLoanDetails()) {
                 if (retList.size() >= size) {
                     break;
                 }
-                List<BorrowerPhoneData> data = details.getBorrowerPhoneData();
+                List<CustomerPhoneData> data = details.getCustomerPhoneData();
                 if (data.isEmpty()) {
                     continue;
                 }
@@ -282,21 +285,21 @@ public class TMSOutboundDialerCommand {
                     continue;
                 }
 
-                BorrowerPhoneData borrower = data.get(0);
+                CustomerPhoneData borrower = data.get(0);
                 LoanInfoRecord loanRecord = new LoanInfoRecord();
                 loanRecord.setFirstName(borrower.getFirstName());
                 loanRecord.setLastName(borrower.getLastName());
-                loanRecord.setLoanPk(details.getLoanPk());
-                loanRecord.setCompleted(dialer.isLoanComplete(details.getLoanPk()));
+                loanRecord.setLoanPk(details.getAccountPk());
+                loanRecord.setCompleted(dialer.isLoanComplete(details.getAccountPk()));
                 retList.add(loanRecord);
             }
         } else {
-            List<LoanBorrowerName> borrowerNames = tmsIWS.getBasicLoanDataForQueue(queuePk, page, size);
-            for (LoanBorrowerName borrowerName : borrowerNames) {
+            List<AccountCustomerName> borrowerNames = dialerQueueService.getBasicAccountDataForQueue(queuePk, page, size);
+            for (AccountCustomerName borrowerName : borrowerNames) {
                 LoanInfoRecord loanRecord = new LoanInfoRecord();
                 loanRecord.setFirstName(borrowerName.getFirstName());
                 loanRecord.setLastName(borrowerName.getLastName());
-                loanRecord.setLoanPk(borrowerName.getLoanPk());
+                loanRecord.setLoanPk(borrowerName.getAccountPk());
                 loanRecord.setCompleted(false);
                 retList.add(loanRecord);
             }
@@ -307,7 +310,7 @@ public class TMSOutboundDialerCommand {
     @Path("/send-preview-dialer-test/{ext}/{type}/{popup}")
     @GET
     public void sendPreviewDialerTest(@PathParam("ext") int ext, @PathParam("type") String type,
-            @Context HttpServletResponse response) throws SvcException, UserNotFoundException {
+            @Context HttpServletResponse response) throws Exception, UserNotFoundException {
 
         LOG.info("Sending Test Preview.");
         Gson gson = GsonUtility.getGson(true);
@@ -342,16 +345,16 @@ public class TMSOutboundDialerCommand {
     @Path("/send-regular-dialer-test/{ext}/{type}/{phone}")
     @GET
     public void sendRegularDialerTest(@PathParam("ext") int ext, @PathParam("type") String type, @PathParam("phone") Long phone,
-            @Context HttpServletResponse response) throws SvcException, UserNotFoundException {
+            @Context HttpServletResponse response) throws Exception, UserNotFoundException {
 
         LOG.info("Sending PowerDialer");
         DialerInfoPojo dialerInfoPojo = new DialerInfoPojo();
 
-        TmsCallDetails callDetails = null;
+        TMSCallDetails callDetails = null;
         callDetails = tmsIWS.getLoanInfoByPhoneNumber(phone);
         if (callDetails != null) {
             Dialer d = dialerService.getDialer(callDetails.getDialerQueuePk());
-            dialerInfoPojo.setSettings(d.getRecord().getSvDialerQueueSettings());
+            dialerInfoPojo.setSettings(d.getRecord().getDialerQueueSettings());
             dialerInfoPojo.setAgentExt(ext);
             dialerInfoPojo.setBorrowerFirstName(callDetails.getFirstName());
             dialerInfoPojo.setBorrowerLastName(callDetails.getLastName());
@@ -372,16 +375,16 @@ public class TMSOutboundDialerCommand {
     @Path("/send-progressive-dialer-step1-test/{ext}/{type}/{phone}")
     @GET
     public void sendProgressiveDialerStep1Test(@PathParam("ext") int ext, @PathParam("type") long qPK, @PathParam("phone") Long phone,
-            @Context HttpServletResponse response) throws SvcException, UserNotFoundException {
+            @Context HttpServletResponse response) throws Exception, UserNotFoundException {
 
         LOG.info("Sending progressive 1");
         DialerInfoPojo dialerInfoPojo = new DialerInfoPojo();
 
-        TmsCallDetails callDetails = null;
+        TMSCallDetails callDetails = null;
         callDetails = tmsIWS.getLoanInfoByPhoneNumber(phone);
         if (callDetails != null) {
             Dialer d = dialerService.getDialer(qPK);
-            dialerInfoPojo.setSettings(d.getRecord().getSvDialerQueueSettings());
+            dialerInfoPojo.setSettings(d.getRecord().getDialerQueueSettings());
             dialerInfoPojo.setAgentExt(ext);
             dialerInfoPojo.setBorrowerFirstName(callDetails.getFirstName());
             dialerInfoPojo.setBorrowerLastName(callDetails.getLastName());
@@ -401,16 +404,16 @@ public class TMSOutboundDialerCommand {
     @Path("/send-progressive-dialer-step2-test/{ext}/{type}/{phone}")
     @GET
     public void sendProgressiveDialerStep2Test(@PathParam("ext") int ext, @PathParam("type") String type, @PathParam("phone") Long phone,
-            @Context HttpServletResponse response) throws SvcException, UserNotFoundException {
+            @Context HttpServletResponse response) throws Exception, UserNotFoundException {
 
         LOG.info("Sending progressive 2");
         DialerInfoPojo dialerInfoPojo = new DialerInfoPojo();
 
-        TmsCallDetails callDetails = null;
+        TMSCallDetails callDetails = null;
         callDetails = tmsIWS.getLoanInfoByPhoneNumber(phone);
         if (callDetails != null) {
             Dialer d = dialerService.getDialer(callDetails.getDialerQueuePk());
-            dialerInfoPojo.setSettings(d.getRecord().getSvDialerQueueSettings());
+            dialerInfoPojo.setSettings(d.getRecord().getDialerQueueSettings());
             dialerInfoPojo.setAgentExt(ext);
             dialerInfoPojo.setBorrowerFirstName(callDetails.getFirstName());
             dialerInfoPojo.setBorrowerLastName(callDetails.getLastName());

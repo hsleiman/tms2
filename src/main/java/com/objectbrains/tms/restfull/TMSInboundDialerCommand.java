@@ -5,12 +5,10 @@
  */
 package com.objectbrains.tms.restfull;
 
-import com.objectbrains.svc.iws.BasicLoanInformationPojo;
-import com.objectbrains.svc.iws.InboundDialerQueueRecord;
-import com.objectbrains.svc.iws.LoanInformationIWS;
-import com.objectbrains.svc.iws.TMSService;
-import com.objectbrains.svc.iws.TmsBasicLoanInfo;
-import com.objectbrains.svc.iws.TmsCallDetails;
+import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
+import com.objectbrains.sti.pojo.TMSCallDetails;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.freeswitch.pojo.AgentIncomingDistributionOrder;
 import com.objectbrains.tms.service.AgentService;
 import com.objectbrains.tms.service.DialerQueueRecordService;
@@ -39,9 +37,11 @@ public class TMSInboundDialerCommand {
     private TMSService tmsIws;
     @Autowired
     private AgentService agentService;
-
+    
     @Autowired
-    private LoanInformationIWS loanInformationIWS;
+    private DialerQueueService dialerQueueService;
+    
+
 
     @Autowired
     private DialerService dialerService;
@@ -51,9 +51,6 @@ public class TMSInboundDialerCommand {
 
     @Autowired
     private DialerQueueRecordService recordRepository;
-
-    @Autowired
-    private com.objectbrains.svc.iws.TMSService tmsIWS;
     
 //    @Path("/set-ready-status/{ext}/{ready}")
 //    @GET
@@ -89,53 +86,53 @@ public class TMSInboundDialerCommand {
 
     @Path("/get-loan-info-by-phone-number/{phone}")
     @GET
-    public TmsCallDetails getLoanInfoByPhoneNumber(@PathParam("phone") long phone) {
+    public TMSCallDetails getLoanInfoByPhoneNumber(@PathParam("phone") long phone) {
         try {
             return tmsIws.getLoanInfoByPhoneNumber(phone);
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
         }
-        return new TmsCallDetails();
+        return new TMSCallDetails();
     }
 
     @Path("/get-loan-info-by-loan-id/{loanid}")
     @GET
-    public TmsCallDetails getLoanInfoByLoan(@PathParam("loanid") long loanid) {
+    public TMSCallDetails getLoanInfoByLoan(@PathParam("loanid") long loanid) {
         try {
             return tmsIws.getLoanInfoByLoanPk(loanid);
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
         }
-        return new TmsCallDetails();
+        return new TMSCallDetails();
     }
 
-    @Path("/get-basic-loan-info/{loanid}")
-    @GET
-    public BasicLoanInformationPojo getBasicLoanInformation(@PathParam("loanid") long loanid) {
-        try {
-            return loanInformationIWS.getBasicLoanInformation(loanid, null);
-        } catch (Exception ex) {
-            LOG.error(ex.getMessage(), ex);
-        }
-        return new BasicLoanInformationPojo();
-    }
+//    @Path("/get-basic-loan-info/{loanid}")
+//    @GET
+//    public BasicLoanInformationPojo getBasicLoanInformation(@PathParam("loanid") long loanid) {
+//        try {
+//            return loanInformationIWS.getBasicLoanInformation(loanid, null);
+//        } catch (Exception ex) {
+//            LOG.error(ex.getMessage(), ex);
+//        }
+//        return new BasicLoanInformationPojo();
+//    }
 
-    @Path("/get-tms-basic-loan-info/{loanid}")
-    @GET
-    public TmsBasicLoanInfo getTmsBasicLoanInfo(@PathParam("loanid") long loanid) {
-        try {
-            return tmsIWS.getBasicLoanInfoForTMS(loanid);
-        } catch (Exception ex) {
-            LOG.error(ex.getMessage(), ex);
-        }
-        return new TmsBasicLoanInfo();
-    }
+//    @Path("/get-tms-basic-loan-info/{loanid}")
+//    @GET
+//    public TmsBasicLoanInfo getTmsBasicLoanInfo(@PathParam("loanid") long loanid) {
+//        try {
+//            return tmsIWS.getBasicLoanInfoForTMS(loanid);
+//        } catch (Exception ex) {
+//            LOG.error(ex.getMessage(), ex);
+//        }
+//        return new TMSBasicAccountInfo();
+//    }
 
     @Path("/update/{queuePk}")
     @GET
     public void updateInboundDialerQueue(@PathParam("queuePk") long queuePk) {
         try {
-            InboundDialerQueueRecord record = tmsIWS.getInboundDialerQueueRecord(queuePk);
+            InboundDialerQueueRecord record = dialerQueueService.getInboundDialerQueueRecord(queuePk);
             recordRepository.storeInboundDialerQueueRecord(record);
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
@@ -146,7 +143,7 @@ public class TMSInboundDialerCommand {
     @GET
     public String getDialerQueuePkForPhoneNumber(@PathParam("destinationNumber") String destinationNumber) {
         try {
-             long queuePk = tmsIWS.getDialerQueuePkForPhoneNumber(destinationNumber);
+             long queuePk = dialerQueueService.getDialerQueuePkForPhoneNumber(destinationNumber);
              return "Queue: "+queuePk;
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);

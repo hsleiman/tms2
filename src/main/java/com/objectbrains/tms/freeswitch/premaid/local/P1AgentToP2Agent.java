@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.local;
 
-import com.objectbrains.svc.iws.PopupDisplayMode;
+import com.objectbrains.sti.constants.PopupDisplayMode;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.FreeswitchContext;

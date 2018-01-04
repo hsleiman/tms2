@@ -7,11 +7,10 @@ package com.objectbrains.tms.restfull;
 
 import com.google.api.services.storage.model.Bucket;
 import com.google.api.services.storage.model.StorageObject;
-import com.objectbrains.svc.iws.AgentWeightPriority;
-import com.objectbrains.svc.iws.BiPlaybackData;
-import com.objectbrains.svc.iws.CallRoutingOption;
-import com.objectbrains.svc.iws.SvcException;
-import com.objectbrains.svc.iws.TMSService;
+import com.objectbrains.sti.constants.CallRoutingOption;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
+import com.objectbrains.sti.embeddable.BIPlaybackData;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.freeswitch.FreeswitchNode;
 import com.objectbrains.tms.db.repository.CdrRepository;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
@@ -190,7 +189,7 @@ public class TMSPhoneCommand {
     
     @GET
     @Path("/get-playback-data/{callUUID}")
-    public BiPlaybackData getBiPlaybackData(@PathParam("callUUID") String callUUID) {
+    public BIPlaybackData getBiPlaybackData(@PathParam("callUUID") String callUUID) {
         return biStoreService.getBiPlaybackData(callUUID);
     }
     
@@ -486,7 +485,7 @@ public class TMSPhoneCommand {
                 
                 websocketService.sendPushNotification(get.getExtension(), msg);
             }
-        } catch (SvcException ex) {
+        } catch (Exception ex) {
             log.error("Exception {}", ex);
         }
         

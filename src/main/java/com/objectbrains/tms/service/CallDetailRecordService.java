@@ -14,6 +14,8 @@ import com.hazelcast.spring.context.SpringAware;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.scheduler.annotation.QuartzJob;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.pojo.TMSBasicAccountInfo;
+import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.cdr.SpeechToText;
@@ -258,7 +260,7 @@ public class CallDetailRecordService {
 
     @Async
     public void saveInitialMasterRecordIntoSVC(com.objectbrains.sti.db.entity.base.dialer.CallDetailRecord callDetailRecordMaster) {
-        tmsIWS.createOrUpdateCallDetailRecord(callDetailRecordMaster);
+//        tmsIWS.createOrUpdateCallDetailRecord(callDetailRecordMaster);
     }
 
     public void saveSBCComplet(String callUUID, Boolean hangupCause, Boolean bridgeHangupCause, CallDispositionCode systemDispositionCode) {
@@ -1165,7 +1167,7 @@ public class CallDetailRecordService {
                 mcdr.setDialerQueueId(cdr.getDialerQueueId());
             } else {
                 if (mcdr.getDialerQueueId() == null && mcdr.getBorrowerInfo() != null && mcdr.getBorrowerInfo().getLoanId() != null) {
-                    TmsCallDetails details = tmsIWS.getLoanInfoByLoanPk(mcdr.getBorrowerInfo().getLoanId());
+                    TMSCallDetails details = tmsIWS.getLoanInfoByLoanPk(mcdr.getBorrowerInfo().getLoanId());
                     if (details != null && details.getDialerQueuePk() != null) {
                         mcdr.setDialerQueueId(details.getDialerQueuePk());
                     }
@@ -1366,7 +1368,7 @@ public class CallDetailRecordService {
             }
 
             if (mcdr.getBorrowerInfo() != null && mcdr.getBorrowerInfo().getLoanId() != null && mcdr.getBorrowerInfo().getLoanId() != 0) {
-                TmsBasicLoanInfo basicLoanInfo = tmsIWS.getBasicLoanInfoForTMS(mcdr.getBorrowerInfo().getLoanId());
+                TMSBasicAccountInfo basicLoanInfo = tmsIWS.getBasicAccountInfoForTMS(mcdr.getBorrowerInfo().getLoanId());
                 mcdr.setNextDueDate(basicLoanInfo.getNextDueDate());
             }
 

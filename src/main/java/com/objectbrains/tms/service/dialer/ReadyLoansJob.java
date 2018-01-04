@@ -6,6 +6,7 @@
 package com.objectbrains.tms.service.dialer;
 
 import com.objectbrains.scheduler.annotation.QuartzJob;
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import com.objectbrains.tms.hazelcast.entity.DialerLoan;
 import java.util.Map;
 import java.util.Queue;
@@ -53,13 +54,13 @@ public class ReadyLoansJob extends DialerQuartzJob {
 
     @Override
     protected void executeInternal(JobExecutionContext context, Dialer dialer) throws JobExecutionException {
-        Queue<DialerQueueLoanDetails> notReadyLoans = dialer.getNotReadyLoans();
-        Queue<DialerQueueLoanDetails> readyLoans = dialer.getReadyLoans();
+        Queue<DialerQueueAccountDetails> notReadyLoans = dialer.getNotReadyLoans();
+        Queue<DialerQueueAccountDetails> readyLoans = dialer.getReadyLoans();
         Map<Long, DialerLoan> dialerLoans = dialer.getLoans();
         LocalTime now = LocalTime.now();
         DateTime nextExecutionTime;
         while (true) {
-            DialerQueueLoanDetails details = notReadyLoans.peek();
+            DialerQueueAccountDetails details = notReadyLoans.peek();
             if (details == null) {
                 //no more loans in the notReadyLoans queue
                 nextExecutionTime = null;
@@ -70,7 +71,7 @@ public class ReadyLoansJob extends DialerQuartzJob {
                 nextExecutionTime = bestTime.toDateTimeToday();
                 break;
             }
-            long loanPk = details.getLoanPk();
+            long loanPk = details.getAccountPk();
             DialerLoan loan = dialerLoans.get(loanPk);
             loan.setState(DialerLoan.State.READY);
             dialerLoans.put(loanPk, loan);
@@ -94,7 +95,7 @@ public class ReadyLoansJob extends DialerQuartzJob {
                 context.getScheduler().rescheduleJob(key, trigger);
             } else {
                 while (!notReadyLoans.isEmpty()) {
-                    long loanPk = notReadyLoans.poll().getLoanPk();
+                    long loanPk = notReadyLoans.poll().getAccountPk();
                     DialerLoan loan = dialerLoans.get(loanPk);
                     loan.setState(DialerLoan.State.NEVER_READY);
                     dialerLoans.put(loanPk, loan);

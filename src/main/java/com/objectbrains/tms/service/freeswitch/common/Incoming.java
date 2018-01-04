@@ -6,6 +6,8 @@
 package com.objectbrains.tms.service.freeswitch.common;
 
 import com.objectbrains.ams.iws.User;
+import com.objectbrains.sti.pojo.TMSBasicAccountInfo;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.IncomingCallRouting;
@@ -45,6 +47,9 @@ public class Incoming {
 
     @Autowired
     private InboundCallService inboundCallService;
+    
+    @Autowired
+    private DialerQueueService dialerQueueService;
 
     @Autowired
     private TMSService tmsIWS;
@@ -105,7 +110,7 @@ public class Incoming {
 
         }
 
-        long queuePk = tmsIWS.getDialerQueuePkForPhoneNumber(destinationNumber);
+        long queuePk = dialerQueueService.getDialerQueuePkForPhoneNumber(destinationNumber);
         log.info("Checking Distination {} is in queue {}", variable.getCalleeIdLong(), queuePk);
         if (queuePk != -1) {
             ado = inboundCallService.inboundCallOrder(queuePk, variable.getCallerIdLong(), TMS_UUID);
@@ -220,8 +225,8 @@ public class Incoming {
         }
 
         //BasicLoanInformationPojo blip = null;
-        TmsBasicLoanInfo basicLoanInfo = null;
-        basicLoanInfo = tmsIWS.getBasicLoanInfoForTMS(loanId);
+        TMSBasicAccountInfo basicLoanInfo = null;
+        basicLoanInfo = tmsIWS.getBasicAccountInfoForTMS(loanId);
         //This logic is also in the IVR it should 
         if (isNotDelinquent(basicLoanInfo)) {//} else if (ado.getCallDetails().getLoanServicingStatus() == 1) {
             log.info("Sending to IVR. ");
@@ -237,12 +242,12 @@ public class Incoming {
         return IncomingCallRouting.SEND_TO_AGENT;
     }
 
-    public boolean isNotDelinquent(TmsBasicLoanInfo blip) {
+    public boolean isNotDelinquent(TMSBasicAccountInfo blip) {
         try {
             if (blip != null) {
-                log.info("Is Not Delinquent: {} - {} - {}", blip.getLoanPk(), blip.getNextDueDate());
+                log.info("Is Not Delinquent: {} - {} - {}", blip.getAccountPk(), blip.getNextDueDate());
                 if (blip.getNextDueDate() != null) {
-                    log.info("Is Not Delinquent: {} - {}", blip.getLoanPk(), blip.getNextDueDate().isAfter(LocalDate.now()));
+                    log.info("Is Not Delinquent: {} - {}", blip.getAccountPk(), blip.getNextDueDate().isAfter(LocalDate.now()));
                 }
             }
             return blip != null && blip.getNextDueDate().isAfter(LocalDate.now());

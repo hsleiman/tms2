@@ -5,8 +5,7 @@
  */
 package com.objectbrains.tms.freeswitch.premaid;
 
-import com.objectbrains.svc.iws.SvCallDetailRecord;
-import com.objectbrains.svc.iws.TMSService;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.db.hibernate.ApplicationContextProvider;
@@ -26,7 +25,6 @@ import com.objectbrains.tms.service.FreeswitchService;
 import com.objectbrains.tms.service.InboundCallService;
 import com.objectbrains.tms.service.TextToSpeechService;
 import com.objectbrains.tms.service.freeswitch.CallingOutService;
-import com.objectbrains.tms.service.freeswitch.common.Incoming;
 import com.objectbrains.tms.service.freeswitch.common.Incoming2;
 import com.objectbrains.tms.websocket.Websocket;
 import java.util.UUID;
@@ -122,16 +120,16 @@ public abstract class DialplanBuilder implements DialplanInterface {
         this.buildDialplans();
         this.saveDialplans();
 
-        if (configuration.sendCDRSyncToSVCAtStartOfDialplan()) {
-            if (callDetailRecord.getDialplan_type().equalsIgnoreCase("AgentToAgent") == false) {
-                if (tmsDialplan != null) {
-                    SvCallDetailRecord callDetailRecordMaster = new SvCallDetailRecord();
-                    callDetailRecordMaster.setCallUUID(callDetailRecord.getCall_uuid());
-                    callDetailRecordMaster.setDialer(tmsDialplan.getDialer());
-                    callDetailRecordService.saveInitialMasterRecordIntoSVC(callDetailRecordMaster);
-                }
-            }
-        }
+//        if (configuration.sendCDRSyncToSVCAtStartOfDialplan()) {
+//            if (callDetailRecord.getDialplan_type().equalsIgnoreCase("AgentToAgent") == false) {
+//                if (tmsDialplan != null) {
+//                    SvCallDetailRecord callDetailRecordMaster = new SvCallDetailRecord();
+//                    callDetailRecordMaster.setCallUUID(callDetailRecord.getCall_uuid());
+//                    callDetailRecordMaster.setDialer(tmsDialplan.getDialer());
+//                    callDetailRecordService.saveInitialMasterRecordIntoSVC(callDetailRecordMaster);
+//                }
+//            }
+//        }
     }
 
     public void execute() {

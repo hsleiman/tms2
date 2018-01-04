@@ -8,7 +8,13 @@ package com.objectbrains.tms.websocket;
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.embeddable.AgentWeightPriority;
+import com.objectbrains.sti.pojo.CallDispositionLogData;
+import com.objectbrains.sti.pojo.PhoneNumberAccountData;
 import com.objectbrains.sti.pojo.UserData;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
+import com.objectbrains.sti.service.tms.CallDispositionService;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.Chat;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.repository.CallDetailRecordRepository;
@@ -113,6 +119,12 @@ public class WebsocketService {
 
     @Autowired
     private TMSService tmsIws;
+    
+    @Autowired
+    private DialerQueueService dialerQueueService;
+    
+    @Autowired
+    private CallDispositionService callDispositionService;
 
     @Autowired
     private CallService callService;
@@ -253,16 +265,16 @@ public class WebsocketService {
                         }
                     }
                     if (phoneNumber != null) {
-                        List<PhoneNumberLoanData> pnld = tmsIws.getLoansForPhoneNumber(phoneNumber);
+                        List<PhoneNumberAccountData> pnld = tmsIws.getAccountsForPhoneNumber(phoneNumber);
                         phoneCheck.setCount(pnld.size());
 
                         List<PhoneCheckData> borrowerInfoList = new ArrayList<>();
-                        for (PhoneNumberLoanData data : pnld) {
+                        for (PhoneNumberAccountData data : pnld) {
                             PhoneCheckData borrowerInfo = new PhoneCheckData();
                             borrowerInfo.setBorrowerFirstName(data.getFirstName());
                             borrowerInfo.setBorrowerLastName(data.getLastName());
                             borrowerInfo.setLoanId(data.getLoanPk());
-                            borrowerInfo.setDnc(data.isDoNotCall());
+                            borrowerInfo.setDnc(data.getDoNotCall());
                             borrowerInfo.setBorrowerPhoneNumber(phoneNumber.toString());
                             borrowerInfoList.add(borrowerInfo);
                         }
@@ -355,14 +367,14 @@ public class WebsocketService {
                     }
                     AgentCall call = agentCallService.updateCallState(ext, recieve.getCall_uuid(), phoneStatus, recieve.getPhone(), dispositionId);
                     callDetailRecordService.updateCallState(recieve.getCall_uuid(), phoneStatus, dispositionId);
-                    if (phoneStatus == PhoneStatus.WRAP) {
-                        CallDetailRecord mcdr = callDetailRecordService.getCDR(recieve.getCall_uuid());
-                        cdrService.offerNewMasterCallDetailRecordToSVCONLY(mcdr);
-
-                        if (log != null) {
-                            sendDispositionLogToSvc(ext, recieve.getCall_uuid(), dispositionId, log, call);
-                        }
-                    }
+//                    if (phoneStatus == PhoneStatus.WRAP) {
+//                        CallDetailRecord mcdr = callDetailRecordService.getCDR(recieve.getCall_uuid());
+//                        cdrService.offerNewMasterCallDetailRecordToSVCONLY(mcdr);
+//
+//                        if (log != null) {
+//                            sendDispositionLogToSvc(ext, recieve.getCall_uuid(), dispositionId, log, call);
+//                        }
+//                    }
                     break;
                 }
                 case FREESWITCH_CHECK:
@@ -601,12 +613,12 @@ public class WebsocketService {
     private List<CallDispositionCode> getCallDispositionCodes(int ext, String callUUID) {
         AgentCall call = agentCallService.getAgentCall(ext, callUUID);
         if (call == null) {
-            return tmsIws.getAllCallDispositionCodes();
+            return callDispositionService.getAllCallDispositionCodes();
         }
         Long loanId = call.getBorrowerInfo().getLoanId();
         if (loanId != null) {
             try {
-                return tmsIws.getCallDispositionCodesForLoan(loanId, call.getCallDirection() == CallDirection.INBOUND);
+                return dialerQueueService.getCallDispositionCodesForAccount(loanId, call.getCallDirection() == CallDirection.INBOUND);
             } catch (Throwable ex) {
                 LOG.warn("Ext: {}, CallUUID: {}. "
                         + "Unable to get call disposition list for loan {},"
@@ -616,7 +628,7 @@ public class WebsocketService {
         Long queuePk = call.getQueuePk();
         if (queuePk != null) {
             try {
-                return tmsIws.getCallDispositionCodesForQueue(queuePk);
+                return dialerQueueService.getCallDispositionCodesForQueue(queuePk);
             } catch (Throwable ex) {
                 LOG.warn("Ext: {}, CallUUID: {}. "
                         + "Unable to get call disposition list for queue {},"
@@ -625,9 +637,9 @@ public class WebsocketService {
         }
         switch (call.getCallDirection()) {
             case INBOUND:
-                return tmsIws.getAllDefaultInboundDispositionCodes();
+                return callDispositionService.getAllDefaultInboundDispositionCodes();
             case OUTBOUND:
-                return tmsIws.getAllDefaultOutboundDispositionCodes();
+                return callDispositionService.getAllDefaultOutboundDispositionCodes();
             default:
                 return Collections.emptyList();
         }
@@ -744,22 +756,22 @@ public class WebsocketService {
         Long loanId = null;
         if (call != null) {
             loanId = call.getBorrowerInfo().getLoanId();
-            data.setCallDirection(com.objectbrains.svc.iws.CallDirection.valueOf(call.getCallDirection().name()));
+            data.setCallDirection(com.objectbrains.sti.constants.CallDirection.valueOf(call.getCallDirection().name()));
             data.setPhoneNumber(call.getBorrowerInfo().getBorrowerPhoneNumber());
         }
         if (loanId == null) {
             LOG.warn("Ext: {}, CallUUID: {}. Unable to determine loan id.", ext, callUUID);
             return;
         }
-        data.setLoanPk(loanId);
+        data.setAccountPk(loanId);
 
         Agent agent = agentService.getAgent(ext);
         UserData userData = new UserData();
         userData.setUserName(agent.getUserName());
-        try {
-            tmsIws.addCallDispositionLog(data, userData);
-        } catch (Throwable ex) {
-            LOG.error("Ext: {}, CallUUID: {}. Error occured while saving disposition note in svc", ext, callUUID, ex);
-        }
+//        try {
+//            tmsIws.addCallDispositionLog(data, userData);
+//        } catch (Throwable ex) {
+//            LOG.error("Ext: {}, CallUUID: {}. Error occured while saving disposition note in svc", ext, callUUID, ex);
+//        }
     }
 }

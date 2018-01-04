@@ -12,11 +12,10 @@ import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.sti.constants.*;
-import static com.objectbrains.sti.constants.DialerQueueType.OUTBOUND;
 import com.objectbrains.sti.db.entity.agent.AgentDialerGroup;
 import com.objectbrains.sti.db.entity.agent.DialerGroup;
-import com.objectbrains.sti.db.entity.base.WorkQueue;
 import com.objectbrains.sti.db.entity.base.account.Account;
+import com.objectbrains.sti.db.entity.base.WorkQueue;
 import com.objectbrains.sti.db.entity.base.customer.Customer;
 import com.objectbrains.sti.db.entity.base.customer.Phone;
 import com.objectbrains.sti.db.entity.base.dialer.*;
@@ -40,15 +39,6 @@ import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.sti.service.utility.HttpClient;
 import com.objectbrains.sti.service.utility.PhoneUtils;
 import org.apache.commons.io.IOUtils;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 import org.hibernate.proxy.HibernateProxy;
@@ -62,6 +52,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static com.objectbrains.sti.constants.DialerQueueType.OUTBOUND;
+import javax.persistence.EntityNotFoundException;
 
 /**
  * @author David
@@ -125,6 +128,7 @@ public class DialerQueueService {
         //return queue.getDialerQueueDetails();
         return null;
     }
+    
 
     public DialerQueueDetails createDialerQueueFromCollectionQueue(long workQueuePk, DialerQueueType dqType) throws StiException {
         DialerQueue queue = dqRepo.findDialerQueueWithWorkQueuePk(workQueuePk, dqType);
@@ -264,6 +268,8 @@ public class DialerQueueService {
             throw new StiException("Cannot update dialer queue. Query " + query.getName() + " is already referenced by dialer queue " + existing.getDialerQueueDetails().getQueueName());
         }*/
     }
+    
+    
 
     private DialerQueueSettings instantiateDQSettings(DialerQueueDetails dqDetails) throws StiException {
         DialerQueueSettings dqSettings;
@@ -448,7 +454,7 @@ public class DialerQueueService {
             dqSettings.setPreviewDialerType(PreviewDialerType.REGULAR);
         }
         if (dqSettings.getCallerId() == null) {
-            dqSettings.setCallerId(com.objectbrains.sti.constants.CallerId.ACTUAL);
+            dqSettings.setCallerId(CallerId.ACTUAL);
         }
         if (dqSettings.getPhoneTypesAllowed() == null) {
             dqSettings.setPhoneTypesAllowed("0,2,3");
@@ -634,7 +640,7 @@ public class DialerQueueService {
         return agentWeightPriorityList;
     }
 
-    private List<AgentWeightPriority> getAgentWeightPriorityForDialerGroup(DialerGroup dialerGroup) {
+    public List<AgentWeightPriority> getAgentWeightPriorityForDialerGroup(DialerGroup dialerGroup) {
         List<AgentWeightPriority> agentWeightPriorityList = new ArrayList<>();
         if (dialerGroup != null) {
             agentWeightPriorityList.addAll(getAgentWeightPriorityListForGroups(dialerGroup, null));
@@ -1092,14 +1098,14 @@ public class DialerQueueService {
         return dqRepo.getAllHoldMusic();
     }
 
-    public CallerId createOrUpdateCallerId(CallerId callerId) throws StiException {
+    public StiCallerId createOrUpdateCallerId(StiCallerId callerId) throws StiException {
         if (callerId == null) {
             throw new StiException("Please provide caller ID details.");
         }
         if (callerId.getCallerIdNumber() == null || callerId.getCallerIdNumber() <= 0) {
             throw new StiException("Please provide the caller ID number.");
         }
-        CallerId existingCI = dqRepo.getCallerIdByNumber(callerId.getCallerIdNumber());
+        StiCallerId existingCI = dqRepo.getCallerIdByNumber(callerId.getCallerIdNumber());
         if (existingCI != null) {
             if (existingCI.equals(callerId)) {
                 return existingCI;
@@ -1113,7 +1119,7 @@ public class DialerQueueService {
         return callerId;
     }
 
-    public List<CallerId> getAllCallerIds() {
+    public List<StiCallerId> getAllCallerIds() {
         return dqRepo.getAllCallerIds();
     }
 
@@ -1157,8 +1163,8 @@ public class DialerQueueService {
         return getInboundDialerQueueRecord(dqDetails.getPk());
     }
 
-    public List<CallerId> loadCallerIdNumbers() {
-        List<CallerId> svCallerIds = new ArrayList<>();
+    public List<StiCallerId> loadCallerIdNumbers() {
+        List<StiCallerId> svCallerIds = new ArrayList<>();
         try {
             String callerIdNumbers = IOUtils.toString(ResourceUtils.getURL("classpath:com/objectbrains/svc/dialer/CallerIDNumbers.properties"));
             List<String> callerIdList = Arrays.asList(callerIdNumbers.split("[\\s*,;]+"));
@@ -1166,7 +1172,7 @@ public class DialerQueueService {
                 Long callerIdNumber = Long.valueOf(callerId);
                 try {
                     if (StringUtils.isNotBlank(callerId)) {
-                        CallerId svCallerId = new CallerId();
+                        StiCallerId svCallerId = new StiCallerId();
                         svCallerId.setCallerIdNumber(callerIdNumber);
                         svCallerId = createOrUpdateCallerId(svCallerId);
                         svCallerIds.add(svCallerId);
@@ -1366,5 +1372,10 @@ public class DialerQueueService {
         }
     }
 
+     public List<AccountCustomerName> getBasicLoanDataForQueue(long queuePk, Integer pageNum, Integer pageSize) {
+        List<AccountCustomerName> list = new ArrayList<>();
+       
+        return list;
+    } 
 
 }

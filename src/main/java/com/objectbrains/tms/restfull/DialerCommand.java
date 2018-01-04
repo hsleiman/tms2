@@ -5,10 +5,8 @@
  */
 package com.objectbrains.tms.restfull;
 
-import com.objectbrains.svc.iws.SvcException;
 import com.objectbrains.tms.service.dialer.DialerException;
 import com.objectbrains.tms.service.dialer.DialerService;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -37,7 +35,7 @@ public class DialerCommand {
 
     @Path("/start/{queuePk}")
     @POST
-    public void startQueue(@PathParam("queuePk") Long queuePk) throws SvcException, DialerException {
+    public void startQueue(@PathParam("queuePk") Long queuePk) throws Exception, DialerException {
         dialerService.startQueue(queuePk);
     }
 

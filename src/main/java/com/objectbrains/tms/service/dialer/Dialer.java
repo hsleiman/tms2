@@ -9,6 +9,7 @@ import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.exception.CallNotFoundException;
@@ -35,12 +36,12 @@ public interface Dialer {
 
     public boolean isLoanComplete(Long loanPk);
 
-    public Queue<DialerQueueLoanDetails> getReadyLoans();
+    public Queue<DialerQueueAccountDetails> getReadyLoans();
 
 //    public Queue<LoanNumber> getReadyRetryCalls();
     public void addReadyCall(LoanNumber loanNumber);
 
-    public Queue<DialerQueueLoanDetails> getNotReadyLoans();
+    public Queue<DialerQueueAccountDetails> getNotReadyLoans();
 
     public Map<Long, DialerLoan> getLoans();
 

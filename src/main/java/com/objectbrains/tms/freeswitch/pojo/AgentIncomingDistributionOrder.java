@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.objectbrains.sti.constants.PopupDisplayMode;
 import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
+import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.tms.hazelcast.entity.Agent;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.pojo.BorrowerInfo;
@@ -64,7 +65,7 @@ public class AgentIncomingDistributionOrder implements Serializable {
     private String dialerQueueName;
 
     @Expose
-    private TmsCallDetails callDetails;
+    private TMSCallDetails callDetails;
 
     private String logOfCallOrder = "";
 
@@ -203,11 +204,11 @@ public class AgentIncomingDistributionOrder implements Serializable {
         this.settings = settings;
     }
 
-    public TmsCallDetails getCallDetails() {
+    public TMSCallDetails getCallDetails() {
         return callDetails;
     }
 
-    public void setCallDetails(TmsCallDetails callDetails) {
+    public void setCallDetails(TMSCallDetails callDetails) {
         this.callDetails = callDetails;
     }
 

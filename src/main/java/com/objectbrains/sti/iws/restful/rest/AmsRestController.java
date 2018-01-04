@@ -76,6 +76,7 @@ public class AmsRestController {
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
     public void updateAmsUser(@RequestBody UpdateUserRequest updateUserRequest) throws IOException, UserAlreadyExistsException, InvalidFieldException, UserNotFoundException {
         agentService.updateAmsUser(updateUserRequest);
+        agentService.syncAllUsersFromAMS();
     }
     
     @RequestMapping(value = "/addPermissionToUser", method = POST)

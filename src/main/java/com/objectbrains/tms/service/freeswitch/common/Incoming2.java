@@ -6,6 +6,7 @@
 package com.objectbrains.tms.service.freeswitch.common;
 
 import com.objectbrains.ams.iws.User;
+import com.objectbrains.sti.pojo.TMSBasicAccountInfo;
 import com.objectbrains.svc.iws.IvrAchInformationPojo;
 import com.objectbrains.svc.iws.TMSService;
 import com.objectbrains.svc.iws.TmsBasicLoanInfo;
@@ -346,14 +347,14 @@ public class Incoming2 {
         return IncomingCallRouting.SEND_TO_AGENT;
     }
 
-    public boolean isNotDelinquent(TmsBasicLoanInfo blip) {
+    public boolean isNotDelinquent(TMSBasicAccountInfo blip) {
         try {
             if (blip != null) {
-                log.info("Is Not Delinquent: {} - {} - {}", blip.getLoanPk(), blip.getNextDueDate());
-                dialplanRepository.LogDialplanInfoIntoDb("", "Is Not Delinquent: {} - {} - {}", blip.getLoanPk(), blip.getNextDueDate());
+                log.info("Is Not Delinquent: {} - {} - {}", blip.getAccountPk(), blip.getNextDueDate());
+                dialplanRepository.LogDialplanInfoIntoDb("", "Is Not Delinquent: {} - {} - {}", blip.getAccountPk(), blip.getNextDueDate());
                 if (blip.getNextDueDate() != null) {
-                    log.info("Is Not Delinquent: {} - {}", blip.getLoanPk(), blip.getNextDueDate().isAfter(LocalDate.now()));
-                    dialplanRepository.LogDialplanInfoIntoDb("", "Is Not Delinquent: {} - {}", blip.getLoanPk(), blip.getNextDueDate().isAfter(LocalDate.now()));
+                    log.info("Is Not Delinquent: {} - {}", blip.getAccountPk(), blip.getNextDueDate().isAfter(LocalDate.now()));
+                    dialplanRepository.LogDialplanInfoIntoDb("", "Is Not Delinquent: {} - {}", blip.getAccountPk(), blip.getNextDueDate().isAfter(LocalDate.now()));
                 }
             }
             return blip != null && blip.getNextDueDate().isAfter(LocalDate.now());

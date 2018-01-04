@@ -7,6 +7,7 @@ package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.spring.context.SpringAware;
 import com.objectbrains.sti.constants.CallRoutingOption;
+import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.DialerType;
@@ -87,10 +88,10 @@ public class ProgressiveDialer extends AbstractDialer {
     }
 
     @Override
-    protected String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueLoanDetails details) {
+    protected String makeCall(Integer ext, LoanNumber loanNumber, DialerQueueAccountDetails details) {
         PhoneToType type = Utils.getPhoneToType(loanNumber, details);
         //ignore ext
-        return callService.initiatePredictiveCall(record.getDialerQueueSettings(), details.getLoanPk(), type);
+        return callService.initiatePredictiveCall(record.getDialerQueueSettings(), details.getAccountPk(), type);
     }
 
     @Override
