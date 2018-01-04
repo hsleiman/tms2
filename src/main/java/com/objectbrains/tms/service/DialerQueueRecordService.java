@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -79,7 +80,8 @@ public class DialerQueueRecordService {
         List<AgentWeightedPriority> weightPriorities = new ArrayList<>();
         Map<String, Integer> nameToExtension = new HashMap<>();
         Set<AgentQueueKey> agentQueueKeys = new HashSet<>();
-        for (AgentWeightPriority agentWeightPriority : record.getAgentWeightPriorityList()) {
+        for (Iterator it = record.getAgentWeightPriorityList().iterator(); it.hasNext();) {
+            AgentWeightPriority agentWeightPriority = (AgentWeightPriority) it.next();
             String userName = agentWeightPriority.getUsername();
             Integer extension = nameToExtension.get(agentWeightPriority.getUsername());
             if (extension == null) {
