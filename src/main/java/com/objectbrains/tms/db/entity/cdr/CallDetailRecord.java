@@ -31,7 +31,7 @@ import org.joda.time.LocalDateTime;
  * @author hsleiman
  */
 @Entity
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class CallDetailRecord implements Serializable {
 
     @Id
