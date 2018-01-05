@@ -21,7 +21,7 @@ import org.joda.time.LocalDateTime;
  * @author connorpetty
  */
 @Entity(name = "DialerCall")
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class DialerCallEntity extends DialerCall {
 
     @ManyToOne(fetch = FetchType.LAZY)

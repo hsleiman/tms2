@@ -22,7 +22,7 @@ import org.joda.time.LocalDateTime;
  * @author hsleiman
  */
 @Entity
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class WebsocketLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

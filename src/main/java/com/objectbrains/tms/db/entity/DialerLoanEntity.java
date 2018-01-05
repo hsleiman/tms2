@@ -33,7 +33,7 @@ import org.joda.time.LocalDateTime;
  * @author connorpetty
  */
 @Entity(name = "DialerLoan")
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class DialerLoanEntity extends DialerLoan {
 
     @EmbeddedId
