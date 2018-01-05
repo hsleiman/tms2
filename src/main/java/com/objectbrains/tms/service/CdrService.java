@@ -30,7 +30,7 @@ public class CdrService {
     private DialplanService dialplanRepository;
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private HazelcastService hazelcast;

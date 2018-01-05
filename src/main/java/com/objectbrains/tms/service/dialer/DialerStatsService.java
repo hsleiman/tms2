@@ -19,7 +19,7 @@ import com.objectbrains.tms.hazelcast.entity.DialerCall;
 import com.objectbrains.tms.hazelcast.entity.DialerLoan;
 import com.objectbrains.tms.hazelcast.entity.DialerStats;
 import com.objectbrains.tms.service.AgentQueueAssociationService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.dialer.Dialer.State;
 import com.objectbrains.tms.websocket.WebsocketService;
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class DialerStatsService {
 
     @Autowired
     @Lazy
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private AgentQueueAssociationService assocService;

@@ -7,7 +7,7 @@ package com.objectbrains.tms.websocket;
 
 import com.objectbrains.scheduler.annotation.QuartzJob;
 import com.objectbrains.tms.enumerated.SetAgentState;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -25,7 +25,7 @@ public class SetAgentOfflineJob extends QuartzJobBean {
     public static final String NAME = "SetAgentOffline";
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     private Integer ext;
 

@@ -7,9 +7,9 @@ package com.objectbrains.sti.service.auth;
 
 import com.hazelcast.core.IMap;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
-import com.objectbrains.sti.config.Configs;
 import com.objectbrains.sti.constants.Permission;
 import com.objectbrains.sti.constants.RoleType;
+import com.objectbrains.tms.hazelcast.Configs;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

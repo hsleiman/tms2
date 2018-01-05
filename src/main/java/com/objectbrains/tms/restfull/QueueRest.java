@@ -16,7 +16,7 @@ import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.pojo.LoanInfoRecord;
 import com.objectbrains.tms.restfull.pojo.QueueAgentStatus;
 import com.objectbrains.tms.service.AgentCallService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.Utils;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class QueueRest {
     private DialerQueueService dialerQueueService;
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private AgentStatsService statsService;

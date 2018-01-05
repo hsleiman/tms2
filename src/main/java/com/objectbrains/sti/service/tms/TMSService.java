@@ -21,10 +21,10 @@ import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.objectbrains.sti.db.entity.base.dialer.SpeechToText;
 import com.objectbrains.sti.db.entity.base.dialer.StiCallerId;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
-import com.objectbrains.sti.db.repository.AgentRepository;
+import com.objectbrains.sti.db.repository.StiAgentRepository;
 import com.objectbrains.sti.db.repository.account.AccountRepository;
 import com.objectbrains.sti.db.repository.dialer.BIMessageRepository;
-import com.objectbrains.sti.db.repository.dialer.CallDetailRecordRepository;
+import com.objectbrains.sti.db.repository.dialer.StiCallDetailRecordRepository;
 import com.objectbrains.sti.db.repository.dialer.DialerQueueRepository;
 import com.objectbrains.sti.db.repository.disposition.CallDispositionRepository;
 import com.objectbrains.sti.db.repository.qaform.CallQualityManagementRepository;
@@ -73,13 +73,13 @@ public class TMSService {
     @Autowired
     private AccountRepository accountRepo;
     @Autowired
-    private CallDetailRecordRepository cdrRepo;
+    private StiCallDetailRecordRepository cdrRepo;
     @Autowired
     private CallQualityManagementRepository callQualityRepo;
     @Autowired
     private DialerQueueRepository dqRepo;
     @Autowired
-    private AgentRepository agentRepo;
+    private StiAgentRepository agentRepo;
     @Autowired
     private DialerQueueService dqService;
     @PersistenceContext

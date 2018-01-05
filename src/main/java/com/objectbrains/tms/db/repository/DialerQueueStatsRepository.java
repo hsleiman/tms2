@@ -31,7 +31,7 @@ public class DialerQueueStatsRepository {
     private EntityManager entityManager;
 
     @Autowired
-    private DialerQueueRepository queueRepository;
+    private TmsDialerQueueRepository queueRepository;
 
     public DialerStatsEntity getCurrentStats(long queuePk) {
         try {

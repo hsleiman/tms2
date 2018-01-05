@@ -47,6 +47,7 @@ import com.objectbrains.tms.pojo.UploadCallRecordingPOJO;
 import com.objectbrains.tms.service.ReportService;
 import com.objectbrains.tms.service.dialer.Dialer;
 import com.objectbrains.tms.service.dialer.LoanNumber;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
@@ -460,5 +461,49 @@ public class Configs implements BeanFactoryAware {
         ExecutorConfig config = new ExecutorConfig(AGENT_CALL_EXECUTOR_SERVICE.getName(), Runtime.getRuntime().availableProcessors());
         config.setStatisticsEnabled(false);
         return config;
+    }
+    
+    
+    
+    public static final MapKey<String, String> USER_TOKEN_KEY_MAP = new MapKey<>("USER_TOKEN_KEY_MAP");
+    public static final MapKey<String, List<Integer>> USER_PERMISSION_KEY_MAP = new MapKey<>("USER_PERMISSION_KEY_MAP");
+    public static final MapKey<String, String> TOKEN_USER_KEY_MAP = new MapKey<>("TOKEN_USER_KEY_MAP");
+
+
+    @Bean
+    public MapConfig userTokenKeyMapConfig() {
+        MapConfig config = new MapConfig(USER_TOKEN_KEY_MAP.getName());
+        config.setMaxIdleSeconds(60 * 30);
+        config.setAsyncBackupCount(1);
+        config.setNearCacheConfig(getNearCacheConfigLFU(USER_TOKEN_KEY_MAP.getName()));
+        return config;
+    }
+
+    @Bean
+    public MapConfig tokenUserKeyMapConfig() {
+        MapConfig config = new MapConfig(TOKEN_USER_KEY_MAP.getName());
+        config.setMaxIdleSeconds(60 * 30);
+        config.setAsyncBackupCount(1);
+        config.setNearCacheConfig(getNearCacheConfigLFU(TOKEN_USER_KEY_MAP.getName()));
+        return config;
+    }
+
+    @Bean
+    public MapConfig userPermissionKeyMapConfig() {
+        MapConfig config = new MapConfig(USER_PERMISSION_KEY_MAP.getName());
+        config.setMaxIdleSeconds(60 * 30);
+        config.setAsyncBackupCount(1);
+        config.setNearCacheConfig(getNearCacheConfigLFU(USER_PERMISSION_KEY_MAP.getName()));
+        return config;
+    }
+
+    private NearCacheConfig getNearCacheConfigLFU(String name) {
+        NearCacheConfig nearCacheConfig = new NearCacheConfig(name + "NearCache");
+        nearCacheConfig.setCacheLocalEntries(true);
+        nearCacheConfig.setMaxIdleSeconds(300);
+        nearCacheConfig.setMaxSize(300);
+        nearCacheConfig.setEvictionPolicy("LFU");
+        nearCacheConfig.setInvalidateOnChange(true);
+        return nearCacheConfig;
     }
 }

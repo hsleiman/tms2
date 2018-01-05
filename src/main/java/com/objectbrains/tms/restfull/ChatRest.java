@@ -11,7 +11,7 @@ import com.objectbrains.tms.db.entity.Chat;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.pojo.AgentChat;
 import com.objectbrains.tms.pojo.PostChatBody;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.websocket.WebsocketService;
 import java.util.Map;
@@ -42,7 +42,7 @@ public class ChatRest {
     private ConfigurationUtility config;
     
     @Autowired
-    AgentService agentService;
+    TMSAgentService agentService;
     
     @Autowired
     WebsocketService ws;

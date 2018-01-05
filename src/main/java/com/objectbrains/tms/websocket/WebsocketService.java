@@ -34,7 +34,7 @@ import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.pojo.AgentStatus;
 import com.objectbrains.tms.pojo.PostChatBody;
 import com.objectbrains.tms.service.AgentCallService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.CallDetailRecordService;
 import com.objectbrains.tms.service.CdrService;
@@ -94,7 +94,7 @@ public class WebsocketService {
     private ConfigurationUtility config;
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private AgentCallService agentCallService;

@@ -10,7 +10,7 @@ import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.freeswitch.pojo.AgentIncomingDistributionOrder;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.DialerQueueRecordService;
 import com.objectbrains.tms.service.InboundCallService;
 import com.objectbrains.tms.service.dialer.DialerService;
@@ -36,7 +36,7 @@ public class TMSInboundDialerCommand {
     @Autowired
     private TMSService tmsIws;
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
     
     @Autowired
     private DialerQueueService dialerQueueService;

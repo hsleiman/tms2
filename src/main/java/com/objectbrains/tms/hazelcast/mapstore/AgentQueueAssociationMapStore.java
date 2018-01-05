@@ -11,7 +11,7 @@ import com.objectbrains.tms.db.entity.AgentQueueAssociation;
 import com.objectbrains.tms.db.entity.AgentRecord;
 import com.objectbrains.tms.db.entity.DialerQueue;
 import com.objectbrains.tms.db.repository.AgentRepository;
-import com.objectbrains.tms.db.repository.DialerQueueRepository;
+import com.objectbrains.tms.db.repository.TmsDialerQueueRepository;
 import static com.objectbrains.tms.hazelcast.Configs.AGENT_QUEUE_ASSOCIATION_MAP_STORE_BEAN_NAME;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.hazelcast.keys.AgentQueueKey;
@@ -55,7 +55,7 @@ public class AgentQueueAssociationMapStore implements MapStore<AgentQueueKey, Ag
     private AgentRepository agentRepository;
 
     @Autowired
-    private DialerQueueRepository queueRepository;
+    private TmsDialerQueueRepository queueRepository;
 
     @Override
     @Transactional

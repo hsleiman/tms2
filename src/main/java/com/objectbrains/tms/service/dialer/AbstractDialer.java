@@ -38,7 +38,7 @@ import com.objectbrains.tms.hazelcast.entity.DialerLoan;
 import com.objectbrains.tms.hazelcast.entity.DialerStats;
 import com.objectbrains.tms.service.AgentCallService;
 import com.objectbrains.tms.service.AgentQueueAssociationService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.CallDetailRecordService;
 import com.objectbrains.tms.service.DialplanService;
@@ -101,7 +101,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
     protected DialerService dialerService;
 
     @Autowired
-    protected AgentService agentService;
+    protected TMSAgentService agentService;
 
     @Autowired
     protected AgentStatsService statsService;

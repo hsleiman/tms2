@@ -7,7 +7,7 @@ package com.objectbrains.sti.db.repository.qaform;
 
 import com.objectbrains.sti.db.entity.base.dialer.CallDetailRecord;
 import com.objectbrains.sti.db.entity.base.dialer.CallQualityManagementEvaluation;
-import com.objectbrains.sti.db.repository.dialer.CallDetailRecordRepository;
+import com.objectbrains.sti.db.repository.dialer.StiCallDetailRecordRepository;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,7 +26,7 @@ public class CallQualityManagementRepository {
     private EntityManager em;
 
     @Autowired
-    private CallDetailRecordRepository cdrRepo;
+    private StiCallDetailRecordRepository cdrRepo;
 
     public CallQualityManagementEvaluation getCallQualityManagementEvaluation(long qmPk) {
         return em.find(CallQualityManagementEvaluation.class, qmPk);

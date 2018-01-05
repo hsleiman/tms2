@@ -21,7 +21,7 @@ import com.objectbrains.tms.pojo.AgentDirectory;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import com.objectbrains.tms.pojo.SpyOnCallPojo;
 import com.objectbrains.tms.service.AgentCallService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.AmsService;
 import com.objectbrains.tms.service.DialplanService;
@@ -50,7 +50,7 @@ public class PhoneOperationService {
     private static final Logger log = LoggerFactory.getLogger(PhoneOperationService.class);
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private CallingOutService callingOutService;

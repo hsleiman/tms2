@@ -16,7 +16,7 @@ import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.hazelcast.AgentDialerState;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.hazelcast.keys.AgentQueueKey;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.InboundCallService;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class ParticipatingAgentMapper2 extends LifecycleMapperAdapter<AgentQueue
     private boolean autoDialed;
 
     @Autowired
-    private AgentService dialerService;
+    private TMSAgentService dialerService;
 
 //    @Autowired
 //    private CallService callService;

@@ -9,7 +9,7 @@ package com.objectbrains.tms.freeswitch.premaid.service;
 import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.service.AgentCallService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.CallDetailRecordService;
 import com.objectbrains.tms.service.DialerQueueRecordService;
@@ -43,7 +43,7 @@ public class DialplanBuilderAutowireOb {
     @Autowired
     private PremaidActions premaidActions;
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
     @Autowired
     private AgentCallService agentCallService;
     @Autowired
@@ -89,7 +89,7 @@ public class DialplanBuilderAutowireOb {
         return premaidActions;
     }
 
-    public AgentService getAgentService() {
+    public TMSAgentService getAgentService() {
         return agentService;
     }
 
@@ -101,7 +101,7 @@ public class DialplanBuilderAutowireOb {
         this.dialplanService = dialplanService;
     }
 
-    public void setAgentService(AgentService agentService) {
+    public void setAgentService(TMSAgentService agentService) {
         this.agentService = agentService;
     }
 

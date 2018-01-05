@@ -12,7 +12,7 @@ import com.objectbrains.tms.param.DialerActiveStatusParam;
 import com.objectbrains.tms.pojo.AgentStatus;
 import com.objectbrains.tms.pojo.CallHistory;
 import com.objectbrains.tms.service.AgentCallService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.AmsService;
 import com.objectbrains.tms.service.DialplanService;
@@ -53,7 +53,7 @@ public class AgentRest {
     private AgentStatsService agentStatsService;
     
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
     
     @Autowired
     private AgentCallService agentCallService;
