@@ -46,6 +46,10 @@ dependencies {
     compile 'org.springframework:spring-aop'
     compile 'org.springframework:spring-websocket'
     
+    compile group: 'org.springframework.batch', name: 'spring-batch-core', version: '4.0.0.RELEASE'
+
+
+    
     //	testCompile('org.springframework.boot:spring-boot-starter-test')
     compile(group: 'joda-time', name: 'joda-time', version: '2.3')
     compile (group: 'joda-time', name:'joda-time-hibernate', version: '1.3')
