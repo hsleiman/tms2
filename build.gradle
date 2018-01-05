@@ -73,7 +73,8 @@ dependencies {
     compile group: 'com.google.cloud', name: 'gcloud-java-storage', version: '0.2.5'
     compile group: 'org.apache.cxf', name: 'cxf-common-utilities', version: '2.0.6'
     
-    compile group: 'org.jvnet.jaxb2_commons', name: 'jaxb2-commons-lang', version: '2.3'
+    compile group: 'org.jvnet.jaxb2_commons', name: 'jaxb2-basics-runtime', version: '0.6.4'
+    
         
     compile fileTree(dir: 'libs', include: '*.jar')
     
