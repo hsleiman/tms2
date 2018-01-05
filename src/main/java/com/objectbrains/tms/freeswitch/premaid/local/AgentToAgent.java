@@ -19,7 +19,7 @@ import com.objectbrains.tms.freeswitch.dialplan.action.Set;
 import com.objectbrains.tms.freeswitch.dialplan.action.Sleep;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.freeswitch.premaid.DialplanBuilder;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import com.objectbrains.tms.websocket.message.Function;
 import com.objectbrains.tms.websocket.message.outbound.CallSipHeader;
@@ -43,8 +43,8 @@ public class AgentToAgent extends DialplanBuilder {
 
     @Override
     public void buildDialplans() {
-        Agent callerAgent = agenService.getAgent(inVariables.getCallerIdInteger());
-        Agent calleeAgent = agenService.getAgent(inVariables.getCalleeIdInteger());
+        AgentTMS callerAgent = agenService.getAgent(inVariables.getCallerIdInteger());
+        AgentTMS calleeAgent = agenService.getAgent(inVariables.getCalleeIdInteger());
 
         TMSDialplan agentDialplan = dialplanService.createTMSDialplan(TMS_UUID, inVariables.getContext());
 

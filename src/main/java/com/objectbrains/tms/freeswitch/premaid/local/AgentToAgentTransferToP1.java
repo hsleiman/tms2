@@ -15,7 +15,7 @@ import com.objectbrains.tms.freeswitch.dialplan.action.Set;
 import com.objectbrains.tms.freeswitch.dialplan.action.TMSOrder;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.freeswitch.premaid.DialplanBuilder;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import java.util.Map;
@@ -44,7 +44,7 @@ public class AgentToAgentTransferToP1 extends DialplanBuilder {
 
     @Override
     public void buildDialplans() {
-        Agent callerAgent = null;
+        AgentTMS callerAgent = null;
         AgentCall call = null;
 
         Map.Entry<Integer, AgentCall> entry = agentCallService.getTransferingCall(inVariables.getCall_uuid());
@@ -90,7 +90,7 @@ public class AgentToAgentTransferToP1 extends DialplanBuilder {
 
     }
 
-    private void callEnteringAgent(Agent callerAgent, AgentCall call) {
+    private void callEnteringAgent(AgentTMS callerAgent, AgentCall call) {
 
         LocalDateTime dateTime = LocalDateTime.now();
         TMSDialplan agentDialplan = dialplanService.createTMSDialplan(TMS_UUID, inVariables.getContext(), "AgentToAgentTransferToP1");
@@ -119,7 +119,7 @@ public class AgentToAgentTransferToP1 extends DialplanBuilder {
 
     }
 
-    public void commonVariable(TMSDialplan tMSDialplan, Agent callerAgent, AgentCall call) {
+    public void commonVariable(TMSDialplan tMSDialplan, AgentTMS callerAgent, AgentCall call) {
 
         tMSDialplan.setAutoAswer(Boolean.FALSE);
         tMSDialplan.setOutboundVendor(Boolean.FALSE);
@@ -150,7 +150,7 @@ public class AgentToAgentTransferToP1 extends DialplanBuilder {
 
     }
 
-    private void callEnteringSBC(Agent callerAgent, AgentCall call) {
+    private void callEnteringSBC(AgentTMS callerAgent, AgentCall call) {
         TMSDialplan sbcDialplan;
         sbcDialplan = dialplanService.createTMSDialplan(TMS_UUID, FreeswitchContext.sbc_dp, "AgentToAgentTransferToP1");
         commonVariable(sbcDialplan, callerAgent, call);

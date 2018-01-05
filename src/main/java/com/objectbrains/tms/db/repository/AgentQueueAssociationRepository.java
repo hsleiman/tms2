@@ -83,7 +83,7 @@ public class AgentQueueAssociationRepository {
 //                .getResultList();
 //        Map<DialerQueue, AgentWeightedPriority> queuePriorities = new HashMap<>();
 //        for (Object[] result : results) {
-//            DialerQueue queue = (DialerQueue) result[0];
+//            DialerQueueTms queue = (DialerQueueTms) result[0];
 //            AgentWeightedPriority awp = (AgentWeightedPriority) result[1];
 //            queuePriorities.put(queue, awp);
 ////            Integer priority = ((Number) result[1]).intValue();

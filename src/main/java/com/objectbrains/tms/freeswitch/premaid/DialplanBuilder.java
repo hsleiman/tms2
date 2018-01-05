@@ -7,7 +7,7 @@ package com.objectbrains.tms.freeswitch.premaid;
 
 import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.db.hibernate.ApplicationContextProvider;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
@@ -116,7 +116,7 @@ public abstract class DialplanBuilder implements DialplanInterface {
     }
 
     public void build() {
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(TMS_UUID);
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(TMS_UUID);
         callDetailRecord.setDialplan_type(this.getClass().getSimpleName());
         callDetailRecordService.saveCDR(callDetailRecord);
 

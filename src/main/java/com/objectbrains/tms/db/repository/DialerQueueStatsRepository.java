@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.db.repository;
 
-import com.objectbrains.tms.db.entity.DialerQueue;
+import com.objectbrains.tms.db.entity.DialerQueueTms;
 import com.objectbrains.tms.db.entity.DialerStatsEntity;
 import com.objectbrains.tms.service.dialer.predict.QueueAverages;
 import java.util.HashMap;
@@ -50,7 +50,7 @@ public class DialerQueueStatsRepository {
         stats.setQueuePk(queuePk);
         stats.init();
         
-        DialerQueue queue = queueRepository.getDialerQueue(queuePk);
+        DialerQueueTms queue = queueRepository.getDialerQueue(queuePk);
         DialerStatsEntity currentStats = queue.getCurrentQueueStats();
         if (currentStats != null && !currentStats.hasEnded()) {
             currentStats.stop(LocalDateTime.now());

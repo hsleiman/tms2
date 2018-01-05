@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.outbound;
 
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.freeswitch.FreeswitchNode;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.CallDirection;
@@ -24,7 +24,7 @@ import com.objectbrains.tms.freeswitch.dialplan.action.TMSOrder;
 import com.objectbrains.tms.freeswitch.originate.OriginateBuilder;
 import com.objectbrains.tms.freeswitch.pojo.DialerInfoPojo;
 import com.objectbrains.tms.freeswitch.premaid.DialplanBuilder;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 
 /**
@@ -107,7 +107,7 @@ public class ConnectCallToAgent extends DialplanBuilder {
         agentDialplan = dialplanService.createTMSDialplan(TMS_UUID, FreeswitchContext.agent_dp, DDD.CONNECT_TO_AGENT);
         commonVariable(agentDialplan, old);
 
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(TMS_UUID);
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(TMS_UUID);
         callDetailRecord.setAmdExtTransferTo(dialerInfoPojo.getAgentExt());
 
         agentDialplan.addAction(new Export("nolocal:api_on_media=uuid_broadcast ${uuid} playback::tone_stream://%(" + configuration.getAMDPlayBeepToAgentDuration() + ",50," + configuration.getAMDPlayBeepToAgentHZ() + ") bleg"));
@@ -119,7 +119,7 @@ public class ConnectCallToAgent extends DialplanBuilder {
 
         //agentDialplan.addAction(Set.create(FreeswitchVariables.ringback, "${us-ring}"));
         //agentDialplan.addAction(new Bridge("${sofia_contact(" + dialerInfoPojo.getAgentExt() +"@"+agenService.getAgent(dialerInfoPojo.getAgentExt()).getFreeswitchDomain()+ ")}"));
-        Agent calleeAgent = agenService.getAgent(dialerInfoPojo.getAgentExt());
+        AgentTMS calleeAgent = agenService.getAgent(dialerInfoPojo.getAgentExt());
         FreeswitchNode freeswitchNode = freeswitchService.getFreeswitchNodeForCallUUID(agentDialplan.getCall_uuid());
 
         if (calleeAgent != null && freeswitchNode != null) {
@@ -176,7 +176,7 @@ public class ConnectCallToAgent extends DialplanBuilder {
         agentDialplan = dialplanService.createTMSDialplan(TMS_UUID, FreeswitchContext.agent_dp, DDD.CONNECT_TO_AGENT_OTHER_NODE);
         commonVariable(agentDialplan, old);
 
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(TMS_UUID);
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(TMS_UUID);
         callDetailRecord.setAmdExtTransferTo(dialerInfoPojo.getAgentExt());
 
         agentDialplan.addAction(new Export("nolocal:api_on_media=uuid_broadcast ${uuid} playback::tone_stream://%(" + configuration.getAMDPlayBeepToAgentDuration() + ",50," + configuration.getAMDPlayBeepToAgentHZ() + ") bleg"));
@@ -186,7 +186,7 @@ public class ConnectCallToAgent extends DialplanBuilder {
         agentDialplan.setMaxDelayBeforeAgentAnswer(20);
         agentDialplan.addAction(Set.create(FreeswitchVariables.continue_on_fail, Boolean.TRUE));
 
-        Agent calleeAgent = agenService.getAgent(dialerInfoPojo.getAgentExt());
+        AgentTMS calleeAgent = agenService.getAgent(dialerInfoPojo.getAgentExt());
 
         agentDialplan.addAction(new BridgeToSofiaContact(dialerInfoPojo.getAgentExt(), calleeAgent.getFreeswitchDomain()));
         

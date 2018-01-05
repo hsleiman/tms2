@@ -10,7 +10,7 @@ import com.google.gson.annotations.Expose;
 import com.objectbrains.sti.constants.PopupDisplayMode;
 import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.objectbrains.sti.pojo.TMSCallDetails;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import com.objectbrains.tms.utility.GsonUtility;
@@ -81,11 +81,11 @@ public class AgentIncomingDistributionOrder implements Serializable {
         return null;
     }
 
-    public void addAgent(Agent agent, Boolean multiLine, String incomingCallOrderSelected) {
+    public void addAgent(AgentTMS agent, Boolean multiLine, String incomingCallOrderSelected) {
         addAgent(agent, multiLine, null, incomingCallOrderSelected);
     }
 
-    public void addAgent(Agent agent, Boolean multiLine, Long groupPk, String incomingCallOrderSelected) {
+    public void addAgent(AgentTMS agent, Boolean multiLine, Long groupPk, String incomingCallOrderSelected) {
         AgentOrder order = getAgentOrder(agent.getExtension());
         if (order != null) {
             return;
@@ -94,7 +94,7 @@ public class AgentIncomingDistributionOrder implements Serializable {
         agentOrders.add(new AgentOrder(agent, multiLine, groupPk));
     }
 
-    public void addAgentOnTop(Agent agent, Boolean multiLine, String incomingCallOrderSelected) {
+    public void addAgentOnTop(AgentTMS agent, Boolean multiLine, String incomingCallOrderSelected) {
         AgentOrder order = getAgentOrder(agent.getExtension());
         if (order != null) {
             agentOrders.remove(order);
@@ -128,8 +128,8 @@ public class AgentIncomingDistributionOrder implements Serializable {
         return null;
     }
 
-    public void addAgents(List<Agent> agents, Boolean multiLine, String incomingCallOrderSelected, Map<String, AgentWeightedPriority> awpMap) {
-        for (Agent agent : agents) {
+    public void addAgents(List<AgentTMS> agents, Boolean multiLine, String incomingCallOrderSelected, Map<String, AgentWeightedPriority> awpMap) {
+        for (AgentTMS agent : agents) {
             AgentWeightedPriority awp = awpMap.get(agent.getUserName());
             Long groupPk;
             if (awp != null) {
@@ -150,8 +150,8 @@ public class AgentIncomingDistributionOrder implements Serializable {
         this.defaultExtension = defaultExtension;
     }
 
-    public List<Agent> getAgents() {
-        List<Agent> agents = new ArrayList<>();
+    public List<AgentTMS> getAgents() {
+        List<AgentTMS> agents = new ArrayList<>();
         for (AgentOrder agentOrder : agentOrders) {
             agents.add(agentOrder.agent);
         }
@@ -300,14 +300,14 @@ public class AgentIncomingDistributionOrder implements Serializable {
 
     private static class AgentOrder implements Serializable {
 
-        private Agent agent;
+        private AgentTMS agent;
         private Boolean multiline;
         private Long groupPk;
 
         public AgentOrder() {
         }
 
-        public AgentOrder(Agent agent, Boolean multiline, Long groupPk) {
+        public AgentOrder(AgentTMS agent, Boolean multiline, Long groupPk) {
             this.agent = agent;
             this.multiline = multiline;
             this.groupPk = groupPk;

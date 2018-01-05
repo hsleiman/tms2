@@ -10,7 +10,7 @@ import com.objectbrains.sti.constants.LeaveVoiceMailAtOptions;
 import com.objectbrains.sti.constants.VoiceMailOption;
 import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
@@ -97,21 +97,21 @@ public class DDDialplan {
     private TaskExecutor executor;
 
     public TMSDialplan startAMD(DialplanVariable variable, TMSDialplan tmsDialplan) {
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
         callDetailRecord.setAmdStartTime(LocalDateTime.now());
         callDetailRecordService.saveCDR(callDetailRecord);
         return tmsDialplan;
     }
 
     public TMSDialplan waitForMedia(DialplanVariable variable, TMSDialplan tmsDialplan) {
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
         callDetailRecord.setAmdStartWaitForMediaTime(LocalDateTime.now());
         callDetailRecordService.saveCDR(callDetailRecord);
         return tmsDialplan;
     }
 
     public TMSDialplan verifyAMD(DialplanVariable variable, TMSDialplan tmsDialplan) {
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
         callDetailRecord.setAmdEndTime(LocalDateTime.now());
 
         boolean isMachine = false;
@@ -155,7 +155,7 @@ public class DDDialplan {
         dialerService.callResponded(tmsDialplan.getCall_uuid(), System.currentTimeMillis() - tmsDialplan.getCreateLife(), cRCallback);
         log.debug("********* Progresive Dialer AMD detectedAsHuman Progresive cRCallBack [{}]", tmsDialplan.getCall_uuid());
         if (cRCallback.isConnectNow()) {
-            CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+            CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
             callDetailRecord.setAmdExtTransferTo(cRCallback.getDialerInfoPojo().getAgentExt());
             callDetailRecord.setAmdConnectToAgentNow(Boolean.TRUE);
             callDetailRecord.setAmdTransferToAgentTime(LocalDateTime.now());
@@ -207,7 +207,7 @@ public class DDDialplan {
             callDispositionCode = dispositionCodeService.answeringMachineDialerLeftMessageCode();
         }
         callingOutService.callEndedAsync(tmsDialplan.getCall_uuid(), callDispositionCode, tmsDialplan.getDialerQueueId());
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
 
         log.info("********* Progresive Dialer AMD detectedAsMachine DispositionCode: {} - {}", queueSettings.getLeaveVoiceMailAt().name(), tmsDialplan.getBorrowerInfo().getBorrowerPhoneNumberType());
         log.info("********* Progresive Dialer AMD detectedAsMachine DispositionCode: {} - {}", callDispositionCode.getDispositionId(), callDispositionCode.getDisposition());
@@ -241,7 +241,7 @@ public class DDDialplan {
     }
 
     public TMSDialplan sendToAgent(DialplanVariable variable, TMSDialplan tmsDialplan) {
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
         callDetailRecord.setAmdTransferToAgentTime(LocalDateTime.now());
 
         //tmsDialplan.addAction(new Export("beep_api_result_amdt=${sched_api(+2 ${uuid}_amdt uuid_broadcast ${uuid} playback::tone_stream://%("+configuration.getAMDPlayBeepToAgentDuration()+",50,"+configuration.getAMDPlayBeepToAgentHZ()+") bleg)}"));
@@ -264,7 +264,7 @@ public class DDDialplan {
     }
 
     public TMSDialplan connectToAgent(DialplanVariable variable, TMSDialplan tmsDialplan) {
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
         callDetailRecord.setAmdTransferToAgentTime(LocalDateTime.now());
 
         callDetailRecordService.saveCDR(callDetailRecord);
@@ -272,7 +272,7 @@ public class DDDialplan {
     }
 
     public TMSDialplan placeCallInFifo(DialplanVariable variable, TMSDialplan tmsDialplan) {
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
         callDetailRecord.setAmdStartFifoTime(LocalDateTime.now());
         callDetailRecord.setAmdConnectToAgentNow(Boolean.FALSE);
 
@@ -312,7 +312,7 @@ public class DDDialplan {
     }
 
     public TMSDialplan callExitingFifo(DialplanVariable variable, TMSDialplan tmsDialplan) {
-        CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
         callDetailRecord.setAmdEndFifoTime(LocalDateTime.now());
 //        tmsDialplan.addAction(Set.create("bypass_media", Boolean.TRUE));
 //        tmsDialplan.addAction(new Set("fifo_bridge_uuid=" + tmsDialplan.getUniqueID()));

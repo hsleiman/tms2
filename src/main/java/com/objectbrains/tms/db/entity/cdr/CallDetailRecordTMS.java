@@ -32,7 +32,7 @@ import org.joda.time.LocalDateTime;
  */
 @Entity
 @Table(schema = "sti")
-public class CallDetailRecord implements Serializable {
+public class CallDetailRecordTMS implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -220,10 +220,10 @@ public class CallDetailRecord implements Serializable {
     private String incomingCallOrderSelected;
     private String multiLine;
 
-    public CallDetailRecord() {
+    public CallDetailRecordTMS() {
     }
 
-    public CallDetailRecord(String call_uuid) {
+    public CallDetailRecordTMS(String call_uuid) {
         this.call_uuid = call_uuid;
     }
 

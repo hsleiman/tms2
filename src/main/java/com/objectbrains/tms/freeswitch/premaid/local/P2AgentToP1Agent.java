@@ -17,7 +17,7 @@ import com.objectbrains.tms.freeswitch.dialplan.action.Set;
 import com.objectbrains.tms.freeswitch.dialplan.action.TMSOrder;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.freeswitch.premaid.DialplanBuilder;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import com.objectbrains.tms.websocket.message.Function;
 import com.objectbrains.tms.websocket.message.outbound.CallSipHeader;
@@ -29,7 +29,7 @@ import com.objectbrains.tms.websocket.message.outbound.Send;
  */
 public class P2AgentToP1Agent extends DialplanBuilder {
 
-    private Agent agent = null;
+    private AgentTMS agent = null;
     
     public P2AgentToP1Agent(DialplanVariable variable) {
         super();

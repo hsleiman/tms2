@@ -16,7 +16,7 @@ import com.objectbrains.tms.db.entity.freeswitch.FreeswitchNode;
 import com.objectbrains.tms.db.repository.CdrRepository;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
 import com.objectbrains.tms.enumerated.SetAgentState;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.pojo.AgentDirectory;
 import com.objectbrains.tms.pojo.AgentStatus;
@@ -483,9 +483,9 @@ public class TMSPhoneCommand {
     public void sendPushNotificationToGroup(@PathParam("agentGroup") Long agentGroup, @PathParam("msg") String msg) {
         try {
             List<AgentWeightPriority> list = dialerQueueService.getAgentWeightPriorityListForGroup(agentGroup);
-            List<Agent> agents = agentService.getAgents(list, null, CallRoutingOption.ROUND_ROBIN);
+            List<AgentTMS> agents = agentService.getAgents(list, null, CallRoutingOption.ROUND_ROBIN);
             for (int i = 0; i < agents.size(); i++) {
-                Agent get = agents.get(i);
+                AgentTMS get = agents.get(i);
                 
                 websocketService.sendPushNotification(get.getExtension(), msg);
             }

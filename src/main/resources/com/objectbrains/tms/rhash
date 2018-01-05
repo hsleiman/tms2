@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sourceFolder=$1
+
+echo gsutil hash -c -m $sourceFolder 
+gsutil hash -c -m $sourceFolder 

@@ -8,7 +8,7 @@ package com.objectbrains.tms.freeswitch.premaid.incoming.service;
 import com.objectbrains.sti.pojo.TMSBasicAccountInfo;
 import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.sti.service.tms.TMSService;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
 import com.objectbrains.tms.enumerated.RecordedPhrases;
@@ -204,7 +204,7 @@ public class IVRCallerIdentity {
 
     public TMSDialplan FoundLoanId(DialplanVariable variable, TMSDialplan tmsDialplan) {
         if (variable.getOptionSelectedId() != null && variable.getOptionSelectedId() == 1) {
-            CallDetailRecord callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+            CallDetailRecordTMS callDetailRecord = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
             String ssn = callDetailRecord.getIvrSSN();
             String zipCode = callDetailRecord.getIvrZipCode();
             TMSCallDetails callDetails = null;// tmsIWS.getLoanInfoBySsnAndZip(ssn, zipCode);

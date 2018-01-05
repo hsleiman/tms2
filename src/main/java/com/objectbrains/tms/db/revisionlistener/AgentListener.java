@@ -9,14 +9,14 @@ package com.objectbrains.tms.db.revisionlistener;
  *
  * @author hsleiman
  */
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import org.hibernate.envers.RevisionListener;
 
 
 public class AgentListener implements RevisionListener {
 
     public void newRevision(Object revisionEntity) {
-        Agent revEntity = (Agent) revisionEntity;
+        AgentTMS revEntity = (AgentTMS) revisionEntity;
         //revEntity.set; 
     }
     

@@ -19,7 +19,7 @@ import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
 import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
 import com.objectbrains.tms.hazelcast.Configs;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.service.dialer.DialerService;
 import com.objectbrains.tms.websocket.Websocket;
@@ -87,11 +87,11 @@ public class AgentStatsService {
         return statsMap.get(agentExt);
     }
 
-    public AgentStats getAgentStats(Agent agent) {
+    public AgentStats getAgentStats(AgentTMS agent) {
         return statsMap.get(agent.getExtension());
     }
 
-    public Map<Integer, AgentStats> getAgentStats(Collection<Agent> agents) {
+    public Map<Integer, AgentStats> getAgentStats(Collection<AgentTMS> agents) {
         return getAgentStats(Utils.getExtensions(agents));
     }
 

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+bucketFolder=$1
+
+echo gsutil stat $bucketFolder 
+gsutil stat $bucketFolder 

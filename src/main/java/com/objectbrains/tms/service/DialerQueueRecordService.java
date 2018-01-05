@@ -19,7 +19,7 @@ import com.objectbrains.tms.db.repository.TmsDialerQueueRepository;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
 import com.objectbrains.tms.hazelcast.Configs;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.hazelcast.entity.WeightedPriority;
 import com.objectbrains.tms.hazelcast.keys.AgentQueueKey;
@@ -85,7 +85,7 @@ public class DialerQueueRecordService {
             String userName = agentWeightPriority.getUsername();
             Integer extension = nameToExtension.get(agentWeightPriority.getUsername());
             if (extension == null) {
-                Agent agent = agentService.getAgent(userName);
+                AgentTMS agent = agentService.getAgent(userName);
                 if (agent == null) {
                     //what now?
                     continue;

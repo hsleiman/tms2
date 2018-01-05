@@ -9,7 +9,7 @@ import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.DialerActiveStatus;
 import com.objectbrains.tms.enumerated.SetAgentState;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.utility.DurationUtils;
@@ -56,7 +56,7 @@ public class AgentStatus extends StatusPojo implements Serializable {
     public AgentStatus() {
     }
 
-    public AgentStatus(Agent agent, AgentStats stats, AgentCall activeCall) {
+    public AgentStatus(AgentTMS agent, AgentStats stats, AgentCall activeCall) {
         this.extension = agent.getExtension();
         this.username = agent.getUserName();
 //        this.dialerActive = stats.getDialerActive() == Boolean.TRUE ? DialerActiveStatus.ACTIVE : DialerActiveStatus.INACTIVE;

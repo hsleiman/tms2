@@ -9,7 +9,7 @@ import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
 import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.sti.service.tms.TMSService;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
 import com.objectbrains.tms.enumerated.RecordedPhrases;
@@ -258,7 +258,7 @@ public class IVRMain2AfterHour {
     }
 
     private void sendToCustomerServiceFifo(DialplanVariable variable, TMSDialplan tmsDialplan, boolean isBorrowerKnown) {
-        CallDetailRecord mcdr = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS mcdr = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
 
         tmsDialplan.addAction(new TMSOrder(IVROrder2.INBOUND_LEAVE_VOICE_MAIL_AFTER_HOUR_CLOSED));
         tmsDialplan.addBridge(new Transfer("1000 XML " + FreeswitchContext.ivr_dp));

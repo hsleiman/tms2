@@ -14,7 +14,7 @@ import com.objectbrains.tms.freeswitch.FreeswitchVariables;
 import com.objectbrains.tms.freeswitch.dialplan.action.BridgeToSofiaContact;
 import com.objectbrains.tms.freeswitch.originate.OriginateBuilder;
 import com.objectbrains.tms.freeswitch.pojo.FreeswitchCommand;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.pojo.AgentDirectory;
@@ -100,18 +100,18 @@ public class PhoneOperationService {
     }
 
     public SpyOnCallPojo threeWayCall(int calleeExt, int onCallExt){
-        Agent agent = agentService.getAgent(onCallExt);
+        AgentTMS agent = agentService.getAgent(onCallExt);
         AgentCall call = agentCallService.getActiveCall(onCallExt);
         return threeWayCall(agent, call, calleeExt, onCallExt);
     }
 
     public SpyOnCallPojo threeWayCall(String call_uuid, int calleeExt, int onCallExt){
-        Agent agent = agentService.getAgent(onCallExt);
+        AgentTMS agent = agentService.getAgent(onCallExt);
         AgentCall call = agentCallService.getAgentCall(onCallExt, call_uuid);
         return threeWayCall(agent, call, calleeExt, onCallExt);
     }
 
-    private SpyOnCallPojo threeWayCall(Agent agent, AgentCall call, int calleeExt, int onCallExt) {
+    private SpyOnCallPojo threeWayCall(AgentTMS agent, AgentCall call, int calleeExt, int onCallExt) {
         if (onCallExt == calleeExt) {
             SpyOnCallPojo spyOnCallPojo = new SpyOnCallPojo();
             spyOnCallPojo.setStatus("You cant confrence on your self.");
@@ -119,7 +119,7 @@ public class PhoneOperationService {
             return spyOnCallPojo;
         }
 
-        Agent calleeAgent = agentService.getAgent(calleeExt);
+        AgentTMS calleeAgent = agentService.getAgent(calleeExt);
         AgentCall calleeCall = agentCallService.getActiveCall(calleeAgent.getExtension());
         if (calleeCall != null) {
             SpyOnCallPojo spyOnCallPojo = new SpyOnCallPojo();
@@ -160,18 +160,18 @@ public class PhoneOperationService {
     }
 
     public SpyOnCallPojo eavsdropOnCall(int calleeExt, int onCallExt) throws IOException {
-        Agent agent = agentService.getAgent(onCallExt);
+        AgentTMS agent = agentService.getAgent(onCallExt);
         AgentCall call = agentCallService.getActiveCall(onCallExt);
         return eavsdropOnCall(agent, call, calleeExt, onCallExt);
     }
 
     public SpyOnCallPojo eavsdropOnCall(String call_uuid, int calleeExt, int onCallExt){
-        Agent agent = agentService.getAgent(onCallExt);
+        AgentTMS agent = agentService.getAgent(onCallExt);
         AgentCall call = agentCallService.getAgentCall(onCallExt, call_uuid);
         return eavsdropOnCall(agent, call, calleeExt, onCallExt);
     }
 
-    private SpyOnCallPojo eavsdropOnCall(Agent agent, AgentCall call, int calleeExt, int onCallExt){
+    private SpyOnCallPojo eavsdropOnCall(AgentTMS agent, AgentCall call, int calleeExt, int onCallExt){
         if (onCallExt == calleeExt) {
             SpyOnCallPojo spyOnCallPojo = new SpyOnCallPojo();
             spyOnCallPojo.setStatus("You cant eavsdrop on your self.");
@@ -179,7 +179,7 @@ public class PhoneOperationService {
             return spyOnCallPojo;
         }
 
-        Agent calleeAgent = agentService.getAgent(calleeExt);
+        AgentTMS calleeAgent = agentService.getAgent(calleeExt);
         AgentCall calleeCall = agentCallService.getActiveCall(calleeAgent.getExtension());
         if (calleeCall != null) {
             SpyOnCallPojo spyOnCallPojo = new SpyOnCallPojo();
@@ -219,18 +219,18 @@ public class PhoneOperationService {
     }
 
     public SpyOnCallPojo whisperOnCall(int calleeExt, int onCallExt) throws IOException {
-        Agent agent = agentService.getAgent(onCallExt);
+        AgentTMS agent = agentService.getAgent(onCallExt);
         AgentCall call = agentCallService.getActiveCall(onCallExt);
         return whisperOnCall(agent, call, calleeExt, onCallExt);
     }
 
     public SpyOnCallPojo whisperOnCall(String call_uuid, int calleeExt, int onCallExt){
-        Agent agent = agentService.getAgent(onCallExt);
+        AgentTMS agent = agentService.getAgent(onCallExt);
         AgentCall call = agentCallService.getAgentCall(onCallExt, call_uuid);
         return whisperOnCall(agent, call, calleeExt, onCallExt);
     }
 
-    private SpyOnCallPojo whisperOnCall(Agent agent, AgentCall call, int calleeExt, int onCallExt) {
+    private SpyOnCallPojo whisperOnCall(AgentTMS agent, AgentCall call, int calleeExt, int onCallExt) {
         if (onCallExt == calleeExt) {
             SpyOnCallPojo spyOnCallPojo = new SpyOnCallPojo();
             spyOnCallPojo.setStatus("You cant whisper on your self.");
@@ -238,7 +238,7 @@ public class PhoneOperationService {
             return spyOnCallPojo;
         }
 
-        Agent calleeAgent = agentService.getAgent(calleeExt);
+        AgentTMS calleeAgent = agentService.getAgent(calleeExt);
         AgentCall calleeCall = agentCallService.getActiveCall(calleeAgent.getExtension());
         if (calleeCall != null) {
             SpyOnCallPojo spyOnCallPojo = new SpyOnCallPojo();
@@ -278,7 +278,7 @@ public class PhoneOperationService {
         return spyOnCallPojo;
     }
 
-    private void setCommandOriginateVariable(OriginateBuilder builder, TMSDialplan agentDailplan, int callerExt, int calleeExt, Agent agent, AgentCall call, TMSDialplan old) {
+    private void setCommandOriginateVariable(OriginateBuilder builder, TMSDialplan agentDailplan, int callerExt, int calleeExt, AgentTMS agent, AgentCall call, TMSDialplan old) {
         builder.putInBothLegs(FreeswitchVariables.tms_uuid, agentDailplan.getKey().getTms_uuid());
         builder.putInBothLegs(FreeswitchVariables.tms_order, agentDailplan.getKey().getOrderPower());
         builder.putInBothLegs(FreeswitchVariables.call_uuid, call.getCallUUID());
@@ -309,7 +309,7 @@ public class PhoneOperationService {
         }
     }
 
-    private void setCommonVariable(TMSDialplan agentDailplan, int onCallExt, int calleeExt, Agent agent, AgentCall call, TMSDialplan old) {
+    private void setCommonVariable(TMSDialplan agentDailplan, int onCallExt, int calleeExt, AgentTMS agent, AgentCall call, TMSDialplan old) {
         agentDailplan.setCall_uuid(call.getCallUUID());
         agentDailplan.setAutoAswer(false);
         agentDailplan.setDebugOn(Boolean.TRUE);
@@ -339,12 +339,12 @@ public class PhoneOperationService {
         for (User user : users) {
             userMap.put(user.getUserName(), user);
         }
-        Collection<Agent> agents = agentService.getAgents(userMap.keySet());
+        Collection<AgentTMS> agents = agentService.getAgents(userMap.keySet());
         Map<Integer, AgentStats> statsMap = agentStatsService.getAgentStats(agents);
         Map<Integer, AgentCall> callMap = agentCallService.getActiveCalls(agents);
 
         List<AgentDirectory> agentDirectorys = new ArrayList<>();
-        for (Agent agent : agents) {
+        for (AgentTMS agent : agents) {
             String userName = agent.getUserName();
             int extension = agent.getExtension();
             agentDirectorys.add(new AgentDirectory(agent, userMap.get(userName),

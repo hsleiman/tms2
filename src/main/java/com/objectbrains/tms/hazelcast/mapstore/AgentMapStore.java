@@ -11,7 +11,7 @@ import com.objectbrains.ams.iws.User;
 import com.objectbrains.tms.db.entity.AgentRecord;
 import com.objectbrains.tms.db.repository.AgentRepository;
 import static com.objectbrains.tms.hazelcast.Configs.AGENT_MAP_STORE_BEAN_NAME;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.service.AmsService;
 import java.util.Collection;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author connorpetty
  */
 @Repository(AGENT_MAP_STORE_BEAN_NAME)
-public class AgentMapStore implements MapStore<Integer, Agent>, PostProcessingMapStore {
+public class AgentMapStore implements MapStore<Integer, AgentTMS>, PostProcessingMapStore {
 
     private static final Logger LOG = LoggerFactory.getLogger(AgentMapStore.class);
 
@@ -48,7 +48,7 @@ public class AgentMapStore implements MapStore<Integer, Agent>, PostProcessingMa
 
     @Override
     @Transactional
-    public void store(Integer key, Agent value) {
+    public void store(Integer key, AgentTMS value) {
         value.setLastActivityTime(LocalDateTime.now());
         AgentRecord agent = agentRepository.getAgent(key);
         agent.setInfo(value);
@@ -56,10 +56,10 @@ public class AgentMapStore implements MapStore<Integer, Agent>, PostProcessingMa
 
     @Override
     @Transactional
-    public void storeAll(Map<Integer, Agent> map) {
-        for (Map.Entry<Integer, Agent> entrySet : map.entrySet()) {
+    public void storeAll(Map<Integer, AgentTMS> map) {
+        for (Map.Entry<Integer, AgentTMS> entrySet : map.entrySet()) {
             Integer key = entrySet.getKey();
-            Agent value = entrySet.getValue();
+            AgentTMS value = entrySet.getValue();
             store(key, value);
         }
     }
@@ -76,20 +76,20 @@ public class AgentMapStore implements MapStore<Integer, Agent>, PostProcessingMa
 
     @Override
     @Transactional
-    public Agent load(Integer key) {
+    public AgentTMS load(Integer key) {
         AgentRecord agent = agentRepository.getAgent(key);
         return agent == null ? null : agent.getInfo();
     }
 
     @Override
     @Transactional
-    public Map<Integer, Agent> loadAll(Collection<Integer> keys) {
-        List<Agent> agents = entityManager.createQuery("select agent.info from Agent agent where agent.extension in (:extensions)", Agent.class)
+    public Map<Integer, AgentTMS> loadAll(Collection<Integer> keys) {
+        List<AgentTMS> agents = entityManager.createQuery("select agent.info from Agent agent where agent.extension in (:extensions)", AgentTMS.class)
                 .setParameter("extensions", keys)
                 .getResultList();
 
-        Map<Integer, Agent> resultMap = new HashMap<>();
-        for (Agent agent : agents) {
+        Map<Integer, AgentTMS> resultMap = new HashMap<>();
+        for (AgentTMS agent : agents) {
             resultMap.put(agent.getExtension(), agent);
         }
         return resultMap;
@@ -108,7 +108,7 @@ public class AgentMapStore implements MapStore<Integer, Agent>, PostProcessingMa
 //            return null;
 //        }
 //        List<Integer> extensions = entityManager.createQuery(
-//                "select agent.extension from Agent agent", Integer.class)
+//                "select agent.extension from AgentTMS agent", Integer.class)
 //                .getResultList();
 //        return new HashSet<>(extensions);
         return null;

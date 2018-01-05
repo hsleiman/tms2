@@ -17,8 +17,8 @@ import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import com.objectbrains.sti.pojo.TMSBasicAccountInfo;
 import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.sti.service.tms.TMSService;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
-import com.objectbrains.tms.db.entity.cdr.SpeechToText;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
+import com.objectbrains.tms.db.entity.cdr.SpeechToTextTms;
 import com.objectbrains.tms.db.entity.freeswitch.CDR;
 import com.objectbrains.tms.db.repository.CallDetailRecordRepository;
 import com.objectbrains.tms.enumerated.CallDirection;
@@ -28,7 +28,7 @@ import com.objectbrains.tms.enumerated.refrence.DDD;
 import com.objectbrains.tms.freeswitch.pojo.AgentIncomingDistributionOrder;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
 import com.objectbrains.tms.hazelcast.Configs;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import com.objectbrains.tms.pojo.UploadCallRecordingPOJO;
 import com.objectbrains.tms.service.freeswitch.CallingOutService;
@@ -77,7 +77,7 @@ public class CallDetailRecordService {
     @Autowired
     private CallingOutService callingOutService;
 
-    private IMap<String, CallDetailRecord> recordMap;
+    private IMap<String, CallDetailRecordTMS> recordMap;
 
     private IQueue<UploadCallRecordingPOJO> recordingUploadQueue;
 
@@ -114,7 +114,7 @@ public class CallDetailRecordService {
         for (int i = 0; i < entries.size(); i++) {
             try {
                 UploadCallRecordingPOJO get = entries.get(i);
-                CallDetailRecord mcdr = getCDR(get.getCallUUID());
+                CallDetailRecordTMS mcdr = getCDR(get.getCallUUID());
                 if (mcdr != null && mcdr.isAnswered() && get.getDuration() > configuration.getCallDurationForSpeechToTextLimit() && configuration.enableSpeechToTextTranslation()) {
                     updateSspeechToTextRequested(mcdr.getCall_uuid(), Boolean.TRUE);
                     callingOutService.InvokRecordingUploadAndTranslate(get.getCallUUID(), get.getIp(), get.getData());
@@ -218,7 +218,7 @@ public class CallDetailRecordService {
     }
 
     public void addSpeechToText(Integer ext, com.objectbrains.tms.websocket.message.inbound.SpeechToText speechToText) {
-        SpeechToText toText = new SpeechToText();
+        SpeechToTextTms toText = new SpeechToTextTms();
         toText.setCall_uuid(speechToText.getCall_uuid());
         toText.setText(speechToText.getText());
         toText.setConfidence(speechToText.getConfidence());
@@ -231,16 +231,16 @@ public class CallDetailRecordService {
         }
     }
 
-    public CallDetailRecord findCDR(String call_uuid) {
+    public CallDetailRecordTMS findCDR(String call_uuid) {
         return recordMap.get(call_uuid);
     }
 
-    public CallDetailRecord getCDR(String call_uuid) {
+    public CallDetailRecordTMS getCDR(String call_uuid) {
         return recordMap.get(call_uuid);
-//        CallDetailRecord newRecord = new CallDetailRecord(call_uuid);
+//        CallDetailRecordTMS newRecord = new CallDetailRecordTMS(call_uuid);
 //        recordMap.putIfAbsent(call_uuid, newRecord);
 //
-//        CallDetailRecord callDetailRecord = recordMap.get(call_uuid);
+//        CallDetailRecordTMS callDetailRecord = recordMap.get(call_uuid);
 //
 //        if (callDetailRecord == null) {
 //            return newRecord;
@@ -248,7 +248,7 @@ public class CallDetailRecordService {
 //        return callDetailRecord;
     }
 
-    public void saveCDR(CallDetailRecord cdr) {
+    public void saveCDR(CallDetailRecordTMS cdr) {
 //        try {
 //            throw new Exception("Show me the stack {} " + cdr.getCall_uuid());
 //        } catch (Exception ex) {
@@ -284,11 +284,11 @@ public class CallDetailRecordService {
         }
     }
 
-    public CallDetailRecord updateCallDetailRecord(CDR cdr) {
+    public CallDetailRecordTMS updateCallDetailRecord(CDR cdr) {
         if (cdr.getCall_uuid() == null) {
             return null;
         }
-        return (CallDetailRecord) recordMap.executeOnKey(cdr.getCall_uuid(), new UpdateCDREntryProcessor(cdr, configuration.getLoadBalancerHostname()));
+        return (CallDetailRecordTMS) recordMap.executeOnKey(cdr.getCall_uuid(), new UpdateCDREntryProcessor(cdr, configuration.getLoadBalancerHostname()));
     }
 
     public void updateBorrowerInfo(String callUUID, BorrowerInfo borrowerInfo) {
@@ -373,7 +373,7 @@ public class CallDetailRecordService {
         LOG.info("Saved inbound is open entry info: {} - {}", callUUID, isOpen);
     }
 
-    public static class UpdateWorkingHourEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateWorkingHourEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private Boolean isOpen;
 
@@ -385,10 +385,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setIsOpen(isOpen);
 
@@ -412,7 +412,7 @@ public class CallDetailRecordService {
     }
 
 //    public static class GetCDREntryProcessor extends AbstractEntryProcessor
-    public static class UpdateInboundDIDNumberEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateInboundDIDNumberEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private String inboundDIDNumber;
 
@@ -424,10 +424,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setInboundDIDNumber(inboundDIDNumber);
 
@@ -450,7 +450,7 @@ public class CallDetailRecordService {
 
     }
 
-    public static class UpdateOptionTextEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateOptionTextEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private String optionText;
 
@@ -462,10 +462,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setOptionText(optionText);
 
@@ -488,7 +488,7 @@ public class CallDetailRecordService {
 
     }
 
-    public static class UpdateIVRAuthorizedEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateIVRAuthorizedEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private Boolean ivrAuthorized;
 
@@ -500,10 +500,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setIvrAuthorized(ivrAuthorized);
 
@@ -525,7 +525,7 @@ public class CallDetailRecordService {
 
     }
 
-    public static class UpdateLastTransferStepEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateLastTransferStepEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private Integer lastTransferStep;
 
@@ -537,10 +537,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setLastTrasferStep(lastTransferStep);
             record.setLastTrasferStepTimestamp(LocalDateTime.now());
@@ -564,7 +564,7 @@ public class CallDetailRecordService {
 
     }
 
-    public static class UpdateADOEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateADOEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private AgentIncomingDistributionOrder ado;
         private Long dialerQueuePk; 
@@ -578,10 +578,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setAdo(ado.toJson());
 
@@ -621,7 +621,7 @@ public class CallDetailRecordService {
 
     }
 
-    public static class UpdateSpeechToTextRequestedEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateSpeechToTextRequestedEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private Boolean speechToTextRequested;
 
@@ -633,10 +633,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setSpeechToTextRequested(speechToTextRequested);
 
@@ -658,7 +658,7 @@ public class CallDetailRecordService {
         }
     }
 
-    public static class UpdateSpeechToTextCompletedEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateSpeechToTextCompletedEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private Boolean speechToTextCompleted;
         private Double confidence;
@@ -676,10 +676,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setSpeechToTextCompleted(speechToTextCompleted);
             record.setSpeechToTextConfidence(confidence);
@@ -704,7 +704,7 @@ public class CallDetailRecordService {
         }
     }
 
-    public static class UpdateSpeechToTextErrorEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateSpeechToTextErrorEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private Boolean speechToTextError;
 
@@ -716,10 +716,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setSpeechToTextError(speechToTextError);
 
@@ -741,7 +741,7 @@ public class CallDetailRecordService {
         }
     }
 
-    public static class UpdateQueueIdEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateQueueIdEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private Long queueId;
 
@@ -753,10 +753,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setDialerQueueId(queueId);
 
@@ -779,7 +779,7 @@ public class CallDetailRecordService {
 
     }
 
-    public static class UpdateLoanIdEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateLoanIdEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private Long loanId;
 
@@ -791,10 +791,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.getBorrowerInfo().setLoanId(loanId);
 
@@ -817,7 +817,7 @@ public class CallDetailRecordService {
 
     }
 
-    public static class UpdateIVRZipNEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateIVRZipNEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private String zip;
 
@@ -829,10 +829,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setIvrZipCode(zip);
 
@@ -855,7 +855,7 @@ public class CallDetailRecordService {
 
     }
 
-    public static class UpdateIVRSSNEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateIVRSSNEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private String ssn;
 
@@ -867,10 +867,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setIvrSSN(ssn);
 
@@ -893,7 +893,7 @@ public class CallDetailRecordService {
 
     }
 
-    public static class UpdateBorrowerInfoEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateBorrowerInfoEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private BorrowerInfo borrowerInfo;
 
@@ -905,10 +905,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setBorrowerInfo(borrowerInfo);
 
@@ -931,7 +931,7 @@ public class CallDetailRecordService {
 
     }
 
-    public static class UpdateVoicemailEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> implements DataSerializable {
+    public static class UpdateVoicemailEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> implements DataSerializable {
 
         private Boolean inboundLeftVoicemail = Boolean.FALSE;
 
@@ -943,10 +943,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        public Object process(Map.Entry<String, CallDetailRecord> entry, boolean isPrimary) {
-            CallDetailRecord record = entry.getValue();
+        public Object process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isPrimary) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             record.setInboundLeftVoicemail(inboundLeftVoicemail);
 
@@ -970,7 +970,7 @@ public class CallDetailRecordService {
     }
 
     @SpringAware
-    public static class UpdateCompleteEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> {
+    public static class UpdateCompleteEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> {
 
         private Boolean bridgeHangupCause;
         private Boolean hangupCause;
@@ -992,10 +992,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        protected Void process(Map.Entry<String, CallDetailRecord> entry, boolean isMain) {
-            CallDetailRecord record = entry.getValue();
+        protected Void process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isMain) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
 
             if (record.getSystemDispostionCode() == null) {
@@ -1035,7 +1035,7 @@ public class CallDetailRecordService {
     }
 
     @SpringAware
-    public static class UpdateCallStateEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> {
+    public static class UpdateCallStateEntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> {
 
         @Autowired
         private CallingOutService callingOutService;
@@ -1055,10 +1055,10 @@ public class CallDetailRecordService {
         }
 
         @Override
-        protected Void process(Map.Entry<String, CallDetailRecord> entry, boolean isMain) {
-            CallDetailRecord record = entry.getValue();
+        protected Void process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isMain) {
+            CallDetailRecordTMS record = entry.getValue();
             if (record == null) {
-                record = new CallDetailRecord(entry.getKey());
+                record = new CallDetailRecordTMS(entry.getKey());
             }
             LOG.info("Processing UpdateCallStateEntryProcessor: {} for {}", phoneStatus, record.getCall_uuid());
             boolean modified = true;
@@ -1117,7 +1117,7 @@ public class CallDetailRecordService {
     }
 
     @SpringAware
-    public static class UpdateCDREntryProcessor extends AbstractEntryProcessor<String, CallDetailRecord> {
+    public static class UpdateCDREntryProcessor extends AbstractEntryProcessor<String, CallDetailRecordTMS> {
 
         private CDR cdr;
         private String hostname;
@@ -1152,8 +1152,8 @@ public class CallDetailRecordService {
         }
 
         @Override
-        protected CallDetailRecord process(Map.Entry<String, CallDetailRecord> entry, boolean isMain) {
-            CallDetailRecord mcdr = entry.getValue();
+        protected CallDetailRecordTMS process(Map.Entry<String, CallDetailRecordTMS> entry, boolean isMain) {
+            CallDetailRecordTMS mcdr = entry.getValue();
             if (mcdr == null) {
                 LOG.warn("Building Master CDR: [Not FOUND] " + cdr.getCall_uuid() + " - " + cdr.getContext() + " - " + cdr.getOrderPower());
                 return null;
@@ -1257,7 +1257,7 @@ public class CallDetailRecordService {
                 mcdr.getBorrowerInfo().setBorrowerPhoneNumber(cdr.getBorrowerPhone());
 
                 try {
-                    Agent agent = null;
+                    AgentTMS agent = null;
                     agent = agentService.getAgent(mcdr.getLastAgent());
                     if (agent != null) {
                         mcdr.setUsername(agent.getUserName());

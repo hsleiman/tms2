@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sourceFolder=$1
+bucketFolder=$2
+
+gsutil -m rsync -r $sourceFolder $bucketFolder

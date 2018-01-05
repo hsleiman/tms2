@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+    
+    <!--<mvc:annotation-driven conversion-service="conversionService"/>-->
+    
+    <context:component-scan base-package="com.objectbrains"/>
+
+    <!--Jackson - objectMapper format date setting -->
+    <bean id="objectMapper"
+        class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
+        p:indentOutput="true" p:simpleDateFormat="yyyy-MM-dd HH:mm:ss.SSS">
+    </bean>
+
+    <!--Jackson - registerModule JodaModule -->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+        p:targetObject-ref="objectMapper" p:targetMethod="registerModule">
+        <property name="arguments">
+            <list>
+                <bean class="com.fasterxml.jackson.datatype.joda.JodaModule" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- Spring MVC:  setting objectMapper in converter MappingJackson2HttpMessageConverter-->
+    <mvc:annotation-driven conversion-service="conversionService">
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="objectMapper" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    
+    
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+
+<!--    <bean id="abstractJacksonObjectMapper" 
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+          p:targetMethod="registerModule">
+        <property name="targetObject">
+            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
+                  p:indentOutput="true" 
+                  p:simpleDateFormat="yyyy-MM-dd'T'HH:mm:ss.SSSZ">
+                <property name="featuresToDisable">
+                    <util:constant static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES" />
+                </property>
+            </bean>
+        </property>
+        <property name="arguments">
+            <list>
+                <bean class="com.fasterxml.jackson.datatype.joda.JodaModule" />
+            </list>
+        </property>
+    </bean>    
+          
+    <bean id="abstractMappingJacksonHttpMessageConverter" 
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"
+          abstract="true"/>          
+          
+    <bean id="abstractMappingJacksonJsonView" 
+          class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"
+          abstract="true"
+          p:extractValueFromSingleKeyModel="true"/>
+
+    <bean id="jacksonObjectMapper" parent="abstractJacksonObjectMapper" />
+          
+    <bean id="mappingJacksonHttpMessageConverter" 
+          parent="abstractMappingJacksonHttpMessageConverter"
+          p:objectMapper-ref="jacksonObjectMapper"
+          p:supportedMediaTypes="application/json" />          
+          
+  <bean id="mappingJacksonJsonView" 
+    parent="abstractMappingJacksonJsonView"
+    p:objectMapper-ref="jacksonObjectMapper"
+    p:contentType="application/json" />-->
+    
+    <bean id="conversionServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean" primary="false">
+        <property name="targetSource">
+            <bean class="org.springframework.aop.target.LazyInitTargetSource">
+                <property name="targetBeanName" value="conversionService"/>
+            </bean>
+        </property>
+        <property name="interfaces">
+            <list>
+                <value>org.springframework.core.convert.ConversionService</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean" primary="true">
+        <property name="converters">
+            <set>
+                <bean class="com.objectbrains.tms.restfull.util.StringToCDRConverter"/>
+            </set>
+        </property>
+    </bean>
+
+    <!--
+    Most controllers will use the ControllerClassNameHandlerMapping above, but
+    for the index controller we are using ParameterizableViewController, so we must
+    define an explicit mapping for it.
+    -->
+    <!--    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="index.htm">indexController</prop>
+            </props>
+        </property>
+    </bean>-->
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" />
+
+    <!--
+    The index controller.
+    -->
+    <bean name="indexController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index" />
+
+    
+    <aop:aspectj-autoproxy> 
+        <aop:include name="exceptionHandler"/>
+    </aop:aspectj-autoproxy>
+    
+    <bean id="exceptionHandler" class="com.objectbrains.tms.db.hibernate.ExceptionInterceptor"/>
+   
+</beans>

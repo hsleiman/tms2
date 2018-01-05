@@ -31,7 +31,7 @@ public class DialerCallEntity extends DialerCall {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "queue_pk", referencedColumnName = "pk")
     @Index(name = "tms_idx_dialer_call_queue_pk", columnNames = {"queue_pk"})
-    private DialerQueue dialerQueue;
+    private DialerQueueTms dialerQueue;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumns({
@@ -61,11 +61,11 @@ public class DialerCallEntity extends DialerCall {
         this.dialerStats = dialerStats;
     }
 
-    public DialerQueue getDialerQueue() {
+    public DialerQueueTms getDialerQueue() {
         return dialerQueue;
     }
 
-    public void setDialerQueue(DialerQueue dialerQueue) {
+    public void setDialerQueue(DialerQueueTms dialerQueue) {
         this.dialerQueue = dialerQueue;
     }
 

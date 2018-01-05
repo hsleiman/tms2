@@ -21,7 +21,7 @@ import com.objectbrains.tms.freeswitch.dialplan.action.Set;
 import com.objectbrains.tms.freeswitch.dialplan.action.TMSOrder;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.freeswitch.premaid.DialplanBuilder;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import java.util.Map;
@@ -50,7 +50,7 @@ public class AgentToAgentTransfer extends DialplanBuilder {
 
     @Override
     public void buildDialplans() {
-        Agent callerAgent = null;
+        AgentTMS callerAgent = null;
         AgentCall call = null;
 
         Map.Entry<Integer, AgentCall> entry = agentCallService.getTransferingCall(inVariables.getCall_uuid());
@@ -96,7 +96,7 @@ public class AgentToAgentTransfer extends DialplanBuilder {
 
     }
 
-    private void callEnteringAgent(Agent callerAgent, AgentCall call) {
+    private void callEnteringAgent(AgentTMS callerAgent, AgentCall call) {
 
         LocalDateTime dateTime = LocalDateTime.now();
         TMSDialplan agentDialplan = dialplanService.createTMSDialplan(TMS_UUID, inVariables.getContext(), "AgentToAgentTransfer_" + dateTime.getMillisOfDay());
@@ -112,7 +112,7 @@ public class AgentToAgentTransfer extends DialplanBuilder {
 
         agentDialplan.addAction(Set.create(FreeswitchVariables.continue_on_fail, true));
 
-        Agent calleeAgent = agenService.getAgent(inVariables.getCalleeIdInteger());
+        AgentTMS calleeAgent = agenService.getAgent(inVariables.getCalleeIdInteger());
         agentDialplan.addAction(Set.create(FreeswitchVariables.ringback, "${us-ring}"));
 
         if (inVariables.getFreeSWITCH_IPv4().equals(calleeAgent.getFreeswitchIP())) {
@@ -131,7 +131,7 @@ public class AgentToAgentTransfer extends DialplanBuilder {
 
     }
 
-    private String callEnteringAgentSecondNode(Agent callerAgent, AgentCall call) {
+    private String callEnteringAgentSecondNode(AgentTMS callerAgent, AgentCall call) {
 
         LocalDateTime dateTime = LocalDateTime.now();
         TMSDialplan agentDialplan = dialplanService.createTMSDialplan(TMS_UUID, inVariables.getContext(), "AgentToAgentTransfer_" + dateTime.getMillisOfDay() + "_1");
@@ -147,7 +147,7 @@ public class AgentToAgentTransfer extends DialplanBuilder {
 
         agentDialplan.addAction(Set.create(FreeswitchVariables.continue_on_fail, true));
 
-        Agent calleeAgent = agenService.getAgent(inVariables.getCalleeIdInteger());
+        AgentTMS calleeAgent = agenService.getAgent(inVariables.getCalleeIdInteger());
         agentDialplan.addAction(Set.create(FreeswitchVariables.ringback, "${us-ring}"));
 
         agentDialplan.addAction(new BridgeToSofiaContact(inVariables.getCalleeIdInteger(), calleeAgent.getFreeswitchDomain()));
@@ -163,7 +163,7 @@ public class AgentToAgentTransfer extends DialplanBuilder {
 
     }
 
-    private void callEnteringFifo(Agent callerAgent, AgentCall call) {
+    private void callEnteringFifo(AgentTMS callerAgent, AgentCall call) {
         TMSDialplan fifoDialplan;
         fifoDialplan = dialplanService.createTMSDialplan(TMS_UUID, FreeswitchContext.fifo_dp, HOLDOrder.PLACE_ON_HOLD);
         commonVariable(fifoDialplan, callerAgent, call);
@@ -203,7 +203,7 @@ public class AgentToAgentTransfer extends DialplanBuilder {
         dialplanService.updateTMSDialplan(fifoDialplan);
     }
 
-    public void commonVariable(TMSDialplan tMSDialplan, Agent callerAgent, AgentCall call) {
+    public void commonVariable(TMSDialplan tMSDialplan, AgentTMS callerAgent, AgentCall call) {
         tMSDialplan.setTms_type(this.getClass().getSimpleName());
         tMSDialplan.setCall_uuid(inVariables.getCall_uuid());
         tMSDialplan.setAutoAswer(Boolean.TRUE);

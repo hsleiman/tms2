@@ -10,7 +10,7 @@ package com.objectbrains.tms.service.freeswitch;
  * @author hsleiman
  */
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.freeswitch.CDR;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.db.repository.DialplanRepository;
@@ -85,7 +85,7 @@ public class DQService {
             return;
         }
 
-        CallDetailRecord mcdr = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS mcdr = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
         if (cdr.getOrderPower().equals(DDD.START_AMD.name()) || cdr.getOrderPower().equals(DDD.WAIT_FOR_MEDIA.name()) || cdr.getOrderPower().equals(DDD.VERIFY_AMD.name())) {
             CallDispositionCode code = dispositionCodeService.callNoAnswer();
 

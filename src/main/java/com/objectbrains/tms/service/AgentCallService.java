@@ -16,7 +16,7 @@ import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.sti.constants.PreviewDialerType;
 import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.CallState;
@@ -27,7 +27,7 @@ import com.objectbrains.tms.freeswitch.premaid.outbound.PowerDialer;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
 import com.objectbrains.tms.hazelcast.AgentCallState;
 import com.objectbrains.tms.hazelcast.Configs;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import static com.objectbrains.tms.service.AgentCallService.getFirstCallInState;
@@ -126,7 +126,7 @@ public class AgentCallService {
         return (AgentCall) callMap.executeOnKey(ext, new GetAgentCallEntryProcessor(callUUID));
     }
 
-    public Map<Integer, AgentCall> getActiveCalls(Collection<Agent> agents) {
+    public Map<Integer, AgentCall> getActiveCalls(Collection<AgentTMS> agents) {
         return getActiveCalls(Utils.getExtensions(agents));
     }
 
@@ -346,7 +346,7 @@ public class AgentCallService {
             } else if (agentCall.isRejected()) {
                 dialerService.callEnded(agentCall.getCallUUID(), dispositionService.recordRestrictedCode());
             } else if (agentCall.isWrapped()) {
-                CallDetailRecord mcdr = callDetailRecordService.getCDR(agentCall.getCallUUID());
+                CallDetailRecordTMS mcdr = callDetailRecordService.getCDR(agentCall.getCallUUID());
                 if (mcdr == null) {
                     continue;
                 }

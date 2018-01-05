@@ -1,0 +1,75 @@
+<DMTSchema>
+  <PearClass name="CashCall.MIM.DefaultLoanProduct">
+    <Obj uid="BO^CashCall.MIM.DefaultLoanProduct^323460e5:15cff1cace2:4de9">
+      <Attribute name="loanSequence" type="long">[ID]</Attribute>
+      <Attribute name="publicLoanId" type="string">[ID]</Attribute>
+      <Attribute name="loanType" type="integer">10</Attribute>
+      <Attribute name="loanServicingStatus" type="integer">999</Attribute>
+      <Attribute name="loanApprovalStatus" type="integer">7</Attribute>
+      <Attribute name="startDate" type="long">[TODAY_DATE_IN_LONG]</Attribute>
+      <Attribute name="poolCompanyId" type="string">[STATUS]</Attribute>
+    </Obj>
+  </PearClass>
+  <PearClass name="CashCall.MIM.CurrentApplication" associationName="initiatingApp" associatedObjPoid="BO^CashCall.MIM.DefaultLoanProduct^323460e5:15cff1cace2:4de9">
+    <Obj uid="BO^CashCall.MIM.CurrentApplication^323460e5:15cff1cace2:4de8">
+      <Attribute name="association_name" type="String">initiatingApp</Attribute>
+      <Attribute name="associated_obj_poid" type="String">BO^CashCall.MIM.DefaultLoanProduct^323460e5:15cff1cace2:4de9</Attribute>
+      <Attribute name="poid" type="string">BO^CashCall.MIM.CurrentApplication^323460e5:15cff1cace2:4de8</Attribute>
+      <Attribute name="dateOfBirth" type="string">[DOB]</Attribute>
+      <Attribute name="firstName" type="string">[FIRST_NAME]</Attribute>
+      <Attribute name="lastName" type="string">[LAST_NAME]</Attribute>
+      <Attribute name="homePhone" type="string">[HOME_PHONE]</Attribute>
+      <Attribute name="ssn" type="string">[SSN]</Attribute>
+      <Attribute name="driverLicenseNumber" type="string">X</Attribute>
+    </Obj>
+  </PearClass>
+  <PearClass name="CashCall.MIM.LoanTerm" associationName="currentTerm" associatedObjPoid="BO^CashCall.MIM.DefaultLoanProduct^323460e5:15cff1cace2:4de9">
+    <Obj uid="BO^CashCall.MIM.LoanTerm^323460e5:15d0b1adf3e:7f5f">
+      <Attribute name="association_name" type="String">currentTerm</Attribute>
+      <Attribute name="associated_obj_poid" type="String">BO^CashCall.MIM.DefaultLoanProduct^323460e5:15cff1cace2:4de9</Attribute>
+      <Attribute name="startDate" type="long">[TODAY_DATE_IN_LONG]</Attribute>
+      <Attribute name="monthlyPayment" type="double">0</Attribute>
+      <Attribute name="poid" type="string">BO^CashCall.MIM.LoanTerm^323460e5:15d0b1adf3e:7f5f</Attribute>
+      <Attribute name="dateOfLastPayment" type="long">null</Attribute>
+      <Attribute name="numberOfMonths" type="integer">0</Attribute>
+      <Attribute name="additionalFirstMonthInterest" type="double">null</Attribute>
+      <Attribute name="principal" type="double">[UNSETTLED_DEBT]</Attribute>
+      <Attribute name="interestRate" type="double">0</Attribute>
+      <Attribute name="interestPortionOfPartialFirstMonthPortionOfFirstMonthlyReceivable" type="double">0</Attribute>
+      <Attribute name="currentBalance" type="double">0</Attribute>
+      <Attribute name="publicLoanIdN" type="long">[ID]</Attribute>
+      <Attribute name="firstPaymentDueDate" type="long">null</Attribute>
+      <Attribute name="initialBalance" type="double">0</Attribute>
+      <Attribute name="initialUPRI" type="double">null</Attribute>
+      <Attribute name="initialStartDate" type="timestamp">[TODAY_DATE_IN_LONG]</Attribute>
+      <Attribute name="fixed_fmr_amount" type="Long">null</Attribute>
+    </Obj>
+  </PearClass>
+  <PearClass name="CashCall.MIM.Borrower" associationName="currentBorrower" associatedObjPoid="BO^CashCall.MIM.CurrentApplication^323460e5:15cff1cace2:4de8">
+    <Obj uid="BO^CashCall.MIM.Borrower^-3a9b7ce8:14284e7445b:5291">
+      <Attribute name="association_name" type="String">currentBorrower</Attribute>
+      <Attribute name="associated_obj_poid" type="String">BO^CashCall.MIM.CurrentApplication^323460e5:15cff1cace2:4de8</Attribute>
+      <Attribute name="poid" type="string">BO^CashCall.MIM.Borrower^-3a9b7ce8:14284e7445b:5291</Attribute>
+      <Attribute name="dateOfBirth" type="string">[DOB]</Attribute>
+      <Attribute name="lastName" type="string">[LAST_NAME]</Attribute>
+      <Attribute name="homePhone" type="string">[HOME_PHONE]</Attribute>
+      <Attribute name="firstName" type="string">[FIRST_NAME]</Attribute>
+      <Attribute name="ssn" type="string">[SSN]</Attribute>
+    </Obj>
+  </PearClass>
+  <PearClass name="CashCall.MIM.Address" associationName="currentAddress" associatedObjPoid="BO^CashCall.MIM.CurrentApplication^323460e5:15cff1cace2:4de8">
+    <Obj uid="BO^CashCall.MIM.Address^323460e5:15cff1cace2:4dec">
+      <Attribute name="association_name" type="String">currentAddress</Attribute>
+      <Attribute name="associated_obj_poid" type="String">BO^CashCall.MIM.CurrentApplication^323460e5:15cff1cace2:4de8</Attribute>
+      <Attribute name="poid" type="string">BO^CashCall.MIM.Address^323460e5:15cff1cace2:4dec</Attribute>
+      <Attribute name="address1" type="string">[ADDRESS_1]</Attribute>
+      <Attribute name="zip" type="string">[ZIP]</Attribute>
+      <Attribute name="address2" type="string">null</Attribute>
+      <Attribute name="city" type="string">[CITY]</Attribute>
+      <Attribute name="state" type="string">[STATE]</Attribute>
+      <Attribute name="addressType" type="integer">null</Attribute>
+      <Attribute name="isVerified" type="boolean">false</Attribute>
+      <Attribute name="zip4" type="string">null</Attribute>
+    </Obj>
+  </PearClass>
+</DMTSchema>

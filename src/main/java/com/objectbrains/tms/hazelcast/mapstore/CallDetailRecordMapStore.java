@@ -7,7 +7,7 @@ package com.objectbrains.tms.hazelcast.mapstore;
 
 import com.hazelcast.core.MapStore;
 import com.hazelcast.core.PostProcessingMapStore;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import static com.objectbrains.tms.hazelcast.Configs.CALL_DETAIL_RECORD_MAP_STORE_BEAN_NAME;
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author connorpetty
  */
 @Repository(CALL_DETAIL_RECORD_MAP_STORE_BEAN_NAME)
-public class CallDetailRecordMapStore implements MapStore<String, CallDetailRecord>, PostProcessingMapStore {
+public class CallDetailRecordMapStore implements MapStore<String, CallDetailRecordTMS>, PostProcessingMapStore {
 
     private static final Logger log = LoggerFactory.getLogger(CallDetailRecordMapStore.class);
 
@@ -37,7 +37,7 @@ public class CallDetailRecordMapStore implements MapStore<String, CallDetailReco
 
     @Override
     @Transactional
-    public void store(String key, CallDetailRecord value) {
+    public void store(String key, CallDetailRecordTMS value) {
 
         log.info("Saving CallDetailRecordMapStore {} -> pk is {} isAgentHangup: {} F:{}, {}", value.getCall_uuid(), value.getPk(), value.getComplete(), value.getCompleteFinal(), value.getSystemDispostionCode());
 
@@ -50,10 +50,10 @@ public class CallDetailRecordMapStore implements MapStore<String, CallDetailReco
 
     @Override
     @Transactional
-    public void storeAll(Map<String, CallDetailRecord> map) {
-        for (Map.Entry<String, CallDetailRecord> entrySet : map.entrySet()) {
+    public void storeAll(Map<String, CallDetailRecordTMS> map) {
+        for (Map.Entry<String, CallDetailRecordTMS> entrySet : map.entrySet()) {
             String key = entrySet.getKey();
-            CallDetailRecord value = entrySet.getValue();
+            CallDetailRecordTMS value = entrySet.getValue();
             store(key, value);
         }
     }
@@ -68,19 +68,18 @@ public class CallDetailRecordMapStore implements MapStore<String, CallDetailReco
         //TODO
     }
 
-    private CallDetailRecord create(String uuid) {
-        CallDetailRecord cdr = new CallDetailRecord(uuid);
+    private CallDetailRecordTMS create(String uuid) {
+        CallDetailRecordTMS cdr = new CallDetailRecordTMS(uuid);
         entityManager.persist(cdr);
         return cdr;
     }
 
     @Override
     @Transactional
-    public CallDetailRecord load(String key) {
+    public CallDetailRecordTMS load(String key) {
         try {
-            return entityManager.createQuery(
-                    "select tms from CallDetailRecord tms where "
-                    + " tms.call_uuid = :key", CallDetailRecord.class)
+            return entityManager.createQuery("select tms from CallDetailRecord tms where "
+                    + " tms.call_uuid = :key", CallDetailRecordTMS.class)
                     .setParameter("key", key)
                     .getSingleResult();
         } catch (NoResultException ex) {
@@ -90,16 +89,15 @@ public class CallDetailRecordMapStore implements MapStore<String, CallDetailReco
 
     @Override
     @Transactional
-    public Map<String, CallDetailRecord> loadAll(Collection<String> keys) {
-        List<CallDetailRecord> tmss = entityManager.createQuery(
-                "select tms from CallDetailRecord tms where tms.call_uuid in (:keys)", CallDetailRecord.class)
+    public Map<String, CallDetailRecordTMS> loadAll(Collection<String> keys) {
+        List<CallDetailRecordTMS> tmss = entityManager.createQuery("select tms from CallDetailRecord tms where tms.call_uuid in (:keys)", CallDetailRecordTMS.class)
                 .setParameter("keys", keys)
                 .getResultList();
         
         Set<String> missingKeys = new HashSet<>(keys);
 
-        Map<String, CallDetailRecord> resultMap = new HashMap<>();
-        for (CallDetailRecord tms : tmss) {
+        Map<String, CallDetailRecordTMS> resultMap = new HashMap<>();
+        for (CallDetailRecordTMS tms : tmss) {
             resultMap.put(tms.getCall_uuid(), tms);
             missingKeys.remove(tms.getCall_uuid());
         }

@@ -22,7 +22,7 @@ import org.joda.time.LocalDateTime;
  * @author connorpetty
  */
 @Embeddable
-public class Agent implements Serializable {
+public class AgentTMS implements Serializable {
 
     @Expose
     @Column(insertable = false, updatable = false)
@@ -84,10 +84,10 @@ public class Agent implements Serializable {
     @NotAudited
     private Boolean screenMonitored;
 
-    public Agent() {
+    public AgentTMS() {
     }
 
-    public Agent(User user) {
+    public AgentTMS(User user) {
         this.extension = user.getExtension();
         this.userName = user.getUserName();
         this.freeswitchIP = user.getFreeswitchIP();
@@ -299,7 +299,7 @@ public class Agent implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Agent other = (Agent) obj;
+        final AgentTMS other = (AgentTMS) obj;
         if (!java.util.Objects.equals(this.extension, other.extension)) {
             return false;
         }

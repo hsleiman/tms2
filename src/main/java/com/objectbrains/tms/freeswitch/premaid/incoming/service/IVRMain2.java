@@ -11,7 +11,7 @@ import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
 import com.objectbrains.tms.enumerated.RecordedPhrases;
@@ -248,7 +248,7 @@ public class IVRMain2 {
 
     private void sendToCustomerServiceFifo(DialplanVariable variable, TMSDialplan tmsDialplan, boolean isBorrowerKnown, Integer lastTransferIvr) {
         tmsDialplan.addAction(new Sleep(500l));
-        CallDetailRecord mcdr = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS mcdr = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
 
         callDetailRecordService.updateLastTransferStep(tmsDialplan.getCall_uuid(), lastTransferIvr);
 

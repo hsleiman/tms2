@@ -18,7 +18,7 @@ import com.objectbrains.tms.freeswitch.dialplan.action.Playback;
 import com.objectbrains.tms.freeswitch.dialplan.action.Set;
 import com.objectbrains.tms.freeswitch.dialplan.action.Sleep;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.FreeswitchConfiguration;
 import java.util.ArrayList;
@@ -42,8 +42,8 @@ public class PremaidActions {
     
     private static final Logger log = LoggerFactory.getLogger(PremaidActions.class);
 
-    public ArrayList<AbstractAction> getLocalExtension(Agent callerAgent, DialplanVariable variable) {
-        Agent calleeAgent = agentService.getAgent(variable.getCalleeIdInteger());
+    public ArrayList<AbstractAction> getLocalExtension(AgentTMS callerAgent, DialplanVariable variable) {
+        AgentTMS calleeAgent = agentService.getAgent(variable.getCalleeIdInteger());
 
         ArrayList<AbstractAction> actions = new ArrayList<>();
         actions.add(new Set("dialed_extension", "$1"));

@@ -7,7 +7,7 @@ package com.objectbrains.tms.service;
 
 import com.objectbrains.ams.iws.User;
 import com.objectbrains.sti.embeddable.AgentWeightPriority;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import java.util.Collection;
 import java.util.HashMap;
@@ -34,9 +34,9 @@ public class Utils {
         return extensions;
     }
 
-    public static Set<Integer> getExtensions(Collection<Agent> agents) {
+    public static Set<Integer> getExtensions(Collection<AgentTMS> agents) {
         Set<Integer> extensions = new HashSet<>();
-        for (Agent agent : agents) {
+        for (AgentTMS agent : agents) {
             extensions.add(agent.getExtension());
         }
         return extensions;

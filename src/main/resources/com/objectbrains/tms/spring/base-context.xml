@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd"
+       default-autowire="byName" >
+    
+    <bean id="placeholderConfigurerParent" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" abstract="true">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="valueSeparator" value="#"/>
+    </bean>
+    
+    <context:component-scan base-package="com.objectbrains.tms" >
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController">-->
+    </context:component-scan>
+    
+    <context:annotation-config/>
+    
+    <aop:aspectj-autoproxy/>
+    
+    <bean class="com.objectbrains.orm.jpa.DefaultJpaConfiguration">
+        <property name="packagesToScan" value="com.objectbrains.tms.db.entity" />
+        <!--<property name="databasePlatform" value="${db.dialect}"/>-->
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.default_schema">${db.schema}</prop>
+                <prop key="org.hibernate.envers.revision_field_name">revision</prop>
+                <prop key="org.hibernate.envers.audit_table_suffix">_history</prop>
+                <prop key="org.hibernate.envers.revision_type_field_name">revisionType</prop>
+                <prop key="hibernate.ejb.naming_strategy">com.objectbrains.tms.db.hibernate.TMSNamingStrategy</prop>
+                <prop key="hibernate.hbm2ddl.auto">${db.hbm2ddl.auto}</prop><!--create | create-drop | validate | update -->
+                <!--                <prop key="hibernate.hbm2ddl.import_files">/quartz.sql</prop>
+                <prop key="hibernate.hbm2ddl.import_files_sql_extractor">org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor</prop>-->
+            </props>
+        </property>
+    </bean>
+    
+    <task:executor id="tms-executor" pool-size="100"/>
+    <!--<task:executor id="tms-sync" pool-size="10"/>-->
+    <bean class="com.objectbrains.scheduler.annotation.SyncAnnotationBeanPostProcessor">
+        <property name="executor" ref="tms-executor"/>
+    </bean>
+</beans>

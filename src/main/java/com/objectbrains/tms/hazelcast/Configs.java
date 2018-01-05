@@ -27,11 +27,11 @@ import com.objectbrains.hcms.hazelcast.HazelcastService.ReplicatedMapKey;
 import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import com.objectbrains.sti.pojo.DialerQueueRecord;
 import com.objectbrains.tms.db.entity.DNC;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.freeswitch.FreeswitchNode;
 import com.objectbrains.tms.db.entity.freeswitch.StaticDialplan;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
@@ -82,7 +82,7 @@ public class Configs implements BeanFactoryAware {
     public static final String DIALER_STATS_MAP_STORE_BEAN_NAME = "dialerStatsMapStore";
 
     public static final AtomicReferenceKey<ReportService.TodaysReportCache> TODAYS_REPORT_CACHE_REF = new AtomicReferenceKey("todaysReports");
-    public static final MapKey<Integer, Agent> AGENT_MAP = new MapKey<>("agents");
+    public static final MapKey<Integer, AgentTMS> AGENT_MAP = new MapKey<>("agents");
     public static final MapKey<String, DNC> DNC_MAP = new MapKey<>("dnc");
     public static final MapKey<Long, Dialer> DIALER_MAP = new MapKey<>("dialers");
     public static final MapKey<Long, Long> QUEUE_TO_DIALER_MAP = new MapKey<>("queueTodialers");
@@ -108,7 +108,7 @@ public class Configs implements BeanFactoryAware {
     public static final MapKey<Long, DialerQueueRecord> DIALER_QUEUE_RECORD_MAP = new MapKey<>("dialerQueueRecords");
     public static final MapKey<String, DialerCall> DIALER_CALL_MAP = new MapKey<>("dialerCalls");
     public static final MapKey<Long, DialerStats> DIALER_STATS_MAP = new MapKey<>("dialerStats");
-    public static final MapKey<String, CallDetailRecord> CALL_DETAIL_RECORD_MAP = new MapKey<>("callDetailRecord");
+    public static final MapKey<String, CallDetailRecordTMS> CALL_DETAIL_RECORD_MAP = new MapKey<>("callDetailRecord");
 
     public static final QueueKey<UploadCallRecordingPOJO> CALL_RECORDING_UPLOAD_QUEUE = new QueueKey<>("callRecordingUploadQueue");
 

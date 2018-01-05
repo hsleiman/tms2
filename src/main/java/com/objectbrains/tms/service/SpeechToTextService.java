@@ -10,8 +10,8 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import com.objectbrains.gce.GCEException;
 import com.objectbrains.gce.GCEService;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
-import com.objectbrains.tms.db.entity.cdr.SpeechToText;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
+import com.objectbrains.tms.db.entity.cdr.SpeechToTextTms;
 import com.objectbrains.tms.db.repository.CallDetailRecordRepository;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -65,12 +65,12 @@ public class SpeechToTextService {
         try {
             log.info("Get Speech to text Transcript {} - Count {}", callUUID, count);
 
-            CallDetailRecord mcdr = callDetailRecordService.getCDR(callUUID);
+            CallDetailRecordTMS mcdr = callDetailRecordService.getCDR(callUUID);
             String date = FreeswitchConfiguration.formatToYYYY_MM_DD(mcdr.getCreateTimestamp());
 
             String remotePath = date + "/" + callUUID + "/" + callUUID;
 
-            SpeechToText toText = new SpeechToText();
+            SpeechToTextTms toText = new SpeechToTextTms();
             toText.setCall_uuid(callUUID);
             toText.setTimestamp(LocalDateTime.now());
             toText.setBothChannal(getString(FreeswitchConfiguration.getPhoneRecordingBucket(), remotePath + ".txt"));

@@ -7,7 +7,7 @@ package com.objectbrains.tms.db.repository;
 
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
 import com.objectbrains.sti.embeddable.WeightedPriority;
-import com.objectbrains.tms.db.entity.DialerQueue;
+import com.objectbrains.tms.db.entity.DialerQueueTms;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.service.SvcQueueService;
 import java.util.List;
@@ -43,7 +43,7 @@ public class TmsDialerQueueRepository {
 //                .setParameter("queuePk", queuePk)
 //                .executeUpdate();
 //
-//        DialerQueue queue = getDialerQueue(queuePk);
+//        DialerQueueTms queue = getDialerQueue(queuePk);
 //        for (int i = 0; i < extensions.size(); i++) {
 //            AgentWeightedPriority agentWeightPriority = agentWeightPriorities.get(i);
 //            AgentRecord agent = agentRepository.getAgent(extensions.get(i));
@@ -70,14 +70,14 @@ public class TmsDialerQueueRepository {
 ////        }
 ////        return agentQueueKeys;
 //    }
-//    public void update(DialerQueue dialerQueue) {
+//    public void update(DialerQueueTms dialerQueue) {
 //        entityManager.merge(dialerQueue);
 //    }
     public void update(long queuePk, DialerType type, WeightedPriority wp) {
-        DialerQueue queue = entityManager.find(DialerQueue.class, queuePk);
+        DialerQueueTms queue = entityManager.find(DialerQueueTms.class, queuePk);
         boolean persist = queue == null;
         if (persist) {
-            queue = new DialerQueue();
+            queue = new DialerQueueTms();
             queue.setPk(queuePk);
         }
         queue.copyFrom(wp);
@@ -88,20 +88,20 @@ public class TmsDialerQueueRepository {
         }
     }
 
-    public DialerQueue getDialerQueue(long queuePk) {
-        DialerQueue queue = entityManager.find(DialerQueue.class, queuePk);
+    public DialerQueueTms getDialerQueue(long queuePk) {
+        DialerQueueTms queue = entityManager.find(DialerQueueTms.class, queuePk);
         if (queue != null) {
             return queue;
         }
         return loadQueue(queuePk);
     }
 
-    private DialerQueue loadQueue(long queuePk) {
+    private DialerQueueTms loadQueue(long queuePk) {
         DialerQueueSettings settings = queueService.getQueueSettings(queuePk);
         if (settings == null) {
             return null;
         }
-        DialerQueue queue = new DialerQueue();
+        DialerQueueTms queue = new DialerQueueTms();
         queue.setPk(queuePk);
         queue.copyFrom(settings.getWeightedPriority());
         queue.setType(DialerType.valueFrom(settings));
@@ -109,11 +109,11 @@ public class TmsDialerQueueRepository {
         return queue;
     }
 
-    public List<DialerQueue> getDialerQueuesForAgent(int agentExtension) {
+    public List<DialerQueueTms> getDialerQueuesForAgent(int agentExtension) {
         return entityManager.createQuery("select assoc.dialerQueue "
                 + "from AgentQueueAssociation assoc "
                 + "where assoc.pk.extension = :agentExtension",
-                DialerQueue.class)
+                DialerQueueTms.class)
                 .setParameter("agentExtension", agentExtension)
                 .getResultList();
     }

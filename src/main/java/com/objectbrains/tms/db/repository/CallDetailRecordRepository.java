@@ -7,11 +7,11 @@ package com.objectbrains.tms.db.repository;
 
 import com.objectbrains.tms.db.entity.AgentRecord;
 import com.objectbrains.tms.db.entity.AgentCallDetailRecordAssociation;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.cdr.PTP;
-import com.objectbrains.tms.db.entity.cdr.Payment;
-import com.objectbrains.tms.db.entity.cdr.SpeechToText;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.db.entity.cdr.PaymentTms;
+import com.objectbrains.tms.db.entity.cdr.SpeechToTextTms;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.websocket.message.inbound.Recieve;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -39,7 +39,7 @@ public class CallDetailRecordRepository {
         return entityManager.unwrap(Session.class);
     }
 
-    public void addAgentToCDR(CallDetailRecord cdr, AgentRecord agent) {
+    public void addAgentToCDR(CallDetailRecordTMS cdr, AgentRecord agent) {
         AgentCallDetailRecordAssociation acdra = new AgentCallDetailRecordAssociation();
         acdra.setAgent(agent);
         acdra.setCallDetailRecord(cdr);
@@ -47,7 +47,7 @@ public class CallDetailRecordRepository {
         entityManager.persist(acdra);
     }
 
-    public void endAgentCallFromCDR(CallDetailRecord cdr, Agent agent) {
+    public void endAgentCallFromCDR(CallDetailRecordTMS cdr, AgentTMS agent) {
         AgentCallDetailRecordAssociation acdra = entityManager.createQuery(
                 "select tms from AgentCallDetailRecordAssociation tms where "
                 + " AgentCallDetailRecordAssociation.Agent = :Agent and AgentCallDetailRecordAssociation.CallDetailRecord = :CallDetailRecord", AgentCallDetailRecordAssociation.class)
@@ -60,7 +60,7 @@ public class CallDetailRecordRepository {
         }
     }
 
-    public void persist(SpeechToText toText) {
+    public void persist(SpeechToTextTms toText) {
         entityManager.persist(toText);
     }
 
@@ -73,7 +73,7 @@ public class CallDetailRecordRepository {
     }
 
     public void addPayment(Integer ext, Recieve recieve) {
-        Payment payment = new Payment();
+        PaymentTms payment = new PaymentTms();
         payment.setAmount(recieve.getPayment().getAmount());
         payment.setDate(recieve.getPayment().getDate());
         payment.setCall_uuid(recieve.getCall_uuid());

@@ -6,7 +6,7 @@
 package com.objectbrains.tms.db.entity;
 
 import com.objectbrains.ams.iws.User;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -28,7 +28,7 @@ import org.joda.time.LocalDateTime;
  *
  * @author connorpetty
  */
-@Entity(name = "Agent")
+@Entity(name = "AgentRecord")
 @Table(schema = "sti")
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @AuditTable(value = "tms_agent_history", schema = "tms")
@@ -41,7 +41,7 @@ public class AgentRecord implements Serializable {
     private String userName;
 
     @Embedded
-    private Agent info;
+    private AgentTMS info;
 
     @OneToOne
     @JoinColumn(name = "agent_stats_pk", referencedColumnName = "pk")
@@ -58,7 +58,7 @@ public class AgentRecord implements Serializable {
     public AgentRecord(User user) {
         this.extension = user.getExtension();
         this.userName = user.getUserName();
-        this.info = new Agent(user);
+        this.info = new AgentTMS(user);
     }
 
     public Integer getExtension() {
@@ -77,11 +77,11 @@ public class AgentRecord implements Serializable {
         this.userName = userName;
     }
 
-    public Agent getInfo() {
+    public AgentTMS getInfo() {
         return info;
     }
 
-    public void setInfo(Agent info) {
+    public void setInfo(AgentTMS info) {
         this.info = info;
     }
 

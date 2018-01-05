@@ -17,7 +17,7 @@ import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.exception.CallNotFoundException;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.service.AgentCallService;
 import com.objectbrains.tms.service.AgentQueueAssociationService;
@@ -228,7 +228,7 @@ public class CallingOutService {
         }
     }
 
-    private Boolean filterAgent(Agent next) {
+    private Boolean filterAgent(AgentTMS next) {
 
         return websocket.checkAgentExt(next.getExtension());
 
@@ -259,10 +259,10 @@ public class CallingOutService {
             return;
         }
 
-        List<Agent> agents = agentService.getAgents(awpList, null, null);
+        List<AgentTMS> agents = agentService.getAgents(awpList, null, null);
 
         log.info("Creating Transfer call for Agents for call uuid {}", callUUID);
-        for (Agent agent : agents) {
+        for (AgentTMS agent : agents) {
             if (!Objects.equals(originalExtToExclude, agent.getExtension())) {
                 callService.addPrimaryCall(agent.getExtension(), queuePK, callUUID);
             }
@@ -306,9 +306,9 @@ public class CallingOutService {
             }
             log.info("putCallOnWaitAsync {}, {} isisInbound: {}", callUUID, loanId, isInbound);
             dialplanRepository.LogDialplanInfoIntoDb(callUUID, "putCallOnWaitAsync {}, {} isisInbound: {}", callUUID, loanId, isInbound);
-            List<Agent> agents = (agentService.getAgents(map, defaultWeightedPriorioty, order));
+            List<AgentTMS> agents = (agentService.getAgents(map, defaultWeightedPriorioty, order));
             try {
-                for (Agent agent : agents) {
+                for (AgentTMS agent : agents) {
                     if (isInbound) {
                         log.info("callService.connectInboundCallToAgent {}, {} isisInbound: {} agentExt: {}", callUUID, loanId, isInbound, agent.getExtension());
                         dialplanRepository.LogDialplanInfoIntoDb(callUUID, "callService.connectInboundCallToAgent {}, {} isisInbound: {} agentExt: {}", callUUID, loanId, isInbound, agent.getExtension());

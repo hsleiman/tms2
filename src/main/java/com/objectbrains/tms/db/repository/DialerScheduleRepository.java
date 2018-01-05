@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.db.repository;
 
-import com.objectbrains.tms.db.entity.DialerQueue;
+import com.objectbrains.tms.db.entity.DialerQueueTms;
 import com.objectbrains.tms.db.entity.DialerScheduleEntity;
 import com.objectbrains.tms.pojo.DialerSchedule;
 import com.objectbrains.tms.service.dialer.DialerException;
@@ -54,7 +54,7 @@ public class DialerScheduleRepository {
                 .executeUpdate();
         
         
-        DialerQueue queue = dialerRepository.getDialerQueue(queuePk);
+        DialerQueueTms queue = dialerRepository.getDialerQueue(queuePk);
         
         List<DialerScheduleEntity> newSchedules = new ArrayList<>();
         for (DialerSchedule schedule : schedules) {

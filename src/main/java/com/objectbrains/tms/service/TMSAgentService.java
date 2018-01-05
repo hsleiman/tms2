@@ -30,7 +30,7 @@ import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
 import com.objectbrains.tms.hazelcast.AgentCallState;
 import com.objectbrains.tms.hazelcast.AgentDialerState;
 import com.objectbrains.tms.hazelcast.Configs;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
@@ -94,7 +94,7 @@ public class TMSAgentService {
     @Autowired
     private FreeswitchNodeService freeswitchNodeService;
 
-    private IMap<Integer, Agent> agentMap;
+    private IMap<Integer, AgentTMS> agentMap;
     private IExecutorService executor;
 
     @PostConstruct
@@ -103,13 +103,13 @@ public class TMSAgentService {
         executor = hazelcastService.getExecutorService(Configs.DIALER_EXECUTOR_SERVICE);
     }
 
-    private Agent loadAgent(String userName) {
+    private AgentTMS loadAgent(String userName) {
         User user = amsService.getUser(userName);
         if (user == null) {
             return null;
         }
         int ext = user.getExtension();
-        Agent agent = getAgent(ext);
+        AgentTMS agent = getAgent(ext);
         if (!userName.equals(agent.getUserName())) {
             agentRepository.changeUserName(ext, userName);
             agentMap.evict(ext);
@@ -119,8 +119,8 @@ public class TMSAgentService {
 //        return loadAgent(userName, 0);
     }
 //
-//    private Agent loadAgent(String userName, int attemptCount) {
-//        Agent agent = null;
+//    private AgentTMS loadAgent(String userName, int attemptCount) {
+//        AgentTMS agent = null;
 //        try {
 //            agent = agentRepository.getAgent(userName).getInfo();
 //            agentMap.putTransient(agent.getExtension(), agent, 0, TimeUnit.SECONDS);
@@ -134,14 +134,14 @@ public class TMSAgentService {
 //        return agent;
 //    }
 
-    public Agent getAgent(String userName) {
-        Collection<Agent> agents = agentMap.values(new AgentNamePredicate(userName));
+    public AgentTMS getAgent(String userName) {
+        Collection<AgentTMS> agents = agentMap.values(new AgentNamePredicate(userName));
         if (agents.size() == 1) {
             return agents.iterator().next();
         }
-        Agent realAgent = loadAgent(userName);
+        AgentTMS realAgent = loadAgent(userName);
         //need to get rid of any agents that are not the authentic one.
-        for (Agent agent : agents) {
+        for (AgentTMS agent : agents) {
             if (!agent.equals(realAgent)) {
                 agentMap.evict(agent.getExtension());
             }
@@ -149,27 +149,27 @@ public class TMSAgentService {
         return realAgent;
     }
 
-//    private Agent getAgent(String userName, int attemptCount) {
+//    private AgentTMS getAgent(String userName, int attemptCount) {
 //        Collection<Agent> agents = agentMap.values(new AgentNamePredicate(userName));
 //        if (agents.isEmpty()) {
 //            return loadAgent(userName, attemptCount);
 //        }
 //        return agents.iterator().next();
 //    }
-    public List<Agent> getAgents(Collection<String> agentNames) {
-        List<Agent> agents = new ArrayList<>(agentMap.values(new AgentNamesPredicate(agentNames)));
+    public List<AgentTMS> getAgents(Collection<String> agentNames) {
+        List<AgentTMS> agents = new ArrayList<>(agentMap.values(new AgentNamesPredicate(agentNames)));
         Set<String> namesNotFound = new HashSet<>(agentNames);
-        List<Agent> agentsToRemove = null;
-        for (Agent agent : agents) {
+        List<AgentTMS> agentsToRemove = null;
+        for (AgentTMS agent : agents) {
             if (!namesNotFound.remove(agent.getUserName())) {
                 //the names was already removed, so it must be a duplicate
                 String duplicateName = agent.getUserName();
                 //need to find the first duplicate agent
-                Agent dupAgent = findFirstAgentWithName(agents, duplicateName);
+                AgentTMS dupAgent = findFirstAgentWithName(agents, duplicateName);
                 if (agentsToRemove == null) {
                     agentsToRemove = new ArrayList<>();
                 }
-                Agent trueAgent = loadAgent(duplicateName);
+                AgentTMS trueAgent = loadAgent(duplicateName);
                 if (trueAgent == null) {
                     agentsToRemove.add(agent);
                     agentsToRemove.add(dupAgent);
@@ -181,13 +181,13 @@ public class TMSAgentService {
             }
         }
         if (agentsToRemove != null) {
-            for (Agent agent : agentsToRemove) {
+            for (AgentTMS agent : agentsToRemove) {
                 agents.remove(agent);
                 agentMap.evict(agent.getExtension());
             }
         }
         for (String agentName : namesNotFound) {
-            Agent agent = loadAgent(agentName);
+            AgentTMS agent = loadAgent(agentName);
             if (agent != null) {
                 agents.add(agent);
             }
@@ -195,8 +195,8 @@ public class TMSAgentService {
         return agents;
     }
 
-    private static Agent findFirstAgentWithName(Collection<Agent> agents, String userName) {
-        for (Agent agent : agents) {
+    private static AgentTMS findFirstAgentWithName(Collection<AgentTMS> agents, String userName) {
+        for (AgentTMS agent : agents) {
             if (agent.getUserName().equals(userName)) {
                 return agent;
             }
@@ -204,7 +204,7 @@ public class TMSAgentService {
         return null;
     }
 
-    public List<Agent> getAgents(List<AgentWeightPriority> agentWeightPriorities,
+    public List<AgentTMS> getAgents(List<AgentWeightPriority> agentWeightPriorities,
             com.objectbrains.sti.embeddable.WeightedPriority defaultWeightedPriorioty,
             CallRoutingOption callOrder) {
         return getAgents(Utils.convertToMap(agentWeightPriorities),
@@ -212,13 +212,13 @@ public class TMSAgentService {
                 callOrder);
     }
 
-    public List<Agent> getAgents(Map<Integer, AgentWeightedPriority> agentWeightPriorities,
+    public List<AgentTMS> getAgents(Map<Integer, AgentWeightedPriority> agentWeightPriorities,
             com.objectbrains.sti.embeddable.WeightedPriority defaultWeightedPriorioty,
             CallRoutingOption callOrder) {
         if (agentWeightPriorities.isEmpty()) {
             return Collections.emptyList();
         }
-        Map<Integer, Agent> agents = agentMap.getAll(agentWeightPriorities.keySet());
+        Map<Integer, AgentTMS> agents = agentMap.getAll(agentWeightPriorities.keySet());
         Map<String, AgentWeightedPriority> weights = new HashMap<>();
 
         for (Map.Entry<Integer, AgentWeightedPriority> entrySet : agentWeightPriorities.entrySet()) {
@@ -226,28 +226,28 @@ public class TMSAgentService {
             AgentWeightedPriority value = entrySet.getValue();
             weights.put(agents.get(key).getUserName(), value);
         }
-        List<Agent> list = new ArrayList<>(agents.values());
+        List<AgentTMS> list = new ArrayList<>(agents.values());
         sortAgents(list, weights,
                 defaultWeightedPriorioty == null ? null : new WeightedPriority(defaultWeightedPriorioty),
                 callOrder);
         return list;
     }
 
-    public List<Agent> getAgents(Map<String, AgentWeightedPriority> agentWeightPriorities,
+    public List<AgentTMS> getAgents(Map<String, AgentWeightedPriority> agentWeightPriorities,
             final WeightedPriority defaultWeightedPriorioty, CallRoutingOption callOrder) {
-        List<Agent> agents = getAgents(agentWeightPriorities.keySet());
+        List<AgentTMS> agents = getAgents(agentWeightPriorities.keySet());
         sortAgents(agents, agentWeightPriorities, defaultWeightedPriorioty, callOrder);
         return agents;
     }
 
-    private void sortAgents(List<Agent> agents,
+    private void sortAgents(List<AgentTMS> agents,
             Map<String, AgentWeightedPriority> agentWeightPriorities,
             final WeightedPriority defaultWeightedPriorioty, CallRoutingOption callOrder) {
         if (callOrder == null) {
             callOrder = CallRoutingOption.ROUND_ROBIN;
         }
         Collections.shuffle(agents);
-        Comparator<Agent> comparator = null;
+        Comparator<AgentTMS> comparator = null;
         switch (callOrder) {
             case LONGEST_IDLE:
                 comparator = new AgentIdleComparator(agentWeightPriorities, statsService.getAgentStats(agents), false);
@@ -273,7 +273,7 @@ public class TMSAgentService {
     public Integer getAgentExtension(String userName) {
         Set<Integer> extentions = agentMap.keySet(new AgentNamePredicate(userName));
         if (extentions.isEmpty()) {
-            Agent agent = loadAgent(userName);
+            AgentTMS agent = loadAgent(userName);
             if (agent != null) {
                 return agent.getExtension();
             }
@@ -282,7 +282,7 @@ public class TMSAgentService {
         return extentions.iterator().next();
     }
 
-    public Agent getAgent(Integer extension) {
+    public AgentTMS getAgent(Integer extension) {
         if (extension == null) {
             LOG.warn("Attempted to look up agent with null extension. Ignoring");
             return null;
@@ -295,7 +295,7 @@ public class TMSAgentService {
     }
 
     public AgentStatus getAgentStatus(int ext) {
-        Agent agent = getAgent(ext);
+        AgentTMS agent = getAgent(ext);
         AgentCall agentCall = callService.getActiveCall(ext);
         return new AgentStatus(agent, statsService.getAgentStats(ext), agentCall);
     }
@@ -410,7 +410,7 @@ public class TMSAgentService {
 
     public Boolean updateAgentOnCall(int ext, TMSDialplan tmsDialplan) {
         Boolean value = null;
-        Agent agent = getAgent(ext);
+        AgentTMS agent = getAgent(ext);
         if (agent == null) {
             return value;
         }
@@ -469,7 +469,7 @@ public class TMSAgentService {
     }
 
     private void updateAgentOffCall(int ext, CDR cdr) {
-        Agent agent = getAgent(ext);
+        AgentTMS agent = getAgent(ext);
         if (agent == null) {
             return;
         }
@@ -496,7 +496,7 @@ public class TMSAgentService {
         LOG.info("Freeswitch loadbalancer is currently: {}", configuration.useFreeswitchLoadBalancer());
         LOG.info("Freeswitch loadbalancer is currently: {}", configuration.useFreeswitchLoadBalancer());
         if (configuration.useFreeswitchLoadBalancer()) {
-            Agent agent = getAgent(ext);
+            AgentTMS agent = getAgent(ext);
             if (agent != null) {
                 return agent.getFreeswitchIP();
             }
@@ -505,7 +505,7 @@ public class TMSAgentService {
     }
 
     public String getFreeswitchDomainForExt(Integer ext) {
-        Agent agent = getAgent(ext);
+        AgentTMS agent = getAgent(ext);
         if (agent != null) {
             return agent.getFreeswitchDomain();
         }
@@ -601,7 +601,7 @@ public class TMSAgentService {
 
     }
 
-    public static class AgentNamePredicate implements Predicate<Object, Agent>, DataSerializable {
+    public static class AgentNamePredicate implements Predicate<Object, AgentTMS>, DataSerializable {
 
         private String userName;
 
@@ -616,7 +616,7 @@ public class TMSAgentService {
         }
 
         @Override
-        public boolean apply(Map.Entry<Object, Agent> mapEntry) {
+        public boolean apply(Map.Entry<Object, AgentTMS> mapEntry) {
             return userName.equals(mapEntry.getValue().getUserName());
         }
 
@@ -632,7 +632,7 @@ public class TMSAgentService {
 
     }
 
-    public static class AgentNamesPredicate implements Predicate<Object, Agent>, DataSerializable {
+    public static class AgentNamesPredicate implements Predicate<Object, AgentTMS>, DataSerializable {
 
         private final SetAdapter<String> userNames = new SetAdapter<>();
 
@@ -644,7 +644,7 @@ public class TMSAgentService {
         }
 
         @Override
-        public boolean apply(Map.Entry<Object, Agent> mapEntry) {
+        public boolean apply(Map.Entry<Object, AgentTMS> mapEntry) {
             return userNames.contains(mapEntry.getValue().getUserName());
         }
 
@@ -660,7 +660,7 @@ public class TMSAgentService {
 
     }
 
-    private static abstract class AgentComparator implements Comparator<Agent> {
+    private static abstract class AgentComparator implements Comparator<AgentTMS> {
 
         protected final Map<String, AgentWeightedPriority> agentWeightPriorities;
 
@@ -669,7 +669,7 @@ public class TMSAgentService {
         }
 
         @Override
-        public final int compare(Agent o1, Agent o2) {
+        public final int compare(AgentTMS o1, AgentTMS o2) {
             AgentWeightedPriority awp1 = agentWeightPriorities.get(o1.getUserName());
             AgentWeightedPriority awp2 = agentWeightPriorities.get(o2.getUserName());
 
@@ -689,7 +689,7 @@ public class TMSAgentService {
             return isPrimary1 ? -1 : 1;
         }
 
-        protected abstract int compareInternal(Agent o1, Agent o2);
+        protected abstract int compareInternal(AgentTMS o1, AgentTMS o2);
     }
 
     public static class AgentGroupComparator extends AgentComparator {
@@ -699,7 +699,7 @@ public class TMSAgentService {
         }
 
         @Override
-        protected int compareInternal(Agent o1, Agent o2) {
+        protected int compareInternal(AgentTMS o1, AgentTMS o2) {
             return 0;
         }
 
@@ -718,7 +718,7 @@ public class TMSAgentService {
         }
 
         @Override
-        public int compareInternal(Agent o1, Agent o2) {
+        public int compareInternal(AgentTMS o1, AgentTMS o2) {
             AgentStats stat1 = statsMap.get(o1.getExtension());
             AgentStats stat2 = statsMap.get(o2.getExtension());
             AgentState state1 = (stat1 != null) ? stat1.getState() : null;
@@ -753,7 +753,7 @@ public class TMSAgentService {
         }
 
         @Override
-        public int compareInternal(Agent o1, Agent o2) {
+        public int compareInternal(AgentTMS o1, AgentTMS o2) {
             AgentStats stat1 = statsMap.get(o1.getExtension());
             AgentStats stat2 = statsMap.get(o2.getExtension());
 
@@ -784,7 +784,7 @@ public class TMSAgentService {
         }
 
         @Override
-        public int compareInternal(Agent o1, Agent o2) {
+        public int compareInternal(AgentTMS o1, AgentTMS o2) {
             WeightedPriority a1 = agentWeightPriorities.get(o1.getUserName());
             WeightedPriority a2 = agentWeightPriorities.get(o2.getUserName());
             Integer p1 = a1.getPriority();
@@ -800,13 +800,13 @@ public class TMSAgentService {
     }
 }
 
-abstract class AgentEntryProcessor extends AbstractEntryProcessor<Integer, Agent> {
+abstract class AgentEntryProcessor extends AbstractEntryProcessor<Integer, AgentTMS> {
 
     protected LocalDateTime now = LocalDateTime.now();
 
     @Override
-    public Object process(Map.Entry<Integer, Agent> entry, boolean isPrimary) {
-        Agent agent = entry.getValue();
+    public Object process(Map.Entry<Integer, AgentTMS> entry, boolean isPrimary) {
+        AgentTMS agent = entry.getValue();
         if (agent != null) {
             process(agent);
             agent.setLastActivityTime(now);
@@ -815,7 +815,7 @@ abstract class AgentEntryProcessor extends AbstractEntryProcessor<Integer, Agent
         return null;
     }
 
-    protected abstract void process(Agent agent);
+    protected abstract void process(AgentTMS agent);
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
@@ -843,7 +843,7 @@ class SetScreenMonitoredEntryProcessor extends AgentEntryProcessor {
     }
 
     @Override
-    protected void process(Agent agent) {
+    protected void process(AgentTMS agent) {
         agent.setScreenMonitored(screenMonitored);
     }
 
@@ -864,7 +864,7 @@ class SetScreenMonitoredEntryProcessor extends AgentEntryProcessor {
 class SetOnCallStartTimestampEntryProcessor extends AgentEntryProcessor {
 
     @Override
-    protected void process(Agent agent) {
+    protected void process(AgentTMS agent) {
         agent.setOnCallStartTimestamp(now);
     }
 
@@ -873,7 +873,7 @@ class SetOnCallStartTimestampEntryProcessor extends AgentEntryProcessor {
 class SetOnCallEndTimestampEntryProcessor extends AgentEntryProcessor {
 
     @Override
-    protected void process(Agent agent) {
+    protected void process(AgentTMS agent) {
         agent.setOnCallEndTimestamp(now);
     }
 
@@ -882,7 +882,7 @@ class SetOnCallEndTimestampEntryProcessor extends AgentEntryProcessor {
 class SetLastOutboundTimeEntryProcessor extends AgentEntryProcessor {
 
     @Override
-    protected void process(Agent agent) {
+    protected void process(AgentTMS agent) {
         agent.setLastOutboundTime(now);
     }
 
@@ -891,7 +891,7 @@ class SetLastOutboundTimeEntryProcessor extends AgentEntryProcessor {
 class SetLastInboundTimeEntryProcessor extends AgentEntryProcessor {
 
     @Override
-    protected void process(Agent agent) {
+    protected void process(AgentTMS agent) {
         agent.setLastInboundTime(now);
     }
 
@@ -900,7 +900,7 @@ class SetLastInboundTimeEntryProcessor extends AgentEntryProcessor {
 class SetLastHartbeatTimeEntryProcessor extends AgentEntryProcessor {
 
     @Override
-    protected void process(Agent agent) {
+    protected void process(AgentTMS agent) {
         agent.setLastHartbeatTime(now);
     }
 
@@ -920,7 +920,7 @@ class UpdateUserRawDataEntryProcessor extends AgentEntryProcessor {
     }
 
     @Override
-    protected void process(Agent agent) {
+    protected void process(AgentTMS agent) {
         if (StringUtils.isNotBlank(user.getEffectiveCallerId())) {
             String number = user.getEffectiveCallerId().replaceAll("-", "");
             if (StringUtils.isNumeric(number)) {
@@ -976,7 +976,7 @@ class SetFreeswitchIpAndDomainEntryProcessor extends UpdateUserRawDataEntryProce
     }
 
     @Override
-    protected void process(Agent agent) {
+    protected void process(AgentTMS agent) {
         agent.setFreeswitchIP(freeswitchIP);
         agent.setFreeswitchDomain(domain);
         agent.setUserIP(userIP);
@@ -1026,7 +1026,7 @@ class SetAgentStateEntryProcessor extends AgentEntryProcessor {
     }
 
     @Override
-    protected void process(Agent agent) {
+    protected void process(AgentTMS agent) {
         agent.setStatusExt(agentState);
         agent.setStatusExtUpdated(now);
     }
@@ -1057,7 +1057,7 @@ class SetAgentLastHangupCauseEntryProcessor extends AgentEntryProcessor {
     }
 
     @Override
-    protected void process(Agent agent) {
+    protected void process(AgentTMS agent) {
         agent.setLastHangupCause(lastHangupCause);
     }
 

@@ -9,7 +9,7 @@ import com.hazelcast.core.MapLoader;
 import com.hazelcast.core.MapStore;
 import com.objectbrains.tms.db.entity.AgentQueueAssociation;
 import com.objectbrains.tms.db.entity.AgentRecord;
-import com.objectbrains.tms.db.entity.DialerQueue;
+import com.objectbrains.tms.db.entity.DialerQueueTms;
 import com.objectbrains.tms.db.repository.AgentRepository;
 import com.objectbrains.tms.db.repository.TmsDialerQueueRepository;
 import static com.objectbrains.tms.hazelcast.Configs.AGENT_QUEUE_ASSOCIATION_MAP_STORE_BEAN_NAME;
@@ -69,7 +69,7 @@ public class AgentQueueAssociationMapStore implements MapStore<AgentQueueKey, Ag
         assoc.copyFrom(value);
         assoc.setPk(key);
         AgentRecord agent = agentRepository.getAgent(key.getExtension());
-        DialerQueue queue = queueRepository.getDialerQueue(key.getQueuePk());
+        DialerQueueTms queue = queueRepository.getDialerQueue(key.getQueuePk());
         
         assoc.setAgent(agent);
         assoc.setDialerQueue(queue);
@@ -92,7 +92,7 @@ public class AgentQueueAssociationMapStore implements MapStore<AgentQueueKey, Ag
 //            queuePks.add(key.getQueuePk());
 //        }
 //        Map<Integer, AgentRecord> agents = new HashMap<>();
-//        Map<Long, DialerQueue> queues = new HashMap<>();
+//        Map<Long, DialerQueueTms> queues = new HashMap<>();
 //        
 //        for(AgentRecord agent : agentRepository.getAgents(extensions)){
 //            
@@ -122,7 +122,7 @@ public class AgentQueueAssociationMapStore implements MapStore<AgentQueueKey, Ag
 //                .setParameter("queuePk", queuePk)
 //                .executeUpdate();
 //
-//        DialerQueue queue = getDialerQueue(queuePk);
+//        DialerQueueTms queue = getDialerQueue(queuePk);
 //        for (int i = 0; i < extensions.size(); i++) {
 //            AgentWeightedPriority agentWeightPriority = agentWeightPriorities.get(i);
 //            AgentRecord agent = agentRepository.getAgent(extensions.get(i));

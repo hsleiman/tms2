@@ -18,7 +18,7 @@ import javax.persistence.Table;
  *
  * @author Connor Petty <cpmeister@users.sourceforge.net>
  */
-@Entity(name = "DialerSchedule")
+@Entity(name = "DialerScheduleTms")
 @Table(schema = "sti")
 public class DialerScheduleEntity extends DialerSchedule {
 
@@ -28,7 +28,7 @@ public class DialerScheduleEntity extends DialerSchedule {
 
     @ManyToOne
     @JoinColumn(name = "queue_pk", referencedColumnName = "pk")
-    private DialerQueue dialerQueue;
+    private DialerQueueTms dialerQueue;
 
     public Long getPk() {
         return pk;
@@ -38,11 +38,11 @@ public class DialerScheduleEntity extends DialerSchedule {
         this.pk = pk;
     }
 
-    public DialerQueue getDialerQueue() {
+    public DialerQueueTms getDialerQueue() {
         return dialerQueue;
     }
 
-    public void setDialerQueue(DialerQueue dialerQueue) {
+    public void setDialerQueue(DialerQueueTms dialerQueue) {
         this.dialerQueue = dialerQueue;
     }
 

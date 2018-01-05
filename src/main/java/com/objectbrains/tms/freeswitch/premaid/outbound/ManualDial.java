@@ -16,7 +16,7 @@ import com.objectbrains.tms.freeswitch.dialplan.action.Bridge;
 import com.objectbrains.tms.freeswitch.dialplan.action.Set;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.freeswitch.premaid.DialplanBuilder;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import com.objectbrains.tms.websocket.message.Function;
 import com.objectbrains.tms.websocket.message.outbound.CallSipHeader;
@@ -46,7 +46,7 @@ public class ManualDial extends DialplanBuilder {
     public void buildDialplans() {
         log.info("Build Dialplans");
 
-        Agent agent = agenService.getAgent(inVariables.getCallerIdInteger());
+        AgentTMS agent = agenService.getAgent(inVariables.getCallerIdInteger());
 
         TMSCallDetails callDetails = null;
 
@@ -75,7 +75,7 @@ public class ManualDial extends DialplanBuilder {
 
     }
 
-    public void callEnteringAgent(TMSCallDetails callDetails, Agent agent) {
+    public void callEnteringAgent(TMSCallDetails callDetails, AgentTMS agent) {
         TMSDialplan agentDialplan;
         agentDialplan = dialplanService.createTMSDialplan(TMS_UUID, FreeswitchContext.agent_dp);
         commonVariable(agentDialplan, callDetails, agent);
@@ -154,7 +154,7 @@ public class ManualDial extends DialplanBuilder {
         }
     }
 
-    public void callEnteringSBC(TMSCallDetails callDetails, Agent agent) {
+    public void callEnteringSBC(TMSCallDetails callDetails, AgentTMS agent) {
         TMSDialplan sbcDialplan;
         sbcDialplan = dialplanService.createTMSDialplan(TMS_UUID, FreeswitchContext.sbc_dp);
 
@@ -177,7 +177,7 @@ public class ManualDial extends DialplanBuilder {
         dialplanService.updateTMSDialplan(sbcDialplan);
     }
 
-    public void commonVariable(TMSDialplan tMSDialplan, TMSCallDetails callDetails, Agent agent) {
+    public void commonVariable(TMSDialplan tMSDialplan, TMSCallDetails callDetails, AgentTMS agent) {
         tMSDialplan.setDebugOn(getDebugOn());
         tMSDialplan.setTms_type(this.getClass().getSimpleName());
         tMSDialplan.setCallerId(callDetails.getCallerId());

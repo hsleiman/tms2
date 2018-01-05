@@ -1,0 +1,4 @@
+maxRetryCount=1
+KEEP_ALIVE.maxRetryCount=20
+messageTimeoutMillis=3000
+disconnectLogoffDelayMillis=5000

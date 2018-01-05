@@ -2,6 +2,6 @@
 gradle clean
 gradle build --debug --stacktrace
 
-read -p "Press enter to continue"
+echo read -p "Press enter to continue"
 
-java -jar build/libs/tms2-0.0.1-SNAPSHOT.jar
+cp ./build/libs/*.war /Users/hsleiman/CloudStation/Servers/apache-tomcat-8.0.30/webapps

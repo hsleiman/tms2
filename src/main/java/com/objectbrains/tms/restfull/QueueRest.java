@@ -9,7 +9,7 @@ import com.objectbrains.sti.embeddable.AgentWeightPriority;
 import com.objectbrains.sti.pojo.AccountCustomerName;
 import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
@@ -88,10 +88,10 @@ public class QueueRest {
         List<AgentWeightPriority> awps = dialerQueueService.getAgentWeightPriorityListForDq(queueId);
         Map<String, AgentWeightedPriority> weightedPriorities = Utils.convertToMap(awps);
 
-        List<Agent> agents = agentService.getAgents(weightedPriorities, null, null);
+        List<AgentTMS> agents = agentService.getAgents(weightedPriorities, null, null);
         Map<Integer, AgentStats> stats = statsService.getAgentStats(agents);
         Map<Integer, AgentCall> callMap = agentCallService.getActiveCalls(agents);
-        for (Agent agent : agents) {
+        for (AgentTMS agent : agents) {
             int extension = agent.getExtension();
             boolean leader = weightedPriorities.get(agent.getUserName()).getLeader();
             retList.add(new QueueAgentStatus(agent, stats.get(extension), callMap.get(extension), leader));

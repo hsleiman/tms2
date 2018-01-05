@@ -21,7 +21,7 @@ import org.joda.time.LocalDateTime;
  */
 @Entity
 @Table(schema = "sti")
-public class Payment implements Serializable {
+public class PaymentTms implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

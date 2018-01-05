@@ -34,7 +34,7 @@ public class AgentQueueAssociation extends AgentWeightedPriority{
     @ManyToOne
     @MapsId("queuePk")
     @JoinColumn(name = "queue_pk", referencedColumnName = "pk")
-    private DialerQueue dialerQueue;
+    private DialerQueueTms dialerQueue;
 
     public AgentQueueKey getPk() {
         return pk;
@@ -52,11 +52,11 @@ public class AgentQueueAssociation extends AgentWeightedPriority{
         this.agent = agent;
     }
 
-    public DialerQueue getDialerQueue() {
+    public DialerQueueTms getDialerQueue() {
         return dialerQueue;
     }
 
-    public void setDialerQueue(DialerQueue dialerQueue) {
+    public void setDialerQueue(DialerQueueTms dialerQueue) {
         this.dialerQueue = dialerQueue;
     }
 

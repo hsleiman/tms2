@@ -12,7 +12,7 @@ import com.hazelcast.nio.serialization.DataSerializable;
 import com.objectbrains.ams.iws.User;
 import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.SetAgentState;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class AgentDirectory implements DataSerializable, Serializable {
 
     }
 
-    public AgentDirectory(Agent agent, User user, AgentStats agentStats, AgentCall activeCall) {
+    public AgentDirectory(AgentTMS agent, User user, AgentStats agentStats, AgentCall activeCall) {
         this.ext = user.getExtension();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();

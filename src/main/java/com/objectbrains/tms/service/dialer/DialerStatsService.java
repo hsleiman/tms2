@@ -14,7 +14,7 @@ import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
 import com.objectbrains.tms.hazelcast.Configs;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.DialerCall;
 import com.objectbrains.tms.hazelcast.entity.DialerLoan;
 import com.objectbrains.tms.hazelcast.entity.DialerStats;
@@ -164,7 +164,7 @@ public class DialerStatsService {
             LOG.error("Unable to get queueName for queue {}", ret.getQueuePk(), ex);
             return;
         }
-        List<Agent> agents = agentService.getAgents(assocService.getParticipatingAgents(ret.getQueuePk()), null, null);
+        List<AgentTMS> agents = agentService.getAgents(assocService.getParticipatingAgents(ret.getQueuePk()), null, null);
         websocketService.sendPushNotification(agents, String.format(message, queueName));
     }
 

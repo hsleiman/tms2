@@ -19,7 +19,7 @@ import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.freeswitch.pojo.AgentIncomingDistributionOrder;
 import com.objectbrains.tms.hazelcast.AgentCallState;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import com.objectbrains.tms.service.dialer.CallService;
@@ -223,7 +223,7 @@ public class InboundCallService {
             }
             boolean inline = order.isInline();
             aido.setMultiLine(inline + "");
-            List<Agent> agents;
+            List<AgentTMS> agents;
             IncomingCallAgent ica = order.getIncomingCallAgent();
             LOG.trace("[AIDO]-5 running queue: {} - {}- {}", queuePk, callUUID, ica);
             aido.setIncomingCallOrderSelected(ica.name());
@@ -268,10 +268,10 @@ public class InboundCallService {
             LOG.trace("[AIDO]-10 running queue: {} - Agents Size: {} - Agent States: {} - Ext: {}", queuePk, agents.size(), agentStates.size(), extensions);
             final Map<Integer, AgentCallState> agentCallStates = agentCallService.getAgentCallStates(extensions, CallDirection.INBOUND, false);
 
-            Collections.sort(agents, new Comparator<Agent>() {
+            Collections.sort(agents, new Comparator<AgentTMS>() {
 
                 @Override
-                public int compare(Agent o1, Agent o2) {
+                public int compare(AgentTMS o1, AgentTMS o2) {
                     AgentCallState acs1 = agentCallStates.get(o1.getExtension());
                     AgentCallState acs2 = agentCallStates.get(o2.getExtension());
                     boolean hc1 = acs1 != null && acs1.hasCalls();
@@ -295,7 +295,7 @@ public class InboundCallService {
                     if (inline) {
                         break;
                     }
-                    for (Agent agent : agents) {
+                    for (AgentTMS agent : agents) {
                         AgentState state = agentStates.get(agent.getExtension());
                         LOG.debug("Maybe adding agent {}, state: {}, inline: {}, queuePk: {}", agent.getExtension(), state, inline, queuePk);
                         if (state != null) {
@@ -306,8 +306,8 @@ public class InboundCallService {
             LOG.trace("[AIDO]-11 running queue: {} - Agents Size: {} - Agent States: {} - agentCallStates: {} - Ext: {}", queuePk, agents.size(), agentStates.size(), agentCallStates.size(), extensions);
 
             //remove agents that are not ready
-            for (Iterator<Agent> it = agents.iterator(); it.hasNext();) {
-                Agent agent = it.next();
+            for (Iterator<AgentTMS> it = agents.iterator(); it.hasNext();) {
+                AgentTMS agent = it.next();
                 Integer ext = agent.getExtension();
                 AgentState state = agentStates.get(ext);
                 AgentCallState callState = agentCallStates.get(ext);

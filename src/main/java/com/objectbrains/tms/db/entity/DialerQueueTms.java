@@ -22,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(schema = "sti")
-public class DialerQueue extends WeightedPriority{
+public class DialerQueueTms extends WeightedPriority{
 
     @Id
     private long pk;

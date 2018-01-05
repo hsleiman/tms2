@@ -7,39 +7,29 @@ package com.objectbrains.sti.service.tms;
 
 import com.objectbrains.config.CompanyInfo;
 import com.objectbrains.hcms.annotation.ConfigContext;
-import com.objectbrains.hcms.configuration.ConfigurationUtility;
 import com.objectbrains.sti.constants.DialPlanContext;
-import com.objectbrains.sti.db.entity.agent.AgentDialerGroup;
-import com.objectbrains.sti.db.entity.agent.AgentQueue;
-import com.objectbrains.sti.db.entity.agent.DialerGroup;
 import com.objectbrains.sti.db.entity.base.account.Account;
-import com.objectbrains.sti.db.entity.base.dialer.BIMessage;
 import com.objectbrains.sti.db.entity.base.dialer.CallDetailRecord;
-import com.objectbrains.sti.db.entity.base.dialer.DialerQueue;
-import com.objectbrains.sti.db.entity.base.dialer.DialerQueueGroupAssociation;
 import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.objectbrains.sti.db.entity.base.dialer.SpeechToText;
-import com.objectbrains.sti.db.entity.base.dialer.StiCallerId;
-import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import com.objectbrains.sti.db.repository.StiAgentRepository;
 import com.objectbrains.sti.db.repository.account.AccountRepository;
 import com.objectbrains.sti.db.repository.dialer.BIMessageRepository;
-import com.objectbrains.sti.db.repository.dialer.StiCallDetailRecordRepository;
 import com.objectbrains.sti.db.repository.dialer.DialerQueueRepository;
+import com.objectbrains.sti.db.repository.dialer.StiCallDetailRecordRepository;
 import com.objectbrains.sti.db.repository.disposition.CallDispositionRepository;
 import com.objectbrains.sti.db.repository.qaform.CallQualityManagementRepository;
-import com.objectbrains.sti.embeddable.AgentWeightPriority;
-import com.objectbrains.sti.embeddable.BIPlaybackData;
 import com.objectbrains.sti.embeddable.DialerQueueDetails;
-import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
-import com.objectbrains.sti.embeddable.WeightedPriority;
 import com.objectbrains.sti.exception.StiException;
 import com.objectbrains.sti.pojo.*;
 import com.objectbrains.sti.service.dialer.DialerQueueService;
-import com.objectbrains.sti.service.dialer.PhoneNumberCallable;
-import com.objectbrains.sti.service.utility.DurationUtils;
 import com.objectbrains.sti.service.utility.PhoneUtils;
-import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.util.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
@@ -49,27 +39,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import java.sql.Timestamp;
-import java.util.*;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.TypedQuery;
-import org.hibernate.Session;
-import org.hibernate.transform.Transformers;
-import org.joda.time.LocalDate;
-
 /**
  * @author David
  */
-@Service
+@Service("TMSService")
 @Transactional
 public class TMSService {
 
     public static final Logger LOG = LoggerFactory.getLogger(TMSService.class);
-    @ConfigContext
-    private ConfigurationUtility config;
+//    @ConfigContext
+//    private ConfigurationUtility configd;
     @Autowired
     private AccountRepository accountRepo;
     @Autowired
@@ -87,7 +66,7 @@ public class TMSService {
     @ConfigContext
     private CompanyInfo companyInfo;
     @Autowired
-    private BIMessageRepository biMessageRepository;
+    private BIMessageRepository biMessageRepository ;
     @Autowired
     private CallDispositionRepository dispositionRepository;
 
@@ -232,7 +211,7 @@ public class TMSService {
         if (callDurationInMSeconds == null) {
             return false;
         }
-        return callDurationInMSeconds > config.getDouble("successful.call.duration.threshold", 10000d);
+        return callDurationInMSeconds >  10000d;
     }
 
     public boolean isWithinTimeRange(LocalDateTime newNodeTime, LocalDateTime centerNodeTime, double rangeInMinutes) {

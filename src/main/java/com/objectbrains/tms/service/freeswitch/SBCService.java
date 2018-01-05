@@ -10,7 +10,7 @@ package com.objectbrains.tms.service.freeswitch;
  * @author hsleiman
  */
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.freeswitch.CDR;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.db.repository.DialplanRepository;
@@ -115,7 +115,7 @@ public class SBCService {
                     }
                     
                 } else {
-                    CallDetailRecord mcdr = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+                    CallDetailRecordTMS mcdr = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
                     callDetailRecordService.uploadRecording(cdr.getCall_uuid(), cdr.getSip_local_network_addr(), cdr.getRecrodingUploadTms(), cdr.getDuration());
 
                     int hangupCauseCodeRaw = 0;

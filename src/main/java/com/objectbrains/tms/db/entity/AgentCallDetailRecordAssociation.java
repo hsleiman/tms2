@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.db.entity;
 
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,7 +31,7 @@ public class AgentCallDetailRecordAssociation {
 
     @ManyToOne
     @JoinColumn(name = "callDetailRecord_pk", referencedColumnName = "pk")
-    private CallDetailRecord callDetailRecord;
+    private CallDetailRecordTMS callDetailRecord;
 
     private LocalDateTime startTimestamp;
     private LocalDateTime endTimestamp;
@@ -52,11 +52,11 @@ public class AgentCallDetailRecordAssociation {
         this.agent = agent;
     }
 
-    public CallDetailRecord getCallDetailRecord() {
+    public CallDetailRecordTMS getCallDetailRecord() {
         return callDetailRecord;
     }
 
-    public void setCallDetailRecord(CallDetailRecord callDetailRecord) {
+    public void setCallDetailRecord(CallDetailRecordTMS callDetailRecord) {
         this.callDetailRecord = callDetailRecord;
     }
 

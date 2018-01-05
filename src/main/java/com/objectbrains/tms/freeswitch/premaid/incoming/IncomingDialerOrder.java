@@ -25,7 +25,7 @@ import com.objectbrains.tms.freeswitch.dialplan.action.Transfer;
 import com.objectbrains.tms.freeswitch.pojo.AgentIncomingDistributionOrder;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.freeswitch.premaid.DialplanBuilder;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.service.freeswitch.FsAgentService;
 import java.util.List;
 
@@ -57,9 +57,9 @@ public class IncomingDialerOrder extends DialplanBuilder {
 
     @Override
     public void buildDialplans() {
-        List<Agent> agents = aido.getAgents();
+        List<AgentTMS> agents = aido.getAgents();
         //HzAgent defaultAgent = agenService.getAgent(aido.getDefaultExtension());
-        Agent agent = agents.get(0);
+        AgentTMS agent = agents.get(0);
         // create the dialplan for sbc to rout the call to agent box.
         callEnteringSBC(agent);
         // create the dialplan for agent to rout the call to the ext.
@@ -70,9 +70,9 @@ public class IncomingDialerOrder extends DialplanBuilder {
     }
 
     public TMSDialplan buildDialplansWithoutSBC() {
-        List<Agent> agents = aido.getAgents();
+        List<AgentTMS> agents = aido.getAgents();
         //HzAgent defaultAgent = agenService.getAgent(aido.getDefaultExtension());
-//        Agent agent = agents.get(0);
+//        AgentTMS agent = agents.get(0);
         // if agents dont answer rout the call to the fifo.
         callEnteringFifo();
         biuldVoicemailOption();
@@ -105,7 +105,7 @@ public class IncomingDialerOrder extends DialplanBuilder {
         tMSDialplan.setDialer(Boolean.FALSE);
     }
 
-    private void callEnteringSBC(Agent agent) {
+    private void callEnteringSBC(AgentTMS agent) {
         TMSDialplan sbcDialplan;
         sbcDialplan = dialplanService.createTMSDialplan(TMS_UUID, FreeswitchContext.sbc_dp);
         commonVariable(sbcDialplan);
@@ -126,7 +126,7 @@ public class IncomingDialerOrder extends DialplanBuilder {
         dialplanService.updateTMSDialplan(sbcDialplan);
     }
 
-    private TMSDialplan secondAgent(Agent agent, Agent nextAgent, int orderPower) {
+    private TMSDialplan secondAgent(AgentTMS agent, AgentTMS nextAgent, int orderPower) {
         TMSDialplan agentDialplan;
         agentDialplan = dialplanService.createTMSDialplan(TMS_UUID, FreeswitchContext.agent_dp, orderPower);
 
@@ -175,12 +175,12 @@ public class IncomingDialerOrder extends DialplanBuilder {
         return agentDialplan;
     }
 
-    private TMSDialplan callEnteringAgent(List<Agent> agents) {
+    private TMSDialplan callEnteringAgent(List<AgentTMS> agents) {
         TMSDialplan firstDialplan = null;
         int size = agents.size();
         for (int i = 0; i < size; i++) {
-            Agent agent = agents.get(i);
-            Agent nextAgent = i + 1 < size ? agents.get(i + 1) : null;
+            AgentTMS agent = agents.get(i);
+            AgentTMS nextAgent = i + 1 < size ? agents.get(i + 1) : null;
             TMSDialplan agentDialplan = secondAgent(agent, nextAgent, i);
             if (nextAgent == null) {
                 agentDialplan.addAction(new TMSOrder(HOLDOrder.PLACE_ON_HOLD));

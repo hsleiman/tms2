@@ -22,7 +22,7 @@ import org.joda.time.LocalDateTime;
  */
 @Entity
 @Table(schema = "sti")
-public class SpeechToText implements Serializable {
+public class SpeechToTextTms implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

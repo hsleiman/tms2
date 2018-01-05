@@ -23,7 +23,7 @@ import com.objectbrains.tms.freeswitch.pojo.DialerInfoPojo;
 import com.objectbrains.tms.freeswitch.premaid.DialplanBuilder;
 import com.objectbrains.tms.freeswitch.premaid.outbound.CallOutWithAMD;
 import com.objectbrains.tms.hazelcast.Configs;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.hazelcast.entity.DialerStats;
@@ -167,10 +167,10 @@ public class TMSOutboundDialerCommand {
     @GET
     public List<AgentStatus> getAllAgentStatusInQueue(@PathParam("queueId") int queueId) throws Exception {
         List<AgentStatus> retList = new ArrayList<>();
-        List<Agent> agents = agentService.getAgents(dialerQueueService.getAgentWeightPriorityListForDq(queueId), null, null);
+        List<AgentTMS> agents = agentService.getAgents(dialerQueueService.getAgentWeightPriorityListForDq(queueId), null, null);
         Map<Integer, AgentStats> stats = statsService.getAgentStats(agents);
         Map<Integer, AgentCall> callMap = agentCallService.getActiveCalls(agents);
-        for (Agent agent : agents) {
+        for (AgentTMS agent : agents) {
             int extension = agent.getExtension();
             retList.add(new AgentStatus(agent, stats.get(extension), callMap.get(extension)));
         }
@@ -199,7 +199,7 @@ public class TMSOutboundDialerCommand {
             }
             agents.add(ext);
         }
-        Map<Integer, Agent> agentMap = hazelcastService.getMap(Configs.AGENT_MAP).getAll(extensions);
+        Map<Integer, AgentTMS> agentMap = hazelcastService.getMap(Configs.AGENT_MAP).getAll(extensions);
         Map<Integer, AgentStats> agentStatsMap = statsService.getAgentStats(extensions);
         Map<Integer, AgentCall> agentCallMap = agentCallService.getActiveCalls(extensions);
 
@@ -235,7 +235,7 @@ public class TMSOutboundDialerCommand {
 //            }
 //        }
 //        List<AgentStatus> retList = new ArrayList<>();
-//        for (Agent agent : agents) {
+//        for (AgentTMS agent : agents) {
 //            retList.add(new AgentStatus(agent));
 //        }
 //        return retList;

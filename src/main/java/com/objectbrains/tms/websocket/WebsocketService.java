@@ -16,7 +16,7 @@ import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.CallDispositionService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.Chat;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.repository.CallDetailRecordRepository;
 import com.objectbrains.tms.db.repository.CdrRepository;
 import com.objectbrains.tms.db.repository.DialplanRepository;
@@ -28,7 +28,7 @@ import com.objectbrains.tms.enumerated.PhoneStatus;
 import static com.objectbrains.tms.enumerated.SetAgentState.IDLE;
 import com.objectbrains.tms.freeswitch.pojo.FreeswitchCommand;
 import com.objectbrains.tms.hazelcast.ListAdapter;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.pojo.AgentStatus;
@@ -178,12 +178,12 @@ public class WebsocketService {
     }
 
     @Async
-    public void sendPushNotification(List<Agent> agents, String msg) {
+    public void sendPushNotification(List<AgentTMS> agents, String msg) {
         if (websocketConfig.enablePushNotification() == false) {
             return;
         }
         for (int i = 0; i < agents.size(); i++) {
-            Agent agent = agents.get(i);
+            AgentTMS agent = agents.get(i);
             sendPushNotification(agent.getExtension(), msg);
         }
     }
@@ -244,7 +244,7 @@ public class WebsocketService {
                         if (agentService.agentExists(otherEndExt) == false) {
                             phoneCheck.setStatus(-1);
                         } else {
-                            Agent agent = agentService.getAgent(otherEndExt);
+                            AgentTMS agent = agentService.getAgent(otherEndExt);
                             // AgentState agentState = agentStatsService.getAgentState(otherEndExt);
                             if (agent != null) {
                                 if (agent.getStatusExt() != IDLE) {
@@ -299,7 +299,7 @@ public class WebsocketService {
                         if (websocketConfig.enablePlayPromptCustom(prompt.getPromptType())) {
                             LOG.info("Playing prompt for ext {} is enabled for prompt type {}", ext, prompt.getPromptType());
                             AgentCall agentCall = agentCallService.getActiveCall(ext);
-                            Agent agent = agentService.getAgent(ext);
+                            AgentTMS agent = agentService.getAgent(ext);
 
                             if (agentCall == null || agentCall.getAgentFreeswitchUUID() == null || agent == null || agent.getFreeswitchIP() == null) {
                                 LOG.info("agentCall == {} || agentCall.getAgentFreeswitchUUID() == null || agent == {} || agent.getFreeswitchIP() == null", agentCall, agent);
@@ -368,7 +368,7 @@ public class WebsocketService {
                     AgentCall call = agentCallService.updateCallState(ext, recieve.getCall_uuid(), phoneStatus, recieve.getPhone(), dispositionId);
                     callDetailRecordService.updateCallState(recieve.getCall_uuid(), phoneStatus, dispositionId);
 //                    if (phoneStatus == PhoneStatus.WRAP) {
-//                        CallDetailRecord mcdr = callDetailRecordService.getCDR(recieve.getCall_uuid());
+//                        CallDetailRecordTMS mcdr = callDetailRecordService.getCDR(recieve.getCall_uuid());
 //                        cdrService.offerNewMasterCallDetailRecordToSVCONLY(mcdr);
 //
 //                        if (log != null) {
@@ -426,7 +426,7 @@ public class WebsocketService {
                     if (config.getBoolean("enable.attach.loan.to.call", Boolean.TRUE)) {
                         LOG.info("Attaching loan {} to call {} ", recieve.getAttachLoanToCallUUID().getLoanId(), recieve.getCall_uuid());
                         dialplanRepository.logDialplanInfoIntoDb(recieve.getCall_uuid(), "Attaching loan {} to call {} ", recieve.getAttachLoanToCallUUID().getLoanId(), recieve.getCall_uuid());
-                        CallDetailRecord mcdr = callDetailRecordService.getCDR(recieve.getCall_uuid());
+                        CallDetailRecordTMS mcdr = callDetailRecordService.getCDR(recieve.getCall_uuid());
                         dialplanRepository.logDialplanInfoIntoDb(recieve.getCall_uuid(), "Should Attach loan xxx {},{},{}", recieve.getAttachLoanToCallUUID().getLoanId(), mcdr.getBorrowerInfo().getLoanId(), recieve.getCall_uuid());
                         if (mcdr.getBorrowerInfo().getLoanId() == null || mcdr.getBorrowerInfo().getLoanId() == 0) {
                             LOG.info("Attached loan {} to call {} ", recieve.getAttachLoanToCallUUID().getLoanId(), recieve.getCall_uuid());
@@ -435,7 +435,7 @@ public class WebsocketService {
                             callDetailRecordService.updateLoanId(recieve.getCall_uuid(), recieve.getAttachLoanToCallUUID().getLoanId());
                         }
                     } else {
-                        CallDetailRecord mcdr = callDetailRecordService.getCDR(recieve.getCall_uuid());
+                        CallDetailRecordTMS mcdr = callDetailRecordService.getCDR(recieve.getCall_uuid());
                         if (mcdr != null && mcdr.getBorrowerInfo() != null) {
                             LOG.info("Should Attached loan {} from {} to call {} ", recieve.getAttachLoanToCallUUID().getLoanId(), mcdr.getBorrowerInfo().getLoanId(), recieve.getCall_uuid());
                             dialplanRepository.logDialplanInfoIntoDb(recieve.getCall_uuid(), "Should Attached loan {} from {} to call {} ", recieve.getAttachLoanToCallUUID().getLoanId(), mcdr.getBorrowerInfo().getLoanId(), recieve.getCall_uuid());
@@ -529,8 +529,8 @@ public class WebsocketService {
                             break buildResponse;
                         }
                         Map<String, AgentWeightedPriority> awpMap = Utils.convertToMap(awpList);
-                        List<Agent> agents = agentService.getAgents(awpList, null, avail.getRoutingOrder());
-                        for (Agent agent : agents) {
+                        List<AgentTMS> agents = agentService.getAgents(awpList, null, avail.getRoutingOrder());
+                        for (AgentTMS agent : agents) {
                             int agentExt = agent.getExtension();
                             LOG.info("Checking agent {}", agentExt);
                             dialplanRepository.logDialplanInfoIntoDb(null, "Checking agent {}", agentExt);
@@ -576,7 +576,7 @@ public class WebsocketService {
                             PhoneToType phone = null;//TODO might be optional
 
                             callService.putCallOnWait(avail.getQueuePk(), internalCallUUID, loanPk, phone, ext);
-                            for (Agent agent : agents) {
+                            for (AgentTMS agent : agents) {
                                 if (ext != agent.getExtension()) {
                                     callService.addPrimaryCall(agent.getExtension(), avail.getQueuePk(), internalCallUUID);
                                 }
@@ -765,7 +765,7 @@ public class WebsocketService {
         }
         data.setAccountPk(loanId);
 
-        Agent agent = agentService.getAgent(ext);
+        AgentTMS agent = agentService.getAgent(ext);
         UserData userData = new UserData();
         userData.setUserName(agent.getUserName());
 //        try {

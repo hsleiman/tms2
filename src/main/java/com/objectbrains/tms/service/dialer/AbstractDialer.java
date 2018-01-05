@@ -32,7 +32,7 @@ import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.hazelcast.AgentDialerState;
 import com.objectbrains.tms.hazelcast.Configs;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.DialerCall;
 import com.objectbrains.tms.hazelcast.entity.DialerLoan;
 import com.objectbrains.tms.hazelcast.entity.DialerStats;
@@ -590,7 +590,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
 
             if (delayMin > 0) {
                 String queueName = dialerQueueService.getDialerQueueByPk(getQueuePk()).getQueueName();
-                List<Agent> agents = agentService.getAgents(getRecord().getAgentWeightPriorityList(), null, null);
+                List<AgentTMS> agents = agentService.getAgents(getRecord().getAgentWeightPriorityList(), null, null);
 
                 StringBuilder message = new StringBuilder();
                 message.append("Dialer for ")

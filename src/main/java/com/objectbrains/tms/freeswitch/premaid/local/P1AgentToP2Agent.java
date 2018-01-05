@@ -18,7 +18,7 @@ import com.objectbrains.tms.freeswitch.dialplan.action.Set;
 import com.objectbrains.tms.freeswitch.dialplan.action.TMSOrder;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.freeswitch.premaid.DialplanBuilder;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 
 /**
  *
@@ -26,9 +26,9 @@ import com.objectbrains.tms.hazelcast.entity.Agent;
  */
 public class P1AgentToP2Agent extends DialplanBuilder {
 
-    private Agent agent = null;
+    private AgentTMS agent = null;
     
-    public P1AgentToP2Agent(DialplanVariable variable, Agent agent) {
+    public P1AgentToP2Agent(DialplanVariable variable, AgentTMS agent) {
         super();
         log.info("P1AgentToP2Agent");
         setVariable(variable);
@@ -87,8 +87,8 @@ public class P1AgentToP2Agent extends DialplanBuilder {
     }
 
     private void agentDialplan() {
-        Agent callerAgent = agenService.getAgent(inVariables.getCallerIdInteger());
-        Agent calleeAgent = agenService.getAgent(agent.getExtension());
+        AgentTMS callerAgent = agenService.getAgent(inVariables.getCallerIdInteger());
+        AgentTMS calleeAgent = agenService.getAgent(agent.getExtension());
         
         TMSDialplan agentDialplan = dialplanService.createTMSDialplan(TMS_UUID, FreeswitchContext.agent_dp, DDD.P1_TO_P2_CONNECT_TO_AGENT);
         commonVariable(agentDialplan);

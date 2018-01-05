@@ -10,7 +10,7 @@ package com.objectbrains.tms.service.freeswitch;
  * @author hsleiman
  */
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.db.entity.freeswitch.CDR;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.db.repository.DialplanRepository;
@@ -148,7 +148,7 @@ public class FifoService {
             return;
         }
 
-        CallDetailRecord mcdr = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
+        CallDetailRecordTMS mcdr = callDetailRecordService.getCDR(tmsDialplan.getCall_uuid());
         if (mcdr.getDialer()) {
             if (cdr.getOrderPower().equals(DDD.PLACE_CALL_IN_FIFO.name())) {
                 if (cdr.getBridge_hangup_cause() == null) {

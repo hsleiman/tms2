@@ -12,7 +12,7 @@ import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.exception.CallNotFoundException;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.hazelcast.entity.DialerCall;
 import com.objectbrains.tms.service.AgentQueueAssociationService;
@@ -103,9 +103,9 @@ public class ProgressiveDialer extends AbstractDialer {
         long loanPk = call.getLoanPk();
         if (!agents.isEmpty()) {
             //TODO support other call orders
-            List<Agent> agentList = agentService.getAgents(agents, record.getWeightedPriority(),
+            List<AgentTMS> agentList = agentService.getAgents(agents, record.getWeightedPriority(),
                     CallRoutingOption.LONGEST_IDLE);
-            for (Agent agent : agentList) {
+            for (AgentTMS agent : agentList) {
                 int ext = agent.getExtension();
                 LOG.info("Try to connect agent {} to outbound call {}", agent, type.getPhoneNumber());
                 try {

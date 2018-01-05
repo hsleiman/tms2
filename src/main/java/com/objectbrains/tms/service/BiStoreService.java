@@ -14,7 +14,7 @@ import com.objectbrains.sti.db.entity.base.dialer.BIMessage;
 import com.objectbrains.sti.embeddable.BIPlaybackData;
 import com.objectbrains.sti.service.tms.BIMessageService;
 import static com.objectbrains.tms.constants.Constants.SCREENSHOTS_PATH;
-import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
+import com.objectbrains.tms.db.entity.cdr.CallDetailRecordTMS;
 import com.objectbrains.tms.websocket.message.BiMessage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -87,7 +87,7 @@ public class BiStoreService {
 //           message.setCallLoanPk(call.getBorrowerInfo().getLoanId());
 //       }else{
         if (callUUID != null && callUUID.equals("") == false) {
-            CallDetailRecord cdr = callDetailRecordService.getCDR(callUUID);
+            CallDetailRecordTMS cdr = callDetailRecordService.getCDR(callUUID);
             message.setCallLoanPk(cdr.getBorrowerInfo().getLoanId());
         }
         //       }
@@ -243,7 +243,7 @@ public class BiStoreService {
         return bIMessageService.getBIPlaybackData(callUUID);
 
 //        callUUID = callUUID.trim();
-//        CallDetailRecord record = cdrService.findCDR(callUUID);
+//        CallDetailRecordTMS record = cdrService.findCDR(callUUID);
 //        BiPlaybackData data = new BiPlaybackData();
 //        if (record != null && record.getEnd_time() != null) {
 //            data.setCallLength(DurationUtils.getDuration(record.getStart_time(), record.getEnd_time()));

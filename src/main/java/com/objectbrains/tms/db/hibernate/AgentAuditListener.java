@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.db.hibernate;
 
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import org.hibernate.envers.RevisionListener;
 
 /**
@@ -16,7 +16,7 @@ public class AgentAuditListener implements RevisionListener {
 
     public void newRevision(Object revisionEntity) {
 
-        Agent exampleRevEntity = (Agent) revisionEntity;
+        AgentTMS exampleRevEntity = (AgentTMS) revisionEntity;
 
        // exampleRevEntity.setUsername(identity.getUsername());
     }

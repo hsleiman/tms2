@@ -23,7 +23,7 @@ public class DialerStatsEntity extends DialerStats {
 
     @ManyToOne
     @JoinColumn(name = "queue_pk", referencedColumnName = "pk")
-    private DialerQueue dialerQueue;
+    private DialerQueueTms dialerQueue;
 
     private LocalDateTime createDate;
 
@@ -36,11 +36,11 @@ public class DialerStatsEntity extends DialerStats {
         return createDate;
     }
 
-    public DialerQueue getDialerQueue() {
+    public DialerQueueTms getDialerQueue() {
         return dialerQueue;
     }
 
-    public void setDialerQueue(DialerQueue dialerQueue) {
+    public void setDialerQueue(DialerQueueTms dialerQueue) {
         this.dialerQueue = dialerQueue;
     }
 }

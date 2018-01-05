@@ -5,7 +5,7 @@
  */
 package com.objectbrains.tms.restfull.pojo;
 
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.pojo.AgentStatus;
@@ -18,7 +18,7 @@ public class QueueAgentStatus extends AgentStatus {
 
     private boolean leader;
 
-    public QueueAgentStatus(Agent agent, AgentStats stats, AgentCall activeCall, boolean leader) {
+    public QueueAgentStatus(AgentTMS agent, AgentStats stats, AgentCall activeCall, boolean leader) {
         super(agent, stats, activeCall);
         this.leader = leader;
     }

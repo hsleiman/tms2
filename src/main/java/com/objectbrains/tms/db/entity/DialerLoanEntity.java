@@ -46,7 +46,7 @@ public class DialerLoanEntity extends DialerLoan {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "queue_pk", referencedColumnName = "pk")
-    private DialerQueue dialerQueue;
+    private DialerQueueTms dialerQueue;
 
     @OneToMany(mappedBy = "dialerLoan")
     private Set<DialerCallEntity> dialerCalls;
@@ -74,11 +74,11 @@ public class DialerLoanEntity extends DialerLoan {
         this.dialerStats = dialerStats;
     }
 
-    public DialerQueue getDialerQueue() {
+    public DialerQueueTms getDialerQueue() {
         return dialerQueue;
     }
 
-    public void setDialerQueue(DialerQueue dialerQueue) {
+    public void setDialerQueue(DialerQueueTms dialerQueue) {
         this.dialerQueue = dialerQueue;
     }
 

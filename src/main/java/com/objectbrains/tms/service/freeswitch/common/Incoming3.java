@@ -23,7 +23,7 @@ import com.objectbrains.tms.freeswitch.premaid.incoming.IncomingIVRIdentity2;
 import com.objectbrains.tms.freeswitch.premaid.incoming.IncomingPlaceOnHold;
 import com.objectbrains.tms.freeswitch.premaid.incoming.IncomingVoicemail;
 import com.objectbrains.tms.freeswitch.premaid.local.P1AgentToP2Agent;
-import com.objectbrains.tms.hazelcast.entity.Agent;
+import com.objectbrains.tms.hazelcast.entity.AgentTMS;
 import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.AmsService;
@@ -93,7 +93,7 @@ public class Incoming3 {
             try {
                 Integer agentExt = Integer.parseInt(destinationNumber.substring(2));
                 log.info("Finding Agent : {}", agentExt);
-                Agent agent = agentService.getAgent(agentExt);
+                AgentTMS agent = agentService.getAgent(agentExt);
                 boolean sendCall = false;
                 switch (agentStatsService.getAgentState(agentExt)) {
                     case IDLE:
