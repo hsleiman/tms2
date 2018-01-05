@@ -26,20 +26,20 @@ repositories {
 
 
 dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
-    compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-web-services')
     compile('org.springframework.boot:spring-boot-starter-websocket')
     runtime('org.postgresql:postgresql')
     
     
-//    String springVersion = '4.0.6.RELEASE'
-//    compile(group: 'org.springframework', name:'spring-tx', version: springVersion)
-//    compile (group: 'org.springframework', name: 'spring-aop', version: springVersion)
-//    compile (group: 'org.springframework', name: 'spring-beans', version: springVersion)
-//    compile (group: 'org.springframework', name: 'spring-context', version: springVersion)
+    //    String springVersion = '4.0.6.RELEASE'
+    //    compile(group: 'org.springframework', name:'spring-tx', version: springVersion)
+    //    compile (group: 'org.springframework', name: 'spring-aop', version: springVersion)
+    //    compile (group: 'org.springframework', name: 'spring-beans', version: springVersion)
+    //    compile (group: 'org.springframework', name: 'spring-context', version: springVersion)
     
     compile 'org.springframework:spring-context-support'
     compile 'org.springframework:spring-orm'
