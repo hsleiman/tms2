@@ -6,12 +6,14 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @PropertySources({
-    @PropertySource( value = "classpath:application.properties" )
+    @PropertySource(value = "classpath:application.properties")
 })
 @SpringBootApplication
 public class StiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(StiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(StiApplication.class, args);
+    }
+
+    
 }

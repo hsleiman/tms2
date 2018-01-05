@@ -1,5 +1,5 @@
 #!/bin/sh
-
+gradle clean
 gradle build --debug --stacktrace
 
 read -p "Press enter to continue"
