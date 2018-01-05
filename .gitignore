@@ -4,7 +4,6 @@
 /dist
 /tmp
 /out-tsc
-/build.gradle
 
 # dependencies
 /node_modules
@@ -14,11 +13,11 @@
 .project
 .classpath
 .c9/
-*.class
-*.jar
 *.launch
 .settings/
 *.sublime-workspace
+/build
+/.gradle
 
 # IDE - VSCode
 .vscode/*
