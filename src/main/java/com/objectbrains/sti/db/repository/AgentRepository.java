@@ -353,7 +353,6 @@ public class AgentRepository {
             }
             agent.setPhoneExtension((long) amsUser.getExtension());
             agent.setEmailAddress(amsUser.getEmailAddress());
-            agent.setStatus(amsUser.getStatus());
             agent.setLastAccessTime(amsUser.getLastAccessTime());
             agent.setEffectiveCallerId(amsUser.getEffectiveCallerId());
             return agent;

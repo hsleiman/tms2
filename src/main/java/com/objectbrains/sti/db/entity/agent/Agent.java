@@ -6,21 +6,19 @@
 package com.objectbrains.sti.db.entity.agent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.objectbrains.ams.iws.Status;
 import com.objectbrains.sti.db.entity.base.WorkQueue;
 import com.objectbrains.sti.db.entity.base.account.Account;
 import com.objectbrains.sti.db.entity.superentity.SuperEntity;
-import org.hibernate.annotations.ForeignKey;
-import org.hibernate.envers.AuditTable;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
-import java.util.HashSet;
-import java.util.Set;
+import org.hibernate.annotations.ForeignKey;
+import org.hibernate.envers.AuditTable;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 /**
  * @author David
@@ -75,8 +73,6 @@ public class Agent extends SuperEntity {
     @Column(unique = true)
     private Long extension;
     private Boolean isActive;
-    @Enumerated(EnumType.STRING)
-    private Status status = Status.ACTIVE;
     private Boolean isCurrent;
     private Boolean isCancelled;
     private String primaryQueueName;
@@ -131,14 +127,6 @@ public class Agent extends SuperEntity {
 
     public Agent() {
         this.setIsCurrent(true);
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public String getEffectiveCallerId() {
