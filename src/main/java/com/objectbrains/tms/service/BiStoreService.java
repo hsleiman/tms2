@@ -12,7 +12,7 @@ import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
 import com.objectbrains.sti.db.entity.base.dialer.BIMessage;
 import com.objectbrains.sti.embeddable.BIPlaybackData;
-import com.objectbrains.sti.service.tms.TMSService;
+import com.objectbrains.sti.service.tms.BIMessageService;
 import static com.objectbrains.tms.constants.Constants.SCREENSHOTS_PATH;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.websocket.message.BiMessage;
@@ -53,7 +53,7 @@ public class BiStoreService {
     private CallDetailRecordService callDetailRecordService;
 
     @Autowired
-    private TMSService tmsService;
+    private BIMessageService bIMessageService;
 
     @Autowired
     @Qualifier("tms-executor")
@@ -236,11 +236,11 @@ public class BiStoreService {
                 });
             }
         }
-        tmsService.saveBIMessage(message);
+        bIMessageService.saveBIMessage(message);
     }
 
     public BIPlaybackData getBiPlaybackData(String callUUID) {
-        return tmsService.getBIPlaybackData(callUUID);
+        return bIMessageService.getBIPlaybackData(callUUID);
 
 //        callUUID = callUUID.trim();
 //        CallDetailRecord record = cdrService.findCDR(callUUID);

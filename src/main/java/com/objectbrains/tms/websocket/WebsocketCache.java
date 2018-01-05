@@ -9,7 +9,7 @@ package com.objectbrains.tms.websocket;
 import com.objectbrains.sti.constants.DialerQueueType;
 import com.objectbrains.sti.db.entity.base.dialer.StiCallerId;
 import com.objectbrains.sti.embeddable.DialerQueueDetails;
-import com.objectbrains.sti.service.tms.TMSService;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.tms.pojo.DialerQueueDetailPojo;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class WebsocketCache {
     private static final Logger LOG = LoggerFactory.getLogger(WebsocketCache.class);
 
     @Autowired
-    private TMSService tmsIws;
+    private DialerQueueService dialerQueueService;
 
     private List<DialerQueueDetailPojo> dialerQueueDetailPojos;
     private long dialerQueueDetailPojosTimestamp = 0l;
@@ -74,7 +74,7 @@ public class WebsocketCache {
         if (isDialerQueueDetailPojosExpired()) {
             LOG.info("Rebuilding Agent Queue..");
             List<DialerQueueDetailPojo> pojos = new ArrayList<>();
-            List<DialerQueueDetails> dialerQueues = tmsIws.getAllDialerQueues();
+            List<DialerQueueDetails> dialerQueues = dialerQueueService.getAllDialerQueues();
             for (int i = 0; i < dialerQueues.size(); i++) {
                 DialerQueueDetails get = dialerQueues.get(i);
                 if (get != null && get.isActive() && get.getDialerQueueType() == DialerQueueType.INBOUND) {
@@ -92,7 +92,7 @@ public class WebsocketCache {
     private synchronized List<Long> buildCallerIdNumbers() {
         if (isCallerIdNumbersExpired()) {
             LOG.info("Rebuilding Caller ID..");
-            List<StiCallerId> callerIds = tmsIws.getAllCallerIds();
+            List<StiCallerId> callerIds = dialerQueueService.getAllCallerIds();
             ArrayList<Long> numbers = new ArrayList<>();
             for (int i = 0; i < callerIds.size(); i++) {
                 StiCallerId get = callerIds.get(i);

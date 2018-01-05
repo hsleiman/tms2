@@ -63,8 +63,9 @@ public class Incoming3 {
 
     @Autowired
     private AgentStatsService agentStatsService;
-    
-    @Autowired DialerQueueService dialerQueueService;
+
+    @Autowired
+    private DialerQueueService dialerQueueService;
 
     @Autowired
     private DialplanService dialplanRepository;
@@ -85,7 +86,7 @@ public class Incoming3 {
 
         String TMS_UUID = UUID.randomUUID().toString();
         String destinationNumber = variable.getCalleeIdNumber();
-        
+
         callDetailRecordService.updateInboundDIDNumber(TMS_UUID, destinationNumber);
 
         if (destinationNumber != null && destinationNumber.length() == "221711".length() && destinationNumber.startsWith("22")) {
@@ -234,7 +235,7 @@ public class Incoming3 {
     private DialplanBuilder closedOption(IncomingCallRouting callRouting, DialplanVariable variable, AgentIncomingDistributionOrder ado, WorkHours workHours, String TMS_UUID) {
         if (callRouting == IncomingCallRouting.SEND_TO_IVR && ado.getBorrowerInfo() != null) {
             try {
-                
+
                 boolean isGood = true;
 //                if (isGood && ivrAchInformationPojo == null) {
 //                    log.warn("Check ACH Condition {} - ivrAchInformationPojo is null", variable.getCall_uuid());
@@ -297,7 +298,6 @@ public class Incoming3 {
         }
 
         //BasicLoanInformationPojo blip = null;
-      
         //This logic is also in the IVR it should 
         if (false) {//} else if (ado.getCallDetails().getLoanServicingStatus() == 1) {
             log.info("Sending to IVR. ");
@@ -317,9 +317,9 @@ public class Incoming3 {
     }
 
     public boolean isNotDelinquent() {
-       
-            return true;
-        
+
+        return true;
+
     }
 
     private AgentIncomingDistributionOrder directRouteProcess(DialplanVariable variable, AgentIncomingDistributionOrder ado) {
@@ -374,7 +374,7 @@ public class Incoming3 {
         if (day == 7) {
             day = 0;
         }
-         return isWorkingHourGlobal(destinationNumber);
+        return isWorkingHourGlobal(destinationNumber);
 //        return isWorkingHour(aido.getSettings().getDialerSchedule().get(day).getStartTime(), aido.getSettings().getDialerSchedule().get(day).getEndTime());
 
         //return isWorkingHour(aido.getSettings().getStartTime(), aido.getSettings().getEndTime());

@@ -7,6 +7,7 @@ package com.objectbrains.tms.restfull;
 
 import com.objectbrains.sti.embeddable.AgentWeightPriority;
 import com.objectbrains.sti.exception.StiException;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.hazelcast.entity.Agent;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
@@ -40,6 +41,9 @@ public class DialerGroupRest {
 
     @Autowired
     private AgentService agentService;
+    
+    @Autowired
+    private DialerQueueService dialerQueueService;
 
     @Autowired
     private AgentStatsService statsService;
@@ -51,7 +55,7 @@ public class DialerGroupRest {
     @GET
     public List<QueueAgentStatus> getAllAgentStatusInQueue(@PathParam("groupPk") int groupPk) throws StiException {
         List<QueueAgentStatus> retList = new ArrayList<>();
-        List<AgentWeightPriority> awps = tmsIws.getAgentWeightPriorityListForGroup(groupPk);
+        List<AgentWeightPriority> awps = dialerQueueService.getAgentWeightPriorityListForGroup(groupPk);
         Map<String, AgentWeightedPriority> weightedPriorities = Utils.convertToMap(awps);
 
         List<Agent> agents = agentService.getAgents(weightedPriorities, null, null);

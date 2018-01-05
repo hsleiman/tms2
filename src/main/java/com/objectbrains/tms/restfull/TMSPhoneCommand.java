@@ -10,6 +10,7 @@ import com.google.api.services.storage.model.StorageObject;
 import com.objectbrains.sti.constants.CallRoutingOption;
 import com.objectbrains.sti.embeddable.AgentWeightPriority;
 import com.objectbrains.sti.embeddable.BIPlaybackData;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.freeswitch.FreeswitchNode;
 import com.objectbrains.tms.db.repository.CdrRepository;
@@ -110,6 +111,9 @@ public class TMSPhoneCommand {
     
     @Autowired
     private FreeswitchService freeswitchService;
+    
+    @Autowired
+    private DialerQueueService dialerQueueService;
     
     @Autowired
     private TMSService tmsIws;
@@ -478,7 +482,7 @@ public class TMSPhoneCommand {
     @GET
     public void sendPushNotificationToGroup(@PathParam("agentGroup") Long agentGroup, @PathParam("msg") String msg) {
         try {
-            List<AgentWeightPriority> list = tmsIws.getAgentWeightPriorityListForGroup(agentGroup);
+            List<AgentWeightPriority> list = dialerQueueService.getAgentWeightPriorityListForGroup(agentGroup);
             List<Agent> agents = agentService.getAgents(list, null, CallRoutingOption.ROUND_ROBIN);
             for (int i = 0; i < agents.size(); i++) {
                 Agent get = agents.get(i);
