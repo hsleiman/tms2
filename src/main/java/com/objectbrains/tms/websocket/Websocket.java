@@ -26,6 +26,7 @@ import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.sti.constants.PreviewDialerType;
 import com.objectbrains.sti.pojo.QueueAgentWeightPriority;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.repository.WebsocketRepository;
 import com.objectbrains.tms.freeswitch.pojo.DialerInfoPojo;
@@ -135,6 +136,9 @@ public class Websocket {
 
     @Autowired
     private DialerService dialerService;
+    
+    @Autowired
+    private DialerQueueService dialerQueueService;
 
     @Autowired
     private TMSService tmsIws;
@@ -549,7 +553,7 @@ public class Websocket {
 //        }
         agentStatsService.startStats(ext);
         try {
-            List<QueueAgentWeightPriority> ret = tmsIws.getQueueAgentWeightPriorityForUsername(userName);
+            List<QueueAgentWeightPriority> ret = dialerQueueService.getQueueAgentWeightPriorityForUsername(userName);
             List<Long> queuePks = new ArrayList<>();
             List<AgentWeightedPriority> awps = new ArrayList<>();
             for (QueueAgentWeightPriority ret1 : ret) {

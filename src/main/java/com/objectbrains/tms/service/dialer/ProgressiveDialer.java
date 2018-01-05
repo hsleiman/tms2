@@ -7,8 +7,8 @@ package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.spring.context.SpringAware;
 import com.objectbrains.sti.constants.CallRoutingOption;
+import com.objectbrains.sti.embeddable.OutboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
-import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.exception.CallNotFoundException;

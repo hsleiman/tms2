@@ -72,6 +72,7 @@ import javax.persistence.EntityNotFoundException;
 @Service
 @Transactional
 public class DialerQueueService {
+
     protected static final String DEFAULT_INBOUND_QUEUE = "Customer Service";
     protected static final String DEFAULT_DIALER_GROUP = "Customer Service Group";
     private static final Logger LOG = LoggerFactory.getLogger(DialerQueueService.class);
@@ -128,7 +129,6 @@ public class DialerQueueService {
         //return queue.getDialerQueueDetails();
         return null;
     }
-    
 
     public DialerQueueDetails createDialerQueueFromCollectionQueue(long workQueuePk, DialerQueueType dqType) throws StiException {
         DialerQueue queue = dqRepo.findDialerQueueWithWorkQueuePk(workQueuePk, dqType);
@@ -212,64 +212,62 @@ public class DialerQueueService {
             throw new StiException("Cannot update dialer queue. It is associated with work queue [" + workQueue.getWorkQueueData().getQueueName() + "].");
         }
         /*Query query = queue.getQuery();
-        if (isQueryBased) {
-            if (query == null) {
-                //dq is being updated as query based
-                query = new Query();
-            } else {
-                validateQuery(query, queue.getPk(), dqDetails.getDialerQueueType());
-            }
-            LOG.info("update query based DialerQueue Name: {}", dqDetails.getQueueName());
-            query.setName(dqDetails.getQueueName());
-            query.setCriteriaSetPks(dqDetails.getCriteriaSetPks());
-            query.setTableGroupPk(dqDetails.getTableGroupPk());
-            query = queryBuilderService.createOrUpdateQuery(query, Collections.EMPTY_LIST);
-            LOG.info("Sql: {}", query.getSql());
-            dqDetails.setSqlQuery(query.getSql());
-            queue.setQuery(query);
-        }
-        long queueCount = queue.getDialerQueueDetails().getAccountCount();
-        if (dqDetails.isActive() != null && !dqDetails.isActive() && queueCount > 0) {
-            throw new StiException("Cannot deactivate Dialer Queue. " + queueCount + " account(s) currently exist/s in the queue.");
-        }
-        if (queue.getDialerQueueDetails().getDialerQueueSourceType() != DialerQueueSourceType.DESTINATION_NUMBER) {
-            dqDetails.setAccountCount(updateSqlQueryForDQ(queue, dqDetails.getSqlQuery()));
-        } else {
-            oldQuery = queue.getDialerQueueDetails().getDestinationNumbers();
-            dqDetails.setDestinationNumbers(dqDetails.getSqlQuery());
-            dqDetails.setSqlQuery("");
-            //move the information passed in as the query to the Destination numbers and replace the query with the empty string
-        }
-        queue.setDialerQueueDetails(dqDetails);
-        dqRepo.updateDialerQueue(queue);
-        if (!oldQuery.equals(newQuery)) {
-            String username = ThreadAttributes.getUserData(ThreadAttributes.get("agent.username")).getUserName();
-            DialerQueryHistory history = new DialerQueryHistory(oldQuery, newQuery, username);
-            history.setDialer_queue_name(queue.getDialerQueueDetails().getQueueName());
-            history.setDialer_queue_pk(queue.getDialerQueueDetails().getPk());
-            entityManager.persist(history);
-            if (config.getBoolean("dialer.query.email.enabled", Boolean.TRUE)) {
-                String message = "Username: " + username
-                        + "\nTime: " + LocalDateTime.now().toString()
-                        + "\nPk: " + queue.getDialerQueueDetails().getPk()
-                        + "\nQueue Name: " + queue.getDialerQueueDetails().getQueueName()
-                        + "\n\n\nOld Query: " + oldQuery
-                        + "\n\n\nNew Query: " + newQuery;
-                info.setLetterBodyText(message);
-                documentManagerOWS.sendToEmailQueue(info, null, null, null);
-            }
-        }*/
+         if (isQueryBased) {
+         if (query == null) {
+         //dq is being updated as query based
+         query = new Query();
+         } else {
+         validateQuery(query, queue.getPk(), dqDetails.getDialerQueueType());
+         }
+         LOG.info("update query based DialerQueue Name: {}", dqDetails.getQueueName());
+         query.setName(dqDetails.getQueueName());
+         query.setCriteriaSetPks(dqDetails.getCriteriaSetPks());
+         query.setTableGroupPk(dqDetails.getTableGroupPk());
+         query = queryBuilderService.createOrUpdateQuery(query, Collections.EMPTY_LIST);
+         LOG.info("Sql: {}", query.getSql());
+         dqDetails.setSqlQuery(query.getSql());
+         queue.setQuery(query);
+         }
+         long queueCount = queue.getDialerQueueDetails().getAccountCount();
+         if (dqDetails.isActive() != null && !dqDetails.isActive() && queueCount > 0) {
+         throw new StiException("Cannot deactivate Dialer Queue. " + queueCount + " account(s) currently exist/s in the queue.");
+         }
+         if (queue.getDialerQueueDetails().getDialerQueueSourceType() != DialerQueueSourceType.DESTINATION_NUMBER) {
+         dqDetails.setAccountCount(updateSqlQueryForDQ(queue, dqDetails.getSqlQuery()));
+         } else {
+         oldQuery = queue.getDialerQueueDetails().getDestinationNumbers();
+         dqDetails.setDestinationNumbers(dqDetails.getSqlQuery());
+         dqDetails.setSqlQuery("");
+         //move the information passed in as the query to the Destination numbers and replace the query with the empty string
+         }
+         queue.setDialerQueueDetails(dqDetails);
+         dqRepo.updateDialerQueue(queue);
+         if (!oldQuery.equals(newQuery)) {
+         String username = ThreadAttributes.getUserData(ThreadAttributes.get("agent.username")).getUserName();
+         DialerQueryHistory history = new DialerQueryHistory(oldQuery, newQuery, username);
+         history.setDialer_queue_name(queue.getDialerQueueDetails().getQueueName());
+         history.setDialer_queue_pk(queue.getDialerQueueDetails().getPk());
+         entityManager.persist(history);
+         if (config.getBoolean("dialer.query.email.enabled", Boolean.TRUE)) {
+         String message = "Username: " + username
+         + "\nTime: " + LocalDateTime.now().toString()
+         + "\nPk: " + queue.getDialerQueueDetails().getPk()
+         + "\nQueue Name: " + queue.getDialerQueueDetails().getQueueName()
+         + "\n\n\nOld Query: " + oldQuery
+         + "\n\n\nNew Query: " + newQuery;
+         info.setLetterBodyText(message);
+         documentManagerOWS.sendToEmailQueue(info, null, null, null);
+         }
+         }*/
         return dqDetails;
     }
 
     private void validateQuery(String query, Long queuePk, DialerQueueType dqType) throws StiException {
         /*DialerQueue existing = dqRepo.findDialerQueueWithQueryPk(query.getPk(), dqType);
-        if (existing != null && (queuePk == null || existing.getPk() != queuePk)) {
-            throw new StiException("Cannot update dialer queue. Query " + query.getName() + " is already referenced by dialer queue " + existing.getDialerQueueDetails().getQueueName());
-        }*/
+         if (existing != null && (queuePk == null || existing.getPk() != queuePk)) {
+         throw new StiException("Cannot update dialer queue. Query " + query.getName() + " is already referenced by dialer queue " + existing.getDialerQueueDetails().getQueueName());
+         }*/
     }
-    
-    
 
     private DialerQueueSettings instantiateDQSettings(DialerQueueDetails dqDetails) throws StiException {
         DialerQueueSettings dqSettings;
@@ -399,7 +397,6 @@ public class DialerQueueService {
             }
         }
 
-
         return dqSettings;
     }
 
@@ -486,7 +483,6 @@ public class DialerQueueService {
         //updateDQFromQueryBuilder(queue);
         return dqRepo.getDialerQueueAccounts(queue.getPk());
     }
-
 
     //check if criteria set/query has been updated
     private long updateSqlQueryForDQ(DialerQueue queue, String newSqlQuery) throws StiException {
@@ -776,9 +772,9 @@ public class DialerQueueService {
                 list.add(getAccountCustomerNameForAccount(accountPk));
             }
         }
-      /*  } catch (StiException ex) {
-            throw new EntityNotFoundException(ex.getMessage());
-        }*/
+        /*  } catch (StiException ex) {
+         throw new EntityNotFoundException(ex.getMessage());
+         }*/
         return list;
     }
 
@@ -940,13 +936,13 @@ public class DialerQueueService {
         dqRepo.removeAllAccountsFromDialerQueue(queue);
         DialerQueueGroupAssociation assoc = dqRepo.getQueueGroupAssociationByDialerQueue(queue);
         dqRepo.removeDialerQueueGroupAssociation(assoc);
-       /* if (queue.getQuery() != null) {
-            //check if another dq with different type is using the same query
-            DialerQueue existing = dqRepo.findDialerQueueWithQueryPk(queue.getQuery().getPk(), queue.isOutbound() ? DialerQueueType.INBOUND : DialerQueueType.OUTBOUND);
-            if (existing == null) {
-                queryBuilderService.deleteQuery(queue.getQuery().getPk());
-            }
-        }*/
+        /* if (queue.getQuery() != null) {
+         //check if another dq with different type is using the same query
+         DialerQueue existing = dqRepo.findDialerQueueWithQueryPk(queue.getQuery().getPk(), queue.isOutbound() ? DialerQueueType.INBOUND : DialerQueueType.OUTBOUND);
+         if (existing == null) {
+         queryBuilderService.deleteQuery(queue.getQuery().getPk());
+         }
+         }*/
         entityManager.remove(dqSettings);
         entityManager.remove(queue);
         entityManager.persist(history);
@@ -1223,7 +1219,7 @@ public class DialerQueueService {
     }
 
     @SuppressWarnings("unchecked")
-    private List<CallDispositionCode> getCallDispositionCodesForQueue(DialerQueue dq) {
+    public List<CallDispositionCode> getCallDispositionCodesForQueue(DialerQueue dq) {
         if (dq != null && dq.getCallDispositionGroup() != null) {
             return callDispositionService.getAllCallDispositionsForGroup(dq.getCallDispositionGroup().getPk());
         }
@@ -1326,22 +1322,24 @@ public class DialerQueueService {
             queueRunningStatusListCache = new QueueRunningStatusListCache(statuses);
         }
 
-        return new ArrayList<DialerQueueGroup>() {{
-            for (DialerQueueDetails dialerQueueDetails : getAllDialerQueuesByType(dialerQueueType)) {
-                DialerGroup dialerGroup = getPrimaryDialerGroupForDQ(dialerQueueDetails.getPk());
-                dialerQueueDetails.setGroupName(dialerGroup != null ? dialerGroup.getGroupName() : null);
-                DialerQueueGroup newQueueGroup = new DialerQueueGroup();
-                newQueueGroup.setDialerQueueDetails(dialerQueueDetails);
+        return new ArrayList<DialerQueueGroup>() {
+            {
+                for (DialerQueueDetails dialerQueueDetails : getAllDialerQueuesByType(dialerQueueType)) {
+                    DialerGroup dialerGroup = getPrimaryDialerGroupForDQ(dialerQueueDetails.getPk());
+                    dialerQueueDetails.setGroupName(dialerGroup != null ? dialerGroup.getGroupName() : null);
+                    DialerQueueGroup newQueueGroup = new DialerQueueGroup();
+                    newQueueGroup.setDialerQueueDetails(dialerQueueDetails);
 
-                QueueRunningStatus queueRunningStatus = getQueueRunningStatusFromCollection(dialerQueueDetails.getPk(), statuses);
+                    QueueRunningStatus queueRunningStatus = getQueueRunningStatusFromCollection(dialerQueueDetails.getPk(), statuses);
 
-                if (dialerQueueType == OUTBOUND && queueRunningStatus != null) {
-                    newQueueGroup.setQueueRunningStatus(queueRunningStatus);
+                    if (dialerQueueType == OUTBOUND && queueRunningStatus != null) {
+                        newQueueGroup.setQueueRunningStatus(queueRunningStatus);
+                    }
+
+                    add(newQueueGroup);
                 }
-
-                add(newQueueGroup);
             }
-        }};
+        };
     }
 
     private QueueRunningStatus getQueueRunningStatusFromCollection(long queueStatusId, List<QueueRunningStatus> statuses) {
@@ -1356,6 +1354,7 @@ public class DialerQueueService {
 
     //to keep the cached object and expire time
     private static class QueueRunningStatusListCache {
+
         private final long createTime = System.currentTimeMillis();
         private final List<QueueRunningStatus> queueRunningStatusList;
 
@@ -1372,10 +1371,12 @@ public class DialerQueueService {
         }
     }
 
-     public List<AccountCustomerName> getBasicLoanDataForQueue(long queuePk, Integer pageNum, Integer pageSize) {
+    public List<AccountCustomerName> getBasicLoanDataForQueue(long queuePk, Integer pageNum, Integer pageSize) {
         List<AccountCustomerName> list = new ArrayList<>();
-       
+
         return list;
-    } 
+    }
+    
+  
 
 }

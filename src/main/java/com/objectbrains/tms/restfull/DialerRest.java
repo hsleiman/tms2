@@ -6,9 +6,9 @@
 package com.objectbrains.tms.restfull;
 
 import com.objectbrains.commons.joda.LocalDateTimeAdapter;
+import com.objectbrains.sti.embeddable.OutboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.CustomerPhoneData;
 import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
-import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.db.repository.ReportRepository;
 import com.objectbrains.tms.hazelcast.entity.DialerStats;
 import com.objectbrains.tms.hazelcast.entity.WaitingCall;
@@ -214,7 +214,7 @@ public class DialerRest {
         }
         OutboundDialerQueueRecord record = dialer.getRecord();
         int count = 0;
-        for (DialerQueueAccountDetails details : record.getLoanDetails()) {
+        for (DialerQueueAccountDetails details : record.getAccountDetails()) {
             List<CustomerPhoneData> data = details.getCustomerPhoneData();
             if (!data.isEmpty()) {
                 count++;
@@ -230,7 +230,7 @@ public class DialerRest {
         Dialer dialer = dialerService.getDialer(queuePk);
         if (dialer != null) {
             OutboundDialerQueueRecord record = dialer.getRecord();
-            for (DialerQueueAccountDetails details : record.getLoanDetails()) {
+            for (DialerQueueAccountDetails details : record.getAccountDetails()) {
                 LoanInfoRecord loanRecord = createLoanRecord(details, dialer);
                 if (loanRecord != null) {
                     retList.add(loanRecord);
@@ -249,7 +249,7 @@ public class DialerRest {
         if (dialer != null) {
             OutboundDialerQueueRecord record = dialer.getRecord();
             int index = 0;
-            for (DialerQueueAccountDetails details : record.getLoanDetails()) {
+            for (DialerQueueAccountDetails details : record.getAccountDetails()) {
                 if (retList.size() >= size) {
                     break;
                 }

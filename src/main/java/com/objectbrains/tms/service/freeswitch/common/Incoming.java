@@ -297,8 +297,10 @@ public class Incoming {
         if (day == 7) {
             day = 0;
         }
+        
+        
 
-        return isWorkingHour(aido.getSettings().getDialerSchedule().get(day).getStartTime(), aido.getSettings().getDialerSchedule().get(day).getEndTime());
+        return isWorkingHourGlobal(destinationNumber);
 
         //return isWorkingHour(aido.getSettings().getStartTime(), aido.getSettings().getEndTime());
     }

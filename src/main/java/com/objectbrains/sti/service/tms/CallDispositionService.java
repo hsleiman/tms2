@@ -5,15 +5,20 @@
  */
 package com.objectbrains.sti.service.tms;
 
+import com.objectbrains.sti.db.entity.base.dialer.DialerQueue;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionGroup;
 import com.objectbrains.sti.db.entity.disposition.action.CallDispositionAction;
+import com.objectbrains.sti.db.repository.dialer.DialerQueueRepository;
 import com.objectbrains.sti.service.utility.CSVParser;
 import com.objectbrains.sti.db.repository.disposition.CallDispositionRepository;
+import com.objectbrains.sti.exception.StiException;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -31,13 +36,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 
-
 @Service
 @Transactional
 public class CallDispositionService {
 
     @Autowired
     private CallDispositionRepository dispositionRepository;
+    @Autowired
+    private DialerQueueRepository dqRepo;
+    @Autowired
+    private DialerQueueService dqService;
 
     @PersistenceContext
     private EntityManager em;
@@ -84,6 +92,14 @@ public class CallDispositionService {
     }
 
     public CallDispositionCode getCallDispositionCode(String disposition) {
+        CallDispositionCode code = dispositionRepository.locateDisposition(disposition);
+        if (code == null) {
+            throw new EntityNotFoundException("CallDispositionCode with disposition [" + disposition + "] could not be found");
+        }
+        return code;
+    }
+
+    public CallDispositionCode getCallDispositionCodeByDispositionName(String disposition) {
         CallDispositionCode code = dispositionRepository.locateDisposition(disposition);
         if (code == null) {
             throw new EntityNotFoundException("CallDispositionCode with disposition [" + disposition + "] could not be found");
@@ -265,5 +281,22 @@ public class CallDispositionService {
         CallDispositionCode code = getCallDispositionCode(dispositionId);
         return code.getAction();
     }
+    
+    public List<CallDispositionCode> getCallDispositionCodesForLoan(long accountPk, boolean isIncoming) throws StiException  {
+        DialerQueue dq = dqService.getDialerQueueForAccount(accountPk, isIncoming);
+        List<CallDispositionCode> codes = dqService.getCallDispositionCodesForQueue(dq);
+        if (codes.isEmpty()) {
+            if (isIncoming) {
+                codes = dqService.getCallDispositionCodesForQueue(dqService.getDefaultInboundQueue().getPk());
+                return codes.isEmpty() ? getAllDefaultInboundDispositionCodes() : codes;
+            } else {
+                return getAllDefaultOutboundDispositionCodes();
+            }
+        }
+        return codes;
+    }
+   
 
+
+    
 }

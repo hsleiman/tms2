@@ -55,7 +55,7 @@ public class QueueRest {
     @Path("/{queuePk}/loans/count")
     @GET
     public long getLoanCount(@PathParam("queuePk") long queuePk) throws Exception {
-        return tmsIws.getDialerQueueByPk(queuePk).getAccountCount();
+        return dialerQueueService.getDialerQueueByPk(queuePk).getAccountCount();
     }
 
     @Path("/{queuePk}/loans")

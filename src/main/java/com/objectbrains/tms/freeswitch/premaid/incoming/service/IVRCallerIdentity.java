@@ -278,10 +278,10 @@ public class IVRCallerIdentity {
             TMSBasicAccountInfo basicLoanInfo = null;
             basicLoanInfo = tmsIWS.getBasicAccountInfoForTMS(variable.getLoanId());
 
-            log.info("incoming.isNotDelinquent: " + incoming.isNotDelinquent(basicLoanInfo));
+            log.info("incoming.isNotDelinquent: " + incoming.isNotDelinquent());
             log.info("aido: " + aido.toJson());
-            if (incoming.isNotDelinquent(basicLoanInfo)) {
-                log.info("incoming.isNotDelinquent: " + incoming.isNotDelinquent(basicLoanInfo));
+            if (incoming.isNotDelinquent()) {
+                log.info("incoming.isNotDelinquent: " + incoming.isNotDelinquent());
                 IncomingIVR builder = new IncomingIVR(variable, aido);
                 builder.setTMS_UUID(tmsDialplan.getKey().getTms_uuid());
                 TMSDialplan ivrD = builder.buildDialplansNoSBC();

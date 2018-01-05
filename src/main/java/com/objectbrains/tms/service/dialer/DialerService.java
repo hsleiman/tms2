@@ -10,7 +10,8 @@ import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueueSettings;
 import com.objectbrains.sti.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
-import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
+import com.objectbrains.sti.embeddable.OutboundDialerQueueRecord;
+import com.objectbrains.sti.service.dialer.OutboundDialerService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.DialerScheduleEntity;
 import com.objectbrains.tms.db.repository.DialerQueueStatsRepository;
@@ -75,6 +76,9 @@ public class DialerService implements BeanFactoryAware {
 //    private DialerQueueRepository dialerQueueRepository;
     @Autowired
     private DialerQueueRecordService dialerQueueRecordService;
+    
+    @Autowired
+    private OutboundDialerService outboundDialerService;
 
     @Autowired
     private CallService callService;
@@ -140,7 +144,7 @@ public class DialerService implements BeanFactoryAware {
 
     public void startQueue(final long queuePk, LocalTime stopTime) throws Exception, DialerException {
 
-        OutboundDialerQueueRecord record = tmsIws.getOutboundDialerQueueRecord(queuePk);
+        OutboundDialerQueueRecord record = outboundDialerService.getOutboundDialerQueueRecord(queuePk);
 
         OutboundDialerQueueSettings settings = record.getDialerQueueSettings();
         LocalTime now = LocalTime.now();

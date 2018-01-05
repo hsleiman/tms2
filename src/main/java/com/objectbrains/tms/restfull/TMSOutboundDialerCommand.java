@@ -10,12 +10,13 @@ import com.objectbrains.ams.iws.UserNotFoundException;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.sti.constants.DialerMode;
 import com.objectbrains.sti.constants.PopupDisplayMode;
+import com.objectbrains.sti.embeddable.OutboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.AccountCustomerName;
 import com.objectbrains.sti.pojo.CustomerPhoneData;
 import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
-import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.TMSCallDetails;
 import com.objectbrains.sti.service.dialer.DialerQueueService;
+import com.objectbrains.sti.service.dialer.OutboundDialerService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.DialerActiveStatus;
 import com.objectbrains.tms.freeswitch.pojo.DialerInfoPojo;
@@ -84,6 +85,9 @@ public class TMSOutboundDialerCommand {
 
     @Autowired
     private TMSService tmsIWS;
+    
+    @Autowired
+    private OutboundDialerService outboundDialerService;
     
     @Autowired
     private DialerQueueService dialerQueueService;
@@ -245,9 +249,9 @@ public class TMSOutboundDialerCommand {
         if (dialer != null) {
             record = dialer.getRecord();
         } else {
-            record = tmsIWS.getOutboundDialerQueueRecord(queuePk);
+            record = outboundDialerService.getOutboundDialerQueueRecord(queuePk);
         }
-        for (DialerQueueAccountDetails details : record.getLoanDetails()) {
+        for (DialerQueueAccountDetails details : record.getAccountDetails()) {
             List<CustomerPhoneData> data = details.getCustomerPhoneData();
             if (data.isEmpty()) {
                 continue;
@@ -272,7 +276,7 @@ public class TMSOutboundDialerCommand {
         if (dialer != null) {
             OutboundDialerQueueRecord record = dialer.getRecord();
             int index = 0;
-            for (DialerQueueAccountDetails details : record.getLoanDetails()) {
+            for (DialerQueueAccountDetails details : record.getAccountDetails()) {
                 if (retList.size() >= size) {
                     break;
                 }

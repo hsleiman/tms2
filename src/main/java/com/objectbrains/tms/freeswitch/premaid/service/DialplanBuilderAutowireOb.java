@@ -6,6 +6,7 @@
 package com.objectbrains.tms.freeswitch.premaid.service;
 
 
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.service.AgentCallService;
 import com.objectbrains.tms.service.AgentService;
@@ -68,6 +69,8 @@ public class DialplanBuilderAutowireOb {
     private InboundCallService inboundCallService;
     @Autowired
     private Incoming2 incoming2;
+    @Autowired
+    private DialerQueueService dialerQueueService;
 
     @Autowired
     private DialerQueueRecordService dialerQueueRecordRepository;
@@ -201,5 +204,15 @@ public class DialplanBuilderAutowireOb {
     public void setFreeswitchService(FreeswitchService freeswitchService) {
         this.freeswitchService = freeswitchService;
     }
+
+    public DialerQueueService getDialerQueueService() {
+        return dialerQueueService;
+    }
+
+    public void setDialerQueueService(DialerQueueService dialerQueueService) {
+        this.dialerQueueService = dialerQueueService;
+    }
+    
+    
 
 }

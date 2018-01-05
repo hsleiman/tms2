@@ -21,10 +21,10 @@ import com.objectbrains.sti.db.entity.disposition.action.DoNotCallAction;
 import com.objectbrains.sti.db.entity.disposition.action.DoNotCallPhoneAction;
 import com.objectbrains.sti.db.entity.disposition.action.RetryCallAction;
 import com.objectbrains.sti.embeddable.AgentWeightPriority;
+import com.objectbrains.sti.embeddable.OutboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.BasicPhoneData;
 import com.objectbrains.sti.pojo.CustomerPhoneData;
 import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
-import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.dialer.PhoneNumberCallable;
 import com.objectbrains.sti.service.tms.TMSService;
@@ -53,7 +53,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-import javax.security.auth.login.AccountNotFoundException;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -282,7 +281,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
                     dialplanRepository.LogDialplanInfoIntoDb("DIALER_DIALER", "Skipping Call, is called recently[ext: {}, phoneNumber: {}, loanPk: {}, timeout: {}, QueuePK: {}]", ext, phoneNumber, loanPk, callDetailRecordService.getNumberToCallForDialerTimeout(normalizeDnc(phoneNumber)), getQueuePk());
 
                 } else {
-                    PhoneNumberCallable callable = dialerQueueService.canCallNumber(getQueuePk(), loanPk, phoneNumber);
+                    PhoneNumberCallable callable = dialerQueueService.canCallNumberInQueue(getQueuePk(), loanPk, phoneNumber);
                     CallTimeCode timeCode = callable.getCallTimeCode();
                     switch (timeCode) {
                         case OK_TO_CALL:
@@ -305,13 +304,12 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
                 }
                 //skip phone number but try next one
                 prepareNextCall(loanNumber, details);
-            } catch (Exception ex) {
+            }catch (Exception ex) {
                 LOG.error("Error occurred while checking whether loanPk: [{}] is in QueuePK: [{}], skipping loan", loanPk, getQueuePk(), ex);
                 scheduleRetry(loanNumber, LocalDateTime.now().plusMinutes(1));
-            } catch (AccountNotFoundException ex) {
-                //let loan die and pick next loan
-                loanCompleted(loanPk, DialerLoan.CompleteReason.NOT_IN_QUEUE);
             }
+            //let loan die and pick next loan
+            
         }
     }
 
@@ -591,7 +589,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
             scheduler.scheduleJob(readyLoansTrigger);
 
             if (delayMin > 0) {
-                String queueName = tmsIws.getDialerQueueByPk(getQueuePk()).getQueueName();
+                String queueName = dialerQueueService.getDialerQueueByPk(getQueuePk()).getQueueName();
                 List<Agent> agents = agentService.getAgents(getRecord().getAgentWeightPriorityList(), null, null);
 
                 StringBuilder message = new StringBuilder();
@@ -662,7 +660,7 @@ public abstract class AbstractDialer implements Dialer, DataSerializable, Initia
             unscheduleTriggers();
 
 //            clearData();
-            List<DialerQueueAccountDetails> detailsList = new ArrayList<>(record.getLoanDetails());
+            List<DialerQueueAccountDetails> detailsList = new ArrayList<>(record.getAccountDetails());
 //            dialerPk = dialerStatsService.startStats(getQueuePk(), detailsList.size(), getDialerType());
             dialerStatsService.startStats(getDialerPk(), detailsList.size(), getDialerType());
             if (record.getDialerQueueSettings().isBestTimeToCall()) {

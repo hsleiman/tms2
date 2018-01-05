@@ -5,9 +5,8 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.incoming;
 
-import com.objectbrains.svc.iws.CallerId;
-import com.objectbrains.svc.iws.InboundDialerQueueRecord;
-import com.objectbrains.svc.iws.SvcException;
+import com.objectbrains.sti.constants.CallerId;
+import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
@@ -348,10 +347,10 @@ public class IncomingIVR2 extends DialplanBuilder {
 
         Long qPk = 1l;
         try {
-            InboundDialerQueueRecord record = tmsIWS.getDefaultInboundQueueRecord();
+            InboundDialerQueueRecord record = dialerQueueService.getDefaultInboundQueueRecord();
             dialerQueueRecordRepository.storeInboundDialerQueueRecord(record);
             qPk = record.getDqPk();
-        } catch (SvcException ex) {
+        } catch (Exception ex) {
             log.error("This is error in calling defaul inbound queue: {}", ex);
         }
         fifoDialplan.addBridge(new Fifo("InboundDialerQueue_" + qPk + " in"));

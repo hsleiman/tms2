@@ -6,10 +6,8 @@
 package com.objectbrains.tms.service.freeswitch.common;
 
 import com.objectbrains.ams.iws.User;
-import com.objectbrains.sti.pojo.TMSBasicAccountInfo;
-import com.objectbrains.svc.iws.IvrAchInformationPojo;
-import com.objectbrains.svc.iws.TMSService;
-import com.objectbrains.svc.iws.TmsBasicLoanInfo;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
+import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.CallDirection;
 import com.objectbrains.tms.enumerated.IncomingCallRouting;
 import com.objectbrains.tms.enumerated.WorkHours;
@@ -55,6 +53,9 @@ public class Incoming2 {
     private TMSService tmsIWS;
 
     @Autowired
+    private DialerQueueService dialerQueueService;
+
+    @Autowired
     private AmsService amsService;
 
     @Autowired
@@ -83,10 +84,9 @@ public class Incoming2 {
 //            return (new IncomingBlackhole(variable));
 //        }
 
-        if(variable.getCallerIdNumber().equalsIgnoreCase("7147182832")){
-            
-        }
+        if (variable.getCallerIdNumber().equalsIgnoreCase("7147182832")) {
 
+        }
 
         String TMS_UUID = UUID.randomUUID().toString();
         String destinationNumber = variable.getCalleeIdNumber();
@@ -113,7 +113,7 @@ public class Incoming2 {
             }
         }
 
-        long queuePk = tmsIWS.getDialerQueuePkForPhoneNumber(destinationNumber);
+        long queuePk = dialerQueueService.getDialerQueuePkForPhoneNumber(destinationNumber);
         log.info("Checking Distination {} is in queue {}", variable.getCalleeIdLong(), queuePk);
         dialplanRepository.LogDialplanInfoIntoDb(TMS_UUID, "Checking Distination {} is in queue {}", variable.getCalleeIdLong(), queuePk);
 
@@ -136,16 +136,16 @@ public class Incoming2 {
                 incomingVoicemail.setTMS_UUID(TMS_UUID);
                 return incomingVoicemail;
             }
-            
+
             log.info("ado.getAgents().isEmpty() {}", ado.getAgents().isEmpty());
             if (ado.getAgents().isEmpty() == false) {
                 DialplanBuilder incomingDialerOrder = new IncomingDialerOrder(variable, ado);
                 incomingDialerOrder.setTMS_UUID(TMS_UUID);
                 return incomingDialerOrder;
             }
-            
+
             log.info("ado.getSettings() {}", ado.getSettings());
-            if(ado.getSettings() != null && ado.getSettings().isForceVoicemail()) {
+            if (ado.getSettings() != null && ado.getSettings().isForceVoicemail()) {
                 log.info("ado.getSettings().isForceVoicemail() {}", ado.getSettings().isForceVoicemail());
                 DialplanBuilder incomingPlaceOnHold = new IncomingPlaceOnHold(variable, ado);
                 incomingPlaceOnHold.setTMS_UUID(TMS_UUID);
@@ -263,29 +263,28 @@ public class Incoming2 {
     private DialplanBuilder closedOption(IncomingCallRouting callRouting, DialplanVariable variable, AgentIncomingDistributionOrder ado, WorkHours workHours, String TMS_UUID) {
         if (callRouting == IncomingCallRouting.SEND_TO_IVR && ado.getBorrowerInfo() != null) {
             try {
-                IvrAchInformationPojo ivrAchInformationPojo = null;
-                ivrAchInformationPojo = tmsIWS.getAchDayAndAmountForLoan(ado.getBorrowerInfo().getLoanId());
-                boolean isGood = true;
-                if (isGood && ivrAchInformationPojo == null) {
-                    log.warn("Check ACH Condition {} - ivrAchInformationPojo is null", variable.getCall_uuid());
-                    dialplanRepository.LogDialplanInfoIntoDb(TMS_UUID, "Check ACH Condition {} - ivrAchInformationPojo is null", variable.getCall_uuid());
-                    isGood = false;
-                }
-                if (isGood && ivrAchInformationPojo.getAutoPaymentOption() != 1) {
-                    log.warn("Check ACH Condition {} - Auto payment option ACH is {}", variable.getCall_uuid(), ivrAchInformationPojo.getAutoPaymentOption());
-                    dialplanRepository.LogDialplanInfoIntoDb(TMS_UUID, "Check ACH Condition {} - Auto payment option ACH is {}", variable.getCall_uuid(), ivrAchInformationPojo.getAutoPaymentOption());
-                    isGood = false;
-                }
-                if (isGood && ivrAchInformationPojo.getPendingAchPk() > 0) {
-                    log.warn("Check ACH Condition {} - Pending ACH is {}", variable.getCall_uuid(), ivrAchInformationPojo.getPendingAchPk());
-                    dialplanRepository.LogDialplanInfoIntoDb(TMS_UUID, "Check ACH Condition {} - Pending ACH is {}", variable.getCall_uuid(), ivrAchInformationPojo.getPendingAchPk());
-                    isGood = false;
-                }
-                if (isGood && ivrAchInformationPojo.getAchAmount() == null) {
-                    log.warn("Check ACH Condition {} - ivrAchInformationPojo AchAmount is null", variable.getCall_uuid());
-                    dialplanRepository.LogDialplanInfoIntoDb(TMS_UUID, "Check ACH Condition {} - ivrAchInformationPojo AchAmount is null", variable.getCall_uuid());
-                    isGood = false;
-                }
+
+                boolean isGood = false;
+//                if (isGood && ivrAchInformationPojo == null) {
+//                    log.warn("Check ACH Condition {} - ivrAchInformationPojo is null", variable.getCall_uuid());
+//                    dialplanRepository.LogDialplanInfoIntoDb(TMS_UUID, "Check ACH Condition {} - ivrAchInformationPojo is null", variable.getCall_uuid());
+//                    isGood = false;
+//                }
+//                if (isGood && ivrAchInformationPojo.getAutoPaymentOption() != 1) {
+//                    log.warn("Check ACH Condition {} - Auto payment option ACH is {}", variable.getCall_uuid(), ivrAchInformationPojo.getAutoPaymentOption());
+//                    dialplanRepository.LogDialplanInfoIntoDb(TMS_UUID, "Check ACH Condition {} - Auto payment option ACH is {}", variable.getCall_uuid(), ivrAchInformationPojo.getAutoPaymentOption());
+//                    isGood = false;
+//                }
+//                if (isGood && ivrAchInformationPojo.getPendingAchPk() > 0) {
+//                    log.warn("Check ACH Condition {} - Pending ACH is {}", variable.getCall_uuid(), ivrAchInformationPojo.getPendingAchPk());
+//                    dialplanRepository.LogDialplanInfoIntoDb(TMS_UUID, "Check ACH Condition {} - Pending ACH is {}", variable.getCall_uuid(), ivrAchInformationPojo.getPendingAchPk());
+//                    isGood = false;
+//                }
+//                if (isGood && ivrAchInformationPojo.getAchAmount() == null) {
+//                    log.warn("Check ACH Condition {} - ivrAchInformationPojo AchAmount is null", variable.getCall_uuid());
+//                    dialplanRepository.LogDialplanInfoIntoDb(TMS_UUID, "Check ACH Condition {} - ivrAchInformationPojo AchAmount is null", variable.getCall_uuid());
+//                    isGood = false;
+//                }
                 if (isGood && configuration.getIVRVersion() == 2) {
                     log.info("Sending to IVR {}.", configuration.getIVRVersion());
                     dialplanRepository.LogDialplanInfoIntoDb(TMS_UUID, "Sending to IVR {}.", configuration.getIVRVersion());
@@ -327,10 +326,8 @@ public class Incoming2 {
         }
 
         //BasicLoanInformationPojo blip = null;
-        TmsBasicLoanInfo basicLoanInfo = null;
-        basicLoanInfo = tmsIWS.getBasicLoanInfoForTMS(loanId);
         //This logic is also in the IVR it should 
-        if (isNotDelinquent(basicLoanInfo)) {//} else if (ado.getCallDetails().getLoanServicingStatus() == 1) {
+        if (isNotDelinquent()) {//} else if (ado.getCallDetails().getLoanServicingStatus() == 1) {
             log.info("Sending to IVR. ");
             dialplanRepository.LogDialplanInfoIntoDb(variable.getCall_uuid(), "Sending to IVR. ");
             return IncomingCallRouting.SEND_TO_IVR;
@@ -347,22 +344,10 @@ public class Incoming2 {
         return IncomingCallRouting.SEND_TO_AGENT;
     }
 
-    public boolean isNotDelinquent(TMSBasicAccountInfo blip) {
-        try {
-            if (blip != null) {
-                log.info("Is Not Delinquent: {} - {} - {}", blip.getAccountPk(), blip.getNextDueDate());
-                dialplanRepository.LogDialplanInfoIntoDb("", "Is Not Delinquent: {} - {} - {}", blip.getAccountPk(), blip.getNextDueDate());
-                if (blip.getNextDueDate() != null) {
-                    log.info("Is Not Delinquent: {} - {}", blip.getAccountPk(), blip.getNextDueDate().isAfter(LocalDate.now()));
-                    dialplanRepository.LogDialplanInfoIntoDb("", "Is Not Delinquent: {} - {}", blip.getAccountPk(), blip.getNextDueDate().isAfter(LocalDate.now()));
-                }
-            }
-            return blip != null && blip.getNextDueDate().isAfter(LocalDate.now());
-        } catch (Exception ex) {
-            log.error("Exception Is Not Delinquent: TMS basic loan info {}", blip == null, ex);
-            dialplanRepository.LogDialplanInfoIntoDb("", "Exception Is Not Delinquent: TMS basic loan info {}", blip == null);
-            return true;
-        }
+    public boolean isNotDelinquent() {
+
+        return true;
+
     }
 
     private AgentIncomingDistributionOrder directRouteProcess(String TMS_UUID, DialplanVariable variable, AgentIncomingDistributionOrder ado) {
@@ -419,7 +404,8 @@ public class Incoming2 {
             day = 0;
         }
 
-        return isWorkingHour(aido.getSettings().getDialerSchedule().get(day).getStartTime(), aido.getSettings().getDialerSchedule().get(day).getEndTime(), TMS_UUID);
+        return isWorkingHourGlobal(destinationNumber);
+//        return isWorkingHour(aido.getSettings().getDialerSchedule().get(day).getStartTime(), aido.getSettings().getDialerSchedule().get(day).getEndTime(), TMS_UUID);
 
         //return isWorkingHour(aido.getSettings().getStartTime(), aido.getSettings().getEndTime());
     }

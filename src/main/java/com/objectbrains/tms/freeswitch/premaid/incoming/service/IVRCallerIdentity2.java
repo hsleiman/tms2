@@ -5,6 +5,8 @@
  */
 package com.objectbrains.tms.freeswitch.premaid.incoming.service;
 
+import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
 import com.objectbrains.tms.enumerated.FreeswitchContext;
@@ -15,7 +17,6 @@ import com.objectbrains.tms.freeswitch.FreeswitchVariables;
 import com.objectbrains.tms.freeswitch.dialplan.action.Answer;
 import com.objectbrains.tms.freeswitch.dialplan.action.BridgeToAgent;
 import com.objectbrains.tms.freeswitch.dialplan.action.BridgeToFifo;
-import com.objectbrains.tms.freeswitch.dialplan.action.BridgeToIVR;
 import com.objectbrains.tms.freeswitch.dialplan.action.PlayAndGetDigits;
 import com.objectbrains.tms.freeswitch.dialplan.action.Playback;
 import com.objectbrains.tms.freeswitch.dialplan.action.Set;
@@ -25,7 +26,6 @@ import com.objectbrains.tms.freeswitch.dialplan.action.Transfer;
 import com.objectbrains.tms.freeswitch.pojo.AgentIncomingDistributionOrder;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.freeswitch.premaid.incoming.IncomingDialerOrder;
-import com.objectbrains.tms.freeswitch.premaid.incoming.IncomingIVR2;
 import com.objectbrains.tms.freeswitch.premaid.incoming.IncomingPlaceOnHold;
 import com.objectbrains.tms.service.AgentService;
 import com.objectbrains.tms.service.CallDetailRecordService;
@@ -55,6 +55,10 @@ public class IVRCallerIdentity2 {
 
     @Autowired
     private TMSService tmsIWS;
+    
+    @Autowired
+    private DialerQueueService dialerQueueService;
+    
     @Autowired
     private DncService dnc;
 
@@ -199,49 +203,49 @@ public class IVRCallerIdentity2 {
             return tmsDialplan;
         }
 
-        IvrInformationVerificationPojo informationVerificationPojo = null;
-        if (optionTextParser.getSSNOrLoan() == 1) {
-            Long loanPk = optionTextParser.getLoanId();
-            informationVerificationPojo = tmsIWS.getLoanByLoanPkAndDob(loanPk, DOB);
-
-        } else if (optionTextParser.getSSNOrLoan() == 2) {
-            String ssn = optionTextParser.getSSN();
-            try {
-                informationVerificationPojo = tmsIWS.getLoanBySsnAndDob(ssn, DOB);
-            } catch (Throwable ex) {
-                log.info("CallUUID {} was null for Exception {}", variable.getCall_uuid(), ex);
-                sendToCustomerServiceFifo(variable, tmsDialplan, false, 6);
-                return tmsDialplan;
-            }
-
-        }
-
-        if (informationVerificationPojo == null) {
-            log.info("Checked CallUUI {} - informationVerificationPojo is null", variable.getCall_uuid());
-        }
-
-        if (informationVerificationPojo == null || informationVerificationPojo.isMultipleResults()) {
-            if (informationVerificationPojo != null) {
-                log.info("Checked CallUUI {} - Multiple Results {}", variable.getCall_uuid(), informationVerificationPojo.isMultipleResults());
-            }
-            sendToCustomerServiceFifo(variable, tmsDialplan, false, 7);
-            return tmsDialplan;
-        }
-
-        log.info("Checked CallUUI {} - Correct Information {} LoanId {}", variable.getCall_uuid(), informationVerificationPojo.isCorrectInformation(), informationVerificationPojo.getLoanPk());
-
-        if (informationVerificationPojo.getLoanPk() != null && informationVerificationPojo.isCorrectInformation()) {
-            tmsDialplan.getBorrowerInfo().setLoanId(informationVerificationPojo.getLoanPk());
-            callDetailRecordService.updateIVRAuthorized(variable.getCall_uuid(), Boolean.TRUE);
-            tmsDialplan.addAction(new TMSOrder(IVROrder2.VERIFIED_SECURITY_FOR_DOB));
-            tmsDialplan.addBridge(new Transfer("1000 XML " + FreeswitchContext.ivr_dp));
-        } else {
+//        IvrInformationVerificationPojo informationVerificationPojo = null;
+////        if (optionTextParser.getSSNOrLoan() == 1) {
+////            Long loanPk = optionTextParser.getLoanId();
+////            informationVerificationPojo = tmsIWS.getLoanByLoanPkAndDob(loanPk, DOB);
+////
+////        } else if (optionTextParser.getSSNOrLoan() == 2) {
+////            String ssn = optionTextParser.getSSN();
+////            try {
+////                informationVerificationPojo = tmsIWS.getLoanBySsnAndDob(ssn, DOB);
+////            } catch (Throwable ex) {
+////                log.info("CallUUID {} was null for Exception {}", variable.getCall_uuid(), ex);
+////                sendToCustomerServiceFifo(variable, tmsDialplan, false, 6);
+////                return tmsDialplan;
+////            }
+////
+////        }
+//
+//        if (informationVerificationPojo == null) {
+//            log.info("Checked CallUUI {} - informationVerificationPojo is null", variable.getCall_uuid());
+//        }
+//
+//        if (informationVerificationPojo == null || informationVerificationPojo.isMultipleResults()) {
+//            if (informationVerificationPojo != null) {
+//                log.info("Checked CallUUI {} - Multiple Results {}", variable.getCall_uuid(), informationVerificationPojo.isMultipleResults());
+//            }
+//            sendToCustomerServiceFifo(variable, tmsDialplan, false, 7);
+//            return tmsDialplan;
+//        }
+//
+//        log.info("Checked CallUUI {} - Correct Information {} LoanId {}", variable.getCall_uuid(), informationVerificationPojo.isCorrectInformation(), informationVerificationPojo.getLoanPk());
+//
+//        if (informationVerificationPojo.getLoanPk() != null && informationVerificationPojo.isCorrectInformation()) {
+//            tmsDialplan.getBorrowerInfo().setLoanId(informationVerificationPojo.getLoanPk());
+//            callDetailRecordService.updateIVRAuthorized(variable.getCall_uuid(), Boolean.TRUE);
+//            tmsDialplan.addAction(new TMSOrder(IVROrder2.VERIFIED_SECURITY_FOR_DOB));
+//            tmsDialplan.addBridge(new Transfer("1000 XML " + FreeswitchContext.ivr_dp));
+//        } else {
             callDetailRecordService.updateIVRAuthorized(variable.getCall_uuid(), Boolean.FALSE);
             sendToCustomerServiceFifo(variable, tmsDialplan, false, 8);
             return tmsDialplan;
-        }
+//        }
 
-        return tmsDialplan;
+//        return tmsDialplan;
     }
 
     public TMSDialplan VerifiedSecurityForDOB(DialplanVariable variable, TMSDialplan tmsDialplan) {
@@ -256,39 +260,9 @@ public class IVRCallerIdentity2 {
         } else {
             aido = inboundCallService.inboundCallOrder(null, 0l, variable.getCall_uuid(), variable.getLoanId());
         }
-        TmsBasicLoanInfo basicLoanInfo = null;
-        basicLoanInfo = tmsIWS.getBasicLoanInfoForTMS(variable.getLoanId());
-        boolean notDelinquent = incoming.isNotDelinquent(basicLoanInfo);
-        log.info("incoming.isNotDelinquent: {} {}", variable.getCall_uuid(), notDelinquent);
-        log.info("aido: " + aido.toJson());
-        if (notDelinquent) {
-            log.info("incoming.isNotDelinquent: {} {}", variable.getCall_uuid(), notDelinquent);
-            IncomingIVR2 builder = new IncomingIVR2(variable, aido);
-            builder.setTMS_UUID(tmsDialplan.getKey().getTms_uuid());
-            TMSDialplan ivrD = builder.buildDialplansNoSBC();
 
-            if (basicLoanInfo != null && basicLoanInfo.getNextDueDate() != null) {
-
-                String var = OptionTextParser.SAVED_NEXT_DUE_DATE;
-                if (basicLoanInfo.getNextDueDate().getDayOfMonth() < 10) {
-                    var = var + "0";
-                }
-                var = var + basicLoanInfo.getNextDueDate().getDayOfMonth();
-                if (basicLoanInfo.getNextDueDate().getMonthOfYear() < 10) {
-                    var = var + "0";
-                }
-                var = var + basicLoanInfo.getNextDueDate().getMonthOfYear() + basicLoanInfo.getNextDueDate().getYear();
-
-                var = var + OptionTextParser.SAVED_PRINCIPAL_BALANCE + basicLoanInfo.getPrincipalBalance();
-                tmsDialplan.addAction(new Set(FreeswitchVariables.option_text, variable.getOptionText() + var));
-            } else {
-                log.info("Could not save next due date for {}", variable.getCall_uuid());
-            }
-
-            tmsDialplan.addAction(new TMSOrder(ivrD.getKey().getOrderPower()));
-            tmsDialplan.addBridge(new BridgeToIVR(freeswitchService.getFreeswitchIPNew(tmsDialplan.getCall_uuid(), FreeswitchContext.ivr_dp)));
-
-        } else if (aido.getAgents().isEmpty() && aido.getBorrowerInfo().getLoanId() != null) {
+        
+        if (aido.getAgents().isEmpty() && aido.getBorrowerInfo().getLoanId() != null) {
             IncomingPlaceOnHold builder = new IncomingPlaceOnHold(variable, aido);
             builder.setTMS_UUID(tmsDialplan.getKey().getTms_uuid());
             TMSDialplan onHoldDialplan = builder.callEnteringFifo();
@@ -318,10 +292,10 @@ public class IVRCallerIdentity2 {
 
         Long qPk = 1l;
         try {
-            InboundDialerQueueRecord record = tmsIWS.getDefaultInboundQueueRecord();
+            InboundDialerQueueRecord record = dialerQueueService.getDefaultInboundQueueRecord();
             dialerQueueRecordRepository.storeInboundDialerQueueRecord(record);
             qPk = record.getDqPk();
-        } catch (SvcException ex) {
+        } catch (Exception ex) {
             log.error("This is error in calling defaul inbound queue: {}", ex);
         }
 

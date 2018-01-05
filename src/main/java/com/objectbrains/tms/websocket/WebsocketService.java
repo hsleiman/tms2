@@ -519,7 +519,7 @@ public class WebsocketService {
                         List<AgentWeightPriority> awpList;
                         if (avail.getQueuePk() != null) {
                             try {
-                                awpList = tmsIws.getAgentWeightPriorityListForDq(avail.getQueuePk());
+                                awpList = dialerQueueService.getAgentWeightPriorityListForDq(avail.getQueuePk());
                             } catch (Exception ex) {
                                 LOG.error("ext [{}]. Could not get agents for queue {}", ext, avail.getQueuePk(), ex);
                                 break buildResponse;

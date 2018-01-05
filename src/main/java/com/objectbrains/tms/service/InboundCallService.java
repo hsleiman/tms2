@@ -13,6 +13,7 @@ import com.objectbrains.sti.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.objectbrains.sti.embeddable.AgentCallOrder;
 import com.objectbrains.sti.embeddable.InboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.TMSCallDetails;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.AgentState;
 import com.objectbrains.tms.enumerated.CallDirection;
@@ -67,6 +68,9 @@ public class InboundCallService {
 
     @Autowired
     private CallDetailRecordService callDetailRecordService;
+    
+    @Autowired
+    private DialerQueueService dialerQueueService;
 
     @Autowired
     @Lazy
@@ -189,7 +193,7 @@ public class InboundCallService {
         InboundDialerQueueRecord record;
         try {
             LOG.trace("Getting Inbound Dialer Queue Settings for {}", queuePk);
-            record = tmsIws.getInboundDialerQueueRecord(queuePk);
+            record = dialerQueueService.getInboundDialerQueueRecord(queuePk);
         } catch (Exception ex) {
             LOG.error("Failed to get InboundDialerQueueRecord for queue [{}]", queuePk, ex);
             return null;

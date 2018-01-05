@@ -5,6 +5,7 @@
  */
 package com.objectbrains.tms.freeswitch.premaid;
 
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.db.entity.cdr.CallDetailRecord;
 import com.objectbrains.tms.db.entity.freeswitch.TMSDialplan;
@@ -66,6 +67,7 @@ public abstract class DialplanBuilder implements DialplanInterface {
     protected InboundCallService inboundCallService;
     protected Incoming2  incoming;
     protected FreeswitchService freeswitchService;
+    protected DialerQueueService dialerQueueService;
 
     public DialplanBuilder() {
         TMS_UUID = UUID.randomUUID().toString();
@@ -87,7 +89,9 @@ public abstract class DialplanBuilder implements DialplanInterface {
         incoming = autowireOb.getIncoming2();
         dialerQueueRecordRepository = autowireOb.getDialerQueueRecordRepository();
         freeswitchService = autowireOb.getFreeswitchService();
+        dialerQueueService = autowireOb.getDialerQueueService();
         this.debugOn = Boolean.TRUE;
+        
     }
 
     public void setVariable(DialplanVariable variable) {

@@ -9,6 +9,7 @@ import com.hazelcast.core.IMap;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
+import com.objectbrains.sti.service.dialer.DialerQueueService;
 import com.objectbrains.sti.service.tms.TMSService;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
@@ -58,6 +59,9 @@ public class DialerStatsService {
     @Autowired
     @Lazy
     private WebsocketService websocketService;
+    
+    @Autowired 
+    private DialerQueueService dialerQueueService;
 
     private IMap<Long, DialerStats> statsMap;
 
@@ -155,7 +159,7 @@ public class DialerStatsService {
         }
         String queueName;
         try {
-            queueName = tmsIws.getDialerQueueByPk(ret.getQueuePk()).getQueueName();
+            queueName = dialerQueueService.getDialerQueueByPk(ret.getQueuePk()).getQueueName();
         } catch (Exception ex) {
             LOG.error("Unable to get queueName for queue {}", ret.getQueuePk(), ex);
             return;

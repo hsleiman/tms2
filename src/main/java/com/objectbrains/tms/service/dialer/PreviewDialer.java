@@ -6,8 +6,8 @@
 package com.objectbrains.tms.service.dialer;
 
 import com.hazelcast.spring.context.SpringAware;
+import com.objectbrains.sti.embeddable.OutboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.DialerQueueAccountDetails;
-import com.objectbrains.sti.pojo.OutboundDialerQueueRecord;
 import com.objectbrains.tms.enumerated.DialerType;
 import org.joda.time.LocalTime;
 import org.slf4j.Logger;
