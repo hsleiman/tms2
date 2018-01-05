@@ -17,6 +17,7 @@ import org.joda.time.LocalDateTime;
  *
  * @author connorpetty
  */
+
 @Entity
 @Table(schema = "sti")
 public class AgentCallDetailRecordAssociation {
