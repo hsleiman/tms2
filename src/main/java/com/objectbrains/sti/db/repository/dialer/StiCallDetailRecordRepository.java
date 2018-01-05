@@ -39,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author David
  */
 @Repository
-public class CallDetailRecordRepository {
+public class StiCallDetailRecordRepository {
 
     @PersistenceContext
     private EntityManager em;

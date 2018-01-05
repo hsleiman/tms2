@@ -10,7 +10,7 @@ import com.objectbrains.sti.db.entity.agent.AgentDialerGroup;
 import com.objectbrains.sti.db.entity.agent.DialerGroup;
 import com.objectbrains.sti.db.entity.base.dialer.DialerQueueGroupAssociation;
 import com.objectbrains.sti.db.hibernate.ThreadAttributes;
-import com.objectbrains.sti.db.repository.AgentRepository;
+import com.objectbrains.sti.db.repository.StiAgentRepository;
 import com.objectbrains.sti.db.repository.dialer.DialerQueueRepository;
 import com.objectbrains.sti.embeddable.AgentDialerGroupInformation;
 import com.objectbrains.sti.embeddable.WeightedPriority;
@@ -35,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DialerGroupService {
 
     @Autowired
-    private AgentRepository agentRepository;
+    private StiAgentRepository agentRepository;
 
     @PersistenceContext
     private EntityManager entityManager;

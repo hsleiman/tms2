@@ -58,7 +58,7 @@ public class AgentQueueAssociationService {
 
     @Autowired
     @Lazy
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @ConfigContext
     private ConfigurationUtility config;

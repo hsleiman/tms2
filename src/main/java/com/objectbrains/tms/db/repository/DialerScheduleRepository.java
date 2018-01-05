@@ -29,7 +29,7 @@ public class DialerScheduleRepository {
     private EntityManager entityManager;
     
     @Autowired
-    private DialerQueueRepository dialerRepository;
+    private TmsDialerQueueRepository dialerRepository;
 
 //    @Autowired
 //    private Scheduler scheduler;

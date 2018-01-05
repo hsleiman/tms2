@@ -22,7 +22,7 @@ import com.objectbrains.sti.db.entity.base.dialer.*;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionCode;
 import com.objectbrains.sti.db.entity.disposition.CallDispositionGroup;
 import com.objectbrains.sti.db.hibernate.ThreadAttributes;
-import com.objectbrains.sti.db.repository.AgentRepository;
+import com.objectbrains.sti.db.repository.StiAgentRepository;
 import com.objectbrains.sti.db.repository.account.AccountRepository;
 import com.objectbrains.sti.db.repository.account.WorkLogRepository;
 import com.objectbrains.sti.db.repository.account.WorkQueueRepository;
@@ -89,7 +89,7 @@ public class DialerQueueService {
     //    @Autowired
 //    private CustomerRepository bwrRepo;
     @Autowired
-    private AgentRepository agentRepo;
+    private StiAgentRepository agentRepo;
     @Autowired
     private HazelcastService hzService;
     @Autowired

@@ -15,7 +15,7 @@ import com.objectbrains.tms.freeswitch.premaid.service.DialplanBuilderAutowireOb
 import com.objectbrains.tms.freeswitch.premaid.service.PremaidActions;
 import com.objectbrains.tms.freeswitch.premaid.service.TMSDialplanService;
 import com.objectbrains.tms.service.AgentCallService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.CallDetailRecordService;
 import com.objectbrains.tms.service.DialerQueueRecordService;
@@ -53,7 +53,7 @@ public abstract class DialplanBuilder implements DialplanInterface {
 
     protected TMSDialplanService variableService;
     protected PremaidActions premaidActions;
-    protected AgentService agenService;
+    protected TMSAgentService agenService;
     protected AgentCallService agentCallService;
     protected AgentStatsService agentStatsService;
     protected DialplanService dialplanService;

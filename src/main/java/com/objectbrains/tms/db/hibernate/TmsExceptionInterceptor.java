@@ -20,9 +20,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-public class ExceptionInterceptor {
+public class TmsExceptionInterceptor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ExceptionInterceptor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TmsExceptionInterceptor.class);
 
     @AfterThrowing(pointcut = "within(@javax.ws.rs.Path *)", throwing = "th")
     public void afterThrowing(JoinPoint joinPoint, Throwable th) throws Throwable {

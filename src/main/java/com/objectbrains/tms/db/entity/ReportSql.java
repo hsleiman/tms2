@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author Connor Petty <cpmeister@users.sourceforge.net>
  */
 @Entity
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class ReportSql {
 
     @Id

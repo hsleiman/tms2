@@ -15,7 +15,7 @@ import com.objectbrains.sti.embeddable.OutboundDialerQueueRecord;
 import com.objectbrains.sti.pojo.DialerQueueRecord;
 import com.objectbrains.sti.service.dialer.OutboundDialerService;
 import com.objectbrains.sti.service.tms.TMSService;
-import com.objectbrains.tms.db.repository.DialerQueueRepository;
+import com.objectbrains.tms.db.repository.TmsDialerQueueRepository;
 import com.objectbrains.tms.enumerated.DialerType;
 import com.objectbrains.tms.hazelcast.AbstractEntryProcessor;
 import com.objectbrains.tms.hazelcast.Configs;
@@ -55,7 +55,7 @@ public class DialerQueueRecordService {
     private AgentQueueAssociationService associationService;
 
     @Autowired
-    private DialerQueueRepository dialerQueueRepository;
+    private TmsDialerQueueRepository dialerQueueRepository;
    
 
     @Autowired
@@ -66,7 +66,7 @@ public class DialerQueueRecordService {
 
     @Autowired
     @Lazy
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     private IMap<Long, DialerQueueRecord> recordMap;
 

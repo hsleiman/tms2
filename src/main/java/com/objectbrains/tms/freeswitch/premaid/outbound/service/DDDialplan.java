@@ -34,7 +34,7 @@ import com.objectbrains.tms.freeswitch.pojo.DialerInfoPojo;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.pojo.BorrowerInfo;
 import com.objectbrains.tms.service.AgentCallService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.CallDetailRecordService;
 import com.objectbrains.tms.service.DialerQueueRecordService;
 import com.objectbrains.tms.service.DispositionCodeService;
@@ -87,7 +87,7 @@ public class DDDialplan {
     private DialerService dialerService;
 
     @Autowired
-    protected AgentService agenService;
+    protected TMSAgentService agenService;
     
     @Autowired
     private FreeswitchService freeswitchService;

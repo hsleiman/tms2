@@ -35,7 +35,7 @@ import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.pojo.StatusPojo;
 import com.objectbrains.tms.service.AgentCallService;
 import com.objectbrains.tms.service.AgentQueueAssociationService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.AmsService;
 import com.objectbrains.tms.service.BiStoreService;
@@ -117,7 +117,7 @@ public class Websocket {
     private AmsService amsService;
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private BiStoreService biStoreService;

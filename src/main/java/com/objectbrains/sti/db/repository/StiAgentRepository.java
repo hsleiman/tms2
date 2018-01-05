@@ -28,7 +28,7 @@ import org.springframework.stereotype.Repository;
  * @author David
  */
 @Repository
-public class AgentRepository {
+public class StiAgentRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -41,7 +41,7 @@ public class AgentRepository {
     @Autowired
     private SQLConfigRepository sqlConfigRepo;
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(AgentRepository.class);
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(StiAgentRepository.class);
 
     EntityManager getEntityManager() {
         return entityManager;

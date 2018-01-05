@@ -29,7 +29,7 @@ import org.joda.time.LocalDateTime;
  * @author connorpetty
  */
 @Entity(name = "Agent")
-@Table(schema = "tms")
+@Table(schema = "sti")
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @AuditTable(value = "tms_agent_history", schema = "tms")
 public class AgentRecord implements Serializable {

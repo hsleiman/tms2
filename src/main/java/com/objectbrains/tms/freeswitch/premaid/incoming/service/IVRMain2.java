@@ -32,7 +32,7 @@ import com.objectbrains.tms.freeswitch.pojo.AgentIncomingDistributionOrder;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.freeswitch.premaid.incoming.IncomingDialerOrder;
 import com.objectbrains.tms.freeswitch.premaid.incoming.IncomingPlaceOnHold;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.CallDetailRecordService;
 import com.objectbrains.tms.service.DialerQueueRecordService;
 import com.objectbrains.tms.service.FreeswitchConfiguration;
@@ -68,7 +68,7 @@ public class IVRMain2 {
     private ConfigurationUtility config;
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private InboundCallService inboundCallService;

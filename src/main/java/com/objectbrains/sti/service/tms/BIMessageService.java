@@ -4,7 +4,7 @@ package com.objectbrains.sti.service.tms;
 import com.objectbrains.sti.db.entity.base.dialer.BIMessage;
 import com.objectbrains.sti.db.entity.base.dialer.CallDetailRecord;
 import com.objectbrains.sti.db.repository.dialer.BIMessageRepository;
-import com.objectbrains.sti.db.repository.dialer.CallDetailRecordRepository;
+import com.objectbrains.sti.db.repository.dialer.StiCallDetailRecordRepository;
 import com.objectbrains.sti.embeddable.BIPlaybackData;
 import com.objectbrains.sti.service.utility.DurationUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BIMessageService {
     
     @Autowired
-    private CallDetailRecordRepository cdrRepo;
+    private StiCallDetailRecordRepository cdrRepo;
 
     @Autowired
     private BIMessageRepository biMessageRepository;

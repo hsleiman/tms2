@@ -15,7 +15,7 @@ import com.objectbrains.tms.hazelcast.entity.AgentStats;
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.restfull.pojo.QueueAgentStatus;
 import com.objectbrains.tms.service.AgentCallService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.Utils;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class DialerGroupRest {
     private TMSService tmsIws;
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
     
     @Autowired
     private DialerQueueService dialerQueueService;

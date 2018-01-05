@@ -32,7 +32,7 @@ import com.objectbrains.tms.freeswitch.premaid.local.P2AgentToP1Agent;
 import com.objectbrains.tms.freeswitch.premaid.outbound.ManualDial;
 import com.objectbrains.tms.hazelcast.entity.AgentCall;
 import com.objectbrains.tms.service.AgentCallService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AmsService;
 import com.objectbrains.tms.service.CallDetailRecordService;
 import com.objectbrains.tms.service.CdrService;
@@ -66,7 +66,7 @@ public class FsAgentService {
     private CdrService cdrRepository;
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private DialplanService dialplanService;

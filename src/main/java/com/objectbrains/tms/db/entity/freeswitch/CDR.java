@@ -27,7 +27,7 @@ import org.joda.time.LocalDateTime;
  * @author hsleiman
  */
 @Entity
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class CDR implements Serializable {
 
     private static final StringToCDRConverter CONVERTER = new StringToCDRConverter();

@@ -66,9 +66,9 @@ import org.springframework.stereotype.Service;
  * @author connorpetty
  */
 @Service
-public class AgentService {
+public class TMSAgentService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AgentService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TMSAgentService.class);
 
     @Autowired
     private HazelcastService hazelcastService;

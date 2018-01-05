@@ -20,7 +20,7 @@ import com.objectbrains.tms.pojo.report.DialerRunAgentStats;
 import com.objectbrains.tms.pojo.report.DialerRunStats;
 import com.objectbrains.tms.pojo.report.DialerStatsReport;
 import com.objectbrains.tms.pojo.report.TodaysAgentProductivity;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.ReportService;
 import com.objectbrains.tms.service.dialer.CallService;
@@ -57,7 +57,7 @@ public class DialerRest {
 //    @Autowired
 //    private TMSService tmsIws;
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
     @Autowired
     private AgentStatsService agentStatsService;
     @Autowired

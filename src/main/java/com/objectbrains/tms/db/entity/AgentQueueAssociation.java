@@ -7,7 +7,6 @@ package com.objectbrains.tms.db.entity;
 
 import com.objectbrains.tms.hazelcast.entity.AgentWeightedPriority;
 import com.objectbrains.tms.hazelcast.keys.AgentQueueKey;
-import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +20,7 @@ import javax.persistence.Table;
  * @author connorpetty
  */
 @Entity
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class AgentQueueAssociation extends AgentWeightedPriority{
 
     @EmbeddedId

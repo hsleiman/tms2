@@ -24,7 +24,7 @@ import com.objectbrains.tms.freeswitch.premaid.incoming.IncomingPlaceOnHold;
 import com.objectbrains.tms.freeswitch.premaid.incoming.IncomingVoicemail;
 import com.objectbrains.tms.freeswitch.premaid.local.P1AgentToP2Agent;
 import com.objectbrains.tms.hazelcast.entity.Agent;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.AmsService;
 import com.objectbrains.tms.service.CallDetailRecordService;
@@ -62,7 +62,7 @@ public class Incoming2 {
     private FreeswitchConfiguration configuration;
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private AgentStatsService agentStatsService;

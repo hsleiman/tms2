@@ -20,7 +20,7 @@ import com.objectbrains.ams.iws.UserAlreadyExistsException;
 import com.objectbrains.ams.iws.UserNotFoundException;
 import com.objectbrains.sti.constants.SystemId;
 import com.objectbrains.sti.db.entity.agent.Agent;
-import com.objectbrains.sti.db.repository.AgentRepository;
+import com.objectbrains.sti.db.repository.StiAgentRepository;
 import com.objectbrains.sti.pojo.AgentPojo;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class AgentService {
     private AccountManagerIWS accountManagerIWS;
 
     @Autowired
-    private AgentRepository agentRepo;
+    private StiAgentRepository agentRepo;
 
     public void syncAllUsersFromAMS() {
         FindUsersRequest fur = new FindUsersRequest();

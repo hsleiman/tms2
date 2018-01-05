@@ -36,7 +36,7 @@ import org.joda.time.LocalDateTime;
  * @author hsleiman
  */
 @Entity
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class TMSDialplan implements Serializable {
 
     private static final int MAX_LENGTH = 20000;

@@ -19,7 +19,7 @@ import com.objectbrains.tms.freeswitch.dialplan.action.Set;
 import com.objectbrains.tms.freeswitch.dialplan.action.Sleep;
 import com.objectbrains.tms.freeswitch.pojo.DialplanVariable;
 import com.objectbrains.tms.hazelcast.entity.Agent;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.FreeswitchConfiguration;
 import java.util.ArrayList;
 import org.slf4j.Logger;
@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
 public class PremaidActions {
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
     
     @Autowired
     private FreeswitchConfiguration configuration;

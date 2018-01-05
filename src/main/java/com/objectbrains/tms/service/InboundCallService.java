@@ -49,7 +49,7 @@ public class InboundCallService {
     private static final Logger LOG = LoggerFactory.getLogger(InboundCallService.class);
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private AgentStatsService statsService;

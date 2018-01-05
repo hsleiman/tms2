@@ -25,9 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class DialerQueueRepository {
+public class TmsDialerQueueRepository {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DialerQueueRepository.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TmsDialerQueueRepository.class);
 
     @PersistenceContext
     private EntityManager entityManager;

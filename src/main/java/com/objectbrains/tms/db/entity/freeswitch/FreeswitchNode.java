@@ -14,7 +14,6 @@ import com.objectbrains.tms.enumerated.FreeswitchContext;
 import com.objectbrains.tms.enumerated.FreeswitchNodeStatus;
 import com.objectbrains.tms.utility.GsonUtility;
 import java.io.IOException;
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -31,7 +30,7 @@ import org.joda.time.LocalDateTime;
  * @author hsleiman
  */
 @Entity
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class FreeswitchNode implements DataSerializable {
 
     @Id

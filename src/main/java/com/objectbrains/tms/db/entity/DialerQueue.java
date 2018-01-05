@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * @author connorpetty
  */
 @Entity
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class DialerQueue extends WeightedPriority{
 
     @Id

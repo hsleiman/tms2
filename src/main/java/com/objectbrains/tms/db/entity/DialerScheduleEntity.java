@@ -19,7 +19,7 @@ import javax.persistence.Table;
  * @author Connor Petty <cpmeister@users.sourceforge.net>
  */
 @Entity(name = "DialerSchedule")
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class DialerScheduleEntity extends DialerSchedule {
 
     @Id

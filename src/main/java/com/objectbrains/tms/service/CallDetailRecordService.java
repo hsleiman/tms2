@@ -1123,7 +1123,7 @@ public class CallDetailRecordService {
         private String hostname;
 
         @Autowired
-        private AgentService agentService;
+        private TMSAgentService agentService;
 
         @Autowired
         private DispositionCodeService dispositionCodeService;

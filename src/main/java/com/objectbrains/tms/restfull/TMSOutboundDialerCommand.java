@@ -34,7 +34,7 @@ import com.objectbrains.tms.pojo.LoanInfoRecord;
 import com.objectbrains.tms.pojo.QueueRunningSatus;
 import com.objectbrains.tms.service.AgentCallService;
 import com.objectbrains.tms.service.AgentQueueAssociationService;
-import com.objectbrains.tms.service.AgentService;
+import com.objectbrains.tms.service.TMSAgentService;
 import com.objectbrains.tms.service.AgentStatsService;
 import com.objectbrains.tms.service.dialer.Dialer;
 import com.objectbrains.tms.service.dialer.DialerService;
@@ -75,7 +75,7 @@ public class TMSOutboundDialerCommand {
     private static final Logger LOG = LoggerFactory.getLogger(TMSOutboundDialerCommand.class);
 
     @Autowired
-    private AgentService agentService;
+    private TMSAgentService agentService;
 
     @Autowired
     private AgentStatsService statsService;
