@@ -5,11 +5,8 @@
  */
 package com.objectbrains.tms.db.entity.freeswitch;
 
-import com.objectbrains.tms.enumerated.FreeswitchContext;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +19,7 @@ import org.joda.time.LocalDateTime;
  * @author hsleiman
  */
 @Entity
-@Table(schema = "tms")
+@Table(schema = "sti")
 public class LogDialplanInfo {
 
     @Id
