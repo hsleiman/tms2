@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Add Queue</h1>
+<div mat-dialog-content>
+  <p>Add</p>
+  <div>
+    <mat-form-field>
+    <input id = "queueName" placeholder="Queue name" matInput tabindex="1" [(ngModel)]="data.queueName">
+  </mat-form-field>
+  </div>
+    <mat-form-field style="width:300px">
+    <textarea id = "sql" matInput placeholder="Query" tabindex="2" [(ngModel)]="data.sqlQuery"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button id="btAddQueue" mat-button (click)="addQueue()" tabindex="3">Add</button>
+  <button id="btCloseQueue" mat-button (click)="closeDialog()" tabindex="4">Cancel</button>
+</div>

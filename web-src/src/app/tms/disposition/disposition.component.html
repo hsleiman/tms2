@@ -1,0 +1,113 @@
+<app-nav-bar [navParams]="navParams"></app-nav-bar>
+<div style="float: left; width: 49%; margin-right: 1%">
+    <div class="card-container">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div class="col-2">
+              <mat-icon>group</mat-icon> Deselected Dispositions
+            </div>
+            <div class="col-2 text-right">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="addOrEditDisposition()">
+                  <!-- <mat-icon>voicemail</mat-icon> -->
+                  <span>Add Disposition</span>
+                </button>
+              </mat-menu>
+            </div>
+            <div class="clearfix"></div>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="filter">
+              <mat-form-field>
+                <input matInput (keyup)="dispositionFilter($event.target.value)" placeholder="Filter By">
+              </mat-form-field>
+            </div>
+            <mat-table #table [dataSource]="dispositionDataSource">
+      
+              <ng-container matColumnDef="disposition">
+                <mat-header-cell *matHeaderCellDef> Dispositions List </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="clickable add" (click)="addDispositionInDispositionGroup(element)">
+                    <mat-icon aria-label="Edit">add_circle</mat-icon>
+                  </span>
+                  {{element.disposition}}
+                </mat-cell>
+              </ng-container>
+      
+              <ng-container matColumnDef="Actions">
+                <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="clickable" (click)="addOrEditDisposition(element)">
+                    <mat-icon aria-label="Edit">edit_mode</mat-icon>
+                  </span>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="backwardArrow">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <mat-icon (click)="addDispositionInDispositionGroup(element);" class="arrow">forward</mat-icon>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="dispositionDisplayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: dispositionDisplayedColumns;"></mat-row>
+            </mat-table>
+          </mat-card-content>
+          <mat-card-actions>
+      
+          </mat-card-actions>
+        </mat-card>
+      </div>
+</div>
+<div style="float: left; width: 49%; margin-left: 1%">
+    <div class="card-container">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div class="col-2">
+              <mat-icon>group</mat-icon> Selected Dispositions
+            </div>
+            <div class="col-2 text-right">
+              <button mat-icon-button>
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+            <div class="clearfix"></div>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="filter">
+              <mat-form-field>
+                <input matInput (keyup)="dispositionInGroupFilter($event.target.value)" placeholder="Filter By">
+              </mat-form-field>
+            </div>
+            <mat-table #table [dataSource]="dispositionInGroupDataSource">
+              <!-- Position Column -->
+      
+              <ng-container matColumnDef="disposition">
+                <mat-header-cell *matHeaderCellDef> Dispositions List </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <mat-icon class="remove clickable" (click)="removeDispositionFromDispositionGroup(element);">remove_circle</mat-icon>
+                  {{element.disposition}}
+                </mat-cell>
+              </ng-container>
+      
+              <ng-container matColumnDef="Actions">
+                <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span class="clickable" (click)="addOrEditDisposition(element)">
+                    <mat-icon aria-label="Edit">mode_edit</mat-icon>
+                  </span>
+                </mat-cell>
+              </ng-container>
+      
+              <mat-header-row *matHeaderRowDef="dispositionInGroupDisplayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: dispositionInGroupDisplayedColumns;"></mat-row>
+            </mat-table>
+          </mat-card-content>
+          <mat-card-actions>
+      
+          </mat-card-actions>
+        </mat-card>
+      </div>
+</div>

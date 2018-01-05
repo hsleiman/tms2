@@ -1,0 +1,45 @@
+<div id="customerAddEditPhonePopup">
+  <h3 mat-dialog-title>{{dialogTitle}}</h3>
+  <button mat-icon-button [mat-dialog-close]="null">
+    <mat-icon aria-label="Close Popup">close</mat-icon>
+  </button>
+  <mat-dialog-content>
+    <form [formGroup]="addEditPhoneForm">
+      <div id="addEditPhoneFormLeftFlex">
+        <mat-form-field>
+          <mat-select placeholder="Phone Type" formControlName="phoneNumberType">
+            <mat-option *ngFor="let phoneType of phoneTypes" [value]="phoneType.id">{{phoneType.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Phone Label" formControlName="phoneLabel">
+        </mat-form-field>
+        <mat-form-field>
+          <input type="number" matInput placeholder="Phone Number" formControlName="phoneNumber">
+        </mat-form-field>
+      </div>
+      <div class="addEditPhoneFormFlexSpacer"></div>
+      <div id="addEditPhoneFormRightFlex">
+        <mat-form-field>
+          <mat-select placeholder="Phone Source" formControlName="phoneSource">
+            <mat-option *ngFor="let phoneSource of phoneSources" [value]="phoneSource.id">{{phoneSource.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Phone Special Instructions" formControlName="specialInstr">
+            <mat-option *ngFor="let phoneInstr of phoneInstructions" [value]="phoneInstr.id">{{phoneInstr.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="Notes" formControlName="notes" matTextareaAutosize matAutosizeMinRows="4"></textarea>
+        </mat-form-field>
+      </div>
+
+
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button id="customerAddEditPhoneCancel" mat-raised-button color="warn" [mat-dialog-close]="null">Cancel</button>
+    <button id="customerAddEditPhoneSubmit" mat-raised-button color="primary" (click)="savePhone()" [disabled]="addEditPhoneForm.invalid || addEditPhoneForm.pristine">Save Phone</button>
+  </mat-dialog-actions>
+</div>

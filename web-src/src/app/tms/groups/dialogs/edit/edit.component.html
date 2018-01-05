@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{data.groupName}}</h1>
+<div mat-dialog-content>
+  <p>Edit</p>
+  <mat-form-field>
+    <input matInput tabindex="1" [(ngModel)]="data.groupName">
+  </mat-form-field>
+    <mat-form-field>
+    <textarea matInput tabindex="2" [(ngModel)]="data.comment"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="edit()" tabindex="2">Ok</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

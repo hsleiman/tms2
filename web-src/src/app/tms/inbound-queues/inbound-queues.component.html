@@ -1,0 +1,35 @@
+<div class="container">
+  <mat-table #table [dataSource]="dataSource">
+    <!-- Position Column -->
+    <ng-container matColumnDef="pk">
+      <mat-header-cell *matHeaderCellDef> Id. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dialerQueueDetails.pk}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="groupName">
+      <mat-header-cell *matHeaderCellDef> Group </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dialerQueueDetails.groupName}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="queueName">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> <a href="/tms/inbound/{{element.dialerQueueDetails.pk}}">{{element.dialerQueueDetails.queueName}}</a> </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Loans">
+      <mat-header-cell *matHeaderCellDef> Loans </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.dialerQueueDetails.loanCount}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Edit">
+      <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)="editInboundQueue(element)"> <mat-icon aria-label="Edit">mode_edit</mat-icon> </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Delete">
+        <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+        <mat-cell *matCellDef="let element" (click)="deleteQueue(element)"> <mat-icon aria-label="Delete">delete</mat-icon> </mat-cell>
+      </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+
+<div class="add-butt">
+  <button mat-fab (click)="addQueue()"><mat-icon aria-label="Add">person_add</mat-icon></button>
+</div>

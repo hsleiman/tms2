@@ -1,0 +1,98 @@
+<div id="adminAgentDetails" style="width:800px; margin:auto;">
+  <mat-card>
+    <h3>{{agentData.firstName}} {{agentData.lastName}}</h3>
+    <p>Username: {{agentData.userName}}</p>
+    <p>Email Address: {{agentData.emailAddress}}</p>
+    <p>Phone #: {{agentData.phoneNumber}}</p>
+    <p>Caller ID: {{agentData.effectiveCallerId}}</p>
+    <p>Last login: {{agentData.lastAccessTime}} </p>
+    
+  </mat-card>
+  <mat-accordion multi="true">
+    <mat-expansion-panel id="agentPersonalInfoPanel">
+      <mat-expansion-panel-header collapsedHeight="50px" expandedHeight="50px">
+        <mat-panel-title>Personal Information</mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="agentPersonalInfoForm">
+        <mat-form-field>
+          <input type="text" matInput placeholder="First Name" formControlName="firstName" tabindex="2" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Last Name" formControlName="lastName" tabindex="3" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Phone #" formControlName="phoneNumber" tabindex="4" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Extension" formControlName="phoneExtension" tabindex="5" required>
+        </mat-form-field> 
+        <mat-form-field>
+            <input type="text" matInput placeholder="Email" formControlName="emailAddress" tabindex="6" required>
+        </mat-form-field>
+        
+        <!-- <mat-checkbox id="chkIsActive" [(ngModel)]="isActive" formControlName="isActive" name="isActive"  class="checkboxesField" tabindex="7">Is Active?</mat-checkbox>      -->
+        
+      </form>
+    </mat-expansion-panel>
+    <mat-expansion-panel id="agentRolesPanel">
+      <mat-expansion-panel-header collapsedHeight="50px" expandedHeight="50px">
+        <mat-panel-title>Asssigned Roles</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field id="roleFilter">
+        <input matInput (keyup)="applyFilter($event.target.value, 0)" placeholder="Filter by...">
+      </mat-form-field>
+      <mat-table id="roleTable" #roleTable [dataSource]="roleDataSource" matSort>
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+          <mat-cell *matCellDef="let role">{{role.id}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+          <mat-cell *matCellDef="let role">{{role.name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="assigned">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Assigned?</mat-header-cell>
+          <mat-cell *matCellDef="let role">
+            <mat-checkbox labelPosition="before" [(ngModel)]="role.assigned"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="roleTableColumnNames"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: roleTableColumnNames"></mat-row>
+      </mat-table>
+    </mat-expansion-panel>
+    <mat-expansion-panel id="agentPermissionsPanel">
+      <mat-expansion-panel-header collapsedHeight="50px" expandedHeight="50px">
+        <mat-panel-title>Asssigned Permissions</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field id="permFilter">
+        <input matInput (keyup)="applyFilter($event.target.value, 1)" placeholder="Filter by...">
+      </mat-form-field>
+      <mat-table id="permTable" #permTable [dataSource]="permDataSource" matSort>
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+          <mat-cell *matCellDef="let perm">{{perm.id}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+          <mat-cell *matCellDef="let perm">{{perm.name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="assigned">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Assigned?</mat-header-cell>
+          <mat-cell *matCellDef="let perm">
+            <mat-checkbox labelPosition="before" [(ngModel)]="perm.assigned"></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="permTableColumnNames"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: permTableColumnNames"></mat-row>
+      </mat-table>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div class="add-butt">
+  <button mat-fab (click)="resetChanges()" matTooltip="Reset Changes to User" matTooltipPosition="above">
+    <mat-icon aria-label="Reset">restore</mat-icon>
+  </button>
+  <button mat-fab color="primary" (click)="saveChanges()" [disabled]="!hasDataChanged()" matTooltip="Save Changes" matTooltipPosition="above">
+    <mat-icon aria-label="Save">save</mat-icon>
+  </button>
+</div>

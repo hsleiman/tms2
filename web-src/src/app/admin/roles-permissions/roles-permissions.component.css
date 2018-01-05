@@ -1,0 +1,38 @@
+.rolesPermsContent {
+    margin-top: 25px;
+    display: flex;
+}
+.rolesPermsContent .existedAppRoles {
+    width: 32.3%;
+    float: left;
+    margin-left: 1%;
+}
+
+mat-form-field {
+    display: block;
+    width: 25%;
+}
+
+mat-header-cell {
+    background-color: gray;
+    color: white
+}
+mat-header-row {
+    background-color: gray;
+    color: white
+}
+
+#rolesTable, #permRoleTable, #assignedPermsTable {
+    height: 400px;
+    overflow: auto;
+}
+
+.arrow {
+    cursor: pointer;
+    float: right
+}
+
+.backwardArrow {
+    float: left;
+    transform: rotate(180deg);
+}

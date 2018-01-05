@@ -1,0 +1,25 @@
+.card-container{
+    width: 600px;
+    margin: auto;
+}
+   
+.item-holder{
+    display: flex;
+}
+   
+.item-holder > div{
+    display: flex;
+}
+
+.title-item{
+    min-width: 200px;
+}
+
+mat-select {
+    margin-bottom: 10px;
+}
+
+.mat-select-value {
+    color: #6d6d6d;
+    font-size: 14px;
+}

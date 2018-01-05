@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Create new agent</h1>
+<!-- <form [formGroup]="form" novalidate (ngSubmit)="save()" id="newUserForm"> -->
+<div mat-dialog-content>
+  <mat-form-field>
+    <input placeholder="First Name" matInput tabindex="1" [(ngModel)]="data.firstName" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Last Name" matInput tabindex="2" [(ngModel)]="data.lastName" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Email" matInput tabindex="3" [(ngModel)]="data.emailAddress" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Phone Number" matInput tabindex="4" [(ngModel)]="data.phoneNumber" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="User Name" matInput tabindex="5" [(ngModel)]="data.userName" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Password" matInput tabindex="6" value="password" [(ngModel)]="data.password" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="Caller ID" matInput tabindex="7" [(ngModel)]="data.effectiveCallerId" required>
+  </mat-form-field>
+  <!-- <mat-form-field>
+    <input placeholder="Extension" matInput tabindex="8" [(ngModel)]="data.extension" required>
+  </mat-form-field> -->
+  <mat-form-field>
+      <input placeholder="VM Password" matInput tabindex="9" [(ngModel)]="data.voiceMailPassword" required>
+    </mat-form-field>
+  
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button [disabled]="!data.firstname && !data.lastName && !data.emailAddress" (click)="addGroup()" tabindex="10">Ok</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>
+<!-- </form> -->

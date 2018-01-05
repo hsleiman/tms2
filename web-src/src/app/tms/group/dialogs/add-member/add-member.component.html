@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Add Member</h1>
+<div mat-dialog-content style="display:flex">
+  <div class="fullwidth">
+    <mat-form-field class="fullwidth">
+      <textarea type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" > </textarea>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let agent of filteredOptions | async" [value]="agent.firstName + ' ' + agent.lastName" (onSelectionChange)="selected(agent)">
+          {{ agent.firstName }} {{ agent.lastName }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="selectAgents()" tabindex="2">Add</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

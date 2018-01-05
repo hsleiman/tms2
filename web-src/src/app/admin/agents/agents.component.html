@@ -1,0 +1,22 @@
+<mat-table #table [dataSource]="dataSource">
+  <!-- Position Column -->
+  <ng-container matColumnDef="pk">
+    <mat-header-cell *matHeaderCellDef> PK </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.pk}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="userName">
+    <mat-header-cell *matHeaderCellDef> UserName </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="row.pk"></mat-row>
+</mat-table>
+
+<div class="add-butt">
+  <button mat-fab (click)="addAgent()"><mat-icon aria-label="Add">person_add</mat-icon></button>
+</div>
+

@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<form [formGroup]="form" novalidate (ngSubmit)="save()" id="dispositionGroupForm">
+  <div mat-dialog-content>
+    <div class="form-group">
+      <mat-form-field class="nameFormField" id="nameFormField">
+        <input matInput placeholder="Name" type="text" class="form-control" required
+          formControlName="name" [(ngModel)]="dispositionGroup.name" id="nameInputField"
+          tabindex="2">
+      </mat-form-field>
+      <mat-error *ngIf="form.controls['name'].hasError('required') && form.controls.name.touched" class="text-danger">
+        Name is required.
+      </mat-error>
+    </div>
+    <div class="form-group">
+      <mat-form-field class="descriptionFormField" id="descriptionFormField">
+        <input matInput placeholder="Description" type="text" class="form-control"
+          formControlName="description" [(ngModel)]="dispositionGroup.description"
+          tabindex="2" id="descriptionInputField">
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" tabindex="3" id="saveBtn" (click)="save()" aria-label="login">Save</button>
+      <button mat-button (click)="cancel()" id="cancelBtn" tabindex="4">Cancel</button>
+    </div>
+  </div>
+</form>

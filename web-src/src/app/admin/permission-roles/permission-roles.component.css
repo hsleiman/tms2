@@ -1,0 +1,32 @@
+#adminPermRoleXref {
+    display: flex;
+}
+
+#permSection, #permRoleSection {
+    flex-basis: calc(50% - 10px);
+}
+
+.adminPermRoleXrefFlexSpacer {
+    width: 20px;
+    visibility: hidden;
+}
+
+mat-form-field {
+    display: block;
+    width: 50%;
+}
+
+#permTable, #permRoleTable {
+    height: 400px;
+    overflow: auto;
+}
+
+mat-header-row {
+    background-color: white;
+    position: sticky;
+    top: 0;
+}
+
+mat-row.perm-selected {
+    background-color: yellow;
+}

@@ -1,0 +1,30 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <div class="header">
+      <div class="right-side">
+        <span style="align-self: center;"><img src="../../assets/logo.png" style="width:100px" /></span>
+        <div class="nav-bar-items">
+          <ul>
+            <li>Queues</li>
+            <li>Sevicing</li>
+            <li routerLink="/admin/agents">Admin</li>
+          </ul>
+        </div>
+      </div>
+      <div class="left-side">
+        <span class="search-field"><mat-form-field class="search-input">
+          <mat-icon matPrefix>search</mat-icon>
+          <input type="tel" matInput placeholder="">
+        </mat-form-field></span>
+        <span> <a routerLink="/tms/groups"><mat-icon aria-label="Add" class="nav-icon">phone</mat-icon></a></span>
+        <span><mat-icon aria-label="Edit" class="nav-icon"  [matMenuTriggerFor]="appMenu">person</mat-icon></span>
+        <mat-menu #appMenu="matMenu">
+          <button mat-menu-item> Settings </button>
+          <button mat-menu-item (click)="changePassword()"> Change password </button>
+          <button mat-menu-item (click)="logout()"> Logout </button>
+        </mat-menu>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>

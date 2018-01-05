@@ -1,0 +1,96 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<form [formGroup]="form" novalidate (ngSubmit)="save()" id="dispostionForm">
+  <div mat-dialog-content>
+    <div class="form-group">
+      <mat-form-field id="nameFormField" class="nameFormField">
+        <input matInput placeholder="Name" type="text" class="form-control" required formControlName="name" [(ngModel)]="disposition.disposition"
+          tabindex="1" id="nameInputField">
+      </mat-form-field>
+      <mat-error *ngIf="form.controls['name'].hasError('required') && form.controls.name.touched" class="text-danger">
+        Name is required.
+      </mat-error>
+    </div>
+    <div class="form-group">
+      <mat-form-field id="codeFormField" id="codeFormField">
+        <input matInput placeholder="Code" type="text" class="form-control" required formControlName="code" [(ngModel)]="disposition.code"
+          tabindex="2" id="codeInputField">
+      </mat-form-field>
+      <mat-error *ngIf="form.controls['code'].hasError('required') && form.controls.code.touched" class="text-danger">
+        Code is required.
+      </mat-error>
+    </div>
+
+    <mat-form-field id="logTypeFormField" class="logTypeFormField">
+      <input type="number" id="logTypeInputField" matInput tabindex="3" placeholder="Log Type" formControlName="logType" [(ngModel)]="disposition.logType">
+    </mat-form-field>
+    <mat-form-field id="statusFormField" class="statusFormField">
+      <mat-select matInput tabindex="4" placeholder="Status" formControlName="status" id="statusInputField" [(ngModel)]="disposition.status">
+        <mat-option value="ACTIVE">Active</mat-option>
+        <mat-option value="INACTIVE">Inactive</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <mat-form-field id="actionFormField" class="actionFormField">
+      <mat-select id="actionInputField" matInput tabindex="5" placeholder="Action" formControlName="action" (change)="toggleField()"
+        [(ngModel)]="disposition.action.actionType">
+        <mat-option>None</mat-option>
+        <mat-option value="DO_NOT_CALL">Exclude Loan</mat-option>
+        <mat-option value="DO_NOT_CALL_NUMBER">Exclude Number</mat-option>
+        <mat-option value="RETRY_CALL">Call back</mat-option>
+        <mat-option value="MARK_LOAN_AS_COMPLETED">Mark Loan Completed</mat-option>
+        <mat-option value="TRY_NEXT_PHONE_NUMBER">Try next number</mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
+    <!-- <mat-form-field *ngIf="isShowMinuteField" id="minutesFormField" class="minutesFormField">
+      <input id="minutesInputField" matInput tabindex="6" placeholder="In Minutes" formControlName="minutes" [(ngModel)]="disposition.minutes">
+    </mat-form-field>
+    
+    <mat-form-field *ngIf="isShowRetriesField" id="retriesFormField" class="retriesFormField">
+      <input id="retriesInputField" matInput tabindex="7" placeholder="Retries" formControlName="retries" [(ngModel)]="disposition.retries">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isShowSelect" id="selectFormField" class="selectFormField">
+      <mat-select id="selectField" matInput tabindex="7" placeholder="Select" formControlName="select" [(ngModel)]="disposition.select">
+        <mat-option value="86400">One Day</mat-option>
+        <mat-option value="3660">One Hour</mat-option>
+        <mat-option value="25200">One Week</mat-option>
+        <mat-option value="2592000">One Month</mat-option>
+      </mat-select>
+
+    </mat-form-field>   -->
+    <ul>
+      <li>
+        <mat-checkbox id="checkBoxOption1" class="checkboxesField" tabindex="8" formControlName="abandon" [(ngModel)]="disposition.abandon">Abandon</mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox id="checkBoxOption2" class="checkboxesField" tabindex="9" formControlName="contact" [(ngModel)]="disposition.contact">Contact</mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox id="checkBoxOption3" class="checkboxesField" tabindex="10" formControlName="followUp" [(ngModel)]="disposition.followUp">Follow Up</mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox matInput id="checkBoxOption4" class="checkboxesField" tabindex="11" formControlName="callBack" [(ngModel)]="disposition.callBack">Call Back</mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox matInput id="checkBoxOption5" class="checkboxesField" tabindex="12" formControlName="success" [(ngModel)]="disposition.success">Success</mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox matInput id="checkBoxOption6" class="checkboxesField" tabindex="13" formControlName="refusal" [(ngModel)]="disposition.refusal">Refusal</mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox matInput id="checkBoxOption7" class="checkboxesField" tabindex="14" formControlName="exclusion" [(ngModel)]="disposition.exclusion">Exclusion</mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox matInput id="checkBoxOption8" class="checkboxesField" tabindex="15" formControlName="rfdRequired" [(ngModel)]="disposition.rfdRequired">RFD Required</mat-checkbox>
+      </li>
+      <li>
+        <mat-checkbox matInput id="checkBoxOption9" class="checkboxesField" tabindex="16" formControlName="ptpRequired" [(ngModel)]="disposition.ptpRequired">PTP Required</mat-checkbox>
+      </li>
+    </ul>
+    <div mat-dialog-actions>
+      <button mat-button id="saveBtn" tabindex="17" (click)="save()" aria-label="login">Save</button>
+      <button mat-button id="cancelBtn" (click)="cancel()" tabindex="18">Cancel</button>
+    </div>
+  </div>
+</form>

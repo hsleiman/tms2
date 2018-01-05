@@ -1,0 +1,53 @@
+mat-grid-list {
+    padding-bottom: 20px;
+    margin-top: 20px;
+}
+
+mat-accordion {
+    margin-top: 20px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+#mainLeftFlex, #mainRightFlex {
+    display: inline-flex;
+    flex-basis: calc(50% - 5px);
+    flex-direction: column;
+}
+
+.mainFlexSpacer {
+    width: 10px;
+    visibility: hidden;
+}
+
+mat-expansion-panel {
+    margin-bottom: 5px !important;
+}
+
+#mainPersonalInfoPanel, #mainLogsPanel {
+    flex-basis: 100%;
+}
+
+
+mat-expansion-panel.mat-expanded 
+{
+    max-height: 400px;
+}
+
+:host /deep/ .mat-expansion-panel-content { /* May be deprecated in future. */
+    overflow: auto !important;
+    max-height: 350px;
+}
+
+mat-expansion-panel-header {
+    padding-right: 0px;
+}
+
+mat-expansion-panel-header button {
+    margin-top: 7px;
+}
+
+mat-expansion-panel-header[aria-expanded="true"] {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}

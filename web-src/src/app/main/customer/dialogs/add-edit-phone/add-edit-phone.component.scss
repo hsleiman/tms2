@@ -1,0 +1,36 @@
+#customerAddEditPhonePopup {
+    min-width: 800px;
+    min-height: 600px;
+}
+
+[mat-dialog-title] {
+    display: inline-block;
+}
+
+mat-form-field {
+    display: block;
+}
+
+.mat-icon-button {
+    float: right;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#addEditPhoneFormLeftFlex, #addEditPhoneFormRightFlex {
+    display: inline-flex;
+    flex-basis: calc(50% - 5px);
+    flex-direction: column;
+}
+
+.addEditPhoneFormFlexSpacer {
+    width: 10px;
+    visibility: hidden;
+}
+
+mat-dialog-actions {
+    float: right;
+}

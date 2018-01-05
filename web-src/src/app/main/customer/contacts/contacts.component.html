@@ -1,0 +1,39 @@
+<div id="mainContactInformation">
+  <div id="mainContactFlexBooleans">
+    <mat-checkbox labelPosition="before" [(ngModel)]="contactInfo.verbalCandD">Verbal Cease & Desist</mat-checkbox>
+    <mat-checkbox labelPosition="before" [(ngModel)]="contactInfo.blockCallerId">Block Caller ID</mat-checkbox>
+    <mat-checkbox labelPosition="before" [(ngModel)]="contactInfo.useLocaNumber">Use Local Number</mat-checkbox>
+  </div>
+  <hr class="mainContactVertSplit">
+  <div id="mainContactFlexPhones">
+    <mat-grid-list cols="1" rowHeight="50px">
+      <mat-grid-tile *ngFor="let phone of contactInfo.phones" (click)="editPhone(phone)">
+        <mat-card>
+          <mat-card-header>
+            <label>{{getPhoneTypeLabel(phone)}}</label>
+          </mat-card-header>
+          <mat-card-content>{{getFormattedPhone(phone)}}</mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <label>Source: </label> {{getPhoneSourceLabel(phone)}}</mat-card-header>
+          <mat-card-content>
+            <label>Special Instructions: </label> {{getPhoneSpecialInstructionsLabel(phone)}}</mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div class="mainFlexSpacer"></div>
+  <div id="mainContactFlexEmails">
+    <mat-grid-list cols="1" rowHeight="50px">
+      <mat-grid-tile *ngFor="let email of contactInfo.emailAddresses" (click)="editEmail(email)">
+        <mat-card>
+          <mat-card-header>
+            <label>{{getEmailAddressTypeLabel(email)}}</label>
+          </mat-card-header>
+          <mat-card-content>{{email.emailAddress}}</mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

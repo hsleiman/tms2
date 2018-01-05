@@ -1,0 +1,117 @@
+<h3>Role's Permissions</h3>
+<div class="rolesPermsContent">
+  <div class="existedAppRoles">
+    <div>
+      <aside>
+        <mat-form-field id="rolesTabFilter" class="filterStyles">
+          <input matInput (keyup)="applyFilterOnRolesTab($event.target.value)" placeholder="Filter by...">
+        </mat-form-field>
+      </aside>
+      <aside>
+        <p>All Roles In Selected Application</p>
+      </aside>
+    </div>
+    <mat-table id="rolesTable" #rolesTable [dataSource]="rolesDataSource" matSort>
+      <ng-container matColumnDef="id" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let role" click="">{{role.id}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let role" click="">{{role.name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+        <mat-cell *matCellDef="let role" click="">{{role.description}}</mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="rolesTableColumnNames"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: rolesTableColumnNames" (click)="loadAllPermissions()"></mat-row>
+    </mat-table>
+  </div>
+
+  <div class ="existedAppRoles" *ngIf="avalblPermsDataSource">
+    <div>
+      <aside>
+        <mat-form-field id="permsTabFilter" class="filterStyles">
+          <input matInput (keyup)="applyFilterOnAvablePerms($event.target.value)" placeholder="Filter by...">
+        </mat-form-field>
+      </aside>
+      <aside>
+        <p>Available Permissions </p>
+      </aside>
+    </div>
+      
+    <mat-table id="permRoleTable" #permRoleTable [dataSource]="avalblPermsDataSource" matSort>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+        <mat-cell *matCellDef="let perm"> {{perm.id}} </mat-cell>
+      </ng-container>      
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let perm">{{perm.name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+        <mat-cell *matCellDef="let perm">{{perm.description}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="forwordArrow">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>  
+          <mat-icon class="fastforward" style="margin-left: 69px;">fast_forward</mat-icon>  
+        </mat-header-cell>
+        <mat-cell *matCellDef="let permission"> 
+          <mat-icon class="arrow" (click)="addPermissions(permission)">forward</mat-icon> 
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="avalblPermsTableColumnNames"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: avalblPermsTableColumnNames"></mat-row>
+    </mat-table>
+  </div>
+
+  <div class="existedAppRoles" *ngIf="avalblPermsDataSource">
+      
+
+      <div>
+      <aside>
+        <mat-form-field id="assignedPermsTabFilter" class="filterStyles">
+        <input matInput (keyup)="applyFilterOnAssignedPerms($event.target.value)" placeholder="Filter by...">
+      </mat-form-field>
+      </aside>
+      <aside>
+        <p>Assigned Permissions </p>
+      </aside>
+    </div>
+
+      <mat-table id="assignedPermsTable" #assignedPermsTable [dataSource]="assignedPermsTableDataSource" matSort>
+          <ng-container matColumnDef="backwardArrow">
+              <mat-header-cell *matHeaderCellDef>
+                 <mat-icon class="rewindarrow">fast_rewind</mat-icon>
+               </mat-header-cell>
+              <mat-cell *matCellDef="let permission"> 
+                <mat-icon class="arrow backwardArrow" (click)="removePermissions(permission)">forward</mat-icon> 
+              </mat-cell>
+            </ng-container>
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Id </mat-header-cell>
+            <mat-cell *matCellDef="let assignedPerms"> {{assignedPerms.id}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+            <mat-cell *matCellDef="let assignedPerms">{{assignedPerms.name}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+            <mat-cell *matCellDef="let assignedPerms">{{assignedPerms.description}}</mat-cell>
+          </ng-container>
+
+            <mat-header-row *matHeaderRowDef="assignedPermsTableColumnNames"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: assignedPermsTableColumnNames"></mat-row>
+
+      </mat-table>
+     
+  </div>
+  
+</div>

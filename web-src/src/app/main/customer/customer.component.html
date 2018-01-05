@@ -1,0 +1,64 @@
+<mat-accordion multi="true">
+  <mat-expansion-panel id="mainPersonalInfoPanel" expanded="true" hideToggle="true">
+    <mat-expansion-panel-header collapsedHeight="50px" expandedHeight="50px">
+      <mat-panel-title>
+        <h3>Customer Personal Information</h3>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-customer-info></app-customer-info>
+  </mat-expansion-panel>
+  <div id="mainLeftFlex">
+    <mat-expansion-panel id="mainContactInfoPanel" expanded="true" hideToggle="true">
+      <mat-expansion-panel-header collapsedHeight="50px" expandedHeight="50px">
+        <mat-panel-title>
+          <h3>Customer Contact Information</h3>
+        </mat-panel-title>
+
+        <button id="mainContactInfoMenu" mat-icon-button [matMenuTriggerFor]="contactMenu" (click)="openPanelMenu($event)">
+          <mat-icon aria-label="Stuff">menu</mat-icon>
+        </button>
+        <mat-menu #contactMenu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="openAddEditPhonePopup(null)">Add New Phone Number</button>
+          <button mat-menu-item (click)="openAddEditEmailPopup(null)">Add New Email Address</button>
+        </mat-menu>
+
+      </mat-expansion-panel-header>
+      <app-contacts></app-contacts>
+    </mat-expansion-panel>
+    <mat-expansion-panel id="mainMilestonesPanel" expanded="true" hideToggle="true">
+      <mat-expansion-panel-header collapsedHeight="50px" expandedHeight="50px">
+        <mat-panel-title>
+          <h3>Milestones</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-milestone></app-milestone>
+    </mat-expansion-panel>
+  </div>
+  <div class="mainFlexSpacer"></div>
+  <div id="mainRightFlex">
+    <mat-expansion-panel id="mainPaymentHistoryPanel" expanded="true" hideToggle="true">
+      <mat-expansion-panel-header collapsedHeight="50px" expandedHeight="50px">
+        <mat-panel-title>
+          <h3>Payment History</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-payment-history></app-payment-history>
+    </mat-expansion-panel>
+    <mat-expansion-panel id="mainDebtsPanel" expanded="true" hideToggle="true">
+      <mat-expansion-panel-header collapsedHeight="50px" expandedHeight="50px">
+        <mat-panel-title>
+          <h3>Debts</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-debt></app-debt>
+    </mat-expansion-panel>
+  </div>
+  <mat-expansion-panel id="mainLogsPanel" expanded="true" hideToggle="true">
+    <mat-expansion-panel-header collapsedHeight="50px" expandedHeight="50px">
+      <mat-panel-title>
+        <h3>Logs</h3>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-log></app-log>
+  </mat-expansion-panel>
+</mat-accordion>

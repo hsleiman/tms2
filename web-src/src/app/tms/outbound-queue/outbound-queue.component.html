@@ -1,0 +1,206 @@
+<form [formGroup]="form" novalidate (ngSubmit)="save()" id="dispostionForm">
+  <div class="card-container">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image">
+            <mat-icon aria-label="Edit" class="card-group-icon">group</mat-icon>
+          </div>
+          <mat-card-title>
+            {{queue.queueName}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <h3 mat-subheader>Queue Info</h3>
+            <!--Primary group-->
+            <!-- <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  Disposition group:
+                </div>
+                <div>
+                  
+                  <mat-select id="dispositionGroupInputField" matInput tabindex="1">
+                      <mat-option *ngFor="let group of dispositionGroups" [value]="group.pk">
+                          {{ group.name }}
+                        </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </mat-list-item> -->
+            <!--Secondary group-->
+            <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  Queue Priority:
+                </div>
+                <div>
+                  <!-- <mat-form-field id="queuePriorityFormField" class="queuePriorityFormField"> -->
+                    <mat-select id="queuePriorityInputField" matInput tabindex="2" placeholder="Queue Priority" 
+                      [(ngModel)]="dqSettings.weightedPriority.priority" formControlName="queuePriority" (change)="updateInboundDQSettings()">
+                      <mat-option *ngFor="let val of OneToTen" [value]="val">{{val}}</mat-option>
+                    </mat-select>
+                  <!-- </mat-form-field> -->
+
+                  
+                </div>
+              </div>
+            </mat-list-item>
+            <!--Disposition group-->
+            <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  Queue Weight:
+                </div>
+                <div>
+                  <!-- <mat-form-field id="queueWeightFormField" class="queueWeightFormField"> -->
+                    <mat-select id="queueWeightInputField" matInput tabindex="3" placeholder="Queue Weight" 
+                    [(ngModel)]="dqSettings.weightedPriority.weight" formControlName="queueWeight" (change)="updateInboundDQSettings()">
+                        <mat-option *ngFor="let val of OneToTen" [value]="val">{{val}}</mat-option>
+                    </mat-select>
+                  <!-- </mat-form-field> -->
+                </div>
+              </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <h3 mat-subheader>Dialer info</h3>
+            <!--Wrap Time-->
+            <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  Wrap Time:
+                </div>
+                <div>
+                  <mat-select [(ngModel)]="dqSettings.wrapMaxMinutes" (change)="updateInboundDQSettings()"
+                  formControlName="wrapTime">
+                    <mat-option *ngFor="let number of OneToTen" [value]="number">
+                      {{ number }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </mat-list-item>
+            <!--Idle Time-->
+            <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  Idle Time:
+                </div>
+                <div>
+                  <mat-select [(ngModel)]="dqSettings.idleMaxMinutes" (change)="updateInboundDQSettings()" 
+                  formControlName="idleTime">
+                    <mat-option *ngFor="let number of OneToTen" [value]="number">
+                      {{ number }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </mat-list-item>
+            <!--Caller Id-->
+            <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  Call Routing Option
+                </div>
+                <div>
+                  <!-- <mat-form-field id="queueWeightFormField" class="queueWeightFormField"> -->
+                    <mat-select id="queueWeightInputField" matInput tabindex="3" formControlName="callRoutingOption"
+                    [(ngModel)]="dqSettings.callRoutingOption" (change)="updateInboundDQSettings()">
+                      <mat-option *ngFor="let option of callOptions" [value]="option.key">{{option.value}}</mat-option>
+                    </mat-select>
+                  <!-- </mat-form-field> -->
+                </div>
+              </div>
+            </mat-list-item>
+            <!--Popup type-->
+            <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  Popup Type
+                </div>
+                <div>
+                  <!-- <mat-form-field id="queueWeightFormField" class="queueWeightFormField"> -->
+                    <mat-select id="popupDisplayModeInputField" matInput tabindex="3" formControlName="popupDisplayMode"
+                    [(ngModel)]="dqSettings.popupDisplayMode" (change)="updateInboundDQSettings()">
+                      <mat-option *ngFor="let mode of displayModes" [value]="mode.key">{{mode.value}}</mat-option>
+                    </mat-select>
+                  <!-- </mat-form-field> -->
+                </div>
+              </div>
+            </mat-list-item>
+            <!--Sort List-->
+            <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  Dialer schedule weekday
+                </div>
+                <div>
+                  <!-- <mat-form-field id="queueWeightFormField" class="queueWeightFormField"> -->
+                    <mat-select id="queueWeightInputField" matInput tabindex="3">
+                      <mat-option value="Longest Idle">Sunday</mat-option>
+                      <mat-option value="Longest Idle">Monday</mat-option>
+                      <mat-option value="Longest Idle">Tuesday</mat-option>
+                      <mat-option value="Longest Idle">Wednesday</mat-option>
+                      <mat-option value="Longest Idle">Thursday</mat-option>
+                      <mat-option value="Longest Idle">Friday</mat-option>
+                      <mat-option value="Longest Idle">Saturday</mat-option>
+                    </mat-select>
+                  <!-- </mat-form-field> -->
+                </div>
+              </div>
+            </mat-list-item>
+            <!--Phone Type-->
+            <br />
+            <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  Start Time
+                </div>
+                <div>
+                  <mat-form-field style="width: 100%;" id="queueWeightFormField" class="queueWeightFormField">
+                    <input matInput type="time" class="form-control" tabindex="1" id="nameInputField" formControlName="startTime"
+                    [(ngModel)]="dqSettings.startTime" (change)="updateInboundDQSettings()">
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-list-item>
+            <br />
+            <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  End Time
+                </div>
+                <div>
+                  <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+                    <input matInput type="time" class="form-control" tabindex="1" id="nameInputField" formControlName="endTime"
+                    [(ngModel)]="dqSettings.endTime" (change)="updateInboundDQSettings()">
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-list-item>
+            <br />
+            <mat-divider></mat-divider>
+            <h3 mat-subheader>Dialer Settings</h3>
+            <br />
+            <!--Hold Recording-->
+            <br />
+            <mat-list-item>
+              <div class="item-holder">
+                <div class="title-item">
+                  Hold Recording
+                </div>
+                <div>
+                  <mat-checkbox id="checkBoxOption1" class="checkboxesField" tabindex="8" formControlName="autoAnswerEnabled"
+                  [(ngModel)]="dqSettings.autoAnswerEnabled" (change)="updateInboundDQSettings()">Auto answer enabled</mat-checkbox>
+                </div>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <!--<button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>-->
+        </mat-card-actions>
+      </mat-card>
+    </div>
+</form>

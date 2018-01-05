@@ -1,0 +1,25 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+      <div class="header">
+        <div class="right-side">
+          <span style="align-self: center;"><img src="../../assets/logo.png" style="width:100px" /></span>
+          <div class="nav-bar-items">
+            <ul>
+              <li routerLink="/admin/agents">Agents</li>
+              <li routerLink="/admin/permissions-roles">Permission roles</li>
+              <li routerLink="/admin/roles-permissions">Roles permission</li>
+            </ul>
+          </div>
+        </div>
+        <div class="left-side">
+          <span><mat-icon aria-label="Edit" class="nav-icon"  [matMenuTriggerFor]="appMenu">person</mat-icon></span>
+          <mat-menu #appMenu="matMenu">
+            <button mat-menu-item> Settings </button>
+            <button mat-menu-item> Change password </button>
+            <button mat-menu-item (click)="logout()"> Logout </button>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+<router-outlet></router-outlet>

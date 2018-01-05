@@ -1,0 +1,29 @@
+mat-expansion-panel.mat-expanded 
+{
+    max-height: 400px;
+}
+
+:host ::ng-deep .mat-expansion-panel-content { /* May be deprecated in future. */
+    overflow: auto !important;
+    max-height: 350px;
+}
+
+#roleFilter, #permFilter {
+    background-color: white;
+    position: sticky;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    z-index: 1;
+}
+
+mat-header-row {
+    background-color: white;
+    position: sticky;
+    top: 60px;
+    z-index: 1;
+}
+
+mat-cell { /* Workaround for bug that makes checkbox in table shift up when clicked, refer to Angular2 Material's Github issue #8600. */
+    overflow: visible;
+}

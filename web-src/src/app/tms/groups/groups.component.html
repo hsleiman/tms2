@@ -1,0 +1,26 @@
+<app-nav-bar [navParams]="navParams"></app-nav-bar>
+<mat-table #table [dataSource]="dataSource">
+  <!-- Position Column -->
+  <ng-container matColumnDef="pk">
+    <mat-header-cell *matHeaderCellDef> PK. </mat-header-cell>
+    <mat-cell *matCellDef="let element"> <span routerLink="/tms/group/{{element.pk}}" class="clickable">{{element.pk}} </span></mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="groupName">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> <span routerLink="/tms/group/{{element.pk}}" class="clickable">{{element.groupName}} </span></mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="comment">
+    <mat-header-cell *matHeaderCellDef> Comment </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.comment}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Edit">
+    <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+    <mat-cell *matCellDef="let element" (click)="editGroup(element)"> <mat-icon aria-label="Edit" class="clickable">mode_edit</mat-icon> </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<div class="add-butt">
+  <button mat-fab (click)="addGroup()"><mat-icon aria-label="Add">group_add</mat-icon></button>
+</div>

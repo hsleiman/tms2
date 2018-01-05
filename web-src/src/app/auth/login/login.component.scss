@@ -1,0 +1,26 @@
+.login-card{
+    max-width: 430px;
+    margin: auto;
+    padding: 0;
+}
+
+mat-card-header {
+    height: 90px;
+    h2 {
+        margin-top: 50px;
+        margin-left: 22px;
+        color: white;
+    }
+}
+
+mat-card-content {
+    .login-field{
+        max-width: 100%;
+        margin: 0px 30px;
+        display: block;
+    }
+}
+
+mat-card-actions {
+    text-align: center;
+}

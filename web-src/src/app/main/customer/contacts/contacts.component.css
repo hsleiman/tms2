@@ -1,0 +1,59 @@
+#mainContactInformation {
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#mainContactFlexBooleans {
+    flex-basis: 100%;
+    display: flex;
+}
+
+#mainContactFlexBooleans mat-checkbox {
+    flex-basis: 33%;
+}
+
+.mainContactVertSplit {
+    flex-basis: 100%;
+}
+
+#mainContactFlexPhones {
+    display: flex;
+    flex-basis: calc(66% - 5px);
+}
+
+#mainContactFlexPhones mat-grid-list {
+    flex-basis: 100%;
+}
+
+#mainContactFlexEmails {
+    flex-basis: calc(33% - 5px);
+}
+
+.mainFlexSpacer {
+    width: 10px;
+    visibility: hidden;
+}
+
+mat-grid-tile {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+mat-card {
+    width: 100%;
+    padding-left: 0px;
+    box-shadow: none !important;
+}
+
+#mainContactFlexPhones mat-card {
+    width: 50%;
+}
+
+label {
+    color: gray;
+    font-size: 13px;
+}
+
+:host /deep/ .mat-card-header-text {
+    margin: 0;
+}

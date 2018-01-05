@@ -1,0 +1,28 @@
+<div id="mainLogs">
+  <mat-table #table [dataSource]="logsDataSource" matSort>
+    <ng-container matColumnDef="flagged">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Alert</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-icon *ngIf="element.flagged" aria-label="Important">warning</mat-icon>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="creationDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.creationDate}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="logType">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.logType}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="employeeId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Employee ID</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.employeeId}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="notes">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Notes</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.notes}}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="logsTableColumnNames"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: logsTableColumnNames;"></mat-row>
+  </mat-table>
+</div>

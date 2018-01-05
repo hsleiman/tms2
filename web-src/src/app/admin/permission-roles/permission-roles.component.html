@@ -1,0 +1,47 @@
+<div id="adminPermRoleXref">
+  <div id="permSection">
+    <h3>Permissions</h3>
+    <mat-form-field id="permFilter">
+      <input matInput (keyup)="applyRoleFilter($event.target.value)" placeholder="Filter by...">
+    </mat-form-field>
+    <mat-table id="permTable" #permTable [dataSource]="permDataSource" matSort>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let perm">{{perm.id}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let perm">{{perm.name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+        <mat-cell *matCellDef="let perm">{{perm.description}}</mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="permTableColumnNames"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: permTableColumnNames" (click)="loadPermRoles(row)" [ngClass]="toggleSelectedPerm(row)"></mat-row>
+    </mat-table>
+  </div>
+  <div class="adminPermRoleXrefFlexSpacer"></div>
+  <div id="permRoleSection" *ngIf="permRoleDataSource">
+    <h3>Permission's Roles</h3>
+    <mat-form-field id="permRoleFilter">
+      <input matInput (keyup)="applyRolePermFilter($event.target.value)" placeholder="Filter by...">
+    </mat-form-field>
+    <mat-table id="permRoleTable" #permRoleTable [dataSource]="permRoleDataSource" matSort>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let role">{{role.id}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let role">{{role.name}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+        <mat-cell *matCellDef="let role">{{role.description}}</mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="permRoleTableColumnNames"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: permRoleTableColumnNames"></mat-row>
+    </mat-table>
+  </div>
+</div>

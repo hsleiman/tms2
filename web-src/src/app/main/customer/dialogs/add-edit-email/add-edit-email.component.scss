@@ -1,0 +1,33 @@
+#customerAddEditEmailPopup {
+    min-width: 800px;
+    min-height: 600px;
+}
+
+[mat-dialog-title] {
+    display: inline-block;
+}
+
+mat-form-field {
+    display: block;
+}
+
+.mat-icon-button {
+    float: right;
+}
+
+mat-dialog-content {
+    padding-top: 20px; /* The checkbox ripple gets cutoff by the header for whatever reason, so add some space in between. */
+}
+
+mat-dialog-actions {
+    float: right;
+}
+
+#addEditEmailFormFlexBooleans {
+    flex-basis: 100%;
+    display: flex;
+}
+
+#addEditEmailFormFlexBooleans mat-checkbox {
+    flex-basis: 50%;
+}

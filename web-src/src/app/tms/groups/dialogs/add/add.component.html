@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Create Group</h1>
+<div mat-dialog-content>
+  <p>Add</p>
+  <mat-form-field>
+    <input placeholder="Group name" matInput tabindex="1" [(ngModel)]="data.groupName" required>
+  </mat-form-field>
+    <mat-form-field>
+    <textarea placeholder="Comment" matInput tabindex="2" [(ngModel)]="data.comment"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [disabled]="!data.groupName" (click)="addGroup()" tabindex="2">Ok</button>
+  <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+</div>

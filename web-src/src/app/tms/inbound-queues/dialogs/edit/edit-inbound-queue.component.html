@@ -1,0 +1,210 @@
+<h1 mat-dialog-title>Edit Queue</h1>
+<div mat-dialog-content>
+  <p>Edit</p>
+  <div>
+    <mat-form-field>
+    <input id = "queueName" placeholder="Queue name" matInput tabindex="1" [(ngModel)]="data.dialerQueueDetails.queueName">
+  </mat-form-field>
+  </div>
+    <mat-form-field style="width:300px">
+    <textarea id = "sql" matInput placeholder="Query" tabindex="2" [(ngModel)]="data.dialerQueueDetails.sqlQuery"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button id="btAddQueue" mat-button (click)="save()" tabindex="3">Add</button>
+  <button id="btCloseQueue" mat-button (click)="cancel()" tabindex="4">Cancel</button>
+</div>
+
+
+<!-- <h1 mat-dialog-title>Settings</h1>
+
+<form [formGroup]="form" novalidate (ngSubmit)="save()" id="dispostionForm">
+  <div mat-dialog-content>
+    <div class="form-group">
+      <mat-form-field id="dispositionGroupFormField" class="dispositionGroupFormField">
+        <mat-select id="dispositionGroupInputField" matInput tabindex="1" placeholder="Select Disposition Group" formControlName="dispositionGroup">
+          <mat-option value="Default Outbound Call Disposition Group">Default Outbound Call Disposition Group</mat-option>
+          <mat-option value="testDG">testDG</mat-option>
+          <mat-option value="frontend">frontend</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field id="queuePriorityFormField" class="queuePriorityFormField">
+        <mat-select id="queuePriorityInputField" matInput tabindex="2" placeholder="Queue Priority" formControlName="queuePriority">
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+          <mat-option value="5">5</mat-option>
+          <mat-option value="6">6</mat-option>
+          <mat-option value="7">7</mat-option>
+          <mat-option value="8">8</mat-option>
+          <mat-option value="9">9</mat-option>
+          <mat-option value="10">10</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+        <mat-select id="queueWeightInputField" matInput tabindex="3" placeholder="Queue Weight" formControlName="queueWeight">
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+          <mat-option value="5">5</mat-option>
+          <mat-option value="6">6</mat-option>
+          <mat-option value="7">7</mat-option>
+          <mat-option value="8">8</mat-option>
+          <mat-option value="9">9</mat-option>
+          <mat-option value="10">10</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      Agent Call Order
+      <br />
+      <mat-card>
+        <div class="section1">
+          <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+            <mat-select id="queueWeightInputField" matInput tabindex="3" placeholder="Queue Group Agent" formControlName="queueWeight">
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+              <mat-option value="4">4</mat-option>
+              <mat-option value="5">5</mat-option>
+              <mat-option value="6">6</mat-option>
+              <mat-option value="7">7</mat-option>
+              <mat-option value="8">8</mat-option>
+              <mat-option value="9">9</mat-option>
+              <mat-option value="10">10</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+            <mat-select id="queueWeightInputField" matInput tabindex="3" placeholder="Secondary Group" formControlName="queueWeight">
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+              <mat-option value="4">4</mat-option>
+              <mat-option value="5">5</mat-option>
+              <mat-option value="6">6</mat-option>
+              <mat-option value="7">7</mat-option>
+              <mat-option value="8">8</mat-option>
+              <mat-option value="9">9</mat-option>
+              <mat-option value="10">10</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="section2">
+          <div class="primaryAgent">
+            <label>Primary Agent</label>
+            <br />
+            <mat-checkbox id="checkBoxOption1" class="checkboxesField" tabindex="8">Inline</mat-checkbox>
+          </div>
+        </div>
+        <br />
+        <div class="section3">
+          <div class="secondaryAgent">
+            <label>Secondary Agent</label>
+            <br />
+            <mat-checkbox id="checkBoxOption1" class="checkboxesField" tabindex="8">Inline</mat-checkbox>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="form-group">
+      <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+        <mat-select id="queueWeightInputField" matInput tabindex="3" placeholder="Wrap Time" formControlName="queueWeight">
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+          <mat-option value="5">5</mat-option>
+          <mat-option value="6">6</mat-option>
+          <mat-option value="7">7</mat-option>
+          <mat-option value="8">8</mat-option>
+          <mat-option value="9">9</mat-option>
+          <mat-option value="10">10</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+        <mat-select id="queueWeightInputField" matInput tabindex="3" placeholder="Idle Time" formControlName="queueWeight">
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+          <mat-option value="5">5</mat-option>
+          <mat-option value="6">6</mat-option>
+          <mat-option value="7">7</mat-option>
+          <mat-option value="8">8</mat-option>
+          <mat-option value="9">9</mat-option>
+          <mat-option value="10">10</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+        <mat-select id="queueWeightInputField" matInput tabindex="3" placeholder="Call Routing Option" formControlName="queueWeight">
+          <mat-option value="Longest Idle">Longest Idle</mat-option>
+          <mat-option value="Longest Idle">Shortest Idle</mat-option>
+          <mat-option value="Longest Idle">Skill Based</mat-option>
+          <mat-option value="Longest Idle">Round Robin</mat-option>
+          <mat-option value="Longest Idle">Round Robin Utilization</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-form-field id="nameFormField" class="nameFormField">
+      <input matInput placeholder="Round Robin Cut off Percent" type="text" class="form-control" tabindex="1" id="nameInputField">
+    </mat-form-field>
+
+    <div class="form-group">
+      <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+        <mat-select id="queueWeightInputField" matInput tabindex="3" placeholder="Window Popup Type" formControlName="queueWeight">
+          <mat-option value="Longest Idle">New Window</mat-option>
+          <mat-option value="Longest Idle">New Tab</mat-option>
+          <mat-option value="Longest Idle">Same Window</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field id="nameFormField" class="nameFormField">
+      <input matInput placeholder="Max delay in seconds" type="text" class="form-control" tabindex="1" id="nameInputField">
+    </mat-form-field>
+
+    <div class="form-group">
+      <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+        <mat-select id="queueWeightInputField" matInput tabindex="3" placeholder="Dialer schedule weekday" formControlName="queueWeight">
+          <mat-option value="Longest Idle">Sunday</mat-option>
+          <mat-option value="Longest Idle">Monday</mat-option>
+          <mat-option value="Longest Idle">Tuesday</mat-option>
+          <mat-option value="Longest Idle">Wednesday</mat-option>
+          <mat-option value="Longest Idle">Thursday</mat-option>
+          <mat-option value="Longest Idle">Friday</mat-option>
+          <mat-option value="Longest Idle">Saturday</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="">
+      <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+        <input matInput placeholder="Start Time" type="time" class="form-control" tabindex="1" id="nameInputField">
+      </mat-form-field>
+    </div>
+    <div class="">
+      <mat-form-field id="queueWeightFormField" class="queueWeightFormField">
+        <input matInput placeholder="End Time" type="time" class="form-control" tabindex="1" id="nameInputField">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-checkbox id="checkBoxOption1" class="checkboxesField" tabindex="8">Auto answer enabled</mat-checkbox>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button id="saveBtn" tabindex="17" (click)="save()" aria-label="login">Save</button>
+      <button mat-button id="cancelBtn" (click)="cancel()" tabindex="18">Cancel</button>
+    </div>
+  </div>
+</form> -->

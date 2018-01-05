@@ -1,0 +1,22 @@
+mat-icon {
+    position: relative;
+    top: 5px;
+}
+
+mat-card-content {
+    mat-icon {
+        color: #12A6C0;
+    }
+
+    mat-header-row {
+        background: #e7e7e7;
+    }
+    .filter {
+        width: 300px;
+    }
+}
+
+.col-2 {
+    width: 50%;
+    float: left;
+}

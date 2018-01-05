@@ -1,0 +1,65 @@
+<app-nav-bar [navParams]="navParams"></app-nav-bar>
+
+<div class="card-container">
+  <mat-card class="example-card">
+    <mat-card-header>
+        <div class="col-2">
+          <mat-icon>group</mat-icon> Disposition and Groups
+        </div>
+        <div class="col-2 text-right">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="addOrEditDispositionGroup()">
+
+              <span>Add Disposition Group</span>
+            </button>
+            <button mat-menu-item (click)="addOrEditDisposition()">
+
+              <span>Add Disposition</span>
+            </button>
+          </mat-menu>
+        </div>
+        <div class="clearfix"></div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="filter">
+        <mat-form-field>
+          <input matInput (keyup)="dispositionGroupFilter($event.target.value)" placeholder="Filter By...">
+        </mat-form-field>
+      </div>
+      <mat-table #table [dataSource]="dispositionGroupDataSource">
+
+        <ng-container matColumnDef="pk">
+          <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="clickable" routerLink="/tms/disposition/{{element.pk}}">{{element.pk}}</span>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Group Name </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="clickable" routerLink="/tms/disposition/{{element.pk}}">
+              {{element.name}}
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Actions">
+          <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span class="edit clickable" (click)="addOrEditDispositionGroup(element)">
+              <mat-icon aria-label="Edit">mode_edit</mat-icon>
+            </span>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="dispositionGroupDisplayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: dispositionGroupDisplayedColumns;" [ngClass]="{'selectedRow': selectedDispositionGroup && row.pk == selectedDispositionGroup.pk }"></mat-row>
+      </mat-table>
+    </mat-card-content>
+    <mat-card-actions>
+
+    </mat-card-actions>
+  </mat-card>
+</div>

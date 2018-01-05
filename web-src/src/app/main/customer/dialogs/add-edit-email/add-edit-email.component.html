@@ -1,0 +1,27 @@
+<div id="customerAddEditEmailPopup">
+    <h3 mat-dialog-title>{{dialogTitle}}</h3>
+    <button mat-icon-button [mat-dialog-close]="null">
+      <mat-icon aria-label="Close Popup">close</mat-icon>
+    </button>
+    <mat-dialog-content>
+      <form [formGroup]="addEditEmailForm">
+        <div id="addEditEmailFormFlexBooleans">
+          <mat-checkbox labelPosition="before" formControlName="doNotContact">Do Not Contact</mat-checkbox>
+          <mat-checkbox labelPosition="before" formControlName="emailAddressBad">Mark as Bad</mat-checkbox>
+        </div>
+        <hr>
+        <mat-form-field>
+          <mat-select placeholder="Email Type" formControlName="emailAddressType">
+            <mat-option *ngFor="let emailType of emailTypes" [value]="emailType.id">{{emailType.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Email Address" formControlName="emailAddress">
+        </mat-form-field>
+      </form>
+    </mat-dialog-content> 
+    <mat-dialog-actions>
+      <button id="customerAddEditEmailCancel" mat-raised-button color="warn" [mat-dialog-close]="null">Cancel</button>
+      <button id="customerAddEditEmailSubmit" mat-raised-button color="primary" (click)="saveEmail()" [disabled]="addEditEmailForm.invalid || addEditEmailForm.pristine">Save Email</button>
+    </mat-dialog-actions>
+</div>

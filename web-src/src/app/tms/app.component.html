@@ -1,0 +1,32 @@
+<mat-toolbar>
+        <mat-toolbar-row>
+          <div class="header">
+            <div class="right-side">
+              <span style="align-self: center;"><img src="../../assets/logo.png" style="width:100px" /></span>
+              <div class="nav-bar-items">
+                  <mat-menu #menu="matMenu">
+                      <button mat-menu-item routerLink="/tms/inbounds">Inbound</button>
+                      <button mat-menu-item routerLink="/tms/outbounds">Outbound</button>
+                    </mat-menu>
+                <ul>
+                  <li [matMenuTriggerFor]="menu"  yPosition="above">Dialer Queues</li>
+                  <li routerLink="/tms/groups">Dialer Groups</li>
+                  <li routerLink="/tms/dispositions">Dispositions</li>
+                  <li>Statuses</li>
+                  <li>Upload Reports</li>
+                  <li routerLink="/tms/call-history">Call History</li>
+                </ul>
+              </div>
+            </div>
+            <div class="left-side">
+              <span><mat-icon aria-label="Edit" class="nav-icon"  [matMenuTriggerFor]="appMenu">person</mat-icon></span>
+              <mat-menu #appMenu="matMenu">
+                <button mat-menu-item> Settings </button>
+                <button mat-menu-item> Change password </button>
+                <button mat-menu-item (click)="logout()"> Logout </button>
+              </mat-menu>
+            </div>
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+<router-outlet></router-outlet>

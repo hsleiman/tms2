@@ -1,0 +1,5 @@
+<mat-toolbar class="nav-toolbar">
+  <mat-toolbar-row>
+    <span *ngFor="let param of navParams; let i = index;"  routerLink="{{param.route}}"> <span class="clickable">{{param.name}}</span> <span *ngIf = "i === length" > > </span> </span>
+  </mat-toolbar-row>
+</mat-toolbar>

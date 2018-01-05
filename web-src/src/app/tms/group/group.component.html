@@ -1,0 +1,48 @@
+<app-nav-bar [navParams]="navParams"></app-nav-bar>
+<div class="card-container">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+        <mat-icon aria-label="Edit" class="card-group-icon">group</mat-icon>
+      </div>
+      <mat-card-title>
+        {{groupInfo.groupName}}
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let agent of dialerGroupAgents">
+          <div class="item-container">
+            <span class="small-field">
+          <mat-icon aria-label="Edit" class="card-group-icon-member">person</mat-icon><span class="name">{{agent.firstName}} {{agent.lastName}}</span>
+            </span>
+            <span class="">
+            <span>
+              <mat-form-field class="small-fields">
+                   <input matInput [(ngModel)]="agent.weightedPriority.weight" (change)="updatePiorityAndWieght()" placeholder="Weight" type="number" min="0" max="10" value="">
+                  </mat-form-field>
+            </span>
+            <span> 
+              <mat-form-field class="small-fields">
+                  <input matInput [(ngModel)]="agent.weightedPriority.priority" (change)="updatePiorityAndWieght()" placeholder="Piority" type="number" min="0" max="10" value="">
+              </mat-form-field>
+            </span>
+            </span>
+            <span>
+          <mat-icon aria-label="Edit" class="card-group-icon-member"
+            (click)="remove(agent.userName)">delete</mat-icon>
+          </span>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <!--<button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>-->
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div class="add-butt">
+  <button mat-fab (click)="addAgent()"><mat-icon aria-label="Add">person_add</mat-icon></button>
+</div>
