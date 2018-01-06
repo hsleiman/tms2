@@ -10,7 +10,7 @@ import com.objectbrains.sti.db.entity.agent.Agent;
 import com.objectbrains.sti.db.entity.agent.DialerGroup;
 import com.objectbrains.sti.embeddable.WeightedPriority;
 import com.objectbrains.sti.exception.StiException;
-import com.objectbrains.sti.service.agent.AgentService;
+import com.objectbrains.sti.service.agent.StiAgentService;
 import com.objectbrains.sti.service.tms.DialerGroupService;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -34,7 +34,7 @@ public class AgentServiceIWS {
     }
     
     @Autowired
-    AgentService agentService;
+    StiAgentService agentService;
     @Autowired
     DialerGroupService dialerGroupService;
     

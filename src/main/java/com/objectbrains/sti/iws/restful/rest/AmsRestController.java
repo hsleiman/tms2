@@ -20,7 +20,7 @@ import com.objectbrains.sti.db.entity.agent.Agent;
 import com.objectbrains.sti.pojo.AgentPojo;
 import com.objectbrains.sti.pojo.RolePermission;
 import com.objectbrains.sti.pojo.UserPermission;
-import com.objectbrains.sti.service.agent.AgentService;
+import com.objectbrains.sti.service.agent.StiAgentService;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AmsRestController {
 
     @Autowired
-    private AgentService agentService;
+    private StiAgentService agentService;
     
     @RequestMapping(value = "/syncAgents", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")

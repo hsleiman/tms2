@@ -43,19 +43,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class DocumentManagerOWSImpl implements DocumentManagerOWS {
         
-    @Autowired
+    @Autowired(required = false)
     private StoredDocumentManagementIWS storedDocService;
     
-    @Autowired
+    @Autowired(required = false)
     private GeneratedDocumentManagementIWS generatedDocument;
     
-    @Autowired
+    @Autowired(required = false)
     private DocumentServiceIWS documentService;
     
-    @Autowired
+    @Autowired(required = false)
     private EmailQueueIWS emailQueueIWS;
     
-    @Autowired
+    @Autowired(required = false)
     private UtilityIWS dmsUtility;
     
     // =====================================================================================

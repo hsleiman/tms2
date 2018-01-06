@@ -11,6 +11,7 @@ import com.objectbrains.sti.constants.Permission;
 import com.objectbrains.sti.constants.RoleType;
 import com.objectbrains.tms.hazelcast.Configs;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,17 +28,20 @@ import org.springframework.stereotype.Service;
 public class UserAuth {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserAuth.class);
-    @Autowired
-    private HazelcastService hazelcast;
-    private IMap<String, String> userToken;
-    private IMap<String, String> tokenUser;
-    private IMap<String, List<Integer>> userPermission;
+//    @Autowired
+//    private HazelcastService hazelcast;
+    private Map<String, String> userToken;
+    private Map<String, String> tokenUser;
+    private Map<String, List<Integer>> userPermission;
 
     @PostConstruct
     public void init() {
-        userToken = hazelcast.getMap(Configs.USER_TOKEN_KEY_MAP);
-        userPermission = hazelcast.getMap(Configs.USER_PERMISSION_KEY_MAP);
-        tokenUser = hazelcast.getMap(Configs.TOKEN_USER_KEY_MAP);
+        userToken = new HashMap<>();
+        tokenUser = new HashMap<>();
+        userPermission = new HashMap<>();
+//        userToken = hazelcast.getMap(Configs.USER_TOKEN_KEY_MAP);
+//        userPermission = hazelcast.getMap(Configs.USER_PERMISSION_KEY_MAP);
+//        tokenUser = hazelcast.getMap(Configs.TOKEN_USER_KEY_MAP);
 
         populateRoleMap();
     }

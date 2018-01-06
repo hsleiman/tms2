@@ -36,9 +36,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class AgentService {
+public class StiAgentService {
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(AgentService.class);
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(StiAgentService.class);
 
     @Autowired
     private AccountManagerIWS accountManagerIWS;

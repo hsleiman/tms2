@@ -45,8 +45,12 @@
     </bean>
     
     <task:executor id="tms-executor" pool-size="100"/>
+    <task:executor id="sti-executor" pool-size="100"/>
     <!--<task:executor id="tms-sync" pool-size="10"/>-->
     <bean class="com.objectbrains.scheduler.annotation.SyncAnnotationBeanPostProcessor">
         <property name="executor" ref="tms-executor"/>
+    </bean>
+    <bean class="com.objectbrains.scheduler.annotation.SyncAnnotationBeanPostProcessor">
+        <property name="executor" ref="sti-executor"/>
     </bean>
 </beans>

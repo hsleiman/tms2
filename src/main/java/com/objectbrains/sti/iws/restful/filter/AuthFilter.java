@@ -29,8 +29,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component("authFilter")
 public class AuthFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private HazelcastService hazelcast;
+//    @Autowired
+//    private HazelcastService hazelcast;
 
     @Autowired
     private RestfullCallRepository restfullCallRepository;
