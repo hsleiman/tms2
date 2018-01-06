@@ -27,8 +27,8 @@ public class SvcQueueService {
 
     private static final Logger LOG = LoggerFactory.getLogger(SvcQueueService.class);
 
-    @Autowired
-    private TMSService tmsIws;
+//    @Autowired
+//    private TMSService tmsIws;
 
     @Autowired
     private DialerQueueService dialerQueueService;

@@ -25,7 +25,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
 @Entity(name = "AgentStats")
 @Table(schema = "sti")
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@AuditTable(value = "tms_agent_stats_history", schema = "tms")
+//@AuditTable(value = "tms_agent_stats_history", schema = "tms")
 public class AgentStatsRecord {
 
     @Id

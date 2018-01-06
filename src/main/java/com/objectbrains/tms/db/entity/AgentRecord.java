@@ -31,7 +31,7 @@ import org.joda.time.LocalDateTime;
 @Entity(name = "AgentRecord")
 @Table(schema = "sti")
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@AuditTable(value = "tms_agent_history", schema = "tms")
+//@AuditTable(value = "tms_agent_history", schema = "sti")
 public class AgentRecord implements Serializable {
 
     @Id

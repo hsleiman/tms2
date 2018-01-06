@@ -42,7 +42,7 @@ import org.springframework.util.CollectionUtils;
 /**
  * @author David
  */
-@Service("TMSService")
+@Service
 @Transactional
 public class TMSService {
 
