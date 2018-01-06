@@ -16,6 +16,7 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -32,7 +33,6 @@ public class RestAuthorization { //implements ApplicationContextAware {
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(RestAuthorization.class);
 
     final int PERMISSION_AUTHENTICIATED = 0;
-
     @Autowired
     private UserAuth userAuth;
 
