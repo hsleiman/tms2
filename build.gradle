@@ -113,8 +113,9 @@ dependencies {
     compile group: 'com.google.api-client', name: 'google-api-client-servlet', version: '1.22.0'
     compile group: 'com.google.cloud', name: 'gcloud-java-core', version: '0.2.5'
     compile group: 'com.google.cloud', name: 'gcloud-java-storage', version: '0.2.5'
-    compile group: 'org.apache.cxf', name: 'cxf-common-utilities', version: '2.0.6'
-    
+//    compile group: 'org.apache.cxf', name: 'cxf-common-utilities', version: '2.0.6'
+    compile group: 'org.apache.cxf', name: 'cxf-core', version: '3.0.2'
+
     compile group: 'org.jvnet.jaxb2_commons', name: 'jaxb2-basics-runtime', version: '0.6.4'
     
         
