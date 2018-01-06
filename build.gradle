@@ -91,8 +91,9 @@ dependencies {
     
     
     
-    String jacksonVersion = '2.2.1'
+    String jacksonVersion = '2.5.0'
     compile (group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion)
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonVersion
     runtime (group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: jacksonVersion)
     runtime (group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-xml-provider', version: jacksonVersion)
     runtime (group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda', version: jacksonVersion)
