@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @Service
 public interface DocumentManagerOWS {

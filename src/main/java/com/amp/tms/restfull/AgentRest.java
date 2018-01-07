@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Path("/agent")
 @Produces(MediaType.APPLICATION_JSON)

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 @Embeddable
 public class QuestionAnswer {

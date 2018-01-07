@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public class BasicPhoneData extends PhoneNumberCallable implements Serializable{
  

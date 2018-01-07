@@ -19,7 +19,7 @@ import javax.persistence.MappedSuperclass;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @MappedSuperclass
 public class DialerCall extends LoanNumber {

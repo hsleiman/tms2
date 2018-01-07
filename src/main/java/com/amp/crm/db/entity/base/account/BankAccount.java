@@ -25,7 +25,7 @@ import org.hibernate.annotations.ForeignKey;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 @NamedQueries({
     @NamedQuery(

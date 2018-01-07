@@ -7,7 +7,7 @@ package com.amp.crm.constants;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public enum OutboundRecordStatus {
     PENDING, PARTIAL, COMPLETE;

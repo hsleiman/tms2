@@ -58,7 +58,7 @@ import org.springframework.context.annotation.DependsOn;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Configuration
 public class Configs implements BeanFactoryAware {

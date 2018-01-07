@@ -9,7 +9,7 @@ import com.google.i18n.phonenumbers.Phonenumber;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public class PhoneNumberDetails extends NationalPhoneNumber {
     

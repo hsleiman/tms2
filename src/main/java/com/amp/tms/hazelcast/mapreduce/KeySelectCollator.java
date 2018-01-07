@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  * @param <Key>
  */
 public class KeySelectCollator<Key> implements Collator<Map.Entry<Key, Boolean>, Set<Key>> {

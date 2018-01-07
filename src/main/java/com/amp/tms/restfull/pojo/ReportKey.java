@@ -9,7 +9,7 @@ import com.amp.tms.db.entity.ReportSql;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class ReportKey {
 

@@ -7,7 +7,7 @@ package com.amp.crm.common;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  * @param <T>
  */
 public interface EnumInterface<T extends Enum<T>> {

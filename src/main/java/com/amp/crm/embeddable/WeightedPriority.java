@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @Embeddable
 public class WeightedPriority {

@@ -15,7 +15,7 @@ import javax.persistence.Enumerated;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 @Embeddable
 public class DialerQueueGroupPk implements Serializable {

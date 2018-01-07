@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class QueueRates {
 

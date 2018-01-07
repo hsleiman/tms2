@@ -9,7 +9,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 @Embeddable
 public class QuestionChoice {

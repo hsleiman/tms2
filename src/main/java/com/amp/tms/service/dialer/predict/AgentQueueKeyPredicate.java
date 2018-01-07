@@ -16,7 +16,7 @@ import java.util.Set;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class AgentQueueKeyPredicate implements KeyPredicate<AgentQueueKey>, DataSerializable {
 

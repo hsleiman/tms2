@@ -39,7 +39,7 @@ import org.springframework.util.MimeTypeUtils;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Service
 public class BiStoreService {

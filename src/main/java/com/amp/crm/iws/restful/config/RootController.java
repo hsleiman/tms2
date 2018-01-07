@@ -16,7 +16,7 @@ import org.springframework.web.context.ServletContextAware;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 @Controller
 public class RootController implements ServletContextAware{

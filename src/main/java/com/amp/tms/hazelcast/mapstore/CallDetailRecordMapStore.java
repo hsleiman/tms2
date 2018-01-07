@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Repository(CALL_DETAIL_RECORD_MAP_STORE_BEAN_NAME)
 public class CallDetailRecordMapStore implements MapStore<String, CallDetailRecordTMS>, PostProcessingMapStore {

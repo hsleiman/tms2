@@ -7,7 +7,7 @@ package com.amp.crm.constants;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public class WorkQueueType {
     public static final int WORK_DEFAULT_PORTFOLIO_QUEUE = 0;

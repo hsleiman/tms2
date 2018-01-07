@@ -16,7 +16,7 @@ import org.joda.time.LocalTime;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @SpringAware
 public class VoiceDialer extends AbstractDialer {

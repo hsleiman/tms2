@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @NamedQueries({
         @NamedQuery(

@@ -32,7 +32,7 @@ import org.hibernate.annotations.ForeignKey;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @NamedQueries({
     @NamedQuery(

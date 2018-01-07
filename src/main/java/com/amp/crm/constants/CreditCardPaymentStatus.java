@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 public enum CreditCardPaymentStatus implements EnumInterface<CreditCardPaymentStatus>{
         

@@ -10,7 +10,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public class CustomerCallablePojo {
     private LocalDateTime rightNow;

@@ -11,7 +11,7 @@ import org.hibernate.transform.AliasedTupleSubsetResultTransformer;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class AliasToEntityLinkedMapResultTransformer extends AliasedTupleSubsetResultTransformer {
 

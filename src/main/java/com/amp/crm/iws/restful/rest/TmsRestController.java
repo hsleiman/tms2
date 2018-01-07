@@ -62,7 +62,7 @@ import java.util.Set;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @RestController()
 @RequestMapping(value = "/tmsRestController", produces = MediaType.APPLICATION_JSON_VALUE)

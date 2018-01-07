@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  * @param <Key>
  * @param <Value>
  */

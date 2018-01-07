@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @RestController()
 @RequestMapping(value = "/amsRestController", produces = MediaType.APPLICATION_JSON_VALUE)

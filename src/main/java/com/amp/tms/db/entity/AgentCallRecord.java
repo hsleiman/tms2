@@ -23,7 +23,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @NamedNativeQueries({
     @NamedNativeQuery(name = "AgentCallRecord.AgentCallReport",

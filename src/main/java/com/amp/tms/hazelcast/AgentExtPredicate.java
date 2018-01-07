@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class AgentExtPredicate implements Predicate<AgentQueueKey, WeightedPriority>, DataSerializable {
 

@@ -14,7 +14,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public class CallLogLeg implements Comparable<CallLogLeg> {
 

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @Repository
 public class CallQualityManagementRepository {

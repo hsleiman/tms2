@@ -7,7 +7,7 @@ package com.amp.tms.enumerated;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public enum DncStatus {
     ACTIVE, EXPIRED;

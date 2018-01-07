@@ -47,7 +47,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Service(AgentStatsService.BEAN_NAME)
 public class AgentStatsService {

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 @NamedQueries({
     @NamedQuery(

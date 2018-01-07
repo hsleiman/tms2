@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Repository(DIALER_STATS_MAP_STORE_BEAN_NAME)
 public class DialerStatsMapStore implements MapStore<Long, DialerStats>, PostProcessingMapStore {

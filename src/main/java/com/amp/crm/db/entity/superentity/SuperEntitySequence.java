@@ -13,7 +13,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  * 
  */
 @MappedSuperclass

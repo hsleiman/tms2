@@ -18,7 +18,7 @@ import org.joda.time.LocalTime;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @Embeddable
 public class AccountData {

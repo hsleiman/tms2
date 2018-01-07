@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class QRateKey implements PartitionAware<Integer>, DataSerializable {
 

@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class QSums implements DataSerializable {
 

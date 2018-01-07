@@ -27,7 +27,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @Entity
 @Table(schema = "sti")

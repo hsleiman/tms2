@@ -10,7 +10,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @XmlRootElement
 public class WebFaultBean {

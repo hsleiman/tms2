@@ -8,7 +8,7 @@ package com.amp.crm.constants;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 public enum QuestionType {
  

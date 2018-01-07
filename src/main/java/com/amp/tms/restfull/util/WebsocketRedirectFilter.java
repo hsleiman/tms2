@@ -22,7 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class WebsocketRedirectFilter extends OncePerRequestFilter {
 

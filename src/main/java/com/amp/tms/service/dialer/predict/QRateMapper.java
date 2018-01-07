@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class QRateMapper implements
         Mapper<AgentQueueKey, AgentWeightedPriority, QRateKey, QSums>,

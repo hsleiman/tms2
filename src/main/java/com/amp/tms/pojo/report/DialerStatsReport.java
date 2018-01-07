@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class DialerStatsReport {
 

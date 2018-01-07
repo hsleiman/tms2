@@ -27,7 +27,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @AuditTable(value = "questionnaire_answer_history", schema = "sti")

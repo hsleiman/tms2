@@ -14,7 +14,7 @@ import org.codehaus.jackson.type.TypeReference;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 public class JSONUtils {
 

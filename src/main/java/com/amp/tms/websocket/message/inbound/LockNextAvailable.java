@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * {function:"LOCK_NEXT_AVAILABLE" , lockNextAvailable:{callUUID:"blah",groupPk:45}}
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class LockNextAvailable implements Serializable {
 

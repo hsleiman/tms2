@@ -7,7 +7,7 @@ package com.amp.tms.restfull.pojo;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class ReportData {
 
