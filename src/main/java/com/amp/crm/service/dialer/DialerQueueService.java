@@ -5,6 +5,12 @@
  */
 package com.amp.crm.service.dialer;
 
+import com.amp.crm.constants.CallRoutingOption;
+import com.amp.crm.constants.CallTimeCode;
+import com.amp.crm.constants.CallerId;
+import com.amp.crm.constants.DialerMode;
+import com.amp.crm.constants.DialerQueueSourceType;
+import com.amp.crm.constants.DialerQueueType;
 import com.hazelcast.core.IAtomicLong;
 import com.objectbrains.config.General;
 import com.objectbrains.dms.iws.EmailInfo;
@@ -60,7 +66,38 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.amp.crm.constants.DialerQueueType.OUTBOUND;
-import javax.persistence.EntityNotFoundException;
+import com.amp.crm.constants.IncomingCallAgent;
+import com.amp.crm.constants.PhoneNumberType;
+import com.amp.crm.constants.PopupDisplayMode;
+import com.amp.crm.constants.PreviewDialerType;
+import com.amp.crm.constants.WorkLogTypes;
+import com.amp.crm.db.entity.base.dialer.DialerQueryHistory;
+import com.amp.crm.db.entity.base.dialer.DialerQueue;
+import com.amp.crm.db.entity.base.dialer.DialerQueueGroupAssociation;
+import com.amp.crm.db.entity.base.dialer.DialerQueueSettings;
+import com.amp.crm.db.entity.base.dialer.DialerSettingsHistory;
+import com.amp.crm.db.entity.base.dialer.HoldMusic;
+import com.amp.crm.db.entity.base.dialer.InboundDialerQueue;
+import com.amp.crm.db.entity.base.dialer.InboundDialerQueueSettings;
+import com.amp.crm.db.entity.base.dialer.OutboundDialerQueue;
+import com.amp.crm.db.entity.base.dialer.OutboundDialerQueueSettings;
+import com.amp.crm.db.entity.base.dialer.OutboundDialerRecord;
+import com.amp.crm.db.entity.base.dialer.StiCallerId;
+import com.amp.crm.db.entity.base.dialer.VoiceRecording;
+import com.amp.crm.embeddable.AccountData;
+import com.amp.crm.embeddable.AgentCallOrder;
+import com.amp.crm.embeddable.AgentWeightPriority;
+import com.amp.crm.embeddable.DialerQueueDetails;
+import com.amp.crm.embeddable.InboundDialerQueueRecord;
+import com.amp.crm.embeddable.WeightedPriority;
+import com.amp.crm.pojo.AccountCustomerName;
+import com.amp.crm.pojo.BestTimeToCallPojo;
+import com.amp.crm.pojo.DialerQueueGroup;
+import com.amp.crm.pojo.DialerQueueRecord;
+import com.amp.crm.pojo.NationalPhoneNumber;
+import com.amp.crm.pojo.QueueAgentWeightPriority;
+import com.amp.crm.pojo.QueuePkName;
+import com.amp.crm.pojo.QueueRunningStatus;
 
 /**
  * @author David

@@ -21,6 +21,16 @@ import com.amp.crm.db.repository.disposition.CallDispositionRepository;
 import com.amp.crm.db.repository.qaform.CallQualityManagementRepository;
 import com.amp.crm.embeddable.DialerQueueDetails;
 import com.amp.crm.exception.StiException;
+import com.amp.crm.pojo.BestTimeToCallCluster;
+import com.amp.crm.pojo.BestTimeToCallPojo;
+import com.amp.crm.pojo.CallDetailRecordResult;
+import com.amp.crm.pojo.CallHistoryCriteria;
+import com.amp.crm.pojo.CallLogLeg;
+import com.amp.crm.pojo.NationalPhoneNumber;
+import com.amp.crm.pojo.PhoneNumberAccountData;
+import com.amp.crm.pojo.TMSBasicAccountInfo;
+import com.amp.crm.pojo.TMSCallDetails;
+import com.amp.crm.pojo.WorkCallLogPojo;
 import com.amp.crm.service.dialer.DialerQueueService;
 import com.amp.crm.service.utility.PhoneUtils;
 import java.sql.Timestamp;
@@ -565,16 +575,12 @@ public class TMSService {
         Integer defaultExtension = companyInfo.getCustomerServicePhoneExtension();
         callDetails.setDefaultExtension(defaultExtension == null ? 1001 : defaultExtension);
         if (callDetails.getDialerQueuePk() == null) {
-            try {
-                DialerQueueDetails dq = dqService.getDefaultInboundQueue();
-                InboundDialerQueueSettings settings = dqService.getInboundDQSettingsByDQPk(dq.getPk());
-                if (settings != null) {
-                    callDetails.setDialerQueuePk(dq.getPk());
-                    callDetails.setAutoAnswerEnabled(settings.isAutoAnswerEnabled());
-                    callDetails.setPopupDisplayMode(settings.getPopupDisplayMode());
-                }
-            } catch (StiException ex) {
-                LOG.error("Error getting default inbound queue: ", ex);
+            DialerQueueDetails dq = dqService.getDefaultInboundQueue();
+            InboundDialerQueueSettings settings = dqService.getInboundDQSettingsByDQPk(dq.getPk());
+            if (settings != null) {
+                callDetails.setDialerQueuePk(dq.getPk());
+                callDetails.setAutoAnswerEnabled(settings.isAutoAnswerEnabled());
+                callDetails.setPopupDisplayMode(settings.getPopupDisplayMode());
             }
         }
 //        SvCollectionQueue queue = callDetails.getSvCollectionQueue();
