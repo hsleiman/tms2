@@ -20,7 +20,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Entity(name = "AgentStats")
 @Table(schema = "sti")

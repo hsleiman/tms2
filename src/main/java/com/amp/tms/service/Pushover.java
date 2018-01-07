@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Service
 public class Pushover {

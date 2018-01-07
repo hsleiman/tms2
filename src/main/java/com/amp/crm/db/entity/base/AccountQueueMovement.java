@@ -22,7 +22,7 @@ import org.hibernate.annotations.ForeignKey;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @Entity
 @Table(schema = "sti")

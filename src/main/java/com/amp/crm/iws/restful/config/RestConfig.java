@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 @Configuration
 @EnableAspectJAutoProxy

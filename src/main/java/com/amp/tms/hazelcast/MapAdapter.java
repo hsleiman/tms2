@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class MapAdapter<K, V> extends HashMap<K, V> implements DataSerializable {
 

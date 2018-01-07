@@ -28,7 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 @Path("/report")
 @Produces(MediaType.APPLICATION_JSON)

@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

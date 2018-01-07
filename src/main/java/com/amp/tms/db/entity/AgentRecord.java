@@ -26,7 +26,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Entity(name = "AgentRecord")
 @Table(schema = "sti")

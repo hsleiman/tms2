@@ -19,7 +19,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 @NamedQueries({
     @NamedQuery(

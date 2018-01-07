@@ -32,7 +32,7 @@ import org.springframework.util.StopWatch;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  * // * @param <VariableContext> a variable context
  */
 public class AbandonCallSolver {

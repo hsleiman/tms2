@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 @Entity(name = "DialerScheduleTms")
 @Table(schema = "sti")

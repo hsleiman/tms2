@@ -20,7 +20,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 @QuartzJob(name = StartDialerJob.NAME, group = StartDialerJob.GROUP)
 public class StartDialerJob extends QuartzJobBean {

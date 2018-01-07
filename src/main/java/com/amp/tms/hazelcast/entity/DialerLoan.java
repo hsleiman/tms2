@@ -17,7 +17,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @MappedSuperclass
 public class DialerLoan implements DataSerializable {

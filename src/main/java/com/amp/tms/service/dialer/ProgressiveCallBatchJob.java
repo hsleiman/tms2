@@ -27,7 +27,7 @@ import org.springframework.core.task.AsyncTaskExecutor;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 @DisallowConcurrentExecution
 public class ProgressiveCallBatchJob extends DialerQuartzJob {

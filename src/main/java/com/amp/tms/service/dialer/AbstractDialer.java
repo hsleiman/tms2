@@ -71,7 +71,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public abstract class AbstractDialer implements Dialer, DataSerializable, InitializingBean {
 

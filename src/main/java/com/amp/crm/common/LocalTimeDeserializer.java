@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public class LocalTimeDeserializer extends StdDeserializer<LocalTime> {
 

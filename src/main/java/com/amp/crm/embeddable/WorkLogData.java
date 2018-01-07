@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)

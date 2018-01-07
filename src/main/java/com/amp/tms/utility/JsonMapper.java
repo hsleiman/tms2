@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Component("objectMapper")
 public class JsonMapper extends ObjectMapper{

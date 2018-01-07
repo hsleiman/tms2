@@ -13,7 +13,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public abstract class DialerQuartzJob extends QuartzJobBean {
 

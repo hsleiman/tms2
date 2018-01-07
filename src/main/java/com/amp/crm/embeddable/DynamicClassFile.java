@@ -11,7 +11,7 @@ import javax.persistence.MappedSuperclass;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @MappedSuperclass
 public class DynamicClassFile {

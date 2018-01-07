@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @QuartzJob(name = RetryCallJob.NAME, group = RetryCallJob.GROUP)
 public class RetryCallJob extends DialerQuartzJob {

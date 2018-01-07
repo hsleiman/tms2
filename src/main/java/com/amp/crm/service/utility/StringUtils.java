@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
 

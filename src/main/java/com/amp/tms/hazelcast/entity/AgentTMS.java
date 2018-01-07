@@ -19,7 +19,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Embeddable
 public class AgentTMS implements Serializable {

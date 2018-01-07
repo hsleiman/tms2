@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Entity
 @Table(schema = "sti")

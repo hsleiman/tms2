@@ -19,7 +19,7 @@ import org.joda.time.LocalDate;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 @Embeddable
 public class BankDetails {

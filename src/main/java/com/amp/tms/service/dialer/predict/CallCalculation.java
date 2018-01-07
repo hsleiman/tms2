@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class CallCalculation implements Callable<Integer>, DataSerializable {
 

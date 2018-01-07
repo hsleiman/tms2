@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public enum DialerType {
 

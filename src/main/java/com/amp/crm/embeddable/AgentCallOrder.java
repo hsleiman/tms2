@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @Embeddable
 public class AgentCallOrder {

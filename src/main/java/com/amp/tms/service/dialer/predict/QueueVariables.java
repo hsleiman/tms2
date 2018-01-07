@@ -7,7 +7,7 @@ package com.amp.tms.service.dialer.predict;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class QueueVariables {
 

@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public class WorkPortfolioType {
     //#773 Clean up servicing statuses.

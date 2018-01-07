@@ -21,7 +21,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @Embeddable
 public class DialerQueueDetails {

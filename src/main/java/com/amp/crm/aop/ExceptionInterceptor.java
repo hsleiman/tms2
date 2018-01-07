@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author raine.cabal, agoodman copied from Raine's interceptor in svc project
+ * @author HS 
  */
 @Component
 @Aspect

@@ -36,7 +36,7 @@ import org.springframework.util.ReflectionUtils;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class StringToCDRConverter implements Converter<String, CDR>, MessageBodyReader<CDR> {
 

@@ -38,7 +38,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 @Service
 public class DocumentManagerOWSImpl implements DocumentManagerOWS {

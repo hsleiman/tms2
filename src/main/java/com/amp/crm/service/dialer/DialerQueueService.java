@@ -63,7 +63,7 @@ import static com.amp.crm.constants.DialerQueueType.OUTBOUND;
 import javax.persistence.EntityNotFoundException;
 
 /**
- * @author David
+ * @author Hoang, J, Bishistha
  */
 @Service
 @Transactional

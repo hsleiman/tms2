@@ -12,7 +12,7 @@ import com.amp.tms.pojo.AgentStatus;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class QueueAgentStatus extends AgentStatus {
 

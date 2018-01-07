@@ -30,7 +30,7 @@ import org.springframework.util.ResourceUtils;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 @Path("/upload")
 public class UploadRest {

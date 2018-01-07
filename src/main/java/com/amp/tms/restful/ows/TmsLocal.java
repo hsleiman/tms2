@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Path("/freeswitch")
 public interface TmsLocal {

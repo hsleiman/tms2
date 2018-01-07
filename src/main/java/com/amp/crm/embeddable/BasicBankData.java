@@ -13,7 +13,7 @@ import org.springframework.beans.BeanUtils;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 @Embeddable
 public class BasicBankData implements Cloneable {

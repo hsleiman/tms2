@@ -12,7 +12,7 @@ import com.amp.tms.websocket.message.Function;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class WebsocketConfig extends ConfigurationUtility {
 

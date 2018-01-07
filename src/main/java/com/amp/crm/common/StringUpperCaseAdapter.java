@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 public class StringUpperCaseAdapter extends XmlAdapter<String, String> {
 

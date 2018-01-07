@@ -80,7 +80,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 @Service
 public class WebsocketService {

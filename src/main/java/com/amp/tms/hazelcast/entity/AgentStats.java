@@ -23,7 +23,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Embeddable
 public class AgentStats implements DataSerializable {

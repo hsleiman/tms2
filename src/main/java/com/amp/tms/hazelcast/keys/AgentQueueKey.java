@@ -15,7 +15,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Embeddable
 public class AgentQueueKey implements PartitionAware<Integer>, Serializable, DataSerializable {

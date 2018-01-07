@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class DialerRunStats {
 

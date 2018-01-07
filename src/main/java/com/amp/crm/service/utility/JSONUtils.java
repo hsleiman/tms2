@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public class JSONUtils {
 

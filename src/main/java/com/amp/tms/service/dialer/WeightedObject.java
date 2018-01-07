@@ -7,7 +7,7 @@ package com.amp.tms.service.dialer;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public interface WeightedObject {
     public double getWeight();

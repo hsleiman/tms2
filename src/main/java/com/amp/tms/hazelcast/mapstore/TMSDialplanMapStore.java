@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Repository(TMS_DIALPLAN_MAP_STORE_BEAN_NAME)
 public class TMSDialplanMapStore implements MapStore<TMSDialplanKey, TMSDialplan>, PostProcessingMapStore {

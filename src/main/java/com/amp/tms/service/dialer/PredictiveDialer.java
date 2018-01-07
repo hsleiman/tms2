@@ -31,7 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @SpringAware
 public class PredictiveDialer extends AbstractDialer {

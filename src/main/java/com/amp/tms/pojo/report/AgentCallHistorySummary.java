@@ -7,7 +7,7 @@ package com.amp.tms.pojo.report;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class AgentCallHistorySummary {
 

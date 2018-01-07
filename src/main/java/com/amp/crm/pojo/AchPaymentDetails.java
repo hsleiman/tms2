@@ -14,7 +14,7 @@ import com.amp.crm.embeddable.EftPaymentBasicData;
 
 /**
  *
- * @author raine.cabal
+ * @author HS
  */
 public class AchPaymentDetails {
 

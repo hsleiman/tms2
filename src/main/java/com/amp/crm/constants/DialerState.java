@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  *
- * @author David
+ * @author Hoang, J, Bishistha
  */
 public enum DialerState {
 

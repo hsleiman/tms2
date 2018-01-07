@@ -21,7 +21,7 @@ import org.apache.commons.math3.util.FastMath;
  * g'(x) = (a(x+e^x+1)+b)*(e^x)/(1+e^x)^2<br>
  * h'(x) = g'(bx+c)*b<br>
  *
- * @author Connor Petty <cpmeister@users.sourceforge.net>
+ * @author HS
  */
 public class AbandonCallAproxFunction implements UnivariateFunction {
 

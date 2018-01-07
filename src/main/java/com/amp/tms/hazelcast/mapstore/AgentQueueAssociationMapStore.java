@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 @Repository(AGENT_QUEUE_ASSOCIATION_MAP_STORE_BEAN_NAME)
 public class AgentQueueAssociationMapStore implements MapStore<AgentQueueKey, AgentWeightedPriority> {

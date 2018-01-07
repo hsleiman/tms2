@@ -7,7 +7,7 @@ package com.amp.tms.service.dialer;
 
 /**
  *
- * @author connorpetty
+ * @author Hoang, J, Bishistha
  */
 public class DialerException extends Exception {
 
