@@ -12,47 +12,47 @@ import javax.xml.ws.WebFault;
  * @author Hoang, J, Bishistha
  */
 @WebFault(targetNamespace = "http://exception.svc.objectbrains.com")
-public class StiRuntimeException extends RuntimeException {
+public class CrmRuntimeException extends RuntimeException {
 
     protected WebFaultBean faultInfo;
 
-    public StiRuntimeException() {
+    public CrmRuntimeException() {
         this.faultInfo = new WebFaultBean();
     }
 
-    public StiRuntimeException(String message, int faultCode) {
+    public CrmRuntimeException(String message, int faultCode) {
         super(message);
         this.faultInfo = new WebFaultBean(faultCode, message);
     }
 
-    public StiRuntimeException(String message, WebFaultBean faultInfo) {
+    public CrmRuntimeException(String message, WebFaultBean faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
 
-    public StiRuntimeException(String message, Throwable cause, WebFaultBean faultInfo) {
+    public CrmRuntimeException(String message, Throwable cause, WebFaultBean faultInfo) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
 
-    public StiRuntimeException(Throwable cause, WebFaultBean faultInfo) {
+    public CrmRuntimeException(Throwable cause, WebFaultBean faultInfo) {
         super(cause);
         this.faultInfo = faultInfo;
     }
 
-    public StiRuntimeException(Throwable cause) {
+    public CrmRuntimeException(Throwable cause) {
         super(cause);
         this.faultInfo = new WebFaultBean();
         this.faultInfo.setFaultString(cause.getMessage());
     }
 
-    public StiRuntimeException(String message, Throwable cause) {
+    public CrmRuntimeException(String message, Throwable cause) {
         super(message, cause);
         this.faultInfo = new WebFaultBean();
         this.faultInfo.setFaultString(message);
     }
 
-    public StiRuntimeException(String message) {
+    public CrmRuntimeException(String message) {
         super(message);
         this.faultInfo = new WebFaultBean();
         this.faultInfo.setFaultString(message);

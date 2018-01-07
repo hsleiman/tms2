@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  * @author Hoang, J, Bishistha
  */
 @WebFault(targetNamespace = "http://exception.svc.objectbrains.com")
-public class ObjectNotFoundException extends StiRuntimeException {
+public class ObjectNotFoundException extends CrmRuntimeException {
 
 
     public ObjectNotFoundException(long loanPk) {

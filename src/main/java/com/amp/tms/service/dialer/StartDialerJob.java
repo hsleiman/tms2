@@ -6,7 +6,7 @@
 package com.amp.tms.service.dialer;
 
 import com.objectbrains.scheduler.annotation.QuartzJob;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -69,7 +69,7 @@ public class StartDialerJob extends QuartzJobBean {
         try {
             LocalTime endTime = endTimeStr != null ? PARSER.parseLocalTime(endTimeStr) : null;
             dialerService.startQueue(queuePk, endTime);
-        } catch (IllegalArgumentException | StiException | DialerException ex) {
+        } catch (IllegalArgumentException | CrmException | DialerException ex) {
             LOG.error("Error trying to start scheduled dialer {}", queuePk, ex);
         } catch (Exception ex) {
             LOG.error("Error trying to start scheduled dialer {}", queuePk, ex);

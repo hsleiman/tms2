@@ -19,7 +19,7 @@ import com.amp.crm.db.repository.customer.CustomerRepository;
 import com.amp.crm.embeddable.AddressData;
 import com.amp.crm.embeddable.PersonalInformation;
 import com.amp.crm.embeddable.PhoneData;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.exception.WorkQueueNotFoundException;
 import com.amp.crm.pojo.CustomerCallablePojo;
 import com.amp.crm.pojo.CustomerContactInformationPojo;
@@ -88,7 +88,7 @@ public class CustomerService {
         return customerRepo.findCustomerByPk(customerPk);
     }
 
-    public CustomerContactInformationPojo getBorrowerContactInformation(long customerPk) throws StiException {
+    public CustomerContactInformationPojo getBorrowerContactInformation(long customerPk) throws CrmException {
         Customer customer = customerRepo.findCustomerByPk(customerPk);
         Set<Phone> phones = new HashSet<>(customer.getPhones());
         CustomerContactInformationPojo customerContactInfo = new CustomerContactInformationPojo();

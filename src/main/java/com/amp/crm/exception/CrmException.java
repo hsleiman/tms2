@@ -12,46 +12,46 @@ import javax.xml.ws.WebFault;
  * @author Hoang, J, Bishistha
  */
 @WebFault(targetNamespace = "http://exception.sti.objectbrains.com")
-public class StiException  extends Exception{
+public class CrmException  extends Exception{
     protected WebFaultBean faultInfo;
 
-    public StiException() {
+    public CrmException() {
         this.faultInfo = new WebFaultBean();
     }
 
-    public StiException(String message, int faultCode) {
+    public CrmException(String message, int faultCode) {
         super(message);
         this.faultInfo = new WebFaultBean(faultCode, message);
     }
 
-    public StiException(String message, WebFaultBean faultInfo) {
+    public CrmException(String message, WebFaultBean faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
 
-    public StiException(String message, Throwable cause, WebFaultBean faultInfo) {
+    public CrmException(String message, Throwable cause, WebFaultBean faultInfo) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
 
-    public StiException(Throwable cause, WebFaultBean faultInfo) {
+    public CrmException(Throwable cause, WebFaultBean faultInfo) {
         super(cause);
         this.faultInfo = faultInfo;
     }
 
-    public StiException(Throwable cause) {
+    public CrmException(Throwable cause) {
         super(cause);
         this.faultInfo = new WebFaultBean();
         this.faultInfo.setFaultString(cause.getMessage());
     }
 
-    public StiException(String message, Throwable cause) {
+    public CrmException(String message, Throwable cause) {
         super(message, cause);
         this.faultInfo = new WebFaultBean();
         this.faultInfo.setFaultString(message);
     }
 
-    public StiException(String message) {
+    public CrmException(String message) {
         super(message);
         this.faultInfo = new WebFaultBean();
         this.faultInfo.setFaultString(message);

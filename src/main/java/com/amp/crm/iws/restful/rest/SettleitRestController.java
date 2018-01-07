@@ -13,7 +13,7 @@ import com.amp.crm.embeddable.AccountData;
 import com.amp.crm.embeddable.EmailData;
 import com.amp.crm.embeddable.PersonalInformation;
 import com.amp.crm.embeddable.PhoneData;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.pojo.CustomerContactInformationPojo;
 import com.amp.crm.service.core.AccountService;
 import com.amp.crm.service.customer.CustomerService;
@@ -63,25 +63,25 @@ public class SettleitRestController {
     
     @RequestMapping(value = "/createOrUpdateCustomerPhone", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public long createOrUpdateCustomerPhone(@RequestBody PhoneData phoneData) throws StiException {
+    public long createOrUpdateCustomerPhone(@RequestBody PhoneData phoneData) throws CrmException {
         return phoneService.createOrUpdateCustomerPhone(phoneData);
     }
     
     @RequestMapping(value = "/getCustomerPhoneInfo/{customerPk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<PhoneData> getCustomerPhoneInfo(@PathVariable long customerPk) throws StiException{
+    public List<PhoneData> getCustomerPhoneInfo(@PathVariable long customerPk) throws CrmException{
         return phoneService.getCustomerPhoneInfo(customerPk);
     }
     
     @RequestMapping(value = "/createOrUpdateCustomerEmail", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public long createOrUpdateCustomerEmail(@RequestBody EmailData emailData) throws StiException {
+    public long createOrUpdateCustomerEmail(@RequestBody EmailData emailData) throws CrmException {
         return emailService.createOrUpdateCustomerEmail(emailData);
     }
     
     @RequestMapping(value = "/getCustomerEmailInfo/{customerPk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<EmailData> getCustomerEmailInfo(@PathVariable long customerPk) throws StiException{
+    public List<EmailData> getCustomerEmailInfo(@PathVariable long customerPk) throws CrmException{
         return emailService.getEmailAddressForCustomer(customerPk);
     }
 
@@ -99,7 +99,7 @@ public class SettleitRestController {
     
       @RequestMapping(value = "/getCustomerContactInformation/{customerPk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public CustomerContactInformationPojo getCustomerContactInformation(@PathVariable long customerPk) throws StiException{
+    public CustomerContactInformationPojo getCustomerContactInformation(@PathVariable long customerPk) throws CrmException{
         return customerService.getBorrowerContactInformation(customerPk);
     }
 

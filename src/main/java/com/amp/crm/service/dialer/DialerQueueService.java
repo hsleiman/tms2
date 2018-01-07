@@ -33,7 +33,7 @@ import com.amp.crm.db.repository.account.WorkQueueRepository;
 import com.amp.crm.db.repository.customer.CustomerRepository;
 import com.amp.crm.db.repository.dialer.DialerQueueRepository;
 import com.amp.crm.exception.AccountNotInQueueException;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.ows.DocumentManagerOWS;
 import com.amp.crm.service.tms.CallDispositionService;
 import com.amp.crm.service.tms.DialerGroupService;
@@ -147,12 +147,12 @@ public class DialerQueueService {
     @Autowired
     private DialerAccountPhoneData dialerAccountPhoneData;
 
-    public DialerQueueDetails createDialerQueue(String queueName, String sqlQuery, DialerQueueType dqType) throws StiException {
+    public DialerQueueDetails createDialerQueue(String queueName, String sqlQuery, DialerQueueType dqType) throws CrmException {
         return instantiateDialerQueue(queueName, sqlQuery, dqType, DialerQueueSourceType.SQL).getDialerQueueDetails();
     }
 
     @SuppressWarnings("unchecked")
-    public DialerQueueDetails createDialerQueueFromQuery(String query, DialerQueueType dqType) throws StiException {
+    public DialerQueueDetails createDialerQueueFromQuery(String query, DialerQueueType dqType) throws CrmException {
         validateQuery(query, null, dqType);
         //query = queryBuilderService.createOrUpdateQuery(query, Collections.EMPTY_LIST);
         //TO DO Run given input query and associate result set of loans with Dialer Queue
@@ -163,10 +163,10 @@ public class DialerQueueService {
         return null;
     }
 
-    public DialerQueueDetails createDialerQueueFromCollectionQueue(long workQueuePk, DialerQueueType dqType) throws StiException {
+    public DialerQueueDetails createDialerQueueFromCollectionQueue(long workQueuePk, DialerQueueType dqType) throws CrmException {
         DialerQueue queue = dqRepo.findDialerQueueWithWorkQueuePk(workQueuePk, dqType);
         if (queue != null) {
-            throw new StiException("Collection Queue is already assigned to Dialer Queue " + queue.getPk());
+            throw new CrmException("Collection Queue is already assigned to Dialer Queue " + queue.getPk());
         }
         WorkQueue cq = workQueueRepo.getWorkQueue(workQueuePk);
         String sqlQuery = generateSqlQueryForWorkQueue(workQueuePk);
@@ -176,13 +176,13 @@ public class DialerQueueService {
         return queue.getDialerQueueDetails();
     }
 
-    public DialerQueueDetails createDialerQueueFromDestinationNumber(String queueName, String query) throws StiException {
+    public DialerQueueDetails createDialerQueueFromDestinationNumber(String queueName, String query) throws CrmException {
         DialerQueue queue = instantiateDialerQueue(queueName, "", DialerQueueType.INBOUND, DialerQueueSourceType.DESTINATION_NUMBER);
         queue.getDialerQueueDetails().setDestinationNumbers(query);
         return queue.getDialerQueueDetails();
     }
 
-    private DialerQueue instantiateDialerQueue(String queueName, String sqlQuery, DialerQueueType dqType, DialerQueueSourceType queueSourceType) throws StiException {
+    private DialerQueue instantiateDialerQueue(String queueName, String sqlQuery, DialerQueueType dqType, DialerQueueSourceType queueSourceType) throws CrmException {
         DialerQueueDetails dqDetails = new DialerQueueDetails();
         dqDetails.setDialerQueueType(dqType);
         dqDetails.setQueueName(queueName);
@@ -210,7 +210,7 @@ public class DialerQueueService {
     }
 
     @SuppressWarnings("unchecked")
-    public DialerQueueDetails updateDialerQueue(DialerQueueDetails dqDetails) throws StiException {
+    public DialerQueueDetails updateDialerQueue(DialerQueueDetails dqDetails) throws CrmException {
         DialerQueue queue = findExistingDq(dqDetails);
         if (queue == null) {
             queue = dqRepo.locateDialerQueueByPk(dqDetails.getPk());
@@ -234,15 +234,15 @@ public class DialerQueueService {
 
         dqDetails.setDialerQueueSourceType(queue.getDialerQueueDetails().getDialerQueueSourceType());
         if (dqDetails.getQueryPk() == null && StringUtils.isBlank(dqDetails.getSqlQuery()) && dqDetails.getWorkQueuePk() == null && StringUtils.isBlank(dqDetails.getDestinationNumbers())) {
-            throw new StiException("Dialer Queue should either be based on query, custom sql, destination number or work queue.");
+            throw new CrmException("Dialer Queue should either be based on query, custom sql, destination number or work queue.");
         }
         boolean isQueryBased = dqDetails.getQueryPk() != null || (dqDetails.getTableGroupPk() != null && !CollectionUtils.isEmpty(dqDetails.getCriteriaSetPks()));
         if (dqDetails.getWorkQueuePk() != null && isQueryBased) {
-            throw new StiException("Dialer Queue cannot be assigned to both query and work queue.");
+            throw new CrmException("Dialer Queue cannot be assigned to both query and work queue.");
         }
         WorkQueue workQueue = queue.getWorkQueue();
         if (workQueue != null && workQueue.getPk() != dqDetails.getWorkQueuePk()) {
-            throw new StiException("Cannot update dialer queue. It is associated with work queue [" + workQueue.getWorkQueueData().getQueueName() + "].");
+            throw new CrmException("Cannot update dialer queue. It is associated with work queue [" + workQueue.getWorkQueueData().getQueueName() + "].");
         }
         /*Query query = queue.getQuery();
          if (isQueryBased) {
@@ -263,7 +263,7 @@ public class DialerQueueService {
          }
          long queueCount = queue.getDialerQueueDetails().getAccountCount();
          if (dqDetails.isActive() != null && !dqDetails.isActive() && queueCount > 0) {
-         throw new StiException("Cannot deactivate Dialer Queue. " + queueCount + " account(s) currently exist/s in the queue.");
+         throw new CrmException("Cannot deactivate Dialer Queue. " + queueCount + " account(s) currently exist/s in the queue.");
          }
          if (queue.getDialerQueueDetails().getDialerQueueSourceType() != DialerQueueSourceType.DESTINATION_NUMBER) {
          dqDetails.setAccountCount(updateSqlQueryForDQ(queue, dqDetails.getSqlQuery()));
@@ -295,14 +295,14 @@ public class DialerQueueService {
         return dqDetails;
     }
 
-    private void validateQuery(String query, Long queuePk, DialerQueueType dqType) throws StiException {
+    private void validateQuery(String query, Long queuePk, DialerQueueType dqType) throws CrmException {
         /*DialerQueue existing = dqRepo.findDialerQueueWithQueryPk(query.getPk(), dqType);
          if (existing != null && (queuePk == null || existing.getPk() != queuePk)) {
-         throw new StiException("Cannot update dialer queue. Query " + query.getName() + " is already referenced by dialer queue " + existing.getDialerQueueDetails().getQueueName());
+         throw new CrmException("Cannot update dialer queue. Query " + query.getName() + " is already referenced by dialer queue " + existing.getDialerQueueDetails().getQueueName());
          }*/
     }
 
-    private DialerQueueSettings instantiateDQSettings(DialerQueueDetails dqDetails) throws StiException {
+    private DialerQueueSettings instantiateDQSettings(DialerQueueDetails dqDetails) throws CrmException {
         DialerQueueSettings dqSettings;
         if (dqDetails.getDialerQueueType() == DialerQueueType.INBOUND) {
             dqSettings = new InboundDialerQueueSettings();
@@ -314,24 +314,24 @@ public class DialerQueueService {
         return dqSettings;
     }
 
-    public String generateSqlQueryForWorkQueue(long workQueuePk) throws StiException {
+    public String generateSqlQueryForWorkQueue(long workQueuePk) throws CrmException {
         WorkQueue queue = workQueueRepo.getWorkQueue(workQueuePk);
         return "SELECT sv_account.pk FROM svc.sv_account WHERE sv_account.work_queue_pk = " + workQueuePk;
     }
 
-    private DialerQueue findExistingDq(DialerQueueDetails dqDetails) throws StiException {
+    private DialerQueue findExistingDq(DialerQueueDetails dqDetails) throws CrmException {
         if (dqDetails == null) {
-            throw new StiException("Please provide the dialer queue details");
+            throw new CrmException("Please provide the dialer queue details");
         }
         if (StringUtils.isBlank(dqDetails.getQueueName())) {
-            throw new StiException("Please provide a name for the dialer queue.");
+            throw new CrmException("Please provide a name for the dialer queue.");
         }
         if (dqDetails.getDialerQueueType() == null) {
-            throw new StiException("Please provide dialer queue type");
+            throw new CrmException("Please provide dialer queue type");
         }
         DialerQueue existingDq = dqRepo.locateDialerQueueByNameAndType(dqDetails.getQueueName(), dqDetails.getDialerQueueType());
         if (existingDq != null && existingDq.getPk() != dqDetails.getPk()) {
-            throw new StiException("Found DialerQueue with the same name: " + dqDetails.getQueueName());
+            throw new CrmException("Found DialerQueue with the same name: " + dqDetails.getQueueName());
         }
         return existingDq;
     }
@@ -340,7 +340,7 @@ public class DialerQueueService {
         return dqRepo.locateDialerQueueByNameAndType(queueName, dqType);
     }
 
-    public DialerQueueSettings createOrUpdateDQSettings(DialerQueueSettings dqSettings) throws StiException {
+    public DialerQueueSettings createOrUpdateDQSettings(DialerQueueSettings dqSettings) throws CrmException {
         String username = ThreadAttributes.getUserData(ThreadAttributes.get("agent.username")).getUserName();
         EmailInfo info = new EmailInfo();
         String sender;
@@ -358,7 +358,7 @@ public class DialerQueueService {
         }
 
         if (dqSettings == null) {
-            throw new StiException("Please provide the Dialer Queue settings.");
+            throw new CrmException("Please provide the Dialer Queue settings.");
         }
         DialerQueue queue = dqRepo.locateDialerQueueByPk(dqSettings.getDialerQueuePk());
         if (queue.getDialerQueueSettings() == null) {
@@ -491,13 +491,13 @@ public class DialerQueueService {
         }
     }
 
-    public DialerQueueDetails getDialerQueueByPk(long dqPk) throws StiException {
+    public DialerQueueDetails getDialerQueueByPk(long dqPk) throws CrmException {
         DialerQueue dq = dqRepo.locateDialerQueueByPk(dqPk);
         dq.getDialerQueueDetails().setPk(dq.getPk());
         return dq.getDialerQueueDetails();
     }
 
-    //    public void removeAccountFromDialerQueue(long accountPk) throws StiException {
+    //    public void removeAccountFromDialerQueue(long accountPk) throws CrmException {
 //        Account accountData = accountRepo.locateByAccountPk(accountPk);
 //        DialerQueue queue = accountData.getDialerQueue();
 //        if (queue != null) {
@@ -507,18 +507,18 @@ public class DialerQueueService {
 //            LOG.debug("Account [{}] has been removed to dialer queue {}", accountPk, queue.getDialerQueueDetails().getQueueName());
 //        }
 //    }
-    public List<Long> getDialerQueueAccounts(long dqPk) throws StiException {
+    public List<Long> getDialerQueueAccounts(long dqPk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(dqPk);
         return DialerQueueService.this.getDialerQueueAccounts(queue);
     }
 
-    List<Long> getDialerQueueAccounts(DialerQueue queue) throws StiException {
+    List<Long> getDialerQueueAccounts(DialerQueue queue) throws CrmException {
         //updateDQFromQueryBuilder(queue);
         return dqRepo.getDialerQueueAccounts(queue.getPk());
     }
 
     //check if criteria set/query has been updated
-    private long updateSqlQueryForDQ(DialerQueue queue, String newSqlQuery) throws StiException {
+    private long updateSqlQueryForDQ(DialerQueue queue, String newSqlQuery) throws CrmException {
         if (!newSqlQuery.equals(queue.getDialerQueueDetails().getSqlQuery())) {
             LOG.info("Query changed for DQ: {}", queue.getDialerQueueDetails().getQueueName());
             queue.getDialerQueueDetails().setSqlQuery(newSqlQuery);
@@ -568,31 +568,31 @@ public class DialerQueueService {
         return dqRepo.getDialerQueueSettings();
     }
 
-    public DialerQueueSettings getDialerQueueSettingsByDQPk(long queuePk) throws StiException {
+    public DialerQueueSettings getDialerQueueSettingsByDQPk(long queuePk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(queuePk);
         return queue.getDialerQueueSettings();
     }
 
-    public InboundDialerQueueSettings getInboundDQSettingsByDQPk(long queuePk) throws StiException {
+    public InboundDialerQueueSettings getInboundDQSettingsByDQPk(long queuePk) throws CrmException {
         return (InboundDialerQueueSettings) getDialerQueueSettingsByPkAndType(queuePk, DialerQueueType.INBOUND);
     }
 
-    public OutboundDialerQueueSettings getOutboundDQSettingsByDQPk(long queuePk) throws StiException {
+    public OutboundDialerQueueSettings getOutboundDQSettingsByDQPk(long queuePk) throws CrmException {
         return (OutboundDialerQueueSettings) getDialerQueueSettingsByPkAndType(queuePk, OUTBOUND);
     }
 
-    private DialerQueueSettings getDialerQueueSettingsByPkAndType(long queuePk, DialerQueueType dqType) throws StiException {
+    private DialerQueueSettings getDialerQueueSettingsByPkAndType(long queuePk, DialerQueueType dqType) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(queuePk);
         DialerQueueDetails queueDetails = queue.getDialerQueueDetails();
         if (queueDetails.getDialerQueueType() != dqType) {
-            throw new StiException("DialerQueue " + queueDetails.getQueueName() + " is not an " + dqType.name() + " queue.");
+            throw new CrmException("DialerQueue " + queueDetails.getQueueName() + " is not an " + dqType.name() + " queue.");
         }
         return queue.getDialerQueueSettings();
     }
 
-    public List<Long> updateSqlQueryForDQ(long dqPk, String sqlQuery) throws StiException {
+    public List<Long> updateSqlQueryForDQ(long dqPk, String sqlQuery) throws CrmException {
         if (StringUtils.isBlank(sqlQuery)) {
-            throw new StiException("Please provide the sql query.");
+            throw new CrmException("Please provide the sql query.");
         }
         DialerQueue dq = dqRepo.locateDialerQueueByPk(dqPk);
         updateSqlQueryForDQ(dq, sqlQuery);
@@ -636,14 +636,14 @@ public class DialerQueueService {
         return dqRepo.getAllWorkQueues();
     }
 
-    public InboundDialerQueueRecord getInboundDialerQueueRecord(long dqPk) throws StiException {
+    public InboundDialerQueueRecord getInboundDialerQueueRecord(long dqPk) throws CrmException {
         InboundDialerQueueRecord dqRecord = new InboundDialerQueueRecord(dqPk);
         instantiateDialerQueueRecord(dqPk, dqRecord);
         return dqRecord;
     }
 
     @SuppressWarnings("unchecked")
-    <T extends DialerQueueSettings> DialerQueue instantiateDialerQueueRecord(long dqPk, DialerQueueRecord<T> dqRecord) throws StiException {
+    <T extends DialerQueueSettings> DialerQueue instantiateDialerQueueRecord(long dqPk, DialerQueueRecord<T> dqRecord) throws CrmException {
         LocalDateTime start = new LocalDateTime();
         DialerQueue queue = dqRepo.locateDialerQueueByPk(dqPk);
         DialerQueueGroupAssociation assoc = dqRepo.getQueueGroupAssociationByDialerQueue(queue);
@@ -702,12 +702,12 @@ public class DialerQueueService {
         return agentWeightPriorityList;
     }
 
-    public List<AgentWeightPriority> getAgentWeightPriorityListForGroup(long dialerGroupPk) throws StiException {
+    public List<AgentWeightPriority> getAgentWeightPriorityListForGroup(long dialerGroupPk) throws CrmException {
         DialerGroup dg = agentRepo.locateByDialerGroupPk(dialerGroupPk);
         return getAgentWeightPriorityForDialerGroup(dg);
     }
 
-    public List<AgentWeightPriority> getAgentWeightPriorityListForDq(long dqPk) throws StiException {
+    public List<AgentWeightPriority> getAgentWeightPriorityListForDq(long dqPk) throws CrmException {
         DialerGroup primaryGroup = getPrimaryDialerGroupForDQ(dqPk);
         DialerGroup secondaryGroup = getSecondaryDialerGroupForDQ(dqPk);
         return getAgentWeightPriorityListForGroups(primaryGroup, secondaryGroup);
@@ -805,7 +805,7 @@ public class DialerQueueService {
                 list.add(getAccountCustomerNameForAccount(accountPk));
             }
         }
-        /*  } catch (StiException ex) {
+        /*  } catch (CrmException ex) {
          throw new EntityNotFoundException(ex.getMessage());
          }*/
         return list;
@@ -821,7 +821,7 @@ public class DialerQueueService {
         return name;
     }
 
-    public PhoneNumberCallable canCallNumberInQueue(long dqPk, long accountPk, long phoneNumber) throws StiException, AccountNotInQueueException {
+    public PhoneNumberCallable canCallNumberInQueue(long dqPk, long accountPk, long phoneNumber) throws CrmException, AccountNotInQueueException {
         int startCanCall = new LocalDateTime().getMillisOfDay();
         LOG.debug("canCallNumber start for dqPk: {} accountPk: {} and phoneNumber: {}", dqPk, accountPk, phoneNumber);
         DialerQueue queue = dqRepo.locateDialerQueueByPk(dqPk);
@@ -852,7 +852,7 @@ public class DialerQueueService {
                 LOG.info("AccountPk {} has pendingBk ", accountPk);
                 String note = "AccountPk " + accountPk + " has pendingBk";
                 workLogRepo.createWorkLog(account, note, WorkLogTypes.WORK_LOG_DIALER, null, false);
-                throw new StiException("AccountPk " + accountPk + " has pendingBk or verbal c&d set");
+                throw new CrmException("AccountPk " + accountPk + " has pendingBk or verbal c&d set");
             }
             boolean isVerbalCD = false;
             if (accountData.isVerbalCeaseAndDesist() != null && accountData.isVerbalCeaseAndDesist()) {
@@ -921,7 +921,7 @@ public class DialerQueueService {
         return resultList != null && !resultList.isEmpty();
     }
 
-    public boolean isAccountInQueue(long dqPk, long accountPk) throws StiException {
+    public boolean isAccountInQueue(long dqPk, long accountPk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(dqPk);
         Account account = accountRepo.findAccountByPk(accountPk);
 //        if (accountData.getLastContactTimestamp().equals(LocalDate.now())) {
@@ -930,12 +930,12 @@ public class DialerQueueService {
         return dqRepo.isAccountInQueue(queue, account);
     }
 
-    private boolean isAccountInQueue(DialerQueue queue, Account account) throws StiException {
+    private boolean isAccountInQueue(DialerQueue queue, Account account) throws CrmException {
 //        updateDQFromQueryBuilder(queue);
         return dqRepo.isAccountInQueue(queue, account);
     }
 
-    public DialerQueueSettings getDialerQueueSettingsForAccount(long accountPk, boolean isIncoming) throws StiException {
+    public DialerQueueSettings getDialerQueueSettingsForAccount(long accountPk, boolean isIncoming) throws CrmException {
         DialerQueue dq = getDialerQueueForAccount(accountPk, isIncoming);
         if (dq == null) {
             return null;
@@ -943,7 +943,7 @@ public class DialerQueueService {
         return dq.getDialerQueueSettings();
     }
 
-    public DialerQueue getDialerQueueForAccount(long accountPk, boolean isIncoming) throws StiException {
+    public DialerQueue getDialerQueueForAccount(long accountPk, boolean isIncoming) throws CrmException {
         Account account = accountRepo.findAccountByPk(accountPk);
         if (isIncoming) {
             return account.getInboundDialerQueue();
@@ -952,7 +952,7 @@ public class DialerQueueService {
         }
     }
 
-    public void deleteDialerQueue(long dqPk) throws StiException {
+    public void deleteDialerQueue(long dqPk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(dqPk);
         DialerQueueSettings dqSettings = getDialerQueueSettingsByDQPk(dqPk);
         String query;
@@ -981,7 +981,7 @@ public class DialerQueueService {
         entityManager.persist(history);
     }
 
-    public void setDialerQueueGroupAssociation(long dqPk, long groupPk, Long secondaryGroupPk) throws StiException {
+    public void setDialerQueueGroupAssociation(long dqPk, long groupPk, Long secondaryGroupPk) throws CrmException {
         LOG.warn("setDialerQueueGroupAssociation dqPk :" + dqPk + " groupPk : " + groupPk);
         DialerQueue queue = dqRepo.locateDialerQueueByPk(dqPk);
         DialerGroup group = agentRepo.locateByDialerGroupPk(groupPk);
@@ -1013,7 +1013,7 @@ public class DialerQueueService {
         entityManager.merge(dqSettings);
     }
 
-    public DialerGroup getPrimaryDialerGroupForDQ(long queuePk) throws StiException {
+    public DialerGroup getPrimaryDialerGroupForDQ(long queuePk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(queuePk);
         DialerQueueGroupAssociation assoc = dqRepo.getQueueGroupAssociationByDialerQueue(queue);
         if (assoc != null) {
@@ -1022,7 +1022,7 @@ public class DialerQueueService {
         return null;
     }
 
-    public DialerGroup getSecondaryDialerGroupForDQ(long queuePk) throws StiException {
+    public DialerGroup getSecondaryDialerGroupForDQ(long queuePk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(queuePk);
         DialerQueueGroupAssociation assoc = dqRepo.getQueueGroupAssociationByDialerQueue(queue);
         if (assoc != null) {
@@ -1033,7 +1033,7 @@ public class DialerQueueService {
         return null;
     }
 
-    public void removeDialerQueueGroupAssociation(long queuePk) throws StiException {
+    public void removeDialerQueueGroupAssociation(long queuePk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(queuePk);
         DialerQueueGroupAssociation assoc = dqRepo.getQueueGroupAssociationByDialerQueue(queue);
         DialerQueueSettings dqSettings = getDialerQueueSettingsByDQPk(queuePk);
@@ -1043,7 +1043,7 @@ public class DialerQueueService {
         dqRepo.removeDialerQueueGroupAssociation(assoc);
     }
 
-    public void resetDialerQueueAccountIterator(long queuePk) throws StiException {
+    public void resetDialerQueueAccountIterator(long queuePk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(queuePk);
         resetDialerQueueAccountIterator(queue);
     }
@@ -1053,7 +1053,7 @@ public class DialerQueueService {
         at.set(0);
     }
 
-    public LocalTime getBestTimeToCallForAccount(long accountPk) throws StiException {
+    public LocalTime getBestTimeToCallForAccount(long accountPk) throws CrmException {
         //Query q = entityManager.createQuery("SELECT callTime FROM (SELECT cast(s.callTimeStamp as time) callTime, count(s.callTimeStamp) maximum FROM SvCallDetailRecord s where s.accountPk = :accountPk GROUP BY cast(s.callTimeStamp as time) ORDER BY maximum DESC LIMIT 1) as c");
 //        Query q = entityManager.createNativeQuery("SELECT callTime FROM (SELECT cast(s.start_time as time) callTime, count(s.start_time) maximum FROM svc.sv_call_detail_record s where s.account_pk = :accountPk GROUP BY cast(s.start_time as time) ORDER BY maximum DESC LIMIT 1) as c");
 //        q.setParameter("accountPk", accountPk);
@@ -1071,15 +1071,15 @@ public class DialerQueueService {
         return bestTime;
     }
 
-    public VoiceRecording createOrUpdateVoiceRecording(VoiceRecording voiceRecording) throws StiException {
+    public VoiceRecording createOrUpdateVoiceRecording(VoiceRecording voiceRecording) throws CrmException {
         if (voiceRecording == null) {
-            throw new StiException("Please provide voice recording details.");
+            throw new CrmException("Please provide voice recording details.");
         }
         if (StringUtils.isBlank(voiceRecording.getFileName())) {
-            throw new StiException("Please provide the voice recording file name.");
+            throw new CrmException("Please provide the voice recording file name.");
         }
         if (StringUtils.isBlank(voiceRecording.getFilePath())) {
-            throw new StiException("Please provide the voice recording file path.");
+            throw new CrmException("Please provide the voice recording file path.");
         }
         VoiceRecording existingVR = dqRepo.getVoiceRecordingByName(voiceRecording.getFileName());
         if (existingVR != null) {
@@ -1099,15 +1099,15 @@ public class DialerQueueService {
         return dqRepo.getAllVoiceRecordings();
     }
 
-    public HoldMusic createOrUpdateHoldMusic(HoldMusic holdMusic) throws StiException {
+    public HoldMusic createOrUpdateHoldMusic(HoldMusic holdMusic) throws CrmException {
         if (holdMusic == null) {
-            throw new StiException("Please provide hold music details.");
+            throw new CrmException("Please provide hold music details.");
         }
         if (StringUtils.isBlank(holdMusic.getFileName())) {
-            throw new StiException("Please provide the hold music file name.");
+            throw new CrmException("Please provide the hold music file name.");
         }
         if (StringUtils.isBlank(holdMusic.getFilePath())) {
-            throw new StiException("Please provide the hold music file path.");
+            throw new CrmException("Please provide the hold music file path.");
         }
         HoldMusic existingVR = dqRepo.getHoldMusicByName(holdMusic.getFileName());
         if (existingVR != null) {
@@ -1127,12 +1127,12 @@ public class DialerQueueService {
         return dqRepo.getAllHoldMusic();
     }
 
-    public StiCallerId createOrUpdateCallerId(StiCallerId callerId) throws StiException {
+    public StiCallerId createOrUpdateCallerId(StiCallerId callerId) throws CrmException {
         if (callerId == null) {
-            throw new StiException("Please provide caller ID details.");
+            throw new CrmException("Please provide caller ID details.");
         }
         if (callerId.getCallerIdNumber() == null || callerId.getCallerIdNumber() <= 0) {
-            throw new StiException("Please provide the caller ID number.");
+            throw new CrmException("Please provide the caller ID number.");
         }
         StiCallerId existingCI = dqRepo.getCallerIdByNumber(callerId.getCallerIdNumber());
         if (existingCI != null) {
@@ -1152,7 +1152,7 @@ public class DialerQueueService {
         return dqRepo.getAllCallerIds();
     }
 
-    public DialerQueueDetails createDefaultInboundQueue() throws StiException {
+    public DialerQueueDetails createDefaultInboundQueue() throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByNameAndType(DEFAULT_INBOUND_QUEUE, DialerQueueType.INBOUND);
         if (queue != null) {
             return queue.getDialerQueueDetails();
@@ -1173,7 +1173,7 @@ public class DialerQueueService {
         return dq;
     }
 
-    public DialerQueueDetails getDefaultInboundQueue() throws StiException {
+    public DialerQueueDetails getDefaultInboundQueue() throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByNameAndType(DEFAULT_INBOUND_QUEUE, DialerQueueType.INBOUND);
         if (queue == null) {
             return createDefaultInboundQueue();
@@ -1181,7 +1181,7 @@ public class DialerQueueService {
         return queue.getDialerQueueDetails();
     }
 
-    public InboundDialerQueueRecord getDefaultInboundQueueRecord() throws StiException {
+    public InboundDialerQueueRecord getDefaultInboundQueueRecord() throws CrmException {
         DialerQueue queue = getDialerQueueByNameAndType(DEFAULT_INBOUND_QUEUE, DialerQueueType.INBOUND);
         DialerQueueDetails dqDetails;
         if (queue == null) {
@@ -1206,7 +1206,7 @@ public class DialerQueueService {
                         svCallerId = createOrUpdateCallerId(svCallerId);
                         svCallerIds.add(svCallerId);
                     }
-                } catch (StiException | NumberFormatException ex) {
+                } catch (CrmException | NumberFormatException ex) {
                     LOG.error("Error adding caller ID [{}]: {}", callerId, ex);
                 }
             }
@@ -1216,7 +1216,7 @@ public class DialerQueueService {
         return svCallerIds;
     }
 
-    public void setCallDispositionGroupForDialerQueue(long queuePk, long dispositionGroupPk) throws StiException {
+    public void setCallDispositionGroupForDialerQueue(long queuePk, long dispositionGroupPk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(queuePk);
         CallDispositionGroup group = callDispositionService.getCallDispositionGroup(dispositionGroupPk);
         DialerQueueSettings dqSettings = getDialerQueueSettingsByDQPk(queuePk);
@@ -1237,7 +1237,7 @@ public class DialerQueueService {
         queue.associateToDispositionGroup(group);
     }
 
-    public List<CallDispositionCode> getCallDispositionCodesForAccount(long accountPk, boolean isIncoming) throws StiException {
+    public List<CallDispositionCode> getCallDispositionCodesForAccount(long accountPk, boolean isIncoming) throws CrmException {
         DialerQueue dq = getDialerQueueForAccount(accountPk, isIncoming);
         List<CallDispositionCode> codes = getCallDispositionCodesForQueue(dq);
         if (codes.isEmpty()) {
@@ -1259,12 +1259,12 @@ public class DialerQueueService {
         return Collections.EMPTY_LIST;
     }
 
-    public List<CallDispositionCode> getCallDispositionCodesForQueue(long dqPk) throws StiException {
+    public List<CallDispositionCode> getCallDispositionCodesForQueue(long dqPk) throws CrmException {
         DialerQueue dq = dqRepo.locateDialerQueueByPk(dqPk);
         return getCallDispositionCodesForQueue(dq);
     }
 
-    public CallDispositionGroup getCallDispositionGroupForQueue(long dqPk) throws StiException {
+    public CallDispositionGroup getCallDispositionGroupForQueue(long dqPk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(dqPk);
         return getCallDispositionGroupForQueue(queue);
     }
@@ -1299,24 +1299,24 @@ public class DialerQueueService {
         return -1;
     }
 
-    private void checkForDncAndVerbalCandD(Phone svPhone, long phoneNumber, boolean verbalCD, Account account) throws StiException {
+    private void checkForDncAndVerbalCandD(Phone svPhone, long phoneNumber, boolean verbalCD, Account account) throws CrmException {
         if (svPhone.getPhoneData().getDoNotCall() != null && svPhone.getPhoneData().getDoNotCall()) {
             LOG.info("PhoneNumber {} has dnc set", phoneNumber);
             String note = "PhoneNumber " + phoneNumber + " has dnc set";
             workLogRepo.createWorkLog(account, note, WorkLogTypes.WORK_LOG_DIALER, null, false);
             LOG.info("Throwing an exception because dnc is set");
-            throw new StiException("Phone " + phoneNumber + " has do not call as true");
+            throw new CrmException("Phone " + phoneNumber + " has do not call as true");
         }
         if (verbalCD && ((svPhone.getPhoneData().getPhoneNumberType() == PhoneNumberType.MOBILE_PHONE) || account.getAccountData().getCallbackDateTime() != null)) {
             LOG.info("PhoneNumber {} is mobile and has verbalc&d set", phoneNumber);
             String note = "PhoneNumber " + phoneNumber + " is mobile and has verbalc&d set";
             workLogRepo.createWorkLog(account, note, WorkLogTypes.WORK_LOG_DIALER, null, false);
             LOG.info("Throwing an exception because verbalc&d is set and mobile phone");
-            throw new StiException("Phone " + phoneNumber + " has is mobile and has verbalc&d set as true");
+            throw new CrmException("Phone " + phoneNumber + " has is mobile and has verbalc&d set as true");
         }
     }
 
-    public OutboundDialerRecord saveOutboundDialerQueueRecord(long dqPk) throws StiException {
+    public OutboundDialerRecord saveOutboundDialerQueueRecord(long dqPk) throws CrmException {
         LOG.info("Saving outbound dialer record to db for dialerQueue: " + dqPk);
         DialerQueue queue = dqRepo.locateDialerQueueByPk(dqPk);
         DialerQueueGroupAssociation assoc = dqRepo.getQueueGroupAssociationByDialerQueue(queue);
@@ -1331,7 +1331,7 @@ public class DialerQueueService {
     }
 
     //manual sync
-    public List<Long> executeDialerQueueSql(long dqPk) throws StiException {
+    public List<Long> executeDialerQueueSql(long dqPk) throws CrmException {
         return dqRepo.executeDialerQueueSql(dqPk);
     }
 
@@ -1339,7 +1339,7 @@ public class DialerQueueService {
         return dialerAccountPhoneData.getCallableAccountsForDialerQueue(queuePk).size();
     }
 
-    public List<DialerQueueGroup> getDialerQueueGroups(final DialerQueueType dialerQueueType) throws IOException, StiException {
+    public List<DialerQueueGroup> getDialerQueueGroups(final DialerQueueType dialerQueueType) throws IOException, CrmException {
         //needs to be un-hard coded
         //String url = "http://appx.objectbrains.com:7070/tms/rest/tms-commands/dialer-outbound-control/get-all-dialer-queue-status/";
 

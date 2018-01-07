@@ -26,7 +26,7 @@ import com.amp.crm.embeddable.BIPlaybackData;
 import com.amp.crm.embeddable.DialerQueueDetails;
 import com.amp.crm.embeddable.InboundDialerQueueRecord;
 import com.amp.crm.embeddable.OutboundDialerQueueRecord;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.pojo.AccountCustomerName;
 import com.amp.crm.pojo.CallDetailRecordResult;
 import com.amp.crm.pojo.CallHistoryCriteria;
@@ -106,7 +106,7 @@ public class TmsRestController {
     
 //    @RequestMapping(value = "/getAgentWeightPriorityListForDq{dialerQueuePk}", method = GET)
 //    @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-//    public List<AgentWeightPriority> getAgentWeightPriorityListForDq (@PathVariable long dialerQueuePk) throws IOException, StiException {
+//    public List<AgentWeightPriority> getAgentWeightPriorityListForDq (@PathVariable long dialerQueuePk) throws IOException, CrmException {
 //        return dialerQueueService.getAgentWeightPriorityListForDq(dialerQueuePk);
 //    }
     
@@ -124,20 +124,20 @@ public class TmsRestController {
 
     @RequestMapping(value = "/getAllAgentsInDialerGroup/{dialerGroupPk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<AgentWeightPriority> getAllAgentsInDialerGroup(@PathVariable long dialerGroupPk) throws IOException, StiException {
+    public List<AgentWeightPriority> getAllAgentsInDialerGroup(@PathVariable long dialerGroupPk) throws IOException, CrmException {
         return dialerQueueService.getAgentWeightPriorityListForGroup(dialerGroupPk);
     }
 
     @RequestMapping(value = "/createOrUpdateDialerGroup", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public DialerGroup createOrUpdateDialerGroup(@RequestBody DialerGroup dialerGroup) throws IOException, StiException {
+    public DialerGroup createOrUpdateDialerGroup(@RequestBody DialerGroup dialerGroup) throws IOException, CrmException {
 //        DialerGroup dialerGroup = JSONUtils.JSONToObject(dialerGroupString, DialerGroup.class);
         return dialerGroupService.createOrUpdateDialerGroup(dialerGroup);
     }
     
     @RequestMapping(value = "/updateAgentsToDialerGroup/{dialerGroupPk}", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public boolean updateAgentsToDialerGroup(@PathVariable long dialerGroupPk, @RequestBody ArrayList<AgentWeightPriority> listOfAgents) throws IOException, StiException {
+    public boolean updateAgentsToDialerGroup(@PathVariable long dialerGroupPk, @RequestBody ArrayList<AgentWeightPriority> listOfAgents) throws IOException, CrmException {
         //Long dialerGroupLong = Long.valueOf(dialerGroupPk);
         dialerGroupService.deleteAgentsFromDialerGroup(dialerGroupPk);
         for (AgentWeightPriority agent : listOfAgents) {
@@ -148,7 +148,7 @@ public class TmsRestController {
 
     @RequestMapping(value = "/assignAgentsToDialerGroup/{dialerGroupPk}", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public boolean assignAgentsToDialerGroup(@PathVariable long dialerGroupPk, @RequestBody String listOfAgents) throws IOException, StiException {
+    public boolean assignAgentsToDialerGroup(@PathVariable long dialerGroupPk, @RequestBody String listOfAgents) throws IOException, CrmException {
         //Long dialerGroupLong = Long.valueOf(dialerGroupPk);
         String[] agents = listOfAgents.split(",");
         for (String agentUsername : agents) {
@@ -159,44 +159,44 @@ public class TmsRestController {
 
     @RequestMapping(value = "/deleteAgentFromDialerGroup/{dialerGroupPk}/{username}", method = DELETE)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public boolean deleteAgentFromDialerGroup(@PathVariable Long dialerGroupPk, @PathVariable String username) throws IOException, StiException {
+    public boolean deleteAgentFromDialerGroup(@PathVariable Long dialerGroupPk, @PathVariable String username) throws IOException, CrmException {
         dialerGroupService.deleteAgentFromDialerGroup(username, dialerGroupPk);
         return true;
     }
 
     @RequestMapping(value = "/addOrUpdateCallDisposition", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public CallDispositionCode addOrUpdateCallDisposition(@RequestBody CallDispositionCode callDispositionCode) throws IOException, StiException {
+    public CallDispositionCode addOrUpdateCallDisposition(@RequestBody CallDispositionCode callDispositionCode) throws IOException, CrmException {
         return callDispositionService.addOrUpdateCallDisposition(callDispositionCode);
     }
 
     @RequestMapping(value = "/getAllCallDispositionCodes", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<CallDispositionCode> getAllCallDispositionCodes() throws IOException, StiException {
+    public List<CallDispositionCode> getAllCallDispositionCodes() throws IOException, CrmException {
         return callDispositionService.getAllCallDispositionCodes();
     }
 
     @RequestMapping(value = "/createOrUpdateDispositionGroup", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public CallDispositionGroup addOrUpdateCallDisposition(@RequestBody CallDispositionGroup callDispositionGroup) throws IOException, StiException {
+    public CallDispositionGroup addOrUpdateCallDisposition(@RequestBody CallDispositionGroup callDispositionGroup) throws IOException, CrmException {
         return callDispositionService.createOrUpdateDispositionGroup(callDispositionGroup);
     }
 
     @RequestMapping(value = "/getCallDispositionGroup/{dispositionGroupPk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public CallDispositionGroup getCallDispositionGroup(@PathVariable long dispositionGroupPk) throws IOException, StiException {
+    public CallDispositionGroup getCallDispositionGroup(@PathVariable long dispositionGroupPk) throws IOException, CrmException {
         return callDispositionService.getCallDispositionGroup(dispositionGroupPk);
     }
 
     @RequestMapping(value = "/getAllCallDispositionGroups", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<CallDispositionGroup> getAllCallDispositionGroups() throws IOException, StiException {
+    public List<CallDispositionGroup> getAllCallDispositionGroups() throws IOException, CrmException {
         return callDispositionService.getAllCallDispositionGroups();
     }
 
     @RequestMapping(value = "/setCallDispositionsToGroup/{callDispositionGroupPk}", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public boolean addCallDispositionCodesToGroup(@PathVariable long callDispositionGroupPk, @RequestBody Set<Long> callDispositionIds) throws IOException, StiException {
+    public boolean addCallDispositionCodesToGroup(@PathVariable long callDispositionGroupPk, @RequestBody Set<Long> callDispositionIds) throws IOException, CrmException {
         callDispositionService.setCallDispositionsToGroup(callDispositionGroupPk, callDispositionIds);
         return true;
     }
@@ -220,7 +220,7 @@ public class TmsRestController {
      */
     @RequestMapping(value = "/createDialerQueue", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public DialerQueueDetails createDialerQueue(@RequestBody DialerQueueDetails dialerQueueDetails) throws StiException {
+    public DialerQueueDetails createDialerQueue(@RequestBody DialerQueueDetails dialerQueueDetails) throws CrmException {
         return dialerQueueService.createDialerQueue(dialerQueueDetails.getQueueName(), dialerQueueDetails.getSqlQuery(), dialerQueueDetails.getDialerQueueType());
     }
 
@@ -243,14 +243,14 @@ public class TmsRestController {
      */
     @RequestMapping(value = "/updateDialerQueue", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public DialerQueueDetails updateDialerQueue(@RequestBody DialerQueueDetails dialerQueueDetails) throws StiException {
+    public DialerQueueDetails updateDialerQueue(@RequestBody DialerQueueDetails dialerQueueDetails) throws CrmException {
         return dialerQueueService.updateDialerQueue(dialerQueueDetails);
     }
 
     
     @RequestMapping(value = "/setCallDispositionGroupForDialerQueue", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public void setCallDispositionGroupForDialerQueue(@RequestBody DQCallDispositionGroupAssociation data) throws StiException{
+    public void setCallDispositionGroupForDialerQueue(@RequestBody DQCallDispositionGroupAssociation data) throws CrmException{
         dialerQueueService.setCallDispositionGroupForDialerQueue(data.getDqpk(), data.getCallDispositionGroupPk());
     }
     
@@ -258,11 +258,11 @@ public class TmsRestController {
     /**
      * @param dqPK
      * @return json to the front-end
-     * @throws StiException
+     * @throws CrmException
      */
     @RequestMapping(value = "/deleteDialerQueue/{dqPK}", method = DELETE)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "no permission")
-    public void deleteDialerQueue(@PathVariable("dqPK") long dqPK) throws StiException {
+    public void deleteDialerQueue(@PathVariable("dqPK") long dqPK) throws CrmException {
         dialerQueueService.deleteDialerQueue(dqPK);
     }
 
@@ -274,7 +274,7 @@ public class TmsRestController {
 
     @RequestMapping(value = "/getAllDialerQueues/{queueIOType}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<DialerQueueGroup> getAllDialerQueues(@PathVariable("queueIOType") DialerQueueType dialerQueueType) throws IOException, StiException {
+    public List<DialerQueueGroup> getAllDialerQueues(@PathVariable("queueIOType") DialerQueueType dialerQueueType) throws IOException, CrmException {
         return dialerQueueService.getDialerQueueGroups(dialerQueueType);
     }
 
@@ -284,7 +284,7 @@ public class TmsRestController {
      */
     @RequestMapping(value = "/createOrUpdateInboundDQSettings", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public DialerQueueSettings createOrUpdateInboundDQSettings(@RequestBody InboundDialerQueueSettings inboundDialerQueueSettings) throws StiException {
+    public DialerQueueSettings createOrUpdateInboundDQSettings(@RequestBody InboundDialerQueueSettings inboundDialerQueueSettings) throws CrmException {
         return dialerQueueService.createOrUpdateDQSettings(inboundDialerQueueSettings);
     }
 
@@ -294,21 +294,21 @@ public class TmsRestController {
      */
     @RequestMapping(value = "/createOrUpdateOutboundDQSettings", method = POST)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public DialerQueueSettings createOrUpdateOutboundDQSettings(@RequestBody OutboundDialerQueueSettings outboundDialerQueueSettings) throws StiException {
+    public DialerQueueSettings createOrUpdateOutboundDQSettings(@RequestBody OutboundDialerQueueSettings outboundDialerQueueSettings) throws CrmException {
         return dialerQueueService.createOrUpdateDQSettings(outboundDialerQueueSettings);
     }
 
     @RequestMapping(value = "/getOutboundDQSettingsByDQPk/{queuePk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
     public OutboundDialerQueueSettings getOutboundDQSettingsByDQPk(
-            @PathVariable("queuePk") long queuePk) throws StiException {
+            @PathVariable("queuePk") long queuePk) throws CrmException {
         return dialerQueueService.getOutboundDQSettingsByDQPk(queuePk);
     }
 
     @RequestMapping(value = "/getInboundDQSettingsByDQPk/{queuePk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
     public InboundDialerQueueSettings getInboundDQSettingsByDQPk(
-            @PathVariable("queuePk") long queuePk) throws StiException {
+            @PathVariable("queuePk") long queuePk) throws CrmException {
         return dialerQueueService.getInboundDQSettingsByDQPk(queuePk);
     }
 
@@ -447,25 +447,25 @@ public class TmsRestController {
     
     @RequestMapping(value = "/getDialerQueueByPk/{queuePk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public DialerQueueDetails getDialerQueueByPk(@PathVariable("queuePk") long queuePk) throws StiException {
+    public DialerQueueDetails getDialerQueueByPk(@PathVariable("queuePk") long queuePk) throws CrmException {
          return dialerQueueService.getDialerQueueByPk(queuePk);
     }
     
     @RequestMapping(value = "/getBasicLoanDataForQueue/{queuePk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<AccountCustomerName> getBasicLoanDataForQueue(@PathVariable("queuePk") long queuePk) throws StiException {
+    public List<AccountCustomerName> getBasicLoanDataForQueue(@PathVariable("queuePk") long queuePk) throws CrmException {
          return dialerQueueService.getBasicLoanDataForQueue(queuePk, null, null);
     }
     
     @RequestMapping(value = "/canCallNumber/{dqPk}/{accountPk}/{phoneNumber}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public PhoneNumberCallable canCallNumber(@PathVariable("dqPk") long dqPk,@PathVariable("accountPk") long accountPk,@PathVariable("phoneNumber") long phoneNumber) throws StiException {
+    public PhoneNumberCallable canCallNumber(@PathVariable("dqPk") long dqPk,@PathVariable("accountPk") long accountPk,@PathVariable("phoneNumber") long phoneNumber) throws CrmException {
          return dialerQueueService.canCallNumberInQueue(dqPk,accountPk,phoneNumber);
     }
     
     @RequestMapping(value = "/getCallDispositionCodesForQueue/{dqPk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<CallDispositionCode> getCallDispositionCodesForQueue(@PathVariable("dqPk") long dqPk) throws StiException {
+    public List<CallDispositionCode> getCallDispositionCodesForQueue(@PathVariable("dqPk") long dqPk) throws CrmException {
          return dialerQueueService.getCallDispositionCodesForQueue(dqPk);
     }
     
@@ -473,7 +473,7 @@ public class TmsRestController {
     
     @RequestMapping(value = "/getOutboundDialerQueueRecord/{queuePk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public OutboundDialerQueueRecord getOutboundDialerQueueRecord(@PathVariable("queuePk") long queuePk) throws StiException {
+    public OutboundDialerQueueRecord getOutboundDialerQueueRecord(@PathVariable("queuePk") long queuePk) throws CrmException {
         return outboundDialerService.getOutboundDialerQueueRecord(queuePk);
     }
     
@@ -487,13 +487,13 @@ public class TmsRestController {
     
     @RequestMapping(value = "/getAgentWeightPriorityListForGroup/{dialerGroupPk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<AgentWeightPriority> getAgentWeightPriorityListForGroup(@PathVariable("username") long dialerGroupPk) throws StiException {
+    public List<AgentWeightPriority> getAgentWeightPriorityListForGroup(@PathVariable("username") long dialerGroupPk) throws CrmException {
         return dialerQueueService.getAgentWeightPriorityListForGroup(dialerGroupPk);
     }
     
     @RequestMapping(value = "/getAgentWeightPriorityListForDq/{dialerQueuePk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<AgentWeightPriority> getAgentWeightPriorityListForDq (@PathVariable("dialerQueuePk") long dialerQueuePk) throws IOException, StiException {
+    public List<AgentWeightPriority> getAgentWeightPriorityListForDq (@PathVariable("dialerQueuePk") long dialerQueuePk) throws IOException, CrmException {
         return dialerQueueService.getAgentWeightPriorityListForDq(dialerQueuePk);
     }
     
@@ -504,7 +504,7 @@ public class TmsRestController {
     
     @RequestMapping(value = "/getLoanInfoByPhoneNumber/{phoneNumber}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public TMSCallDetails getLoanInfoByPhoneNumber(@PathVariable("phoneNumber") long phoneNumber) throws StiException {
+    public TMSCallDetails getLoanInfoByPhoneNumber(@PathVariable("phoneNumber") long phoneNumber) throws CrmException {
         return tmsService.getLoanInfoByPhoneNumber(phoneNumber);
     }
     
@@ -514,7 +514,7 @@ public class TmsRestController {
     
     @RequestMapping(value = "/getInboundDialerQueueRecord/{queuePk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public InboundDialerQueueRecord getInboundDialerQueueRecord(@PathVariable("queuePk") long queuePk) throws StiException {
+    public InboundDialerQueueRecord getInboundDialerQueueRecord(@PathVariable("queuePk") long queuePk) throws CrmException {
         return dialerQueueService.getInboundDialerQueueRecord(queuePk);
     }
 
@@ -522,7 +522,7 @@ public class TmsRestController {
     
     @RequestMapping(value = "/getCallDispositionCode/{dispositionCodeId}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public CallDispositionCode getCallDispositionCode(@PathVariable("dispositionCodeId") long dispositionCodeId) throws IOException, StiException {
+    public CallDispositionCode getCallDispositionCode(@PathVariable("dispositionCodeId") long dispositionCodeId) throws IOException, CrmException {
         return callDispositionService.getCallDispositionCode(dispositionCodeId);
     }
     
@@ -540,7 +540,7 @@ public class TmsRestController {
     
     @RequestMapping(value = "/getCallDispositionCodesForLoan/{accountPk}", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<CallDispositionCode> getCallDispositionCodesForLoan(@PathVariable("accountPk") long accountPk) throws StiException {
+    public List<CallDispositionCode> getCallDispositionCodesForLoan(@PathVariable("accountPk") long accountPk) throws CrmException {
         return callDispositionService.getCallDispositionCodesForLoan(accountPk, true);
     }
     

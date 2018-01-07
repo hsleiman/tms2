@@ -12,7 +12,7 @@ import com.amp.crm.db.entity.disposition.action.CallDispositionAction;
 import com.amp.crm.db.repository.dialer.DialerQueueRepository;
 import com.amp.crm.service.utility.CSVParser;
 import com.amp.crm.db.repository.disposition.CallDispositionRepository;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.service.dialer.DialerQueueService;
 import java.io.File;
 import java.io.IOException;
@@ -282,7 +282,7 @@ public class CallDispositionService {
         return code.getAction();
     }
     
-    public List<CallDispositionCode> getCallDispositionCodesForLoan(long accountPk, boolean isIncoming) throws StiException  {
+    public List<CallDispositionCode> getCallDispositionCodesForLoan(long accountPk, boolean isIncoming) throws CrmException  {
         DialerQueue dq = dqService.getDialerQueueForAccount(accountPk, isIncoming);
         List<CallDispositionCode> codes = dqService.getCallDispositionCodesForQueue(dq);
         if (codes.isEmpty()) {

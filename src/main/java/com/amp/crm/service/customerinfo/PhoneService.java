@@ -18,7 +18,7 @@ import com.amp.crm.db.repository.customerinfo.PhoneRepository;
 import com.amp.crm.embeddable.AddressData;
 import com.amp.crm.embeddable.PersonalInformation;
 import com.amp.crm.embeddable.PhoneData;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.exception.WorkQueueNotFoundException;
 import com.amp.crm.pojo.CustomerCallablePojo;
 import com.amp.crm.service.customer.WorkQueueService;
@@ -54,14 +54,14 @@ public class PhoneService {
     @Autowired
     private AddressService addressService;
 
-    public long createOrUpdateCustomerPhone(PhoneData phoneData) throws StiException {
+    public long createOrUpdateCustomerPhone(PhoneData phoneData) throws CrmException {
         long customerPk = phoneData.getCustomerPk();
         Customer customer = customerRepo.findCustomerByPk(customerPk);
         if (customer != null) {
             long phonePk = phoneData.getPhonePk();
             if (phonePk <= 0) {
                 if(phoneData.getAccountPk() <= 0){
-                    throw new StiException("##### Account Pk cannot be null when creating Phone for a customer.");
+                    throw new CrmException("##### Account Pk cannot be null when creating Phone for a customer.");
                 }
                 Phone phone = new Phone();
                 phone.setPhoneData(phoneData);
@@ -79,7 +79,7 @@ public class PhoneService {
         return 0;
     }
 
-    public List<PhoneData> getCustomerPhoneInfo(long customerPk) throws StiException {
+    public List<PhoneData> getCustomerPhoneInfo(long customerPk) throws CrmException {
         List<Phone> phones = phoneRepo.getAllPhoneByCustomerPk(customerPk);
         List<PhoneData> phoneDatas = new ArrayList<>();
         if (phones != null) {

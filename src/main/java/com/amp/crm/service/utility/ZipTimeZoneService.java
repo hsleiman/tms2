@@ -12,7 +12,7 @@ import com.objectbrains.hcms.configuration.ConfigurationUtility;
 import com.amp.crm.constants.DoNotCallCodes;
 import com.amp.crm.db.entity.utility.ZipTimezone;
 import com.amp.crm.db.repository.utility.ZipTimeZoneRepository;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.pojo.CustomerCallablePojo;
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,24 +50,24 @@ public class ZipTimeZoneService {
 
     private static String[] tollFreeAreaCodes = {"800", "844", "855", "866", "877", "888"};
 
-    public List<ZipTimezone> getLocationInfoByZip(String zip) throws StiException {
+    public List<ZipTimezone> getLocationInfoByZip(String zip) throws CrmException {
 
         if (StringUtils.isNotBlank(zip)) {
             List<ZipTimezone> locInfo = zipRepo.getLocationInfoByZip(zip);
             return locInfo;
 
         } else {
-            throw new StiException("Zip Code entered cannot be null or empty");
+            throw new CrmException("Zip Code entered cannot be null or empty");
         }
     }
 
-    public List<ZipTimezone> getLocationInfoByAreaCode(Integer areaCode) throws StiException {
+    public List<ZipTimezone> getLocationInfoByAreaCode(Integer areaCode) throws CrmException {
         if (areaCode != null) {
             List<ZipTimezone> locInfo = zipRepo.getLocationInfoByAreaCode(areaCode);
             return locInfo;
 
         } else {
-            throw new StiException("AreaCode entered cannot be null");
+            throw new CrmException("AreaCode entered cannot be null");
         }
     }
 
@@ -169,7 +169,7 @@ public class ZipTimeZoneService {
         return timeZone;
     }
 
-    public void zipCodeTimezoneTableSweep() throws StiException {
+    public void zipCodeTimezoneTableSweep() throws CrmException {
         String downloadLink = "https://zipcodedownload.com/Account/Download/?file=" + getMonth(LocalDate.now().minusMonths(1)) + LocalDate.now().minusMonths(1).getYear() + "_commercial_csv.zip&username=hussien.sleiman@objectbrains.com&password=Object13rain$User";
         String fileNameAndPath = SystemUtils.JAVA_IO_TMPDIR + "/" + getMonth(LocalDate.now().minusMonths(1)) + LocalDate.now().getYear() + "_commercial_csv.zip";
         File zippedFileName = null;
@@ -188,7 +188,7 @@ public class ZipTimeZoneService {
                 String line;
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile));
                 if ((line = bufferedReader.readLine()) == null) {
-                    throw new StiException("empty file");
+                    throw new CrmException("empty file");
                 }//clear the first line of CSV file which contains the column names
                 zipRepo.truncate();
                 //start threads
@@ -197,17 +197,17 @@ public class ZipTimeZoneService {
                 }
                 bufferedReader.close();
             } else {
-                throw new StiException("Unable to locate CSV File.");
+                throw new CrmException("Unable to locate CSV File.");
             }
 
         } catch (IOException exc) {
-            throw new StiException(exc.getMessage());
+            throw new CrmException(exc.getMessage());
         } finally {
             cleanFiles(UnZippedDirectory, zippedFileName);
         }
     }
 
-    private String getMonth(LocalDate now) throws StiException {
+    private String getMonth(LocalDate now) throws CrmException {
         String threeLetterMonth;
         int monthOfYear = now.getMonthOfYear();
         switch (monthOfYear) {
@@ -248,12 +248,12 @@ public class ZipTimeZoneService {
                 threeLetterMonth = "dec";
                 break;
             default:
-                throw new StiException("Unable to create file name for zipcodedownload : Unknown month of year " + monthOfYear);
+                throw new CrmException("Unable to create file name for zipcodedownload : Unknown month of year " + monthOfYear);
         }
         return threeLetterMonth;
     }
 
-    private void parseCSV(String line) throws StiException {
+    private void parseCSV(String line) throws CrmException {
         line = cleanExceptions(line);
         String[] zipTimezone = new String[16];
         ZipTimezone svZipTimezone;
@@ -280,7 +280,7 @@ public class ZipTimeZoneService {
                 break;
             default:
                 LOG.info("Areacode: {} has length {}", areaCode, areaCode.length());
-                throw new StiException("area code length not within expected size");
+                throw new CrmException("area code length not within expected size");
         }
         for (int i = 0; i < areaCodeDupe; i++) {
             svZipTimezone = new ZipTimezone();
@@ -318,7 +318,7 @@ public class ZipTimeZoneService {
         }
     }
 
-    private void cleanFiles(File UnzippedDirectory, File csvFile) throws StiException {
+    private void cleanFiles(File UnzippedDirectory, File csvFile) throws CrmException {
         if (UnzippedDirectory != null) {
             if (UnzippedDirectory.exists()) {
                 deleteDirectory(UnzippedDirectory);

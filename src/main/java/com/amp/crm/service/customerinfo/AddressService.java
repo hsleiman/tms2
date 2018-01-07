@@ -11,7 +11,7 @@ import com.amp.crm.db.entity.base.customer.Address;
 import com.amp.crm.db.repository.customer.CustomerRepository;
 import com.amp.crm.db.repository.customerinfo.AddressRepository;
 import com.amp.crm.embeddable.AddressData;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -69,7 +69,7 @@ public class AddressService {
     
 
     
-    public AddressData getAddressForCustomerByType(long customerPk, AddressType type) throws StiException{
+    public AddressData getAddressForCustomerByType(long customerPk, AddressType type) throws CrmException{
         Customer customer = customerRepo.findCustomerByPk(customerPk);
         Set<Address> addresses = customer.getAddress();
         Address retAddress = null;

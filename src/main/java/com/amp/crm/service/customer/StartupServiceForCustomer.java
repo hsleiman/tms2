@@ -10,7 +10,7 @@ import com.amp.crm.embeddable.AccountData;
 import com.amp.crm.embeddable.EmailData;
 import com.amp.crm.embeddable.PersonalInformation;
 import com.amp.crm.embeddable.PhoneData;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.service.core.AccountService;
 import com.amp.crm.service.customerinfo.EmailService;
 import com.amp.crm.service.customerinfo.PhoneService;
@@ -77,7 +77,7 @@ public class StartupServiceForCustomer {
 
     }
 
-    private void createCustomer() throws StiException {
+    private void createCustomer() throws CrmException {
         log.info("Creating dummy Customer if not Exist");
         //should be max 10 names for now
         String[] customerStrings = {"Jay", "Farzad", "Tesla", "Bob"};

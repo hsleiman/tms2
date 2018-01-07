@@ -6,7 +6,7 @@
 package com.amp.crm.service.dialer;
 
 import com.amp.crm.constants.PhoneNumberType;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.pojo.DialerQueueAccountDetails;
 import com.amp.crm.service.dialer.DialerAccountDetailsPlanA;
 import com.amp.crm.service.utility.DynamicCodeService;
@@ -195,7 +195,7 @@ public class DialerAccountPhoneData {
 
     }
     
-    public List<DialerQueueAccountDetails> getDialerQueueAccountDetailsForQueue(long dqPk) throws StiException {
+    public List<DialerQueueAccountDetails> getDialerQueueAccountDetailsForQueue(long dqPk) throws CrmException {
         List<AccountPhoneData> accountPhoneDataList = dynamicCodeService.getDynamicBean(AccountPhoneDataDynamic.class).getAccountPhoneDataForQueue(dqPk);
         return planAService.buildAccountDetailsViaPlanA(accountPhoneDataList);
     }

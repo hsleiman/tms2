@@ -7,7 +7,7 @@ import javax.xml.ws.WebFault;
  * @author chris
  */
 @WebFault(targetNamespace = "http://exception.sti.objectbrains.com")
-public class CSVParserException extends StiRuntimeException {
+public class CSVParserException extends CrmRuntimeException {
 
     public CSVParserException() {
     }

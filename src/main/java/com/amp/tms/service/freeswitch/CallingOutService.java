@@ -12,7 +12,7 @@ import com.amp.crm.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.amp.crm.db.entity.disposition.CallDispositionCode;
 import com.amp.crm.embeddable.AgentWeightPriority;
 import com.amp.crm.embeddable.WeightedPriority;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.service.dialer.DialerQueueService;
 import com.amp.crm.service.tms.TMSService;
 import com.amp.tms.enumerated.CallDirection;
@@ -254,7 +254,7 @@ public class CallingOutService {
         } catch (RuntimeException ex) {
             log.error("Could not get agents for queue {}", queuePK, ex);
             return;
-        } catch (StiException ex) {
+        } catch (CrmException ex) {
             log.error("Could not get agents for queue {}", queuePK, ex);
             return;
         }

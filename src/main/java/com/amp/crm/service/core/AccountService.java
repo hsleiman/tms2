@@ -16,7 +16,7 @@ import com.amp.crm.db.repository.account.WorkQueueRepository;
 import com.amp.crm.db.repository.customer.CustomerRepository;
 import com.amp.crm.embeddable.AccountData;
 import com.amp.crm.embeddable.PersonalInformation;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import java.util.HashMap;
 import java.util.List;
 import org.joda.time.LocalDate;
@@ -75,34 +75,34 @@ public class AccountService {
         return null;
     }
 
-    public void addAccountToWorkQueue(long accountPk, long queuePk) throws StiException {
+    public void addAccountToWorkQueue(long accountPk, long queuePk) throws CrmException {
         Account account = accountRepo.findAccountByPk(accountPk);
         if (account == null) {
-            throw new StiException("No Account found for PK: " + accountPk);
+            throw new CrmException("No Account found for PK: " + accountPk);
         }
         WorkQueue workQueue = workQueueRepo.getWorkQueue(queuePk);
         if (workQueue == null) {
-            throw new StiException("No WorkQueue found for PK: " + queuePk);
+            throw new CrmException("No WorkQueue found for PK: " + queuePk);
         }
         workQueue.getAccounts().add(account);
         account.getWorkQueues().add(workQueue);
 
     }
 
-    public void removeAccountFromWorkQueue(long accountPk, long queuePk) throws StiException {
+    public void removeAccountFromWorkQueue(long accountPk, long queuePk) throws CrmException {
         Account account = accountRepo.findAccountByPk(accountPk);
         if (account == null) {
-            throw new StiException("No Account found for PK: " + accountPk);
+            throw new CrmException("No Account found for PK: " + accountPk);
         }
         WorkQueue workQueue = workQueueRepo.getWorkQueue(queuePk);
         if (workQueue == null) {
-            throw new StiException("No WorkQueue found for PK: " + queuePk);
+            throw new CrmException("No WorkQueue found for PK: " + queuePk);
         }
         if (!account.getWorkQueues().remove(workQueue)) {
-            throw new StiException("Could not remove WorkQueue from Account because AccountPk:" + accountPk + " did not contain workQueuePk:" + queuePk);
+            throw new CrmException("Could not remove WorkQueue from Account because AccountPk:" + accountPk + " did not contain workQueuePk:" + queuePk);
         }
         if (!workQueue.getAccounts().remove(account)) {
-            throw new StiException("Could not remove Account from WorkQueue because WorkQueuePk:" + queuePk + " did not contain accountPk:" + accountPk);
+            throw new CrmException("Could not remove Account from WorkQueue because WorkQueuePk:" + queuePk + " did not contain accountPk:" + accountPk);
         }
 
     }

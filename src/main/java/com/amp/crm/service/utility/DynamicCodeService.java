@@ -13,7 +13,7 @@ import com.amp.crm.embeddable.DynamicClass;
 import com.amp.crm.embeddable.DynamicClassFile;
 import com.amp.crm.exception.DynamicClassExecutionException;
 import com.amp.crm.exception.ObjectNotFoundException;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyObject;
@@ -63,13 +63,13 @@ public class DynamicCodeService implements BeanFactoryAware {
 
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(DynamicCodeService.class);
 
-    public DynamicCode getDynamicCodeByPk(long dynamicCodePk) throws StiException {
+    public DynamicCode getDynamicCodeByPk(long dynamicCodePk) throws CrmException {
         return dynamicCodeRepo.locateDynamicCodeByPk(dynamicCodePk);
     }
 
-    public DynamicCode getSTIDynamicCodeByName(String codeName) throws StiException {
+    public DynamicCode getSTIDynamicCodeByName(String codeName) throws CrmException {
         if (StringUtils.isBlank(codeName)) {
-            throw new StiException("Please provide the class/script name of the dynamic code.");
+            throw new CrmException("Please provide the class/script name of the dynamic code.");
         }
         return dynamicCodeRepo.locateDynamicCodeByName(codeName);
     }
@@ -102,13 +102,13 @@ public class DynamicCodeService implements BeanFactoryAware {
         return dynamicCodeRepo.locateDynamicCodeByName(name);
     }
     
-    public DynamicCode addOrUpdateDynamicCode(DynamicClassFile file) throws StiException, FileNotFoundException, IOException {
+    public DynamicCode addOrUpdateDynamicCode(DynamicClassFile file) throws CrmException, FileNotFoundException, IOException {
         DynamicClass dynamicClass = new DynamicClass();
         BeanUtils.copyProperties(file, dynamicClass);
         return addOrUpdateDynamicCode(dynamicClass);
     }
 
-    public DynamicCode addOrUpdateDynamicCode(String relativeResourceLocation, Boolean skipCompileStaticCheck) throws FileNotFoundException, IOException, StiException {
+    public DynamicCode addOrUpdateDynamicCode(String relativeResourceLocation, Boolean skipCompileStaticCheck) throws FileNotFoundException, IOException, CrmException {
         if (skipCompileStaticCheck == null) {
             skipCompileStaticCheck = false;
         }
@@ -118,7 +118,7 @@ public class DynamicCodeService implements BeanFactoryAware {
         return addOrUpdateDynamicCode(file);
     }
 
-    public void deleteDynamicCode(long dynamicCodePk) throws StiException {
+    public void deleteDynamicCode(long dynamicCodePk) throws CrmException {
         DynamicCode sdc = dynamicCodeRepo.locateDynamicCodeByPk(dynamicCodePk);
         dynamicCodeRepo.deleteDynamicCode(sdc);
     }

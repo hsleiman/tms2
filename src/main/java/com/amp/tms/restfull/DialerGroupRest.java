@@ -6,7 +6,7 @@
 package com.amp.tms.restfull;
 
 import com.amp.crm.embeddable.AgentWeightPriority;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.service.dialer.DialerQueueService;
 import com.amp.crm.service.tms.TMSService;
 import com.amp.tms.hazelcast.entity.AgentTMS;
@@ -53,7 +53,7 @@ public class DialerGroupRest {
 
     @Path("/{groupPk}/agent/status")
     @GET
-    public List<QueueAgentStatus> getAllAgentStatusInQueue(@PathParam("groupPk") int groupPk) throws StiException {
+    public List<QueueAgentStatus> getAllAgentStatusInQueue(@PathParam("groupPk") int groupPk) throws CrmException {
         List<QueueAgentStatus> retList = new ArrayList<>();
         List<AgentWeightPriority> awps = dialerQueueService.getAgentWeightPriorityListForGroup(groupPk);
         Map<String, AgentWeightedPriority> weightedPriorities = Utils.convertToMap(awps);

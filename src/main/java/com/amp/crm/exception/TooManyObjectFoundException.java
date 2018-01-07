@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  * @author Hoang, J, Bishistha
  */
 @WebFault(targetNamespace = "http://exception.sti.objectbrains.com")
-public class TooManyObjectFoundException extends StiRuntimeException {
+public class TooManyObjectFoundException extends CrmRuntimeException {
     
     public TooManyObjectFoundException(String msg){
         super(msg);

@@ -24,7 +24,7 @@ import com.amp.crm.db.hibernate.ThreadAttributes;
 import com.amp.crm.db.repository.account.AccountRepository;
 import com.amp.crm.embeddable.DialerQueueDetails;
 import com.amp.crm.exception.ObjectNotFoundException;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.pojo.CustomerCallablePojo;
 import com.amp.crm.pojo.QueuePkName;
 import com.amp.crm.service.dialer.PhoneNumberCallable;
@@ -456,13 +456,13 @@ public class DialerQueueRepository {
     }
     
     //manual sync
-    public List<Long> executeDialerQueueSql(long dqPk) throws StiException {
+    public List<Long> executeDialerQueueSql(long dqPk) throws CrmException {
         DialerQueue dq = locateDialerQueueByPk(dqPk);
         executeSqlAndAssignAccounts(dq);
         return DialerQueueRepository.this.getDialerQueueAccounts(dqPk);
     }
 
-    public void executeSqlAndAssignAccounts(DialerQueue queue) throws StiException {
+    public void executeSqlAndAssignAccounts(DialerQueue queue) throws CrmException {
         String sqlQuery = queue.getDialerQueueDetails().getSqlQuery();
         if (StringUtils.isNotBlank(sqlQuery)) {
             LOG.info("About to execute query: {}", sqlQuery);

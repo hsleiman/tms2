@@ -12,7 +12,7 @@ import javax.xml.ws.WebFault;
  * @author Hoang, J, Bishistha
  */
 @WebFault(targetNamespace = "http://exception.svc.objectbrains.com")
-public class AccountNotInQueueException extends StiException {
+public class AccountNotInQueueException extends CrmException {
     
     public AccountNotInQueueException(long accountPk, long queuePk){
         super("Account with pk [" + accountPk + "] is not in queue with pk [" + queuePk + "]");

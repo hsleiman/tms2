@@ -14,7 +14,7 @@ import com.amp.crm.db.repository.StiAgentRepository;
 import com.amp.crm.db.repository.dialer.DialerQueueRepository;
 import com.amp.crm.embeddable.AgentDialerGroupInformation;
 import com.amp.crm.embeddable.WeightedPriority;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.service.dialer.DialerQueueService;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -53,12 +53,12 @@ public class DialerGroupService {
      * @return
      * @throws com.objectbrains.svc.exception.StiException
      */
-    public DialerGroup createOrUpdateDialerGroup(DialerGroup dialerGroup) throws StiException {
+    public DialerGroup createOrUpdateDialerGroup(DialerGroup dialerGroup) throws CrmException {
         if (dialerGroup == null) {
-            throw new StiException("dialerGroup is null", -1);
+            throw new CrmException("dialerGroup is null", -1);
         }
         if (dialerGroup.getGroupName() == null || dialerGroup.getGroupName().equalsIgnoreCase("")) {
-            throw new StiException("GroupName cannot be null", -1);
+            throw new CrmException("GroupName cannot be null", -1);
         }
         if (dialerGroup.isIsActive() == null) {
             dialerGroup.setIsActive(Boolean.TRUE);
@@ -76,7 +76,7 @@ public class DialerGroupService {
         } else if (existingGroup.getPk() == dialerGroup.getPk()) {
             entityManager.merge(dialerGroup);
         } else {
-            throw new StiException("A DialerGroup " + existingGroup.getPk() + " already exists with groupName " + dialerGroup.getGroupName(), -2);
+            throw new CrmException("A DialerGroup " + existingGroup.getPk() + " already exists with groupName " + dialerGroup.getGroupName(), -2);
         }
 
         return dialerGroup;
@@ -90,20 +90,20 @@ public class DialerGroupService {
      * @param isLeader
      * @throws com.objectbrains.svc.exception.StiException
      */
-    public void setAgentToDialerGroup(String agentUserName, long dialerGroupPk, WeightedPriority weightedPriority, boolean isLeader, boolean allowAfterHours) throws StiException {
+    public void setAgentToDialerGroup(String agentUserName, long dialerGroupPk, WeightedPriority weightedPriority, boolean isLeader, boolean allowAfterHours) throws CrmException {
         if (agentUserName == null || (agentUserName.equals(""))) {
-            throw new StiException("agentUserName is required", -1);
+            throw new CrmException("agentUserName is required", -1);
         }
         Agent agent = agentRepository.locateByAgentUserName(agentUserName);
         DialerGroup dialerGroup = agentRepository.locateByDialerGroupPk(dialerGroupPk);
         if (agent == null || dialerGroup == null) {
-            throw new StiException("No Agent and/or dialerGroup found with the given pk/userName", -1);
+            throw new CrmException("No Agent and/or dialerGroup found with the given pk/userName", -1);
         }
 
         if (agent.getAgentDialerGroups() != null && !agent.getAgentDialerGroups().isEmpty()) {
             for (AgentDialerGroup agentDialerGroup : agent.getAgentDialerGroups()) {
                 if (agentDialerGroup.getDialerGroup() == dialerGroup) {
-                    throw new StiException("Agent is already assigned to this dialer Group");
+                    throw new CrmException("Agent is already assigned to this dialer Group");
                 }
             }
         }
@@ -113,7 +113,7 @@ public class DialerGroupService {
                 if (svDG.getDialerGroupAgents() != null && !svDG.getDialerGroupAgents().isEmpty()) {
                     for (AgentDialerGroup agentDG : svDG.getDialerGroupAgents()) {
                         if (agentDG.getDialerAgent() == agent) {
-                            throw new StiException("Agent is asigned to one of the subDialerGroups " + svDG + " of the given dialerGroup " + dialerGroup);
+                            throw new CrmException("Agent is asigned to one of the subDialerGroups " + svDG + " of the given dialerGroup " + dialerGroup);
                         }
                     }
                 }
@@ -137,13 +137,13 @@ public class DialerGroupService {
         entityManager.merge(dialerGroup);
     }
 
-    public void addDialerGroupsToDialerGroup(long dialerGroupPk, List<DialerGroup> dialerGroupList) throws StiException {
+    public void addDialerGroupsToDialerGroup(long dialerGroupPk, List<DialerGroup> dialerGroupList) throws CrmException {
         DialerGroup dialerGroup = agentRepository.locateByDialerGroupPk(dialerGroupPk);
         if (dialerGroup == null) {
-            throw new StiException("No DialerGroup can be located with the given pk [" + dialerGroupPk + "]", -1);
+            throw new CrmException("No DialerGroup can be located with the given pk [" + dialerGroupPk + "]", -1);
         }
         if (dialerGroupList == null || dialerGroupList.isEmpty()) {
-            throw new StiException("Given list of dialergroups is null or empty");
+            throw new CrmException("Given list of dialergroups is null or empty");
         }
         List<DialerGroup> invalidDGList = new ArrayList<>();
         for (DialerGroup svDGroup : dialerGroupList) {
@@ -160,7 +160,7 @@ public class DialerGroupService {
 
         }
         if (!invalidDGList.isEmpty()) {
-            throw new StiException("The following DialerGroups in the list do not exist: " + invalidDGList + " The rest have been added to the superGroup.");
+            throw new CrmException("The following DialerGroups in the list do not exist: " + invalidDGList + " The rest have been added to the superGroup.");
         }
     }
 
@@ -170,10 +170,10 @@ public class DialerGroupService {
      * @return
      * @throws com.objectbrains.svc.exception.StiException
      */
-    public List<Agent> getAllAgentsInDialerGroup(long dialerGroupPk) throws StiException {
+    public List<Agent> getAllAgentsInDialerGroup(long dialerGroupPk) throws CrmException {
         DialerGroup dialerGroup = agentRepository.locateByDialerGroupPk(dialerGroupPk);
         if (dialerGroup == null) {
-            throw new StiException("No DialerGroup can be located with the given pk [" + dialerGroupPk + "]", -1);
+            throw new CrmException("No DialerGroup can be located with the given pk [" + dialerGroupPk + "]", -1);
         }
         List<Agent> agents = new ArrayList<>();
         if (dialerGroup.getDialerGroupAgents() != null && !dialerGroup.getDialerGroupAgents().isEmpty()) {
@@ -199,13 +199,13 @@ public class DialerGroupService {
      * @return
      * @throws com.objectbrains.svc.exception.StiException
      */
-    public AgentDialerGroupInformation getDialerGroupsForAgent(String agentUsername) throws StiException {
+    public AgentDialerGroupInformation getDialerGroupsForAgent(String agentUsername) throws CrmException {
         if (agentUsername == null || agentUsername.equalsIgnoreCase("")) {
-            throw new StiException("agentUsername is required", -1);
+            throw new CrmException("agentUsername is required", -1);
         }
         Agent agent = agentRepository.locateByAgentUserName(agentUsername);
         if (agent == null) {
-            throw new StiException("Cannot locate agent with username [" + agentUsername + "]", -2);
+            throw new CrmException("Cannot locate agent with username [" + agentUsername + "]", -2);
         }
         AgentDialerGroupInformation agentDGPojo = new AgentDialerGroupInformation();
         agentDGPojo.setAgent(agent);
@@ -235,10 +235,10 @@ public class DialerGroupService {
 
     }
 
-    public void deleteAgentsFromDialerGroup(long dialerGroupPk) throws StiException {
+    public void deleteAgentsFromDialerGroup(long dialerGroupPk) throws CrmException {
         DialerGroup dialerGroup = agentRepository.locateByDialerGroupPk(dialerGroupPk);
         if (dialerGroup == null) {
-            throw new StiException("No DialerGroup can be located with the given pk [" + dialerGroupPk + "]", -1);
+            throw new CrmException("No DialerGroup can be located with the given pk [" + dialerGroupPk + "]", -1);
         }
         if (dialerGroup.getDialerGroupAgents() != null) {
             for (AgentDialerGroup agentDG : dialerGroup.getDialerGroupAgents()) {
@@ -259,10 +259,10 @@ public class DialerGroupService {
 
     }
 
-    public void deleteDialerGroup(long dialerGroupPk) throws StiException {
+    public void deleteDialerGroup(long dialerGroupPk) throws CrmException {
         DialerGroup dialerGroup = agentRepository.locateByDialerGroupPk(dialerGroupPk);
         if (dialerGroup == null) {
-            throw new StiException("No DialerGroup can be located with the given pk [" + dialerGroupPk + "]", -1);
+            throw new CrmException("No DialerGroup can be located with the given pk [" + dialerGroupPk + "]", -1);
         }
         if (dialerGroup.getDialerGroupAgents() != null) {
             for (AgentDialerGroup agentDG : dialerGroup.getDialerGroupAgents()) {
@@ -290,18 +290,18 @@ public class DialerGroupService {
         entityManager.remove(dialerGroup);
     }
 
-    public void deleteDialerGroupFromGroup(long superDialergroupPk, long subDialerGroupPk) throws StiException {
+    public void deleteDialerGroupFromGroup(long superDialergroupPk, long subDialerGroupPk) throws CrmException {
         DialerGroup svSuperDialerGroup = agentRepository.locateByDialerGroupPk(superDialergroupPk);
         if (svSuperDialerGroup == null) {
-            throw new StiException("No DialerGroup can be located with the given pk [" + superDialergroupPk + "]", -1);
+            throw new CrmException("No DialerGroup can be located with the given pk [" + superDialergroupPk + "]", -1);
         }
         DialerGroup svSubDialerGroup = agentRepository.locateByDialerGroupPk(subDialerGroupPk);
         if (svSubDialerGroup == null) {
-            throw new StiException("No DialerGroup can be located with the given pk [" + subDialerGroupPk + "]", -1);
+            throw new CrmException("No DialerGroup can be located with the given pk [" + subDialerGroupPk + "]", -1);
         }
 
         if (svSuperDialerGroup.getSubDialerGroups() == null || svSuperDialerGroup.getSubDialerGroups().isEmpty()) {
-            throw new StiException("The given superDialerGroup does not have any subDialerGroups");
+            throw new CrmException("The given superDialerGroup does not have any subDialerGroups");
         }
 
         if (svSuperDialerGroup.getSubDialerGroups().contains(svSubDialerGroup)) {
@@ -313,33 +313,33 @@ public class DialerGroupService {
 
     }
 
-    public void deleteAgentFromAllDialerGroups(String agentUsername) throws StiException {
+    public void deleteAgentFromAllDialerGroups(String agentUsername) throws CrmException {
         if (agentUsername == null || agentUsername.equalsIgnoreCase("")) {
-            throw new StiException("agentUsername is required", -1);
+            throw new CrmException("agentUsername is required", -1);
         }
         Agent agent = agentRepository.locateByAgentUserName(agentUsername);
         if (agent == null) {
-            throw new StiException("Cannot locate agent with username [" + agentUsername + "]", -2);
+            throw new CrmException("Cannot locate agent with username [" + agentUsername + "]", -2);
         }
         for (AgentDialerGroup agentDG : agent.getAgentDialerGroups()) {
             entityManager.remove(agentDG);
         }
     }
 
-    public void deleteAgentFromDialerGroup(String agentUsername, long dialerGroupPk) throws StiException {
+    public void deleteAgentFromDialerGroup(String agentUsername, long dialerGroupPk) throws CrmException {
         DialerGroup dialerGroup = agentRepository.locateByDialerGroupPk(dialerGroupPk);
 
         if (dialerGroup == null) {
-            throw new StiException("Dialer group does not exists", -1);
+            throw new CrmException("Dialer group does not exists", -1);
         }
 
         if (agentUsername == null || agentUsername.equalsIgnoreCase("")) {
-            throw new StiException("agentUsername is required", -1);
+            throw new CrmException("agentUsername is required", -1);
         }
         Agent agent = agentRepository.locateByAgentUserName(agentUsername);
 
         if (agent == null) {
-            throw new StiException("Cannot locate agent with username [" + agentUsername + "]", -2);
+            throw new CrmException("Cannot locate agent with username [" + agentUsername + "]", -2);
         }
 
         for (AgentDialerGroup agentDG : agent.getAgentDialerGroups()) {

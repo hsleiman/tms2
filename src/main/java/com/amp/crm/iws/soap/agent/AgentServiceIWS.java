@@ -9,7 +9,7 @@ package com.amp.crm.iws.soap.agent;
 import com.amp.crm.db.entity.agent.Agent;
 import com.amp.crm.db.entity.agent.DialerGroup;
 import com.amp.crm.embeddable.WeightedPriority;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.service.agent.StiAgentService;
 import com.amp.crm.service.tms.DialerGroupService;
 import java.util.List;
@@ -60,7 +60,7 @@ public class AgentServiceIWS {
     */ 
     
     public DialerGroup createOrUpdateDialerGroup(
-        @WebParam(name = "dialerGroup") DialerGroup dialerGroup) throws StiException{
+        @WebParam(name = "dialerGroup") DialerGroup dialerGroup) throws CrmException{
         return dialerGroupService.createOrUpdateDialerGroup(dialerGroup);
     }
     
@@ -69,7 +69,7 @@ public class AgentServiceIWS {
             @WebParam(name = "dialerGroupPk") Long dialerGroupPk,
             @WebParam(name = "weightedPriority") WeightedPriority weightedPriority,
             @WebParam(name = "isLeader") Boolean isLeader,
-            @WebParam(name = "allowedAfterHours") Boolean allowedAfterHours) throws StiException{
+            @WebParam(name = "allowedAfterHours") Boolean allowedAfterHours) throws CrmException{
         dialerGroupService.setAgentToDialerGroup(agentUsername, dialerGroupPk, weightedPriority, isLeader, allowedAfterHours);
     }
 }

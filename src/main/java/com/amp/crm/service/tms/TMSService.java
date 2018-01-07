@@ -20,7 +20,7 @@ import com.amp.crm.db.repository.dialer.StiCallDetailRecordRepository;
 import com.amp.crm.db.repository.disposition.CallDispositionRepository;
 import com.amp.crm.db.repository.qaform.CallQualityManagementRepository;
 import com.amp.crm.embeddable.DialerQueueDetails;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.pojo.BestTimeToCallCluster;
 import com.amp.crm.pojo.BestTimeToCallPojo;
 import com.amp.crm.pojo.CallDetailRecordResult;
@@ -108,7 +108,7 @@ public class TMSService {
         return bai;
     }
 
-    public void setBestTimeToCallForAccount(long accountPk) throws StiException {
+    public void setBestTimeToCallForAccount(long accountPk) throws CrmException {
 
         Account account = accountRepo.findAccountByPk(accountPk);
         BestTimeToCallPojo pojo = getBestTimeToCall(account.getPk(), 60.0);
@@ -484,7 +484,7 @@ public class TMSService {
 //                + "ach.achInformation.autoPaymentOption as achAutoPaymentStatus)";
     }
 
-    public TMSCallDetails getLoanInfoByLoanPk(long loanPk) {
+    public TMSCallDetails getLoanInfoByLoanPk(long loanPk) throws CrmException {
         TypedQuery<TMSCallDetails> q = entityManager.createQuery(getTMSCallDetailsQuery()
                 + " FROM Account account "
                 + " join account.customers customer "
@@ -502,7 +502,7 @@ public class TMSService {
     }
 
     // TBD
-    public TMSCallDetails getLoanInfoByPhoneNumber(Long phoneNumber) {
+    public TMSCallDetails getLoanInfoByPhoneNumber(Long phoneNumber) throws CrmException {
         NationalPhoneNumber phone = PhoneUtils.parsePhoneNumber(phoneNumber);
         if (phone == null) {
             return null;
@@ -555,7 +555,7 @@ public class TMSService {
                 + " AND ((phone.areaCode = :areaCode AND phone.phoneNumber = :phoneNumber AND phone.loanPk = loan.pk))";
     }
 
-    public TMSCallDetails getTMSCallDetails(TypedQuery<TMSCallDetails> q) {
+    public TMSCallDetails getTMSCallDetails(TypedQuery<TMSCallDetails> q) throws CrmException {
         List<TMSCallDetails> list = (List<TMSCallDetails>) q.getResultList();
         TMSCallDetails callDetails = list.isEmpty() ? new TMSCallDetails() : list.get(0);
 

@@ -11,7 +11,7 @@ import com.amp.crm.db.entity.base.dialer.DialerQueue;
 import com.amp.crm.db.repository.dialer.DialerQueueRepository;
 import com.amp.crm.embeddable.InboundDialerQueueRecord;
 import com.amp.crm.embeddable.OutboundDialerQueueRecord;
-import com.amp.crm.exception.StiException;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.hazelcast.Config;
 import com.amp.crm.pojo.DialerQueueAccountDetails;
 import com.amp.crm.pojo.DialerQueueRecord;
@@ -41,7 +41,7 @@ public class OutboundDialerService {
     
     private static final Logger LOG = LoggerFactory.getLogger(OutboundDialerService.class);
     
-    public DialerQueueRecord getDialerQueueRecord(long dqPk) throws StiException {
+    public DialerQueueRecord getDialerQueueRecord(long dqPk) throws CrmException {
         DialerQueue queue = dqRepo.locateDialerQueueByPk(dqPk);
         if (queue.isOutbound()) {
             return (OutboundDialerQueueRecord) getOutboundDialerQueueRecord(dqPk);
@@ -50,7 +50,7 @@ public class OutboundDialerService {
         }
     }
         
-    public OutboundDialerQueueRecord getOutboundDialerQueueRecord(long dqPk) throws StiException {
+    public OutboundDialerQueueRecord getOutboundDialerQueueRecord(long dqPk) throws CrmException {
         if(isLegacyCodeOn()){
             return getRecordViaPlanA(dqPk);
         }
@@ -63,7 +63,7 @@ public class OutboundDialerService {
         return null;
     }
     
-    public DialerQueueAccountDetails getDialerQueueAccountDetails(long accountPk) throws StiException {
+    public DialerQueueAccountDetails getDialerQueueAccountDetails(long accountPk) throws CrmException {
         List<DialerQueueAccountDetails> list = dialerAccountPhoneData.getDialerQueueAccountDetailsViaPlanA(Arrays.asList(accountPk));
         return list.isEmpty() ? null : list.get(0);
     }
@@ -88,7 +88,7 @@ public class OutboundDialerService {
         return configUtil.getBoolean("get.outbound.record.planB.via.dialerQueuePk.in.dynamic.code", Boolean.TRUE);
     }
 
-    private OutboundDialerQueueRecord getRecordViaPlanA(long dqPk) throws StiException {
+    private OutboundDialerQueueRecord getRecordViaPlanA(long dqPk) throws CrmException {
         LocalDateTime start = new LocalDateTime();
         OutboundDialerQueueRecord dqRecord = new OutboundDialerQueueRecord(dqPk);
         DialerQueue queue = dqService.instantiateDialerQueueRecord(dqPk, dqRecord);
@@ -103,7 +103,7 @@ public class OutboundDialerService {
         return dqRecord;
     }
 
-    private OutboundDialerQueueRecord getRecordViaOptimizedWayPlanB(long dqPk) throws StiException {
+    private OutboundDialerQueueRecord getRecordViaOptimizedWayPlanB(long dqPk) throws CrmException {
         LocalDateTime start = new LocalDateTime();
         OutboundDialerQueueRecord dqRecord = new OutboundDialerQueueRecord(dqPk);
         DialerQueue queue = dqService.instantiateDialerQueueRecord(dqPk, dqRecord);
@@ -118,7 +118,7 @@ public class OutboundDialerService {
         return dqRecord;
     }
 
-    private OutboundDialerQueueRecord getRecordViaHazelcastPlanD(long dqPk) throws StiException {
+    private OutboundDialerQueueRecord getRecordViaHazelcastPlanD(long dqPk) throws CrmException {
         OutboundDialerQueueRecord dqRecord = new OutboundDialerQueueRecord(dqPk);
         DialerQueue queue = dqService.instantiateDialerQueueRecord(dqPk, dqRecord);
         dqRecord.setStatus(OutboundRecordStatus.PENDING);
@@ -128,7 +128,7 @@ public class OutboundDialerService {
         return dqRecord;
     }
     
-    public OutboundDialerQueueRecord getHazelcastOutboundRecord(long dqPk) throws StiException {
+    public OutboundDialerQueueRecord getHazelcastOutboundRecord(long dqPk) throws CrmException {
         LocalDateTime start = new LocalDateTime();
         OutboundDialerQueueRecord dqRecord = new OutboundDialerQueueRecord(dqPk);
         LOG.info("Instantiate DialerQueueRecord took {} msec for dialerQueuePk {}", (new LocalDateTime().getMillisOfDay() - start.getMillisOfDay()), dqPk);
