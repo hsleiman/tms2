@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author Hoang, J, Bishistha
- */
 public class DoNotCallCodes {
    
     public static final int OKAY_TO_CALL = 0;

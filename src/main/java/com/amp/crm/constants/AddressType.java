@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author sundeeptaachanta
- */
 public enum AddressType {
     CURRENT(1),
     MAILING(2),

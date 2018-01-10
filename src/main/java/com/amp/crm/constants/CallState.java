@@ -9,10 +9,6 @@ import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 
-/**
- *
- * @author Hoang, J, Bishistha
- */
 public enum CallState {
     //these are ordered by their influence on the agent state
     //from most influencial to least influencial.

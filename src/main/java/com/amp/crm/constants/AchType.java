@@ -9,10 +9,6 @@ package com.amp.crm.constants;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author HS
- */
 public enum AchType {
     
     ACH_TYPE_ALL (0,"All ACH"),

@@ -6,10 +6,6 @@
 
 package com.amp.crm.constants;
 
-/**
- *
- * @author Skaligineedi
- */
 public enum BankAccountType {
  
     CHECKING(0),

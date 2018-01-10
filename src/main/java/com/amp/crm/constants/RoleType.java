@@ -7,16 +7,16 @@ import java.util.Map;
 
 public enum RoleType {
     SYSTEM_ADMIN(1, "System Administrator", "System Administrator"),
-    SETTLEIT_AGENT(110, "Settleit Agent", "Collection Agent"),
-    SETTLEIT_AGENT_SUPERVISOR(111, "Settleit Agent - Supervisor", "Settleit Agent - Supervisor"),
-    SETTLEIT_AGENT_MANAGER(112, "Settleit Agent - Manager", "Settleit Agent - Manager"),
-    SETTLEIT_AGENT_BACKEND(113, "Settleit Agent - Backend", "Settleit Agent - Backend"),
-    SETTLEIT_SERVICE(120, "Settleit Service", "Settleit Service Agent"),
+    SETTLEIT_AGENT(110, "Agent", "Collection Agent"),
+    SETTLEIT_AGENT_SUPERVISOR(111, "Settleit Agent - Supervisor", "Agent - Supervisor"),
+    SETTLEIT_AGENT_MANAGER(112, "Agent - Manager", "Agent - Manager"),
+    SETTLEIT_AGENT_BACKEND(113, "Agent - Backend", "Agent - Backend"),
+    SETTLEIT_SERVICE(120, "Service", "Service Agent"),
     PAYMENT_PROCESSOR(160, "Payment Processor", "Payment Processor"),
     PAYMENT_PROCESSOR_SUPERVISOR(161, "Payment Processor - Supervisor", "Payment Processor - Supervisor"),
     AUDITOR(240, "Auditor - Read Only", "Auditor - Read Only"),
-    TMS_ADMIN(750, "TMS Admin", "TMS Admin"),
-    TMS_MANAGER(751, "TMS Manager", "TMS Manager");
+    TMS_ADMIN(750, "Admin", "Admin"),
+    TMS_MANAGER(751, "Manager", "Manager");
 
     private static Map<Integer, RoleType> map = new HashMap<>();
 

@@ -13,20 +13,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-/**
- *
- * @author HS 
- */
 @Component
 @Aspect
 public class ExceptionInterceptor {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExceptionInterceptor.class);
 
-    @AfterThrowing(pointcut = "execution( * com.objectbrains.sti.iws.restful.rest..* (..))", throwing = "th")
+    @AfterThrowing(pointcut = "execution( * com.amp.crm.iws.restful.rest..* (..))", throwing = "th")
     public ExceptionToJson afterThrowing(JoinPoint joinPoint, Throwable th) throws Throwable {
         for (int i = 0; i < 100; i++) {
-            LOG.info("Exception thrown Hussien need to re-write. ");
+            LOG.info("Exception thrown need to re-write. ");
         }
         
         LOG.info("joinPoint.getSignature().getName() -> {}",joinPoint.getSignature().getName());

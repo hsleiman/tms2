@@ -10,15 +10,11 @@ import com.amp.crm.common.EnumInterface;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author HS
- */
 public enum CreditCardPaymentStatus implements EnumInterface<CreditCardPaymentStatus>{
         
     CANCELLED(-100, "Cancelled"),
 	ERROR(-99, "Error"),
-	AUTH_ERROR(-5, "Authorization Error"), //not used in P2 yet
+	AUTH_ERROR(-5, "Authorization Error"), 
 	REVERSED(-2, "Reversed"),
 	DENIED(-1, "Denied"),
 	PENDING(0, "Pending"),

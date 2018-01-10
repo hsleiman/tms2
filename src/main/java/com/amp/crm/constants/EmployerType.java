@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author sundeeptaachanta
- */
 public enum EmployerType {
     PRIMARY (1),
     NON_PRIMARY (2);

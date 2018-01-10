@@ -22,10 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-/**
- *
- * @author vnguyen
- */
 @Component
 @Aspect
 public class RestAuthorization { //implements ApplicationContextAware {
@@ -37,7 +33,7 @@ public class RestAuthorization { //implements ApplicationContextAware {
     private UserAuth userAuth;
 
     //syntax <method scope (public, private)> <method's return type> <class name >.*(parameters)
-    @Pointcut("execution( * com.objectbrains.sti.iws.restful.rest..* (..))")
+    @Pointcut("execution( * com.amp.crm.iws.restful.rest..* (..))")
     private void restAPI() {
     }
 

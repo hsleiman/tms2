@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author sundeeptaachanta
- */
 public enum ZumigoLineType {
     VOIP(2),
     LANDLINE(1),

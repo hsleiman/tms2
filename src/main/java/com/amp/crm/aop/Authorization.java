@@ -7,9 +7,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 
-/*
-This is an annotation used to annotate the permission requires for the RESTful service method 
-*/
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Authorization {

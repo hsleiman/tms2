@@ -9,10 +9,6 @@ import com.amp.crm.common.EnumInterface;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author HS
- */
 public enum AchPaymentStatus implements EnumInterface<AchPaymentStatus> {
 
     NOT_SENT(0, "Not Sent"),

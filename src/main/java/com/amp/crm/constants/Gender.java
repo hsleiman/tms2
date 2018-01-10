@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author HS
- */
 public enum Gender {
 
     MALE(1),

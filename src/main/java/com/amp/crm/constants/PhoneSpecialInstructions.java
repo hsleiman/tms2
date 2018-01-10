@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author sundeeptaachanta
- */
 public enum PhoneSpecialInstructions {
 
     Clear(0,"Clear Phone Special Instruction"),

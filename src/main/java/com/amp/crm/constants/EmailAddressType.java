@@ -6,10 +6,6 @@
 
 package com.amp.crm.constants;
 
-/**
- *
- * @author jaimel
- */
 public enum EmailAddressType {
     
     PRIMARY_EMAIL(1, "Primary Email"),

@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author Bishistha
- */
 public enum DialerMode {
     
     REGULAR(0),
