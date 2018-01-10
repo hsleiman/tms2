@@ -30,10 +30,10 @@ import org.joda.time.LocalDateTime;
  * @author HS
  */
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@AuditTable(value = "questionnaire_answer_history", schema = "sti")
+@AuditTable(value = "questionnaire_answer_history", schema = "crm")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class QuestionnaireAnswer extends SuperEntity {
 
     @Column(nullable = false)
@@ -51,7 +51,7 @@ public class QuestionnaireAnswer extends SuperEntity {
 //    private Map<String, String> answers = new HashMap<>();
     
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(schema = "sti", name = "question_answer", 
+    @CollectionTable(schema = "crm", name = "question_answer", 
             joinColumns = @JoinColumn(name = "questionnaire_answer_pk"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"questionPk", "questionnaire_answer_pk", "answer"}))
     private Set<QuestionAnswer> questionAnswers = new HashSet<>();

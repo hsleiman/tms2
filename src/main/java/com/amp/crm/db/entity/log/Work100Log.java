@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * @author Hoang, J, Bishistha
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 @DiscriminatorValue("100")
  public class Work100Log extends WorkMainLog {
    

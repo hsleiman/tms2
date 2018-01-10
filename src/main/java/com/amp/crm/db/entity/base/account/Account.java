@@ -49,9 +49,9 @@ import org.joda.time.LocalDateTime;
 @GenericGenerator(name = "customIdGenerator", strategy = "com.objectbrains.sti.db.hibernate.CustomIdGenerator",
         parameters = {
             @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "account_pk_seq"),
-            @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "sti"),
+            @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "crm"),
             @Parameter(name = SequenceStyleGenerator.INITIAL_PARAM, value = "1")})
-@Table(schema = "sti")
+@Table(schema = "crm")
 @Inheritance(strategy = InheritanceType.JOINED)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Account extends SuperEntityCustom {

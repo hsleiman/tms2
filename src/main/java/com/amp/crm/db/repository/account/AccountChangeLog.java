@@ -31,7 +31,7 @@ import org.joda.time.LocalDateTime;
         )
 })
 @Entity
-@Table(schema="sti")
+@Table(schema="crm")
 public class AccountChangeLog extends SuperEntity{
     private Long accountPk;
     private int status = 0;

@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class DialerSettingsHistory extends SuperEntity{
     @Column(length = 4000)
     private String old_Settings;

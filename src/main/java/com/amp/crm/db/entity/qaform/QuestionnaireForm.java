@@ -47,9 +47,9 @@ import org.hibernate.envers.RelationTargetAuditMode;
     )
 })
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@AuditTable(value = "questionnaire_form_history", schema = "sti")
+@AuditTable(value = "questionnaire_form_history", schema = "crm")
 @Entity
-@Table(schema = "sti",
+@Table(schema = "crm",
         uniqueConstraints = @UniqueConstraint(columnNames = {"formName", "form_category_pk"})
 )
 public class QuestionnaireForm extends SuperEntity {

@@ -27,7 +27,7 @@ import javax.persistence.Table;
  * @author Hoang, J, Bishistha
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 //@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 //@AuditTable(value = "dialer_ib_setting_history", schema = "svc")
 
@@ -36,7 +36,7 @@ public class InboundDialerQueueSettings extends DialerQueueSettings {
     private Long maxDelayBeforeAgentAnswer;
 
     @ElementCollection(targetClass = AgentCallOrder.class, fetch = FetchType.EAGER)
-    @CollectionTable(schema = "sti", name = "agent_call_order", joinColumns = @JoinColumn(name = "dialer_queue_pk"))
+    @CollectionTable(schema = "crm", name = "agent_call_order", joinColumns = @JoinColumn(name = "dialer_queue_pk"))
     @OrderColumn(name = "order_index")
     private List<AgentCallOrder> agentCallOrder = new ArrayList<>();
 

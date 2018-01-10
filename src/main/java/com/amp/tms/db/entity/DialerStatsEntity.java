@@ -18,7 +18,7 @@ import org.joda.time.LocalDateTime;
  * @author Hoang, J, Bishistha
  */
 @Entity(name = "DialerStats")
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class DialerStatsEntity extends DialerStats {
 
     @ManyToOne

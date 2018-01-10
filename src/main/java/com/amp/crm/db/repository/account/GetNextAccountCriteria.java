@@ -38,7 +38,7 @@ import org.joda.time.LocalDateTime;
 
 })
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class GetNextAccountCriteria extends SuperEntity {
 
     private Long accountPk;

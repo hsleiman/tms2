@@ -44,7 +44,7 @@ import org.joda.time.LocalDateTime;
     )
 })
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class CallDispositionGroup extends SuperEntity {
 
     @Column(nullable = false, unique = true)
@@ -60,7 +60,7 @@ public class CallDispositionGroup extends SuperEntity {
     @XmlTransient
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "call_disposition_group_codes", schema = "sti",
+	@JoinTable(name = "call_disposition_group_codes", schema = "crm",
 		joinColumns = { @JoinColumn(name = "disposition_group_pk", referencedColumnName = "pk") }, 
 		inverseJoinColumns = { @JoinColumn(name = "disposition_code_id", referencedColumnName = "dispositionId") }
             // removed unique constraints because it is restricting hibernate update on ordered list 

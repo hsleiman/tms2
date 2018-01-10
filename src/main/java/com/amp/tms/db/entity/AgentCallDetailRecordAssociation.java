@@ -19,7 +19,7 @@ import org.joda.time.LocalDateTime;
  */
 
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class AgentCallDetailRecordAssociation {
 
     @Id

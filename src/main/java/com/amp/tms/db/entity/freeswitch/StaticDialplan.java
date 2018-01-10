@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * @author hsleiman
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class StaticDialplan implements Serializable{
 
     @Id

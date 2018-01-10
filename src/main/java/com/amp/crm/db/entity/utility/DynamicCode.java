@@ -33,7 +33,7 @@ import org.joda.time.LocalDateTime;
     )
 })
 @Entity
-@Table(schema = "sti", uniqueConstraints = @UniqueConstraint(name = "uk_dynamic_code_name", columnNames = "name"))
+@Table(schema = "crm", uniqueConstraints = @UniqueConstraint(name = "uk_dynamic_code_name", columnNames = "name"))
 public class DynamicCode extends SuperEntity {
 
     @Embedded

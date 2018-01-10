@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "action_type", discriminatorType = DiscriminatorType.STRING)
 @XmlSeeAlso({RetryCallAction.class, DoNotCallAction.class, TryNextPhoneNumberAction.class, MarkLoanAsCompletedAction.class, DoNotCallPhoneAction.class})

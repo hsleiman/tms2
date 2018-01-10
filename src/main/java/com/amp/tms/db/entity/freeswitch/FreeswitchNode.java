@@ -30,7 +30,7 @@ import org.joda.time.LocalDateTime;
  * @author hsleiman
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class FreeswitchNode implements DataSerializable {
 
     @Id

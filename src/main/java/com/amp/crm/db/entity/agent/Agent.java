@@ -46,9 +46,9 @@ import org.joda.time.LocalDateTime;
         )
 })
 @Entity
-@AuditTable(value = "agent_history", schema = "sti")
+@AuditTable(value = "agent_history", schema = "crm")
 //@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@Table(name = "agent", schema = "sti", uniqueConstraints = {
+@Table(name = "agent", schema = "crm", uniqueConstraints = {
         @UniqueConstraint(name = "userName", columnNames = {"userName"})
 })
 

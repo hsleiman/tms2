@@ -26,7 +26,7 @@ import javax.persistence.Table;
     )
 })
 @Entity
-@Table(schema="sti")
+@Table(schema="crm")
 public class HoldMusic extends SuperEntity {
     
     @Column(unique = true)

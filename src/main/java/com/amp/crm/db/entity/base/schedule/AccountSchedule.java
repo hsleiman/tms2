@@ -26,7 +26,7 @@ import org.hibernate.annotations.ForeignKey;
  * @author Skaligineedi
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AccountSchedule extends SuperEntity{
     

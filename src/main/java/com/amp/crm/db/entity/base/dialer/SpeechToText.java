@@ -13,7 +13,7 @@ import org.hibernate.annotations.Type;
 
 
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class SpeechToText extends SuperEntity{
     
     private String callUUID;

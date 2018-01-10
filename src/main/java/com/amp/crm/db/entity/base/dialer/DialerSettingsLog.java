@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class DialerSettingsLog extends SuperEntity{
      
     private String username;

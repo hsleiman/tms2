@@ -67,8 +67,8 @@ import org.hibernate.envers.RelationTargetAuditMode;
 })
 @Entity
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@AuditTable(value = "phone_history", schema = "sti")
-@Table(name = "phone", schema = "sti")
+@AuditTable(value = "phone_history", schema = "crm")
+@Table(name = "phone", schema = "crm")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Phone extends SuperEntity {
 

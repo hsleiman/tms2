@@ -55,7 +55,7 @@ import org.hibernate.annotations.ForeignKey;
             query = "SELECT s FROM CallResponseAction s WHERE s.account.pk IS NULL and s.dialerQueue.pk IS NULL and s.callResponseCode = :code")
 })
 @Entity
-@Table(schema = "sti", 
+@Table(schema = "crm", 
        uniqueConstraints= {
                @UniqueConstraint(columnNames={"callResponseCode", "dialer_queue_pk"}),
                @UniqueConstraint(columnNames={"callResponseCode", "account_pk"}),

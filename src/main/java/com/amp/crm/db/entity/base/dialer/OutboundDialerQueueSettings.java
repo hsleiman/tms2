@@ -30,7 +30,7 @@ import org.joda.time.LocalDateTime;
  * @author Hoang, J, Bishistha
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 //@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 //@AuditTable(value = "dialer_ob_setting_history", schema = "svc")
 public class OutboundDialerQueueSettings extends DialerQueueSettings {

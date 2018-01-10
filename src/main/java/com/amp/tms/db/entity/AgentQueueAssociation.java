@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * @author Hoang, J, Bishistha
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class AgentQueueAssociation extends AgentWeightedPriority{
 
     @EmbeddedId

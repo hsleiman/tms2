@@ -81,7 +81,7 @@ import org.joda.time.LocalDateTime;
 )
 
 @Entity(name = "AgentCall")
-@Table(schema = "sti")
+@Table(schema = "crm")
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 //@AuditTable(value = "tms_agent_call_history", schema = "tms")
 public class AgentCallRecord extends AgentCall {

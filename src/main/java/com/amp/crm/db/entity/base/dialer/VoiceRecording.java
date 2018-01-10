@@ -18,7 +18,7 @@ import javax.persistence.Table;
 //
 //})
 @Entity
-@Table(schema="sti")
+@Table(schema="crm")
 public class VoiceRecording extends SuperEntity {
     
     @Column(unique = true)

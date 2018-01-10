@@ -32,7 +32,7 @@ import org.joda.time.LocalDate;
         )
 })
 @Entity
-@Table(name="payment", schema="sti")
+@Table(name="payment", schema="crm")
 public class Payment extends SuperEntity implements Comparable {
     
     @Embedded

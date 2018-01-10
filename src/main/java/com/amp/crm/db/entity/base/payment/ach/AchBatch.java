@@ -39,7 +39,7 @@ import org.joda.time.LocalDateTime;
         query="SELECT s FROM AchBatch s where s.batchDate=:batchDate and s.batchType=:batchType")
 })
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class AchBatch extends SuperEntity {
 
 

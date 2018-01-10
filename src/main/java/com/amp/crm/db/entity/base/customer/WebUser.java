@@ -29,7 +29,7 @@ import org.joda.time.LocalDateTime;
 //        
 //})
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WebUser extends SuperEntity{
     

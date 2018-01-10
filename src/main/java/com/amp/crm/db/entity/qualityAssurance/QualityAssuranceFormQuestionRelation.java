@@ -8,7 +8,7 @@ import org.joda.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
-@Table(schema = "sti", name = "quality_assurance_form_question_relations")
+@Table(schema = "crm", name = "quality_assurance_form_question_relations")
 public class QualityAssuranceFormQuestionRelation {
 
     @Id

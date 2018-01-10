@@ -40,7 +40,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
     )
 })
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class CallDispositionCode {
 
     @Id

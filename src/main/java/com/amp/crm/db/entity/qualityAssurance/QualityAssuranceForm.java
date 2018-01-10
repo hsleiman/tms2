@@ -8,7 +8,7 @@ import org.joda.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
-@Table(schema = "sti", name = "quality_assurance_forms",
+@Table(schema = "crm", name = "quality_assurance_forms",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"form_name"})
         })

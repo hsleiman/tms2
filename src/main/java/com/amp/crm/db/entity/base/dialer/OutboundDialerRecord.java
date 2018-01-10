@@ -27,7 +27,7 @@ import org.joda.time.LocalDateTime;
 
 
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class OutboundDialerRecord extends SuperEntity{
     private String UUID;
     private long dqPk;
@@ -35,7 +35,7 @@ public class OutboundDialerRecord extends SuperEntity{
     private LocalDateTime completeTime;
     
     @ElementCollection(targetClass = AgentWeightPriority.class, fetch = FetchType.EAGER)
-    @CollectionTable(schema = "sti", name = "agent_weight_priority", joinColumns = @JoinColumn(name = "outbound_dialer_record_pk"))
+    @CollectionTable(schema = "crm", name = "agent_weight_priority", joinColumns = @JoinColumn(name = "outbound_dialer_record_pk"))
     @OrderColumn(name = "order_index")
     private List<AgentWeightPriority> agentWeightPriority = new ArrayList<>();
     

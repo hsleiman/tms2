@@ -25,7 +25,7 @@ public abstract class SuperEntitySequence extends AbstractSuperEntity {
             parameters = {
                 @Parameter(name = SequenceStyleGenerator.CONFIG_PREFER_SEQUENCE_PER_ENTITY, value = "true"),
                 @Parameter(name = SequenceStyleGenerator.CONFIG_SEQUENCE_PER_ENTITY_SUFFIX, value = "_pk_seq"),
-                @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "sti")
+                @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "crm")
             })
     @Column(name = "pk", unique = true, nullable = false)
     private long pk;

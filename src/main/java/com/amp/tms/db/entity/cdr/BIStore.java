@@ -21,7 +21,7 @@ import org.joda.time.LocalDateTime;
  * @author Hoang, J, Bishistha
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class BIStore {
 
     @Id
