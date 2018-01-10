@@ -14,11 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import org.hibernate.annotations.Index;
 
-/**
- *
- * 
- */
-    @NamedQueries({
+@NamedQueries({
     @NamedQuery(
             name="ZipTimezone.GetRecordsByZip",
             query="SELECT x FROM ZipTimezone x where x.zip =:Zip"

@@ -9,10 +9,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 @MappedSuperclass
 public abstract class SuperEntity extends AbstractSuperEntity {
     @Id

@@ -10,10 +10,6 @@ import java.util.Map;
 import org.hibernate.annotations.common.util.StringHelper;
 import org.hibernate.cfg.DefaultNamingStrategy;
 
-/**
- *
- * @author hsleiman
- */
 public class CRMNamingStrategy extends DefaultNamingStrategy {
 
     private Map<String, String> standardProperties;

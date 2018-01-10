@@ -23,18 +23,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * 
- */
 @Repository
 public class StiAgentRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-//    @Autowired
-//    private CollectionQueueRepository colQRepo;
     @Autowired
     private AccountManagerOWS accountManagerOWS;
 
@@ -165,183 +159,16 @@ public class StiAgentRepository {
     public List<DialerGroup> getAllDialerGroups() {
         return getEntityManager().createNamedQuery("DialerGroup.LocateAll", DialerGroup.class).getResultList();
     }
-//    public List<SvLoan> locateSvLoanListByAgentPkAndSortNumber(long agentPk, int sortNumber) {
-//        Query query = getEntityManager().createQuery(
-//                "SELECT s FROM SvLoan s WHERE "
-//                        + "s.svLoanCollectionQueue.pk = :agentPk AND "
-//                        + "s.sortNumberInQueue > :sortNumber"
-//                        + " ORDER BY s.sortNumberInQueue ASC");
-//        query.setParameter("agentPk", agentPk);
-//        query.setParameter("sortNumber", sortNumber);
-//        @SuppressWarnings("unchecked")
-//        List<SvLoan> res = query.getResultList();
-//        return res;
-//    }
-//    
-//    public SvLoan locateSvLoanByqueuePkAndSortNumber(long queuePk, int sortNumber) {
-//        Query query = getEntityManager().createQuery(
-//                "SELECT s FROM SvLoan s WHERE "
-//                        + "s.svLoanCollectionQueue.pk = :queuePk AND "
-//                        + "s.sortNumberInQueue = :sortNumber "
-//                        );
-//        query.setParameter("queuePk", queuePk);
-//        query.setParameter("sortNumber", sortNumber);
-//        @SuppressWarnings("unchecked")
-//        List<SvLoan> res = query.getResultList();
-//        if(res == null || res.isEmpty()){
-//            return null;
-//        }
-//        if(res.size() > 1){
-//            throw new TooManyObjectFoundException("Too Many Loans found with the same queuePk "+queuePk+" and sortNumber : "+sortNumber);
-//        }
-//        return res.get(0);
-//    }
 
     public int getMaxSortNumberInQueue(long queuePk) {
         Query query = getEntityManager().createQuery(
-                "SELECT max(s.sortNumberInQueue)FROM SvLoan s WHERE "
+                "SELECT max(s.sortNumberInQueue)FROM Account s WHERE "
                 + "s.accountWorkQueue.pk = :queuePk ");
         query.setParameter("queuePk", queuePk);
         return (int) query.getResultList().get(0);
 
     }
-
-//    @SuppressWarnings("unchecked")
-//    public List<LoansInQueuePojo> getLoansInQueue(Long queuePk, Integer pageNum, Integer pageSize) {
-//        
-//        //Long bankruptcyPortfolio = ((Integer)WorkPortfolioType.COLL_PORTFOLIO_BANKRUPTCY).longValue();
-//        //Long legalPortfolio = ((Integer)WorkPortfolioType.COLL_PORTFOLIO_LEGAL).longValue();
-//        String FROMQuery = "";
-//        String WHEREQuery = "";
-//        WorkQueue svColQueue = colQRepo.getCollectionsQueue(queuePk);
-//        Boolean isSkip = svColQueue.getColQueueData().getPortfolioType() == WorkPortfolioType.COLL_PORTFOLIO_SKIP_TRACE;
-//        if (isSkip){
-//            FROMQuery = " FROM WorkQueue queue "
-//                    + " JOIN queue.svSkipTraceSet skipTraces "
-//                + " JOIN skipTraces.svLoan loan "
-//                + " JOIN loan.svPrimaryBorrowers bwr "
-//                + " LEFT OUTER JOIN bwr.borrowerCurrentAddress addr "
-//                + " LEFT OUTER JOIN loan.svRFDHistory rfd "
-//                + " , SvLoanTerm term ";
-//              //  + " LEFT OUTER JOIN term.svDueAmounts dueAmount ";
-//        }else{
-//            FROMQuery = " FROM WorkQueue queue "
-//                + " , SvLoan loan "
-//                + " JOIN loan.svPrimaryBorrowers bwr "
-//                + " LEFT OUTER JOIN bwr.borrowerCurrentAddress addr "
-//                + " LEFT OUTER JOIN loan.svRFDHistory rfd "
-//                + " , SvLoanTerm term ";
-//                //+ " LEFT OUTER JOIN term.svDueAmounts dueAmount ";
-//        }
-//        String queryString = "SELECT new " + LoansInQueuePojo.class.getName()+
-//                "(loan.pk as loanPk,"
-//                + " bwr.personalInfo.firstName as bwrFirstName,"
-//                + " bwr.personalInfo.lastName as bwrLastName,"
-//                + " addr.state as bwrState,"
-//                + " ("
-//                + " SELECT max(ptp.dueAmount.dueDate) "
-//                + " FROM SvPromiseToPay ptp "
-//                + " WHERE ptp.svLoanTerm = term AND "
-//                + " ptp.svLoan = loan AND "
-//                + " ptp.promiseToPay.ptpStatus = :pendingPtpStatus "
-//                + " ) as ptpdate,"
-//                + " loan.lastReviewedDateTime as reviewedDate,"
-//                //+ " dueAmount.dueAmount.dueDate as nextPaymentDueDate, "
-//                +" ("
-//                + " select MIN(da.dueAmount.dueDate) from SvDueAmount da , SvLoanTerm term2 " 
-//                + " WHERE da.svLoanTerm = term2 " 
-//                + " AND da.svLoan = loan " 
-//                + " AND da.dueAmount.paidAdequate = false " 
-//                + " AND da.dueAmount.dueType IN (0,99) " 
-//                + " AND term2.current = true"
-//                + ") as nextPaymentDueDate, "
-//                + " loan.lastWorkedDateTime as dateLastWorked,"
-//                + " loan.myQueuelastContactTimestamp as lastContactTime, "
-//                + " term.currentBalance as loanBalance, "
-//                + " loan.callbackDateTime as callbackDate, "
-//                + " loan.dateLastSkipWork as dateLastSkipWork,"
-//                + " loan.freshStartCode as statusCodes, "
-//                + " rfd.reasonForDq as reasonForDelinquency, "
-//                + " (SELECT MAX(s.eftPaymentBasicData.postingDate) FROM SvAchPayment s WHERE "
-//                + " s.svLoan = loan AND ( (s.achPaymentData.status = 0 OR s.achPaymentData.status = 10 OR s.achPaymentData.status = 11) AND s.achPaymentData.achStatus is NULL)) "
-//                + " as pendingAchDate ,"
-//                + " (SELECT MAX(s.eftPaymentBasicData.postingDate) FROM SvCreditCardPayment s WHERE s.svLoan.pk = loan.pk AND s.ccPaymentData.status = :pendingCCPaymentStatus) as pendingCCDate)";
-//            //    + " CASE "
-//            //    + "     WHEN pendingAchOrCreditCard"
-//            //    + "     THEN ";
-//                
-//                /*+ " (SELECT max(achCCDate) AS pendingAchOrCCDate"
-//                + " FROM ("
-//                + "     ("
-//                + "         SELECT max(s.eftPaymentBasicData.postingDate) as achCCDate "
-//                + "         FROM SvAchPayment s "
-//                + "         WHERE s.svLoan = loan AND ( (s.achPaymentData.status = 0 OR s.achPaymentData.status = 10 OR s.achPaymentData.status = 11)"
-//                + "         AND s.achPaymentData.achStatus is NULL) "
-//                + "     )"
-//                + "     UNION ALL "
-//                + "     ("
-//                + "         SELECT max(ccPayment.eftPaymentBasicData.postingDate) as achCCDate "
-//                + "         FROM SvCreditCardPayment ccPayment "
-//                + "         WHERE (ccPayment.ccPaymentData.status = :pendingCCPaymentStatus) AND ccPayment.svLoan=loan"
-//                + "     )"
-//                + " ) AS a )  )";
-//                //+ " AS pendingAchOrCCDate )";*/
-//                
-//                
-//        WHEREQuery = " WHERE queue.pk = :queuePk AND ";
-//        if(!isSkip){
-//            WHEREQuery =  WHEREQuery+ " loan.svLoanCollectionQueue.pk = :queuePk AND ";
-//        }
-//        WHEREQuery = WHEREQuery + " (rfd.creationTimestamp = (SELECT max(rfdHis.creationTimestamp) FROM SvRFDHistory rfdHis WHERE rfdHis.svLoan = loan) OR (rfd is null)) AND "//INDEX(rfd) = 0 AND "
-//                + " term.svLoan.pk = loan.pk AND "
-//                + " term.current = true ";//AND "
-//              //  + " dueAmount.dueAmount.dueType = :dueType ";
-//        LOG.info("Finalquery : {}{}{}", queryString, FROMQuery, WHEREQuery);
-//        Query query = getEntityManager().createQuery(queryString+FROMQuery+WHEREQuery, LoansInQueuePojo.class).
-//                setParameter("queuePk", queuePk)
-//                .setParameter("pendingCCPaymentStatus", CreditCardPaymentStatus.FUTURE_PAYMENT_VERIFIED)
-//                //.setParameter("dueType", 99)
-//                .setParameter("pendingPtpStatus", PTPStatusCode.PTP_STATUS_PENDING);
-//        if(pageNum != null && pageSize != null){
-//             query.setFirstResult(pageNum * pageSize);
-//             query.setMaxResults(pageSize); 
-//        }        
-//        return query.getResultList();
-//    }
-//    public String getLegalQueryForLoan(){
-//        return "select new "+LegalDetailsForLoanInQueue.class.getName()+"(legal.litigationDetails.litigationTrialDate as litigationTrialDate,"
-//                + " legal.litigationDetails.litigationStipJudgmentDate as litigationStipJudgmentDate,"
-//                + " legal.litigationDetails.litigationWritAmount as litigationWritAmount,"
-//                + " legal.litigationDetails.litigationExecuteWritDate as litigationExecuteWritDate,"
-//                + " courtRef.attorneyName as attorneyName,"
-//                + " legal.ccAttorney.ccAttorneyFirm as ccAttorneyFirm,"
-//                + " legal.litigationDetails.litigationSheriff,"
-//                + " payment.paymentBasicData.paymentEffectiveDate as lastPaymentDate,"
-//                + " legal.judgementData.judgementDataTotal as judgementTotal)"
-//               
-//                + " FROM SvLoan loan"
-//                + " JOIN SvLegalData legal"
-//                + " LEFT OUTER JOIN legal.svSuperiorCourtReferral courtRef,"
-//                + " SvPayment payment"
-//               
-//                + " WHERE "
-//                //+ " loan.pk = :loanPk AND"
-//                + " ((payment is null) OR (payment.svLoan = loan AND payment.paymentBasicData.paymentEffectiveDate = (SELECT max(p.paymentBasicData.paymentEffectiveDate) FROM SvPayment p WHERE p.svLoan = loan))) "
-//                + " ";
-//    }
-//    
-//    public List<SvLoan> getLoansForQueue(Long queuePk){
-//        return getEntityManager().createQuery("SELECT s FROM SvLoan s WHERE s.svLoanCollectionQueue.pk = :queuePk", SvLoan.class).
-//                setParameter("queuePk", queuePk).getResultList();
-//    }
-//    public CustomerAttorney getCustAttorneyPojo(){
-//        List<CustomerAttorney> list = getEntityManager().createQuery("select new "+LegalDetailsForLoanInQueue.class.getName()+"(null, null"
-//                + ")", CustomerAttorney.class).getResultList();
-//        if(list == null || list.isEmpty()){
-//            return null;
-//        }
-//        return list.get(0);
-//    }
+    
     public Agent syncAgentWithUser(Agent agent) {
         AmsUser amsUser = accountManagerOWS.getUser(agent.getUserName());
         if (amsUser != null) {
@@ -360,29 +187,4 @@ public class StiAgentRepository {
         return null;
     }
 
-//    @SuppressWarnings("unchecked")
-//    public List<LoansInQueuePojo> getLoansInQueueUsingNativeQuery(Long queuePk, Integer pageNum, Integer pageSize) {
-//        WorkQueue svColQueue = colQRepo.getCollectionsQueue(queuePk);
-//        Boolean isSkip = svColQueue.getColQueueData().getPortfolioType() == WorkPortfolioType.COLL_PORTFOLIO_SKIP_TRACE;
-//        String query ="";
-//        if (isSkip){
-//            query = sqlConfigRepo.getQueryBySqlName("GetLoansInSkipQueue");
-//        }else{
-//            query = sqlConfigRepo.getQueryBySqlName("GetLoansInQueue");
-//        }
-//        if(StringUtils.isBlank(query)){
-//            return null;
-//        }
-//        if(pageNum != null && pageSize != null){
-//            int offset = pageNum*pageSize;
-//            String paginationClause = " offset "+offset+" limit "+pageSize;
-//            query = query+paginationClause;
-//        }
-//        Session session = getEntityManager().unwrap(Session.class);
-//        LOG.info("getLoansInQueueUsingNativeQuery: {}", query);
-//        org.hibernate.Query q = session.createSQLQuery(query);
-//        q.setParameter("queuePk", queuePk);
-//        q.setResultTransformer(Transformers.aliasToBean(LoansInQueuePojo.class));
-//        return q.list();
-//    }
 }

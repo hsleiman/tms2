@@ -12,10 +12,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 @NamedQueries({
         @NamedQuery(
             name = "AccountChangeLog.locateByPk",

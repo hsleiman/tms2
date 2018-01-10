@@ -14,10 +14,6 @@ import javax.persistence.Table;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 @NamedQueries({
     @NamedQuery(
             name = "GetNextAccountCriteria.locateByPk",
