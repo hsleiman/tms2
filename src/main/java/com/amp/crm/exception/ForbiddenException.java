@@ -5,10 +5,6 @@
  */
 package com.amp.crm.exception;
 
-/**
- *
- * 
- */
 public class ForbiddenException extends RuntimeException {
 
 	/**

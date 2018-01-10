@@ -8,10 +8,6 @@ package com.amp.crm.exception;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 @XmlRootElement
 public class WebFaultBean {
     
