@@ -10,10 +10,10 @@ import java.util.HashMap;
 
 public class WorkPortfolioType {
     //#773 Clean up servicing statuses.
-    public static final int WORK_PORTFOLIO_CURRENT = 1; // Used for CCSS only. "Current" loans are portfolio-less
+    public static final int WORK_PORTFOLIO_CURRENT = 1; 
     public static final int WORK_PORTFOLIO_UNDERWRITING = 5;
-    public static final int WORK_PORTFOLIO_PENDING_PURCHASE = 20; // Loans from SD that have not been sold to CC
-    //public static final int WORK_PORTFOLIO_PENDING_PURCHASE_FBOD = 21; // Loans from FBOD that have not been sold to CC
+    public static final int WORK_PORTFOLIO_PENDING_PURCHASE = 20; 
+    //public static final int WORK_PORTFOLIO_PENDING_PURCHASE_FBOD = 21; 
     public static final int WORK_PORTFOLIO_WELCOME = 50;
     //#773public static final int WORK_PORTFOLIO_ACH_INFO_NEEDED = 75;
     public static final int WORK_PORTFOLIO_FRONT_END = 100;

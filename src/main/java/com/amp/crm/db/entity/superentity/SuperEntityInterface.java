@@ -2,10 +2,6 @@ package com.amp.crm.db.entity.superentity;
 
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 public interface SuperEntityInterface {
     
     public long getPk();
