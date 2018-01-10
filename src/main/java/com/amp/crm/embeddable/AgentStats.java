@@ -19,10 +19,6 @@ import org.hibernate.envers.NotAudited;
 import org.joda.time.Duration;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 @Embeddable
 public class AgentStats implements DataSerializable {
 

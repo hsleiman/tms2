@@ -11,10 +11,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import org.springframework.beans.BeanUtils;
 
-/**
- *
- * 
- */
 @Embeddable
 public class BasicBankData implements Cloneable {
 

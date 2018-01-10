@@ -14,112 +14,108 @@ import java.io.IOException;
 import java.io.Serializable;
 import javax.persistence.Embeddable;
 
-/**
- *
- * 
- */
 @Embeddable
 public class CustomerTMSInfo implements DataSerializable, Serializable {
 
     @Expose
-    private Long loanId;
+    private Long accountId;
     @Expose
     @JsonProperty("lastName")
-    private String borrowerLastName;
+    private String customerLastName;
     @Expose
     @JsonProperty("firstName")
-    private String borrowerFirstName;
+    private String customerFirstName;
     @Expose
     @JsonProperty("phone")
-    private String borrowerPhoneNumber;
+    private String customerPhoneNumber;
     
     @Expose
     @JsonProperty("phoneType")
-    private String borrowerPhoneNumberType;
+    private String customerPhoneNumberType;
     
     public CustomerTMSInfo() {
     }
 
-    public CustomerTMSInfo(Long loanId, String borrowerLastName, String borrowerFirstName, String borrowerPhoneNumber, String borrowerPhoneNumberType) {
-        this.loanId = loanId;
-        this.borrowerLastName = borrowerLastName;
-        this.borrowerFirstName = borrowerFirstName;
-        this.borrowerPhoneNumber = borrowerPhoneNumber;
-        this.borrowerPhoneNumberType = borrowerPhoneNumberType;
+    public CustomerTMSInfo(Long accountId, String customerLastName, String customerFirstName, String customerPhoneNumber, String customerPhoneNumberType) {
+        this.accountId = accountId;
+        this.customerLastName = customerLastName;
+        this.customerFirstName = customerFirstName;
+        this.customerPhoneNumber = customerPhoneNumber;
+        this.customerPhoneNumberType = customerPhoneNumberType;
     }
 
     public CustomerTMSInfo(CustomerTMSInfo copy) {
-        this.loanId = copy.loanId;
-        this.borrowerFirstName = copy.borrowerFirstName;
-        this.borrowerLastName = copy.borrowerLastName;
-        this.borrowerPhoneNumber = copy.borrowerPhoneNumber;
-        this.borrowerPhoneNumberType = copy.borrowerPhoneNumberType;
+        this.accountId = copy.accountId;
+        this.customerFirstName = copy.customerFirstName;
+        this.customerLastName = copy.customerLastName;
+        this.customerPhoneNumber = copy.customerPhoneNumber;
+        this.customerPhoneNumberType = copy.customerPhoneNumberType;
     }
 
-    public Long getLoanId() {
-        return loanId;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setLoanId(Long loanId) {
-        this.loanId = loanId;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
-    public String getBorrowerLastName() {
-        return borrowerLastName;
+    public String getCustomerLastName() {
+        return customerLastName;
     }
 
-    public void setBorrowerLastName(String borrowerLastName) {
-        this.borrowerLastName = borrowerLastName;
+    public void setCustomerLastName(String customerLastName) {
+        this.customerLastName = customerLastName;
     }
 
-    public String getBorrowerFirstName() {
-        return borrowerFirstName;
+    public String getCustomerFirstName() {
+        return customerFirstName;
     }
 
-    public void setBorrowerFirstName(String borrowerFirstName) {
-        this.borrowerFirstName = borrowerFirstName;
+    public void setCustomerFirstName(String customerFirstName) {
+        this.customerFirstName = customerFirstName;
     }
 
-    public String getBorrowerPhoneNumber() {
-        return borrowerPhoneNumber;
+    public String getCustomerPhoneNumber() {
+        return customerPhoneNumber;
     }
 
-    public void setBorrowerPhoneNumber(String borrowerPhoneNumber) {
-        this.borrowerPhoneNumber = borrowerPhoneNumber;
+    public void setCustomerPhoneNumber(String customerPhoneNumber) {
+        this.customerPhoneNumber = customerPhoneNumber;
     }
 
-    public String getBorrowerPhoneNumberType() {
-        return borrowerPhoneNumberType;
+    public String getCustomerPhoneNumberType() {
+        return customerPhoneNumberType;
     }
 
-    public void setBorrowerPhoneNumberType(String borrowerPhoneNumberType) {
-        this.borrowerPhoneNumberType = borrowerPhoneNumberType;
+    public void setCustomerPhoneNumberType(String customerPhoneNumberType) {
+        this.customerPhoneNumberType = customerPhoneNumberType;
     }
 
     public void clear() {
-        loanId = null;
-        borrowerLastName = null;
-        borrowerFirstName = null;
-        borrowerPhoneNumber = null;
-        borrowerPhoneNumberType = null;
+        accountId = null;
+        customerLastName = null;
+        customerFirstName = null;
+        customerPhoneNumber = null;
+        customerPhoneNumberType = null;
     }
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(loanId);
-        out.writeUTF(borrowerLastName);
-        out.writeUTF(borrowerFirstName);
-        out.writeUTF(borrowerPhoneNumber);
-        out.writeUTF(borrowerPhoneNumberType);
+        out.writeObject(accountId);
+        out.writeUTF(customerLastName);
+        out.writeUTF(customerFirstName);
+        out.writeUTF(customerPhoneNumber);
+        out.writeUTF(customerPhoneNumberType);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        loanId = in.readObject();
-        borrowerLastName = in.readUTF();
-        borrowerFirstName = in.readUTF();
-        borrowerPhoneNumber = in.readUTF();
-        borrowerPhoneNumberType = in.readUTF();
+        accountId = in.readObject();
+        customerLastName = in.readUTF();
+        customerFirstName = in.readUTF();
+        customerPhoneNumber = in.readUTF();
+        customerPhoneNumberType = in.readUTF();
     }
 
 }

@@ -17,17 +17,13 @@ import javax.persistence.Transient;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.joda.time.LocalDate;
 
-/**
- *
- * 
- */
 @Embeddable
 public class BankDetails {
 
     @Transient
     private long bankDataPk;
     @Transient
-    private long borrowerPk;
+    private long customerPk;
     private String bankName;
     @Enumerated(EnumType.ORDINAL)
     private BankAccountType bankAccountType;
@@ -51,12 +47,12 @@ public class BankDetails {
         this.bankDataPk = bankDataPk;
     }
 
-    public long getBorrowerPk() {
-        return borrowerPk;
+    public long getCustomerPk() {
+        return customerPk;
     }
 
-    public void setBorrowerPk(long borrowerPk) {
-        this.borrowerPk = borrowerPk;
+    public void setCustomerPk(long customerPk) {
+        this.customerPk = customerPk;
     }
 
     public String getBankName() {

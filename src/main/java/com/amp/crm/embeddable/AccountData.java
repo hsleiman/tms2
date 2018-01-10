@@ -16,10 +16,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
-/**
- *
- * 
- */
+
 @Embeddable
 public class AccountData {
 
@@ -51,7 +48,7 @@ public class AccountData {
     private Boolean verbalCeaseAndDesist = Boolean.FALSE;
     private LocalTime bestTimeToCall;
     private Integer sortNumberForAgent = 0;
-    private String assignedToAgentByGetNextLoan;
+    private String assignedToAgentByGetNextAccount;
     @Column(length = 1000000)
     private String originalApplicationData;
     private LocalDateTime dialerLeftMessageTime;
@@ -274,12 +271,12 @@ public class AccountData {
         this.sortNumberForAgent = sortNumberForAgent;
     }
 
-    public String getAssignedToAgentByGetNextLoan() {
-        return assignedToAgentByGetNextLoan;
+    public String getAssignedToAgentByGetNextAccount() {
+        return assignedToAgentByGetNextAccount;
     }
 
-    public void setAssignedToAgentByGetNextLoan(String assignedToAgentByGetNextLoan) {
-        this.assignedToAgentByGetNextLoan = assignedToAgentByGetNextLoan;
+    public void setAssignedToAgentByGetNextAccount(String assignedToAgentByGetNextAccount) {
+        this.assignedToAgentByGetNextAccount = assignedToAgentByGetNextAccount;
     }
 
     public String getOriginalApplicationData() {

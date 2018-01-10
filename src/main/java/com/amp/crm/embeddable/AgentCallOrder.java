@@ -12,10 +12,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.xml.bind.annotation.XmlElement;
 
-/**
- *
- * 
- */
+
 @Embeddable
 public class AgentCallOrder {
     

@@ -23,10 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * 
- */
 @Repository
 public class CrmAgentRepository {
 
@@ -168,7 +164,7 @@ public class CrmAgentRepository {
 
     public int getMaxSortNumberInQueue(long queuePk) {
         Query query = getEntityManager().createQuery(
-                "SELECT max(s.sortNumberInQueue)FROM SvLoan s WHERE "
+                "SELECT max(s.sortNumberInQueue)FROM Account s WHERE "
                 + "s.accountWorkQueue.pk = :queuePk ");
         query.setParameter("queuePk", queuePk);
         return (int) query.getResultList().get(0);
@@ -193,29 +189,4 @@ public class CrmAgentRepository {
         return null;
     }
 
-//    @SuppressWarnings("unchecked")
-//    public List<LoansInQueuePojo> getLoansInQueueUsingNativeQuery(Long queuePk, Integer pageNum, Integer pageSize) {
-//        WorkQueue svColQueue = colQRepo.getCollectionsQueue(queuePk);
-//        Boolean isSkip = svColQueue.getColQueueData().getPortfolioType() == WorkPortfolioType.COLL_PORTFOLIO_SKIP_TRACE;
-//        String query ="";
-//        if (isSkip){
-//            query = sqlConfigRepo.getQueryBySqlName("GetLoansInSkipQueue");
-//        }else{
-//            query = sqlConfigRepo.getQueryBySqlName("GetLoansInQueue");
-//        }
-//        if(StringUtils.isBlank(query)){
-//            return null;
-//        }
-//        if(pageNum != null && pageSize != null){
-//            int offset = pageNum*pageSize;
-//            String paginationClause = " offset "+offset+" limit "+pageSize;
-//            query = query+paginationClause;
-//        }
-//        Session session = getEntityManager().unwrap(Session.class);
-//        LOG.info("getLoansInQueueUsingNativeQuery: {}", query);
-//        org.hibernate.Query q = session.createSQLQuery(query);
-//        q.setParameter("queuePk", queuePk);
-//        q.setResultTransformer(Transformers.aliasToBean(LoansInQueuePojo.class));
-//        return q.list();
-//    }
 }

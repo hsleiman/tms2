@@ -9,10 +9,6 @@ package com.amp.crm.embeddable;
 import java.math.BigDecimal;
 import javax.persistence.Embeddable;
 
-/**
- *
- * 
- */
 @Embeddable
 public class DebtAccountData {
     

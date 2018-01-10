@@ -14,10 +14,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-/**
- * 
- * 
- */
 @Embeddable
 public class AddressData {
     @Transient

@@ -19,10 +19,6 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlElement;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 @Embeddable
 public class DialerQueueDetails {
 

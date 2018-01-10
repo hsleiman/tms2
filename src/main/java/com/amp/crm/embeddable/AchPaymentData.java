@@ -18,10 +18,6 @@ import org.hibernate.annotations.Index;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 @Embeddable
 public class AchPaymentData implements Cloneable {
 
@@ -47,7 +43,7 @@ public class AchPaymentData implements Cloneable {
     private String nameEntered;
     private Integer numberOfReversal;
     private LocalDate originalSettlementRtnDate;
-    private Boolean payoffLoan;
+    private Boolean payoffAccount;
     private String poolAcctId;
     private String returnCode;
     private Boolean sendPaymentReminder;
@@ -237,12 +233,12 @@ public class AchPaymentData implements Cloneable {
         this.originalSettlementRtnDate = originalSettlementRtnDate;
     }
 
-    public Boolean isPayoffLoan() {
-        return payoffLoan;
+    public Boolean isPayoffAccount() {
+        return payoffAccount;
     }
 
-    public void setPayoffLoan(Boolean payoffLoan) {
-        this.payoffLoan = payoffLoan;
+    public void setPayoffAccount(Boolean payoffAccount) {
+        this.payoffAccount = payoffAccount;
     }
 
     public String getPoolAcctId() {
