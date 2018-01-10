@@ -10,7 +10,7 @@ import com.amp.crm.db.entity.agent.AgentDialerGroup;
 import com.amp.crm.db.entity.agent.DialerGroup;
 import com.amp.crm.db.entity.base.dialer.DialerQueueGroupAssociation;
 import com.amp.crm.db.configurations.ThreadAttributes;
-import com.amp.crm.db.repository.StiAgentRepository;
+import com.amp.crm.db.repository.CrmAgentRepository;
 import com.amp.crm.db.repository.dialer.DialerQueueRepository;
 import com.amp.crm.embeddable.AgentDialerGroupInformation;
 import com.amp.crm.embeddable.WeightedPriority;
@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DialerGroupService {
 
     @Autowired
-    private StiAgentRepository agentRepository;
+    private CrmAgentRepository agentRepository;
 
     @PersistenceContext
     private EntityManager entityManager;

@@ -12,10 +12,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * 
- */
 @Repository
 public class ZipTimeZoneRepository {
     
@@ -42,7 +38,7 @@ public class ZipTimeZoneRepository {
     }
     
     public void truncate(){
-        entityManager.createNativeQuery("truncate svc.sv_zip_timezone").executeUpdate();
+        entityManager.createNativeQuery("truncate crm.zip_timezone").executeUpdate();
         entityManager.flush();
     }
     

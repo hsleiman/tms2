@@ -10,7 +10,7 @@ import com.amp.crm.db.entity.agent.Agent;
 import com.amp.crm.db.entity.base.account.Account;
 import com.amp.crm.db.entity.base.WorkQueue;
 import com.amp.crm.db.entity.base.customer.Customer;
-import com.amp.crm.db.repository.StiAgentRepository;
+import com.amp.crm.db.repository.CrmAgentRepository;
 import com.amp.crm.db.repository.account.AccountRepository;
 import com.amp.crm.db.repository.account.WorkQueueRepository;
 import com.amp.crm.db.repository.customer.CustomerRepository;
@@ -43,7 +43,7 @@ public class AccountService {
     private CustomerRepository customerRepo;
 
     @Autowired
-    private StiAgentRepository agentRepo;
+    private CrmAgentRepository agentRepo;
 
     public long createOrUpdateAccount(AccountData accountdata) {
         long accountPk = accountdata.getAccountPk();

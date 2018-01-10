@@ -13,10 +13,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * 
- */
 @Repository
 public class CallDispositionRepository {
 

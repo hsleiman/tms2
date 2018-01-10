@@ -26,7 +26,7 @@ import com.amp.crm.db.entity.base.customer.Phone;
 import com.amp.crm.db.entity.disposition.CallDispositionCode;
 import com.amp.crm.db.entity.disposition.CallDispositionGroup;
 import com.amp.crm.db.configurations.ThreadAttributes;
-import com.amp.crm.db.repository.StiAgentRepository;
+import com.amp.crm.db.repository.CrmAgentRepository;
 import com.amp.crm.db.repository.account.AccountRepository;
 import com.amp.crm.db.repository.account.WorkLogRepository;
 import com.amp.crm.db.repository.account.WorkQueueRepository;
@@ -82,7 +82,7 @@ import com.amp.crm.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.amp.crm.db.entity.base.dialer.OutboundDialerQueue;
 import com.amp.crm.db.entity.base.dialer.OutboundDialerQueueSettings;
 import com.amp.crm.db.entity.base.dialer.OutboundDialerRecord;
-import com.amp.crm.db.entity.base.dialer.StiCallerId;
+import com.amp.crm.db.entity.base.dialer.CrmCallerId;
 import com.amp.crm.db.entity.base.dialer.VoiceRecording;
 import com.amp.crm.embeddable.AccountData;
 import com.amp.crm.embeddable.AgentCallOrder;
@@ -122,7 +122,7 @@ public class DialerQueueService {
     //    @Autowired
 //    private CustomerRepository bwrRepo;
     @Autowired
-    private StiAgentRepository agentRepo;
+    private CrmAgentRepository agentRepo;
     @Autowired
     private HazelcastService hzService;
     @Autowired
@@ -1127,14 +1127,14 @@ public class DialerQueueService {
         return dqRepo.getAllHoldMusic();
     }
 
-    public StiCallerId createOrUpdateCallerId(StiCallerId callerId) throws CrmException {
+    public CrmCallerId createOrUpdateCallerId(CrmCallerId callerId) throws CrmException {
         if (callerId == null) {
             throw new CrmException("Please provide caller ID details.");
         }
         if (callerId.getCallerIdNumber() == null || callerId.getCallerIdNumber() <= 0) {
             throw new CrmException("Please provide the caller ID number.");
         }
-        StiCallerId existingCI = dqRepo.getCallerIdByNumber(callerId.getCallerIdNumber());
+        CrmCallerId existingCI = dqRepo.getCallerIdByNumber(callerId.getCallerIdNumber());
         if (existingCI != null) {
             if (existingCI.equals(callerId)) {
                 return existingCI;
@@ -1148,7 +1148,7 @@ public class DialerQueueService {
         return callerId;
     }
 
-    public List<StiCallerId> getAllCallerIds() {
+    public List<CrmCallerId> getAllCallerIds() {
         return dqRepo.getAllCallerIds();
     }
 
@@ -1192,8 +1192,8 @@ public class DialerQueueService {
         return getInboundDialerQueueRecord(dqDetails.getPk());
     }
 
-    public List<StiCallerId> loadCallerIdNumbers() {
-        List<StiCallerId> svCallerIds = new ArrayList<>();
+    public List<CrmCallerId> loadCallerIdNumbers() {
+        List<CrmCallerId> svCallerIds = new ArrayList<>();
         try {
             String callerIdNumbers = IOUtils.toString(ResourceUtils.getURL("classpath:com/objectbrains/svc/dialer/CallerIDNumbers.properties"));
             List<String> callerIdList = Arrays.asList(callerIdNumbers.split("[\\s*,;]+"));
@@ -1201,7 +1201,7 @@ public class DialerQueueService {
                 Long callerIdNumber = Long.valueOf(callerId);
                 try {
                     if (StringUtils.isNotBlank(callerId)) {
-                        StiCallerId svCallerId = new StiCallerId();
+                        CrmCallerId svCallerId = new CrmCallerId();
                         svCallerId.setCallerIdNumber(callerIdNumber);
                         svCallerId = createOrUpdateCallerId(svCallerId);
                         svCallerIds.add(svCallerId);

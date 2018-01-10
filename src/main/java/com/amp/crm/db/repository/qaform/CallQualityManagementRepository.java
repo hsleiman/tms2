@@ -7,7 +7,7 @@ package com.amp.crm.db.repository.qaform;
 
 import com.amp.crm.db.entity.base.dialer.CallDetailRecord;
 import com.amp.crm.db.entity.base.dialer.CallQualityManagementEvaluation;
-import com.amp.crm.db.repository.dialer.StiCallDetailRecordRepository;
+import com.amp.crm.db.repository.dialer.CrmCallDetailRecordRepository;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,10 +15,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * 
- */
 @Repository
 public class CallQualityManagementRepository {
 
@@ -26,7 +22,7 @@ public class CallQualityManagementRepository {
     private EntityManager em;
 
     @Autowired
-    private StiCallDetailRecordRepository cdrRepo;
+    private CrmCallDetailRecordRepository cdrRepo;
 
     public CallQualityManagementEvaluation getCallQualityManagementEvaluation(long qmPk) {
         return em.find(CallQualityManagementEvaluation.class, qmPk);

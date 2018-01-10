@@ -12,11 +12,11 @@ import com.amp.crm.db.entity.base.account.Account;
 import com.amp.crm.db.entity.base.dialer.CallDetailRecord;
 import com.amp.crm.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.amp.crm.db.entity.base.dialer.SpeechToText;
-import com.amp.crm.db.repository.StiAgentRepository;
+import com.amp.crm.db.repository.CrmAgentRepository;
 import com.amp.crm.db.repository.account.AccountRepository;
 import com.amp.crm.db.repository.dialer.BIMessageRepository;
 import com.amp.crm.db.repository.dialer.DialerQueueRepository;
-import com.amp.crm.db.repository.dialer.StiCallDetailRecordRepository;
+import com.amp.crm.db.repository.dialer.CrmCallDetailRecordRepository;
 import com.amp.crm.db.repository.disposition.CallDispositionRepository;
 import com.amp.crm.db.repository.qaform.CallQualityManagementRepository;
 import com.amp.crm.embeddable.DialerQueueDetails;
@@ -61,13 +61,13 @@ public class TMSService {
     @Autowired
     private AccountRepository accountRepo;
     @Autowired
-    private StiCallDetailRecordRepository cdrRepo;
+    private CrmCallDetailRecordRepository cdrRepo;
     @Autowired
     private CallQualityManagementRepository callQualityRepo;
     @Autowired
     private DialerQueueRepository dqRepo;
     @Autowired
-    private StiAgentRepository agentRepo;
+    private CrmAgentRepository agentRepo;
     @Autowired
     private DialerQueueService dqService;
     @PersistenceContext

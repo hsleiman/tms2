@@ -4,7 +4,7 @@ package com.amp.crm.service.tms;
 import com.amp.crm.db.entity.base.dialer.BIMessage;
 import com.amp.crm.db.entity.base.dialer.CallDetailRecord;
 import com.amp.crm.db.repository.dialer.BIMessageRepository;
-import com.amp.crm.db.repository.dialer.StiCallDetailRecordRepository;
+import com.amp.crm.db.repository.dialer.CrmCallDetailRecordRepository;
 import com.amp.crm.embeddable.BIPlaybackData;
 import com.amp.crm.service.utility.DurationUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BIMessageService {
     
     @Autowired
-    private StiCallDetailRecordRepository cdrRepo;
+    private CrmCallDetailRecordRepository cdrRepo;
 
     @Autowired
     private BIMessageRepository biMessageRepository;
