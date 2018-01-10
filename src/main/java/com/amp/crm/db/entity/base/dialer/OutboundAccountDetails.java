@@ -25,7 +25,7 @@ import org.joda.time.LocalTime;
 
 
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class OutboundAccountDetails extends SuperEntity{
     private long accountPk;
     private LocalTime bestTimeToCall;
@@ -39,7 +39,7 @@ public class OutboundAccountDetails extends SuperEntity{
 
     
     @ElementCollection(targetClass = OutboundBorrowerData.class, fetch = FetchType.EAGER)
-    @CollectionTable(schema = "sti", name = "outbound_bwr_data", joinColumns = @JoinColumn(name = "outbound_account_details_pk"))
+    @CollectionTable(schema = "crm", name = "outbound_bwr_data", joinColumns = @JoinColumn(name = "outbound_account_details_pk"))
     @OrderColumn(name = "order_index")
     private List<OutboundBorrowerData> bwrData = new ArrayList<>(); 
 

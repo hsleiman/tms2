@@ -28,7 +28,7 @@ import javax.persistence.Table;
     )
 })
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class StiCallerId extends SuperEntity {
 
     @Column(nullable = false, unique = true)

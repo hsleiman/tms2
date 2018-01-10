@@ -5,11 +5,6 @@
  */
 package com.amp.crm.common;
 
-/**
- *
- * @author HS
- * @param <T>
- */
 public interface EnumInterface<T extends Enum<T>> {
     
     int getId();

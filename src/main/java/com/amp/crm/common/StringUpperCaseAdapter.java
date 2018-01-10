@@ -9,10 +9,6 @@ package com.amp.crm.common;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- *
- * @author HS
- */
 public class StringUpperCaseAdapter extends XmlAdapter<String, String> {
 
     @Override

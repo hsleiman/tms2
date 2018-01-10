@@ -50,13 +50,13 @@ import org.hibernate.envers.RelationTargetAuditMode;
     )
 })
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-@AuditTable(value = "question_choice_set_history", schema = "sti")
+@AuditTable(value = "question_choice_set_history", schema = "crm")
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class QuestionChoiceSet extends SuperEntity {
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(schema = "sti", name = "question_choices", 
+    @CollectionTable(schema = "crm", name = "question_choices", 
             joinColumns = @JoinColumn(name = "choice_set_pk", referencedColumnName = "pk"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"choice_set_pk", "value"}))
     @OrderColumn(name = "order_index")

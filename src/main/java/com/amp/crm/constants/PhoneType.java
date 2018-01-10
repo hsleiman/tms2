@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author Hoang, J, Bishistha
- */
 public class PhoneType {
 
     public static final int PHONE_TYPE_HOME_PHONE_1 = 0;

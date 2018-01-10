@@ -20,7 +20,7 @@ import javax.persistence.Table;
 //
 //})
 @Entity
-@Table(schema="sti")
+@Table(schema="crm")
 public class Keyword extends SuperEntity {
     
     @Column(unique = true)

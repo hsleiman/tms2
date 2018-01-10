@@ -53,7 +53,7 @@ import org.joda.time.LocalTime;
     )
 })
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 //@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 //@AuditTable(value = "dialer_setting_history", schema = "svc")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -89,7 +89,7 @@ public abstract class DialerQueueSettings {
 //    @Audited(targetAuditMode = RelationTargetAuditMode.AUDITED)
 //    @AuditJoinTable(schema = "svc", name = "dialer_schedule_history", inverseJoinColumns = @JoinColumn(name = "dialer_queue_pk"))
     @ElementCollection(targetClass = DialerSchedule.class, fetch = FetchType.EAGER)
-    @CollectionTable(schema = "sti", name = "dialer_schedule", joinColumns = @JoinColumn(name = "dialer_queue_pk"))
+    @CollectionTable(schema = "crm", name = "dialer_schedule", joinColumns = @JoinColumn(name = "dialer_queue_pk"))
     @OrderBy("dayOfWeek ASC")
     private Set<DialerSchedule> dialerSchedule = new LinkedHashSet<>();
     

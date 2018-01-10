@@ -108,7 +108,7 @@ import org.joda.time.LocalDateTime;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dialer_queue_type", discriminatorType = DiscriminatorType.STRING)
-@Table(schema = "sti", name = "dialer_queue",
+@Table(schema = "crm", name = "dialer_queue",
         uniqueConstraints = @UniqueConstraint(columnNames = {"queueName", "dialer_queue_type"}))
 @DiscriminatorOptions(force = true)
 public abstract class DialerQueue extends SuperEntity {

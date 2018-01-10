@@ -23,7 +23,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
  * @author Hoang, J, Bishistha
  */
 @Entity(name = "AgentStats")
-@Table(schema = "sti")
+@Table(schema = "crm")
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 //@AuditTable(value = "tms_agent_stats_history", schema = "tms")
 public class AgentStatsRecord {

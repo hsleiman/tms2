@@ -39,7 +39,7 @@ import org.hibernate.annotations.ForeignKey;
         )
 })
 @Entity
-@Table(name = "agent_dialer_group" , schema = "sti")
+@Table(name = "agent_dialer_group" , schema = "crm")
 public class AgentDialerGroup extends SuperEntity{
       
     @XmlTransient

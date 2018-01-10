@@ -21,7 +21,7 @@ import org.joda.time.LocalDateTime;
 //
 //})
 @Entity
-@Table(schema = "sti", uniqueConstraints = {@UniqueConstraint(columnNames = "call_uuid")})
+@Table(schema = "crm", uniqueConstraints = {@UniqueConstraint(columnNames = "call_uuid")})
 public class CallDetailRecord extends CallDetailRecordAbstract {
 
     @XmlTransient

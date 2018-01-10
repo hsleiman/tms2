@@ -36,7 +36,7 @@ import org.hibernate.annotations.ForeignKey;
     
 })
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class QuestionnaireFormQuestionAssociation {
     
     @XmlTransient

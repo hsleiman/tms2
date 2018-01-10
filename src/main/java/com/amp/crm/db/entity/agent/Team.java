@@ -40,7 +40,7 @@ import org.joda.time.LocalDate;
         )
 })
 @Entity
-@Table(schema = "sti", uniqueConstraints = {           
+@Table(schema = "crm", uniqueConstraints = {           
             @UniqueConstraint(name = "teamName", columnNames = {"teamName"}),
             @UniqueConstraint(name = "leader_pk", columnNames = {"leader_pk"}),
             @UniqueConstraint(name = "manager1_pk", columnNames = {"manager1_pk"}),

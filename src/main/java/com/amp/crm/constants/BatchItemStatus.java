@@ -6,10 +6,6 @@
 
 package com.amp.crm.constants;
 
-/**
- *
- * @author priyankanamburu
- */
 public enum BatchItemStatus {
     CREATED,IN_PROCESS,SUCCESS,COMPLETED,ERROR;
 }

@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 //        
 //})
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DebtAccount extends SuperEntity{
     

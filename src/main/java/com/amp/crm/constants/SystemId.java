@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author jaimel
- */
 public class SystemId {
     
     public static final int systemId = 1;

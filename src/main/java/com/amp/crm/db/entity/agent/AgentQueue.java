@@ -38,7 +38,7 @@ import org.joda.time.LocalDate;
         )
 })
 @Entity
-@Table(name = "agent_queue" , schema = "sti")
+@Table(name = "agent_queue" , schema = "crm")
 public class AgentQueue extends SuperEntity{
     
     @XmlTransient

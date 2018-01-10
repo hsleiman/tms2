@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author hsleiman
- */
 public class WorkLogConstants {
     
     public final static int DATA_CHANGE_LOG_CREATE = 0;

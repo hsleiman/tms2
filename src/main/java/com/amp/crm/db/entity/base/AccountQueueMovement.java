@@ -25,7 +25,7 @@ import org.hibernate.annotations.ForeignKey;
  * @author Hoang, J, Bishistha
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 @NamedQueries({
         @NamedQuery(
             name = "AccountQueueMovement.LatestActivityForQueue",

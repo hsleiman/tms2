@@ -29,7 +29,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
 })
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 @PrimaryKeyJoinColumn(name = "questionnaire_answer_pk", referencedColumnName = "pk")
 @ForeignKey(name = "fk_call_qm_evaluation_qnaire_answer")
 public class CallQualityManagementEvaluation extends QuestionnaireAnswer {

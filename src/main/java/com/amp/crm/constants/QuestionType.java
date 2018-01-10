@@ -6,10 +6,6 @@
 
 package com.amp.crm.constants;
 
-/**
- *
- * @author HS
- */
 public enum QuestionType {
  
     MULTIPLE_CHOICE_SINGLE_ANSWER(1, true),

@@ -20,7 +20,7 @@ import org.joda.time.LocalDateTime;
  * @author Hoang, J, Bishistha
  */
 @Entity
-@Table(schema = "sti", name = "work_main_log")
+@Table(schema = "crm", name = "work_main_log")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 //@DiscriminatorColumn(name = "logRange", discriminatorType = DiscriminatorType.INTEGER)
 //@DiscriminatorValue("100")

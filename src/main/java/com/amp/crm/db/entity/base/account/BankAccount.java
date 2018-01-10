@@ -38,7 +38,7 @@ import org.hibernate.annotations.ForeignKey;
     )
 })
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BankAccount extends SuperEntity {
 

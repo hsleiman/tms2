@@ -34,7 +34,7 @@ import org.hibernate.annotations.Index;
 })
 
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class ZipTimezone extends SuperEntity {
     @Index(name="zipIndex")
     @Column(length = 5)

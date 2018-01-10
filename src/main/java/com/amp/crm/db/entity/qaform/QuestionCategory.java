@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
             query = "SELECT q FROM QuestionnaireFormCategory q ORDER BY q.category")
 })
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class QuestionCategory extends QACategory {
 
     public QuestionCategory() {

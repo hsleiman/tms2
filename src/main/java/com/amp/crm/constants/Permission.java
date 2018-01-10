@@ -10,10 +10,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author vnguyen
- */
 public enum Permission {
 
    

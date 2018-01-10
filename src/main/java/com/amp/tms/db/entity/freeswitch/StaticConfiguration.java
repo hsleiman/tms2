@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author hsleiman
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class StaticConfiguration {
     private String keyValue;
     @Column(length = 10000)

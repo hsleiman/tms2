@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author HS
  */
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class ReportSql {
 
     @Id

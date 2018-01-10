@@ -18,7 +18,7 @@ import org.joda.time.LocalDateTime;
  */
 
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class DialerQueryHistory extends SuperEntity{
     @Column(length = 10485760)
     private String old_Query;

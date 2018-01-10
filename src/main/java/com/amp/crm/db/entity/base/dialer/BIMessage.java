@@ -14,7 +14,7 @@ import org.joda.time.LocalDateTime;
 
 
 @Entity
-@Table(schema = "sti", name = "bi_message")
+@Table(schema = "crm", name = "bi_message")
 public class BIMessage extends SuperEntity {
 
     private Integer extension;

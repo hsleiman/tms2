@@ -16,10 +16,6 @@ import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- * @author Hoang, J, Bishistha
- */
 public class LocalTimeDeserializer extends StdDeserializer<LocalTime> {
 
     public static final Logger LOG = LoggerFactory.getLogger(LocalTimeDeserializer.class);

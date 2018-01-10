@@ -49,7 +49,7 @@ import org.hibernate.annotations.ForeignKey;
     )
 })
 @Entity
-@Table(name = "employment_data", schema = "sti")
+@Table(name = "employment_data", schema = "crm")
 public class Employment extends SuperEntity{
     
     @Embedded

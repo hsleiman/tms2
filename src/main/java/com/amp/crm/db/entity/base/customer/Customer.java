@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 //        
 //})
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 public class Customer extends SuperEntity{
 
     @XmlTransient

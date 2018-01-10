@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
         )      
 })
 @Entity
-@Table(schema = "sti")
+@Table(schema = "crm")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DialerGroup extends SuperEntity {
     @Column(nullable = false,unique = true)
