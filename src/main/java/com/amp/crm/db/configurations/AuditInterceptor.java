@@ -37,15 +37,6 @@ public class AuditInterceptor extends EmptyInterceptor {
     private LinkedHashMap<Integer, ChangedEntity> changedObjects;
     private static Logger LOG = LoggerFactory.getLogger(AuditInterceptor.class);
 
-    /**
-     * author hsleiman
-     *
-     * @param entity
-     * @param id
-     * @param state
-     * @param propertyNames
-     * @param types Add to the list of changedObjects with their state and operationType as DELETE.
-     */
     @Override
     public void onDelete(Object entity,
             Serializable id,
@@ -58,16 +49,6 @@ public class AuditInterceptor extends EmptyInterceptor {
         }
     }
 
-    /**
-     * author hsleiman
-     *
-     * @param entity
-     * @param id
-     * @param state
-     * @param propertyNames
-     * @param types
-     * @return
-     */
     @Override
     public boolean onLoad(Object entity,
             Serializable id,
@@ -79,17 +60,6 @@ public class AuditInterceptor extends EmptyInterceptor {
         return super.onLoad(entity, id, state, propertyNames, types);
     }
 
-    /**
-     * author hsleiman
-     *
-     * @param entity
-     * @param id
-     * @param currentState
-     * @param previousState
-     * @param propertyNames
-     * @param types
-     * @return
-     */
     @Override
     public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
         updates++;
@@ -108,16 +78,6 @@ public class AuditInterceptor extends EmptyInterceptor {
         return super.onFlushDirty(entity, id, currentState, previousState, propertyNames, types);
     }
 
-    /**
-     * author hsleiman
-     *
-     * @param entity
-     * @param id
-     * @param state
-     * @param propertyNames
-     * @param types
-     * @return
-     */
     @Override
     public boolean onSave(Object entity,
             Serializable id,
@@ -133,11 +93,7 @@ public class AuditInterceptor extends EmptyInterceptor {
         return super.onSave(entity, id, state, propertyNames, types);
     }
 
-    /**
-     * author hsleiman
-     *
-     * @param tx
-     */
+
     @Override
     public void afterTransactionBegin(Transaction tx) {
         group = System.currentTimeMillis();
@@ -159,11 +115,6 @@ public class AuditInterceptor extends EmptyInterceptor {
         super.afterTransactionBegin(tx);
     }
 
-    /**
-     * author hsleiman
-     *
-     * @param tx
-     */
     @Override
     public void beforeTransactionCompletion(Transaction tx) {
         long elapse = System.currentTimeMillis() - group;
@@ -174,11 +125,6 @@ public class AuditInterceptor extends EmptyInterceptor {
         }
     }
 
-    /**
-     * author hsleiman
-     *
-     * @param tx
-     */
     @Override
     public void afterTransactionCompletion(Transaction tx) {
         long elapse = System.currentTimeMillis() - group;
@@ -210,9 +156,6 @@ public class AuditInterceptor extends EmptyInterceptor {
         return auditEntityManager.isActive(className);
     }
 
-    /**
-     * author hsleiman
-     */
     private void flush() {
         LOG.info("{}Number of entity changed: {}", sessionIdLogNote, changedObjects.size());
         if (changedObjects.isEmpty()) {

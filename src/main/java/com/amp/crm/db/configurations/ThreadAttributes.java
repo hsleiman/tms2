@@ -1,9 +1,5 @@
 package com.amp.crm.db.configurations;
 
-/**
- *
- * @author hsleiman
- */
 import com.amp.crm.pojo.UserData;
 import java.util.HashMap;
 import org.springframework.beans.factory.DisposableBean;
