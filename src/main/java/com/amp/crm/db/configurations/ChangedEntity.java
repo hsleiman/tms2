@@ -15,10 +15,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import org.hibernate.type.Type;
 
-/**
- *
- * @author hsleiman
- */
 public class ChangedEntity implements Serializable{
     
     private final AuditEntityManager auditEntityManager;

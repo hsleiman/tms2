@@ -171,7 +171,6 @@ public class AutidInterceptorWorker implements Runnable {
         return false;
     }
 
-    // Below are helper method
     private String getDataChangeValueOfPropertyName(String propertyName, Object obj, String className) {
         String newValue = obj.toString();
 

@@ -11,10 +11,6 @@ import java.io.Serializable;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
-/**
- *
- * @author hsleiman
- */
 public class CustomIdGenerator extends SequenceStyleGenerator {
 
     @Override
