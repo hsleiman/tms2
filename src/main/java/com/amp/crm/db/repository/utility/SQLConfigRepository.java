@@ -59,7 +59,7 @@ public class SQLConfigRepository {
     
     @SuppressWarnings("unchecked")
      public List<SqlConfig> locateAllBySqlNamePattern(String sqlNamePattern ) {
-        Query query = getEntityManager().createNativeQuery("Select * from crm.sql_config s where sql_name ~* '"+sqlNamePattern+"' AND s.is_active = 'Y' order by execute_order asc", SqlConfig.class);
+        Query query = getEntityManager().createNativeQuery("Select * from crm.crm_sql_config s where sql_name ~* '"+sqlNamePattern+"' AND s.is_active = 'Y' order by execute_order asc", SqlConfig.class);
         List<SqlConfig> res = query.getResultList();
         return res;
     }

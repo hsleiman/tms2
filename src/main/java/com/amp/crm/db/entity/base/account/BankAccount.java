@@ -49,7 +49,7 @@ public class BankAccount extends SuperEntity {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_pk", referencedColumnName = "pk")
-    @ForeignKey(name = "fk_sv_account_bank")
+    @ForeignKey(name = "fk_crm_account_bank")
     private Account account;
 
     private Boolean current = Boolean.FALSE;

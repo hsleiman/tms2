@@ -49,7 +49,7 @@ public class Address extends SuperEntity {
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employmentdata_pk", referencedColumnName = "pk")
-    @ForeignKey(name = "fk_sv_employer_address_employment_data")
+    @ForeignKey(name = "fk_crm_employer_address_employment_data")
     private Employment employmentAddress;
 
     public AddressData getAddressData() {

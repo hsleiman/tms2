@@ -38,7 +38,7 @@ public class ZipTimeZoneRepository {
     }
     
     public void truncate(){
-        entityManager.createNativeQuery("truncate crm.zip_timezone").executeUpdate();
+        entityManager.createNativeQuery("truncate crm.crm_zip_timezone").executeUpdate();
         entityManager.flush();
     }
     

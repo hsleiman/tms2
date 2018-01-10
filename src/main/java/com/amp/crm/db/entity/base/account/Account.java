@@ -46,7 +46,7 @@ import org.joda.time.LocalDateTime;
  */
 @NamedQueries({})
 @Entity
-@GenericGenerator(name = "customIdGenerator", strategy = "com.objectbrains.sti.db.hibernate.CustomIdGenerator",
+@GenericGenerator(name = "customIdGenerator", strategy = "com.amp.crm.db.hibernate.CustomIdGenerator",
         parameters = {
             @Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "account_pk_seq"),
             @Parameter(name = SequenceStyleGenerator.SCHEMA, value = "crm"),
@@ -101,14 +101,14 @@ public class Account extends SuperEntityCustom {
     @XmlTransient
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dialer_queue_inbound_pk", referencedColumnName = "pk")
-    @ForeignKey(name = "fk_loan_inbound_dialer_queue")
+    @ForeignKey(name = "fk_account_inbound_dialer_queue")
     private InboundDialerQueue inboundDialerQueue;
 
     @JsonIgnore
     @XmlTransient
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dialer_queue_outbound_pk", referencedColumnName = "pk")
-    @ForeignKey(name = "fk_loan_outbound_dialer_queue")
+    @ForeignKey(name = "fk_account_outbound_dialer_queue")
     private OutboundDialerQueue outboundDialerQueue;
 
     @JsonIgnore
