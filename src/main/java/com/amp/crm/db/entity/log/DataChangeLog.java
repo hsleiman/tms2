@@ -11,10 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
+
 @Entity
 @Table(schema = "crm")
 public class DataChangeLog extends SuperEntity {

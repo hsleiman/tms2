@@ -16,14 +16,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.ForeignKey;
 
-/**
- *
- * 
- */
 
-//@NamedQueries({
-//    
-//})
 
 
 @Entity

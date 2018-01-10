@@ -15,10 +15,7 @@ import javax.persistence.Table;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
+
 @Entity
 @Table(schema = "crm", name = "work_main_log")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
