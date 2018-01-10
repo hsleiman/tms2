@@ -46,15 +46,15 @@ import org.hibernate.annotations.ForeignKey;
             query = "SELECT s FROM AchPayment s WHERE s.achPaymentData.uniqueSequenceId = :uniqueSequenceId"
     ),
     @NamedQuery(
-            name = "AchPayment.LocateAllByLoanPkAndStatus",
+            name = "AchPayment.LocateAllByAccountPkAndStatus",
             query = "SELECT s FROM AchPayment s WHERE s.account.pk = :accountPK AND s.achPaymentData.status = :status ORDER BY s.eftPaymentBasicData.postingDate desc, s.eftPaymentBasicData.paymentTime desc"
     ),
     @NamedQuery(
-            name = "AchPayment.LocateAllPendingAchsForLoan",
+            name = "AchPayment.LocateAllPendingAchsForAccount",
             query = "SELECT s FROM AchPayment s WHERE s.account.pk = :accountPK AND ( (s.achPaymentData.status = 0 OR s.achPaymentData.status = 10 OR s.achPaymentData.status = 11) AND s.achPaymentData.achStatus is NULL) ORDER BY s.eftPaymentBasicData.postingDate ASC, s.eftPaymentBasicData.paymentTime ASC"
     ),
     @NamedQuery(
-            name = "AchPayment.LocatePendingAchsForLoan",
+            name = "AchPayment.LocatePendingAchsForAccount",
             query = "SELECT s FROM AchPayment s WHERE s.account.pk = :accountPK AND ( s.achPaymentData.status = 0  AND s.achPaymentData.achStatus is NULL) ORDER BY s.eftPaymentBasicData.postingDate ASC, s.eftPaymentBasicData.paymentTime ASC"
     ),
     @NamedQuery(
@@ -68,7 +68,7 @@ import org.hibernate.annotations.ForeignKey;
                     + " AND s.achBatch.postingDate  BETWEEN :startDate AND :endDate"
     ),
     @NamedQuery(
-            name = "AchPayment.LocateAllNonCanceledAchsForLoan",
+            name = "AchPayment.LocateAllNonCanceledAchsForAccount",
             query = "SELECT s FROM AchPayment s WHERE s.account.pk = :loanPk AND s.achPaymentData.status<>-2 ORDER BY s.eftPaymentBasicData.postingDate DESC"
     )
 })
