@@ -19,10 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * 
- */
+
 @Repository
 public class CustomerRepository {
     
@@ -46,18 +43,18 @@ public class CustomerRepository {
         return entityManager.find(Customer.class, pk);
     }
     
-    public List<Phone> locatePhoneByPhoneNumberAndAccount(String phoneNumber, long loanPk) {
+    public List<Phone> locatePhoneByPhoneNumberAndAccount(String phoneNumber, long accountPk) {
         int start = new LocalDateTime().getMillisOfDay();
         NationalPhoneNumber phone = PhoneUtils.parseValidPhoneNumber(phoneNumber);
         int end = new LocalDateTime().getMillisOfDay();
         if((end-start) > configUtil.getInteger("can.call.number.parsephonenumber.time", 10)){
             LOG.warn("PhoneUtils.parseValidPhoneNumber(phoneNumber) took {} msec", end-start);
         }
-        LOG.warn("PhoneNumber: {} loanPk: {} and phone LocalNumber: {} and areacode : {}", phoneNumber, loanPk, phone.getLocalNumber(), phone.getAreaCode());
-        List<Phone> res = entityManager.createNamedQuery("SvPhone.LocateByPhoneNumberAndLoan", Phone.class)
+        LOG.warn("PhoneNumber: {} accountPk: {} and phone LocalNumber: {} and areacode : {}", phoneNumber, accountPk, phone.getLocalNumber(), phone.getAreaCode());
+        List<Phone> res = entityManager.createNamedQuery("Phone.LocateByPhoneNumberAndLoan", Phone.class)
                 .setParameter("phoneNumber", phone.getLocalNumber())
                 .setParameter("areaCode", phone.getAreaCode())
-                .setParameter("loanPk", loanPk)
+                .setParameter("accountPk", accountPk)
                 .getResultList();
         return res;    
     }

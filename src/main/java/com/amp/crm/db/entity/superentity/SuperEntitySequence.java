@@ -11,11 +11,6 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- * 
- */
 @MappedSuperclass
 public abstract class SuperEntitySequence extends AbstractSuperEntity {
  

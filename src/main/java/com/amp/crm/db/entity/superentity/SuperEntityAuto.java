@@ -8,10 +8,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PreUpdate;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 @MappedSuperclass
 public abstract class SuperEntityAuto implements SuperEntityInterface{
     

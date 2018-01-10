@@ -16,19 +16,13 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
-import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
+
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @AuditTable(value = "questionnaire_answer_history", schema = "crm")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -42,13 +36,6 @@ public class QuestionnaireAnswer extends SuperEntity {
     private String respondent;
     @Column(length = 4000)
     private String note;
-
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    @CollectionTable(schema = "svc", name = "question_answer", joinColumns = @JoinColumn(name = "questionnaire_answer_pk"))
-//    @MapKeyColumn(name = "question", updatable = false)
-//    @Column(name = "answer", updatable = false)
-//    @XmlJavaTypeAdapter(GenericMapAdapter.class)
-//    private Map<String, String> answers = new HashMap<>();
     
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(schema = "crm", name = "question_answer", 

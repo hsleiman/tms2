@@ -50,10 +50,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * 
- */
 @Repository
 public class WorkLogRepository {
 
@@ -77,17 +73,6 @@ public class WorkLogRepository {
         entityManager.persist(log);
     }
 
-    /*public void createManagementReviewLog(Account account, String description, LocalDate expireDate, boolean priority) {
-     WorkManagementReviewLog log = new WorkManagementReviewLog();
-     log.setLogType(WorkLogTypes.WORK_LOG_MANAGMENT_REVIEWED);
-     log.setAccountPk(account.getPk());
-     log.setAgentUsername(getAgentUsername());
-     log.setDescription(description);
-     log.setPriority(priority);
-     log.setExpireDate(expireDate);
-     log.setCreateTimestamp(LocalDateTime.now());
-     entityManager.persist(log);
-     }*/
     public WorkMainLog createWorkLog(Account account, String description, int logType, LocalDate expireDate, boolean priority, String callUUID) {
 
         WorkMainLog log = null;
@@ -148,7 +133,6 @@ public class WorkLogRepository {
                 || logType == WorkLogTypes.WORK_LOG_SKIP_TRACE_REQUESTED
                 || logType == WorkLogTypes.WORK_LOG_SKIP_TRACE_COMPLETE
                 || logType == WorkLogTypes.WORK_LOG_FINACIAL_STATEMENT
-                || logType == WorkLogTypes.WORK_LOG_LOAN_PAYMENT_PLUS
                 || logType == WorkLogTypes.WORK_LOG_EMPLOYMENT_VERIFICATION
                 || logType == WorkLogTypes.WORK_LOG_ACH_BY_PHONE_PAYMENT_REQ
                 || logType == WorkLogTypes.WORK_LOG_ACH_BY_PHONE_PENDING_PAYMENT

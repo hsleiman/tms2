@@ -67,12 +67,12 @@ public class WorkLogTypes {
     
     public static final int WORK_LOG_NOTICES = 700;
     public static final int WORK_LOG_FINACIAL_STATEMENT = 710;
-    public static final int WORK_LOG_LOAN_MODIFICATION = 720;
-    public static final int WORK_LOG_LOAN_DEFERMENT = 725;
-    public static final int WORK_LOG_LOAN_AUTO_REAGE=726;
-    public static final int WORK_LOG_LOAN_SETTLMENT = 730;
-    public static final int WORK_LOG_LOAN_FORBEARANCE = 735;
-    public static final int WORK_LOG_LOAN_PAYMENT_PLUS = 740;
+    public static final int WORK_LOG_ACC_MODIFICATION = 720;
+    public static final int WORK_LOG_ACC_DEFERMENT = 725;
+    public static final int WORK_LOG_ACC_AUTO_REAGE=726;
+    public static final int WORK_LOG_ACC_SETTLMENT = 730;
+    public static final int WORK_LOG_ACC_FORBEARANCE = 735;
+    public static final int WORK_LOG_ACC_PAYMENT_PLUS = 740;
     public static final int WORK_LOG_JUDGMENT = 760;
     public static final int WORK_LOG_BANKRUPTCY = 765; //#608
     public static final int WORK_LOG_MOD_REC_CARRYOVER = 770;  // No longer used per Sean
@@ -229,17 +229,17 @@ public class WorkLogTypes {
                 return "Notices";
             case WORK_LOG_FINACIAL_STATEMENT:
                 return "Financial Statement";
-            case WORK_LOG_LOAN_MODIFICATION:
+            case WORK_LOG_ACC_MODIFICATION:
                 return "Loan Modification";
-            case WORK_LOG_LOAN_DEFERMENT:
+            case WORK_LOG_ACC_DEFERMENT:
                 return "Loan Deferment";
-            case WORK_LOG_LOAN_SETTLMENT:
+            case WORK_LOG_ACC_SETTLMENT:
                 return "Loan Settlement";
-            case WORK_LOG_LOAN_FORBEARANCE:
+            case WORK_LOG_ACC_FORBEARANCE:
                 return "Loan Forbearance";
-            case WORK_LOG_LOAN_PAYMENT_PLUS:
+            case WORK_LOG_ACC_PAYMENT_PLUS:
                 return "Loan Payment Plus";
-            case WORK_LOG_LOAN_AUTO_REAGE:
+            case WORK_LOG_ACC_AUTO_REAGE:
                 return "Auto Re-age";
             case WORK_LOG_JUDGMENT:
                 return "Judgment";

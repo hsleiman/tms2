@@ -29,10 +29,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * 
- */
 @Repository
 public class WorkQueueRepository {
 
@@ -105,8 +101,8 @@ public class WorkQueueRepository {
         Query query = getEntityManager().
                 createNativeQuery( 
                     "SELECT q.pk, MAX(s.create_timestamp) " +
-                    "FROM sti.work_queue q " +
-                    "LEFT OUTER JOIN sti.account_queue_movement s ON s.new_queue_pk = q.pk " +
+                    "FROM crm.work_queue q " +
+                    "LEFT OUTER JOIN crm.account_queue_movement s ON s.new_queue_pk = q.pk " +
                     "WHERE  q.portfolio_type = :portfolio " +
                         "AND COALESCE(q.default_portfolio_queue,false) = true " +
                         "AND COALESCE(q.active,false) = true " + 
@@ -364,8 +360,8 @@ public class WorkQueueRepository {
     
     public void updateQueueCount(){
         getEntityManager().createNativeQuery("update " +
-            "sti.work_queue q " +
-            "set queue_count = (select count(*) from sti.account account where  account.work_queue_pk = q.pk) " +
+            "crm.work_queue q " +
+            "set queue_count = (select count(*) from crm.account account where  account.work_queue_pk = q.pk) " +
             "where queue_name not like '%Skip%'").executeUpdate();
     }
 }
