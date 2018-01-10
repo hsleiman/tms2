@@ -20,7 +20,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Entity(name = "AgentStats")
 @Table(schema = "crm")

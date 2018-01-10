@@ -26,7 +26,7 @@ import com.amp.tms.freeswitch.premaid.DialplanBuilder;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class CallOutWithAMD extends DialplanBuilder {
 

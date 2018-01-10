@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Repository(DNC_MAP_STORE_BEAN_NAME)
 public class DncMapStore implements MapStore<String, DNC>, PostProcessingMapStore {

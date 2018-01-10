@@ -7,7 +7,7 @@ package com.amp.tms.pojo;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class QueueStatusPojo {
 

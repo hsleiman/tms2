@@ -7,7 +7,7 @@ package com.amp.tms.freeswitch.dialplan.action;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class AMD_WaitForResult extends AbstractAction{
 

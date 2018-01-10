@@ -30,7 +30,7 @@ import org.springframework.util.ResourceUtils;
 
 /**
  *
- * @author HS
+ * 
  */
 @Path("/upload")
 public class UploadRest {

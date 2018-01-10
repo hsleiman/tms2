@@ -25,7 +25,7 @@ import com.amp.tms.service.freeswitch.FifoService;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class AgentToFifo extends DialplanBuilder {
 

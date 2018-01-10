@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author HS
+ * 
  */
 @RestController()
 @RequestMapping("/auth")

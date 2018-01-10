@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class OutboundDialerQueueRecord extends DialerQueueRecord<OutboundDialerQueueSettings> {
     

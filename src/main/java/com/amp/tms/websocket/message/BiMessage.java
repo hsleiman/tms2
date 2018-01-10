@@ -16,7 +16,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Embeddable
 public class BiMessage implements Serializable {

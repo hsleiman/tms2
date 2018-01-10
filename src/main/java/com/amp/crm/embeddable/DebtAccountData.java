@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Skaligineedi
+ * 
  */
 @Embeddable
 public class DebtAccountData {

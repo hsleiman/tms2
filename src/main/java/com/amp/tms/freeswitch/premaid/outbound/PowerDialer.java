@@ -20,7 +20,7 @@ import com.amp.tms.freeswitch.premaid.DialplanBuilder;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class PowerDialer extends DialplanBuilder {
 

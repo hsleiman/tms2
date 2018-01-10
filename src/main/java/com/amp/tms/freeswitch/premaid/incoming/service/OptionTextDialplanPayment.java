@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class OptionTextDialplanPayment {
 

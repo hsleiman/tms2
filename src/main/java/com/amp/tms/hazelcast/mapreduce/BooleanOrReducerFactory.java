@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  * @param <Key>
  */
 public class BooleanOrReducerFactory<Key> implements ReducerFactory<Key, Boolean, Boolean>, DataSerializable {

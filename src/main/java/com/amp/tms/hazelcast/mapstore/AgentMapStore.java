@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Repository(AGENT_MAP_STORE_BEAN_NAME)
 public class AgentMapStore implements MapStore<Integer, AgentTMS>, PostProcessingMapStore {

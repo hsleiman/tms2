@@ -15,7 +15,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author HS
+ * 
  */
 @Embeddable
 public class EftPaymentBasicData implements Cloneable {

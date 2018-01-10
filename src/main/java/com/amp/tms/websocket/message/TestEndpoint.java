@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Service
 @ServerEndpoint("/websocket/websocket/test-endpoint")

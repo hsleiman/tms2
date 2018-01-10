@@ -12,7 +12,7 @@ import org.joda.time.LocalDate;
 
 /**
  *
- * @author Skaligineedi
+ * 
  */
 @Embeddable
 public class PaymentSchedule {

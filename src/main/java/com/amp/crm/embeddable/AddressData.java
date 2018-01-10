@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * 
- * @author Hoang
+ * 
  */
 @Embeddable
 public class AddressData {

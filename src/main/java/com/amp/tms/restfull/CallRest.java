@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Path("/calls")
 @Produces(MediaType.APPLICATION_JSON)

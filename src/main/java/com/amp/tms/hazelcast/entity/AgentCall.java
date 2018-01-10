@@ -23,7 +23,7 @@ import org.hibernate.envers.NotAudited;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Audited
 @MappedSuperclass

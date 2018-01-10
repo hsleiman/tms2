@@ -8,7 +8,7 @@ package com.amp.crm.iws.soap.dialer;
 
 /**
  * 
- * @author Hoang
+ * 
  */
 public class DialerGroupIWS {
 

@@ -7,7 +7,7 @@ package com.amp.tms.restfull.freeswitch;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 import com.amp.tms.db.entity.freeswitch.CDR;
 import com.amp.tms.service.freeswitch.RSBCService;
@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Path("/rsbc")
 @Produces(MediaType.TEXT_XML)

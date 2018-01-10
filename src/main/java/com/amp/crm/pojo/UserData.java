@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  *
- * @author HS
+ * 
  */
 public class UserData {
     

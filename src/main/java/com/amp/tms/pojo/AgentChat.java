@@ -7,7 +7,7 @@ package com.amp.tms.pojo;
 
 /**
  *
- * @author farzadaziminia
+ * 
  */
 public class AgentChat {
 

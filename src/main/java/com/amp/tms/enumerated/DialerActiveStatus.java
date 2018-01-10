@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public enum DialerActiveStatus {
 

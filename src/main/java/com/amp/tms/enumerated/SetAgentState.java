@@ -7,7 +7,7 @@ package com.amp.tms.enumerated;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public enum SetAgentState {
 

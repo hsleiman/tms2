@@ -9,7 +9,7 @@ import com.amp.tms.enumerated.DialerActiveStatus;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class DialerActiveStatusParam extends AbstractParam<DialerActiveStatus>{
 

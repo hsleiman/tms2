@@ -9,7 +9,7 @@ import org.joda.time.LocalTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class WorkHours {
     

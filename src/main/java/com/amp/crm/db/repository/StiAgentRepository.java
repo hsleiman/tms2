@@ -25,7 +25,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Repository
 public class StiAgentRepository {

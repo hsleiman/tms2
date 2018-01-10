@@ -26,7 +26,7 @@ import com.amp.tms.service.freeswitch.FifoService;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class IncomingPlaceOnHold extends DialplanBuilder {
 

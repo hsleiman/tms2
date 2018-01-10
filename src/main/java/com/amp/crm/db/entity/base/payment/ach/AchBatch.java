@@ -28,7 +28,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author HS
+ * 
  */
 @NamedQueries({
     @NamedQuery(

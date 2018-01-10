@@ -7,7 +7,7 @@ package com.amp.tms.freeswitch.dialplan.action;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class Privacy extends AbstractAction{
 

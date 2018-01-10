@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Bishistha
+ * 
  */
 @Repository
 public class BIMessageRepository {

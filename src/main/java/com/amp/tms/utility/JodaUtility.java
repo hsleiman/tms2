@@ -11,7 +11,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class JodaUtility {
     static final DateTimeFormatter DATE_FMT = DateTimeFormat.forPattern("yyyy-MM-dd");

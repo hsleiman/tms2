@@ -9,7 +9,7 @@ import com.google.gson.annotations.Expose;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class StatusPojo {
     @Expose

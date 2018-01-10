@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class QueueAverages implements DataSerializable {
 

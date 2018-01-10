@@ -19,7 +19,7 @@ import org.joda.time.LocalDate;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 ///
 @Embeddable

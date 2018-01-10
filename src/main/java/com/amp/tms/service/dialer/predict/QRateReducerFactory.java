@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class QRateReducerFactory implements ReducerFactory<QRateKey, List<QSums>, Double> {
 

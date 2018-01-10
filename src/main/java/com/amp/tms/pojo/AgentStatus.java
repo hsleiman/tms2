@@ -19,7 +19,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class AgentStatus extends StatusPojo implements Serializable {
 

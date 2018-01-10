@@ -45,7 +45,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @QuartzJob(name = CallBatchJob.NAME, group = CallBatchJob.GROUP)
 public class CallBatchJob extends DialerQuartzJob implements InterruptableJob {

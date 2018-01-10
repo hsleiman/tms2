@@ -7,7 +7,7 @@ package com.amp.tms.enumerated.refrence;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public enum PhoneOperator {
     THREE_WAY_CALL,

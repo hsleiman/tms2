@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HS
+ * 
  */
 @NamedQueries({
     @NamedQuery(

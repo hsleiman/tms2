@@ -12,7 +12,7 @@ import org.hibernate.cfg.DefaultNamingStrategy;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class STINamingStrategy extends DefaultNamingStrategy {
 

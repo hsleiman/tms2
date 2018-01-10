@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class DialerLoanMapStore implements MapStore<Long, DialerLoan>, PostProcessingMapStore {
 

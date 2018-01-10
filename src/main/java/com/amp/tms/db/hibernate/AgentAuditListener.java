@@ -10,7 +10,7 @@ import org.hibernate.envers.RevisionListener;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class AgentAuditListener implements RevisionListener {
 

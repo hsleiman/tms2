@@ -7,7 +7,7 @@ package com.amp.tms.restfull.freeswitch;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 import com.amp.tms.db.entity.freeswitch.CDR;
 import com.amp.tms.exception.DialplanNotFoundException;
@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Path("/fifo")
 @Produces(MediaType.TEXT_XML)

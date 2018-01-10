@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class QRateCombinerFactory implements CombinerFactory<QRateKey, QSums, List<QSums>> {
 

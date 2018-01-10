@@ -7,7 +7,7 @@ package com.amp.crm.exception;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class UnauthenticatedException extends RuntimeException {
 

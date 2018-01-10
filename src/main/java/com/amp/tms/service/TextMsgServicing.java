@@ -23,7 +23,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @DisallowConcurrentExecution
 @QuartzJob(name = TextMsgServicing.NAME)

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class AuthUserPojo implements Serializable{
     

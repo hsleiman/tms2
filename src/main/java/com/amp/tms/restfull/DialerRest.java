@@ -44,7 +44,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Path("/dialer")
 @Produces(MediaType.APPLICATION_JSON)

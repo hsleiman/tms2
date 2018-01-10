@@ -16,7 +16,7 @@ import java.io.IOException;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class PreviewDialerRecieve implements DataSerializable {
 

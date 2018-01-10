@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  *
- * @author HS
+ * 
  */
 public abstract class AbstractEntryProcessor<K, V>
         implements EntryProcessor<K, V>, EntryBackupProcessor<K, V>, DataSerializable {

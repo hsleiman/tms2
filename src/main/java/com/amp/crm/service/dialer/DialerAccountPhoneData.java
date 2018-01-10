@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Component
 public class DialerAccountPhoneData {

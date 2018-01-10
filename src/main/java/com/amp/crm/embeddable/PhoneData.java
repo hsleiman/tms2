@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
  *
- * @author sundeeptaachanta
+ * 
  */
 @Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)

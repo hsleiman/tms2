@@ -14,7 +14,7 @@ import org.joda.time.LocalDate;
 
 /**
  *
- * @author Hoang
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TMSBasicAccountInfo {

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class AgentQueueWeightedPriority implements DataSerializable {
 

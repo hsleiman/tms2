@@ -18,7 +18,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author HS
+ * 
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)

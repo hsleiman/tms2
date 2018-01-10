@@ -16,7 +16,7 @@ import javax.persistence.MappedSuperclass;
 
 /**
  *
- * @author HS
+ * 
  */
 @MappedSuperclass
 public class AgentWeightedPriority extends WeightedPriority {

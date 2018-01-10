@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Component(DIALER_LOAN_MAP_STORE_FACTORY_BEAN_NAME)
 public class DialerLoanMapStoreFactory implements MapStoreFactory<Long, DialerLoan> {

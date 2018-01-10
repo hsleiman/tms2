@@ -22,7 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  *
- * @author HS
+ * 
  */
 @Component("userAuthFilter")
 public class UserAuthFilter extends OncePerRequestFilter {

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class UploadCallRecordingPOJO implements Serializable{
     private String callUUID;

@@ -16,7 +16,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Embeddable
 public class PhoneToType implements Serializable, DataSerializable {

@@ -14,7 +14,7 @@ import org.apache.commons.text.similarity.JaroWinklerDistance;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class SpeechToTextTranscript {
 

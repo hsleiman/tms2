@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Repository(STATIC_DIALPLAN_MAP_STORE_BEAN_NAME)
 public class StaticDialplanMapStore implements MapStore<StaticDialplanKey, StaticDialplan>, PostProcessingMapStore {

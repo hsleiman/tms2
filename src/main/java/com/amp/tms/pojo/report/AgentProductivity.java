@@ -9,7 +9,7 @@ import com.amp.tms.hazelcast.entity.AgentStats;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class AgentProductivity {
 

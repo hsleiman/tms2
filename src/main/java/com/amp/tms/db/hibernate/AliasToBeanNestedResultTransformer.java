@@ -7,7 +7,7 @@ package com.amp.tms.db.hibernate;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 
 import java.util.ArrayList;
@@ -21,10 +21,7 @@ import org.hibernate.transform.AliasToBeanResultTransformer;
 import org.hibernate.transform.AliasedTupleSubsetResultTransformer;
 import org.hibernate.transform.ResultTransformer;
 
-/**
- * @author samiandoni
- *
- */
+
 public class AliasToBeanNestedResultTransformer extends AliasedTupleSubsetResultTransformer {
 
 	private static final long serialVersionUID = -8047276133980128266L;

@@ -9,7 +9,7 @@ import com.amp.tms.enumerated.AgentState;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class PhoneActiveStatusParam extends AbstractParam<AgentState>{
 

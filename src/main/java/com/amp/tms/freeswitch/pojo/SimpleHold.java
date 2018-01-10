@@ -7,7 +7,7 @@ package com.amp.tms.freeswitch.pojo;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class SimpleHold {
     

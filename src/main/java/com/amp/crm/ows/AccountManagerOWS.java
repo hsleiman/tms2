@@ -7,7 +7,7 @@ package com.amp.crm.ows;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public interface AccountManagerOWS {
     

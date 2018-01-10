@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class AttachLoanToCallUUID implements DataSerializable {
 

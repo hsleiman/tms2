@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  * @param <E>
  */
 public class ListAdapter<E> extends ArrayList<E> implements DataSerializable {

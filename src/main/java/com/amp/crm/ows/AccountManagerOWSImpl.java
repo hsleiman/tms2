@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author HS
+ * 
  */
 @Service
 public class AccountManagerOWSImpl implements AccountManagerOWS {

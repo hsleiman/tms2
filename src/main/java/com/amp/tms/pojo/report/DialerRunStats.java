@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author HS
+ * 
  */
 public class DialerRunStats {
 

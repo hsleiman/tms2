@@ -7,7 +7,7 @@ package com.amp.tms.pojo.report;
 
 /**
  *
- * @author HS
+ * 
  */
 public class DialerRunAgentStats {
 

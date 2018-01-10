@@ -7,7 +7,7 @@ package com.amp.tms.freeswitch.premaid;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public interface DialplanInterface {
     

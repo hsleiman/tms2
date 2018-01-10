@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author farzadaziminia
+ * 
  */
 public class PlayPrompt implements Serializable {
 

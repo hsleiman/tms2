@@ -12,7 +12,7 @@ import org.apache.commons.math3.util.MathArrays;
 
 /**
  *
- * @author HS
+ * 
  */
 public class Utils {
 

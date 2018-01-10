@@ -92,7 +92,7 @@ import org.springframework.web.socket.server.standard.SpringConfigurator;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Component(Websocket.BEAN_NAME)
 @Lazy

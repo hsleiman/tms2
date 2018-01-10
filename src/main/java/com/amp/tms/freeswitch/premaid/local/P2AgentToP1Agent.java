@@ -25,7 +25,7 @@ import com.amp.tms.websocket.message.outbound.Send;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class P2AgentToP1Agent extends DialplanBuilder {
 

@@ -11,7 +11,7 @@ import org.joda.time.LocalDate;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public enum RecordedWords {
 

@@ -7,7 +7,7 @@ package com.amp.tms.enumerated.refrence;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public enum IVROrder {
     ASK_FOR_SSN("AskForSSN"),

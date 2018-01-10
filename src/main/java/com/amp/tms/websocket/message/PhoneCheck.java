@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class PhoneCheck implements DataSerializable {
 

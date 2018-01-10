@@ -30,7 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author HS
+ * 
  */
 @Path("/group")
 @Produces(MediaType.APPLICATION_JSON)

@@ -16,7 +16,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Embeddable
 public class CustomerTMSInfo implements DataSerializable, Serializable {

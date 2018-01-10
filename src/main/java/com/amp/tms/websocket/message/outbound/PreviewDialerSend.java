@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class PreviewDialerSend implements Serializable, DataSerializable {
 

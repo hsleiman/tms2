@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Path("/tms-commands/dialer-inbound-control")
 @Produces(MediaType.APPLICATION_JSON)

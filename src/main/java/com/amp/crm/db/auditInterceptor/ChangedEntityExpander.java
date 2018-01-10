@@ -24,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class ChangedEntityExpander implements Serializable {
 

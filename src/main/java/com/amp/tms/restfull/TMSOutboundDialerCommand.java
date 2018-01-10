@@ -66,7 +66,7 @@ import org.springframework.context.annotation.Lazy;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Path("/tms-commands/dialer-outbound-control")
 @Produces(MediaType.APPLICATION_JSON)

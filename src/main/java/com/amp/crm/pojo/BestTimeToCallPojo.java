@@ -12,7 +12,7 @@ import org.joda.time.LocalTime;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class BestTimeToCallPojo {
 

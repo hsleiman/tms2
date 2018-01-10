@@ -16,7 +16,7 @@ import java.util.Set;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class UpdateDirectory implements DataSerializable {
     

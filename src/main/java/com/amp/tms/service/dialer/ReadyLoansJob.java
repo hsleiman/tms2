@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @QuartzJob(name = ReadyLoansJob.NAME, group = ReadyLoansJob.GROUP)
 @DisallowConcurrentExecution

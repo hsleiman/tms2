@@ -18,7 +18,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Entity(name = "DialerCall")
 @Table(schema = "crm")

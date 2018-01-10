@@ -14,7 +14,7 @@ import org.codehaus.jackson.type.TypeReference;
 
 /**
  *
- * @author HS
+ * 
  */
 public class JSONUtils {
 

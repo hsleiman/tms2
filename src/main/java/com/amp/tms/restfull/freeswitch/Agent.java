@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Path("/agent")
 @Produces(MediaType.TEXT_XML)

@@ -9,7 +9,7 @@ import com.amp.tms.service.dialer.Dialer;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class QueueRunningSatus {
 

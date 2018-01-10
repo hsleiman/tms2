@@ -23,7 +23,7 @@ import org.springframework.beans.BeanUtils;
 
 /**
  *
- * @author HS
+ * 
  */
 public class BeanPropertyUtils extends BeanUtils {
 

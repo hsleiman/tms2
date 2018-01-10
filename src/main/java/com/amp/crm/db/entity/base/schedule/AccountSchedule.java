@@ -23,7 +23,7 @@ import org.hibernate.annotations.ForeignKey;
 
 /**
  *
- * @author Skaligineedi
+ * 
  */
 @Entity
 @Table(schema = "crm")

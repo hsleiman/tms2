@@ -12,7 +12,7 @@ import com.amp.tms.utility.GsonUtility;
 
 /**
  *
- * @author farzadaziminia
+ * 
  */
 public class PostChatBody {
 

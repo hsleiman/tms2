@@ -7,7 +7,7 @@ package com.amp.crm.pojo;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class AccountCustomerName {
      private long accountPk;

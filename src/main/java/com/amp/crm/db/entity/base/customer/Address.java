@@ -26,7 +26,7 @@ import org.hibernate.annotations.ForeignKey;
 
 /**
  *
- * @author jaimel
+ * 
  */
 //@NamedQueries({
 //        

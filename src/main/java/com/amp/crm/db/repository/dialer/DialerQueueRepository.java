@@ -52,7 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Repository
 public class DialerQueueRepository {

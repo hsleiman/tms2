@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class Send extends Message implements Serializable, DataSerializable {
 

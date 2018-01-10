@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  *
- * @author HS
+ * 
  */
 public class AgentDialerState extends AgentCallState {
 

@@ -14,7 +14,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author Zachary Soohoo
+ * 
  */
 
 @Entity

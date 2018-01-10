@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Entity
 @Table(schema = "crm")

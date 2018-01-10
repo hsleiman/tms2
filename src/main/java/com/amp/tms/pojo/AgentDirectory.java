@@ -21,7 +21,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class AgentDirectory implements DataSerializable, Serializable {
 

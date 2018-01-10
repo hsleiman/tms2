@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class OptionTextParser {
 

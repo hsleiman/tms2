@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  *
- * @author HS
+ * 
  */
 public class PhoneCheckData implements DataSerializable {
 

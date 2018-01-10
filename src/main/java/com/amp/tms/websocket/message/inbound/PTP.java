@@ -11,7 +11,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class PTP implements Serializable {
     @Expose

@@ -15,7 +15,7 @@ import org.apache.commons.math3.util.FastMath;
 
 /**
  *
- * @author HS
+ * 
  */
 public class AbandonCallDistribution extends AbstractIntegerDistribution {
 

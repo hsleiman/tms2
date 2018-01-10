@@ -31,7 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author HS
+ * 
  */
 @Path("/queue")
 @Produces(MediaType.APPLICATION_JSON)

@@ -10,7 +10,7 @@ import org.joda.time.LocalTime;
 
 /**
  *
- * @author HS
+ * 
  */
 @MappedSuperclass
 public class DialerSchedule {

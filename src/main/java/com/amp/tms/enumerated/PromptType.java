@@ -7,7 +7,7 @@ package com.amp.tms.enumerated;
 
 /**
  *
- * @author farzadaziminia
+ * 
  */
 public enum PromptType {
     PAYMENT,

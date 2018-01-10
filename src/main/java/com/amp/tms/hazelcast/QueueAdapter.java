@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  * @param <T>
  */
 public class QueueAdapter<T> extends LinkedList<T> implements DataSerializable {

@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Repository(AGENT_STATS_MAP_STORE_BEAN_NAME)
 public class AgentStatsMapStore implements MapStore<Integer, AgentStats>, PostProcessingMapStore {

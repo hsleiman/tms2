@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
- * @author Hoang, J, Bishistha
+ * 
  */
 @RestController()
 @RequestMapping(value = "/settleitRestController", produces = MediaType.APPLICATION_JSON_VALUE)

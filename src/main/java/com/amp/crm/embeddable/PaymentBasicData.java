@@ -12,7 +12,7 @@ import org.joda.time.LocalDateTime;
 /**
  * Basic payment information
  * 
- * @author chris
+ * 
  */
 @Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -10,7 +10,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @MappedSuperclass
 public abstract class SuperEntityAuto implements SuperEntityInterface{

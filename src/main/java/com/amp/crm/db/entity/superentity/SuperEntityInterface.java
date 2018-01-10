@@ -4,7 +4,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public interface SuperEntityInterface {
     

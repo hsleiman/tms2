@@ -29,7 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @SpringAware
 public class ParticipatingAgentMapper2 extends LifecycleMapperAdapter<AgentQueueKey, AgentWeightedPriority, AgentQueueWeightedPriority, Boolean>

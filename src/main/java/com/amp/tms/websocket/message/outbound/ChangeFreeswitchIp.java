@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  *
- * @author farzadaziminia
+ * 
  */
 public class ChangeFreeswitchIp implements DataSerializable {
 

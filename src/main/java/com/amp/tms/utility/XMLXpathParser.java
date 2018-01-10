@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author HS
+ * 
  */
 public class XMLXpathParser {
 

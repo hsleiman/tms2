@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class QRateCollator implements Collator<Map.Entry<QRateKey, Double>, Double> {
 

@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class AgentsInQueuePredicate implements Predicate<AgentQueueKey, WeightedPriority>, DataSerializable {
 

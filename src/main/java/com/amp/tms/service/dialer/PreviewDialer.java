@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @SpringAware
 public class PreviewDialer extends AbstractDialer {

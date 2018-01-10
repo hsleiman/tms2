@@ -13,7 +13,7 @@ import javax.ws.rs.FormParam;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class DirectoryVariable {
 

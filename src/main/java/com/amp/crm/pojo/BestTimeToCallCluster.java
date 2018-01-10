@@ -9,7 +9,7 @@ import com.amp.crm.db.entity.base.dialer.CallDetailRecord;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class BestTimeToCallCluster {
     

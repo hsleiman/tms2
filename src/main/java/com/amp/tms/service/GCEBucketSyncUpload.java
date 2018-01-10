@@ -32,7 +32,7 @@ import org.springframework.util.ResourceUtils;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Service
 public class GCEBucketSyncUpload {

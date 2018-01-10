@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class DialerInfoPojo {
     @Expose

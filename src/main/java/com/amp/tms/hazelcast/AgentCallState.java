@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  *
- * @author HS
+ * 
  */
 public class AgentCallState implements DataSerializable {
 

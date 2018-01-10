@@ -56,7 +56,7 @@ import org.springframework.context.annotation.Lazy;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Path("/tms-commands/phone-control")
 @Produces(MediaType.APPLICATION_JSON)

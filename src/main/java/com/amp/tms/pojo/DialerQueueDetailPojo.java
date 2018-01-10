@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class DialerQueueDetailPojo implements Serializable{
     @Expose

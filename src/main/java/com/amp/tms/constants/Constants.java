@@ -7,7 +7,7 @@ package com.amp.tms.constants;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class Constants {
 

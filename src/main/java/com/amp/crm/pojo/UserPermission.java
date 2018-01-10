@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author jaimel
+ * 
  */
 public class UserPermission {
     

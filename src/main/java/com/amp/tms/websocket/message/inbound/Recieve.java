@@ -21,7 +21,7 @@ import java.io.IOException;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class Recieve extends Message {
 

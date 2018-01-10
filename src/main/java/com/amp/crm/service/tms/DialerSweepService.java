@@ -7,7 +7,7 @@ package com.amp.crm.service.tms;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class DialerSweepService {
     

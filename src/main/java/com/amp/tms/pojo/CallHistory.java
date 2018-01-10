@@ -10,7 +10,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class CallHistory implements Serializable {
 

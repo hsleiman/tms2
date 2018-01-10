@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class AgentsInQueueKeyPredicate implements KeyPredicate<AgentQueueKey>, DataSerializable {
 

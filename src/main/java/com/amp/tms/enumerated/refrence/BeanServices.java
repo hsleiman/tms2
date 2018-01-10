@@ -16,7 +16,7 @@ import com.amp.tms.service.freeswitch.FsAgentService;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public enum BeanServices {
     IVRCallerIdentity(IVRCallerIdentity.class.getSimpleName()),

@@ -16,10 +16,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.context.annotation.Configuration;
 
-/**
- *
- * @author priyankanamburu
- */
+
 @Configuration
 public class Config implements BeanFactoryAware  {
     private BeanFactory beanFactory;

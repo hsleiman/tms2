@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author HS
+ * 
  */
 @NamedQueries({
     @NamedQuery(

@@ -7,7 +7,7 @@ package com.amp.tms.service.freeswitch;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 import com.amp.crm.db.entity.disposition.CallDispositionCode;
 import com.amp.tms.db.entity.cdr.CallDetailRecordTMS;
@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Service
 public class DQService {

@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class CORSFilter extends OncePerRequestFilter {
 

@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @SpringAware
 public class PowerDialer extends AbstractDialer {

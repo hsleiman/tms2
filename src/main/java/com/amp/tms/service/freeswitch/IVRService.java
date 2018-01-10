@@ -7,7 +7,7 @@ package com.amp.tms.service.freeswitch;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 import com.amp.tms.db.entity.freeswitch.CDR;
 import com.amp.tms.db.entity.freeswitch.TMSDialplan;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Service
 public class IVRService {

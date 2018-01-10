@@ -4,7 +4,7 @@ import javax.xml.ws.WebFault;
 
 /**
  *
- * @author chris
+ * 
  */
 @WebFault(targetNamespace = "http://exception.sti.objectbrains.com")
 public class ObjectDuplicationException extends CrmRuntimeException {

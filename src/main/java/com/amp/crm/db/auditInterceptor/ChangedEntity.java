@@ -18,7 +18,7 @@ import org.hibernate.type.Type;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class ChangedEntity implements Serializable{
     

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
  *
- * @author HS
+ * 
  */
 @Configuration
 @EnableWebMvc

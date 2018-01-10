@@ -17,7 +17,7 @@ import org.springframework.core.convert.support.DefaultConversionService;
 
 /**
  *
- * @author HS
+ * 
  */
 public class AliasToBeanResultConverter extends AliasedTupleSubsetResultTransformer {
 

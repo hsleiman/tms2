@@ -16,7 +16,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
  *
- * @author HS
+ * 
  */
 @Deprecated
 @QuartzJob(name = SetAgentOfflineJob.NAME, durable = false)

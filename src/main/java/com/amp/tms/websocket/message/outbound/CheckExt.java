@@ -19,7 +19,7 @@ import org.joda.time.LocalTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class CheckExt implements DataSerializable {
 

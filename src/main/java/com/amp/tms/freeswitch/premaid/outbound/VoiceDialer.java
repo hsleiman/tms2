@@ -14,7 +14,7 @@ import com.amp.tms.freeswitch.premaid.DialplanBuilder;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class VoiceDialer extends DialplanBuilder {
 

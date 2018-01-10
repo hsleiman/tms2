@@ -22,7 +22,7 @@ import org.springframework.core.task.TaskExecutor;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class AuditInterceptor extends EmptyInterceptor {
 

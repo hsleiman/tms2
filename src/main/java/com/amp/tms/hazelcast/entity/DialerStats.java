@@ -23,7 +23,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @MappedSuperclass
 public class DialerStats implements DataSerializable {

@@ -27,7 +27,7 @@ import org.joda.time.LocalDate;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @NamedQueries({
         @NamedQuery(

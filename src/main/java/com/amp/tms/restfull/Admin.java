@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author farzadaziminia
+ * 
  */
 
 @Path("/admin")

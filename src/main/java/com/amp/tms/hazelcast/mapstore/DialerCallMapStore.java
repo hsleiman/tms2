@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Repository(DIALER_CALL_MAP_STORE_BEAN_NAME)
 public class DialerCallMapStore implements MapStore<String, DialerCall> {

@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
- * @author farzadaziminia
+ * 
  */
 @Path("/chat")
 @Produces(MediaType.APPLICATION_JSON)

@@ -22,7 +22,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author jaimel
+ * 
  */
 
 //@NamedQueries({

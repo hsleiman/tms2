@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
  * Data about a payment that is often not specified (or only specified
  * for certain types of payments)
  * 
- * @author chris
+ * 
  */
 @Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)

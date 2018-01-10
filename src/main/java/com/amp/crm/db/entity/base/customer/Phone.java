@@ -29,7 +29,7 @@ import org.hibernate.envers.RelationTargetAuditMode;
 
 /**
  *
- * @author sundeeptaachanta
+ * 
  */
 @NamedQueries({
     @NamedQuery(

@@ -17,7 +17,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author sundeeptaachanta
+ * 
  */
 @Embeddable
 @XmlAccessorType(XmlAccessType.FIELD)

@@ -7,7 +7,7 @@ package com.amp.tms.enumerated;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public enum PhoneStatus {
 

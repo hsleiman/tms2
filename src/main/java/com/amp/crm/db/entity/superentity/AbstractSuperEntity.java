@@ -2,7 +2,7 @@ package com.amp.crm.db.entity.superentity;
 
 /**
  *
- * @author chris
+ * 
  */
 public abstract class AbstractSuperEntity implements SuperEntityInterface {
     

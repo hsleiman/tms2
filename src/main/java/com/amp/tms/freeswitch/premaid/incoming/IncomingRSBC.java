@@ -10,7 +10,7 @@ import com.amp.tms.freeswitch.premaid.DialplanBuilder;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class IncomingRSBC extends DialplanBuilder{
     public IncomingRSBC(DialplanVariable variable){

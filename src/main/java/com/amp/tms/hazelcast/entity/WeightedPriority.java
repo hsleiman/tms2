@@ -14,7 +14,7 @@ import javax.persistence.MappedSuperclass;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @MappedSuperclass
 public class WeightedPriority implements DataSerializable {

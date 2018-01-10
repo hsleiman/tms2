@@ -11,7 +11,7 @@ import org.joda.time.Duration;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class BiPlaybackData {
 

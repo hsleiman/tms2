@@ -7,7 +7,7 @@ package com.amp.crm.pojo;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class ExceptionToJson extends Exception{
     

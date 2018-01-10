@@ -11,7 +11,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class Payment implements Serializable {
     @Expose

@@ -36,7 +36,7 @@ import org.springframework.http.MediaType;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class HttpClient implements Closeable {
 

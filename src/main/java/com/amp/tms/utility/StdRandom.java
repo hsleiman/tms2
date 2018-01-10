@@ -7,25 +7,11 @@ package com.amp.tms.utility;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 import java.util.Random;
 
-/**
- *  The {@code StdRandom} class provides static methods for generating
- *  random number from various discrete and continuous distributions, 
- *  including Bernoulli, uniform, Gaussian, exponential, pareto,
- *  Poisson, and Cauchy. It also provides method for shuffling an
- *  array or subarray.
- *  <p>
- *  For additional documentation,
- *  see <a href="http://introcs.cs.princeton.edu/22library">Section 2.2</a> of
- *  <i>Introduction to Programming in Java: An Interdisciplinary Approach</i>
- *  by Robert Sedgewick and Kevin Wayne.
- *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
- */
+
 public final class StdRandom {
 
     private static Random random;    // pseudo-random number generator

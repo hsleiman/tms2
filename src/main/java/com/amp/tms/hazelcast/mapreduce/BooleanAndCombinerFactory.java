@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  * @param <Key>
  */
 public class BooleanAndCombinerFactory<Key> implements CombinerFactory<Key, Boolean, Boolean>, DataSerializable {

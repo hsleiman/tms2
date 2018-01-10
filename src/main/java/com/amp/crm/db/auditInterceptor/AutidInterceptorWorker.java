@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Transactional
 public class AutidInterceptorWorker implements Runnable {

@@ -21,7 +21,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
 /**
- * @author Hoang, J, Bishistha
+ * 
  */
 @NamedQueries({
         @NamedQuery(
@@ -83,7 +83,7 @@ public class Agent extends SuperEntity {
     private Integer lastReturnedSortNumberForLoan = 0;
 
 
-    //    @XmlTransient
+//    @XmlTransient
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "AgentAssignedToLoan")
 //    private Set<SvLoan> svLoans = new HashSet<>(0);
     private LocalDateTime lastAccessTime;

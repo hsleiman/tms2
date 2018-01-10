@@ -2,7 +2,7 @@ package com.amp.crm.db.hibernate;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 import com.amp.crm.pojo.UserData;
 import java.util.HashMap;

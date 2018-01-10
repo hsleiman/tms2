@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class Operator implements DataSerializable {
 

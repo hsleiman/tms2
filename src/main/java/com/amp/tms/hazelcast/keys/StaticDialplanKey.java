@@ -14,7 +14,7 @@ import javax.persistence.Enumerated;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Embeddable
 public class StaticDialplanKey implements Serializable{

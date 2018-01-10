@@ -34,7 +34,7 @@ import org.hibernate.annotations.ForeignKey;
 
 /**
  *
- * @author HS
+ * 
  */
 @NamedQueries({
     @NamedQuery(

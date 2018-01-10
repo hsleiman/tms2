@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Service
 public class FreeswitchNodeService {

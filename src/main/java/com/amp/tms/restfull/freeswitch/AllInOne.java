@@ -34,7 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Path("/all_in_one")
 @Produces(MediaType.TEXT_PLAIN)

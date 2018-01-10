@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @SpringAware
 class SendWithRetryTask implements Runnable, DataSerializable {

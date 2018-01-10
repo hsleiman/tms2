@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class CallDisposition implements DataSerializable {
 

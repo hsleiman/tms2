@@ -11,7 +11,7 @@ import org.quartz.JobExecutionException;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @QuartzJob(name = StopDialerJob.NAME, group = StopDialerJob.GROUP)
 public class StopDialerJob extends DialerQuartzJob {

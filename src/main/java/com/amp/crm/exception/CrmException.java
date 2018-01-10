@@ -9,7 +9,7 @@ import javax.xml.ws.WebFault;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @WebFault(targetNamespace = "http://exception.sti.objectbrains.com")
 public class CrmException  extends Exception{

@@ -14,7 +14,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class SpeechToText implements DataSerializable{
     @Expose

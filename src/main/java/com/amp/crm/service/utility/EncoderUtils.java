@@ -17,7 +17,7 @@ import javax.xml.bind.DatatypeConverter;
 
 /**
  *
- * @author HS
+ * 
  */
 public class EncoderUtils {
 

@@ -41,7 +41,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author HS
+ * 
  */
 @Service(AgentQueueAssociationService.BEAN_NAME)
 public class AgentQueueAssociationService {

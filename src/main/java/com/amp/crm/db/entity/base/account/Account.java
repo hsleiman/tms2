@@ -42,7 +42,7 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 import org.joda.time.LocalDateTime;
 
 /**
- * @author hsleiman
+ * 
  */
 @NamedQueries({})
 @Entity

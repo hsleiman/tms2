@@ -24,7 +24,7 @@ import org.joda.time.DateTime;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public interface Dialer {
 

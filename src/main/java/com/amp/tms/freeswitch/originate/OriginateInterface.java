@@ -7,7 +7,7 @@ package com.amp.tms.freeswitch.originate;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public interface OriginateInterface {
     public String getOriginateString();

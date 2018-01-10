@@ -10,7 +10,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author HS
+ * 
  *
  * Add @GenericGenerator on the entity level to specify params such as sequence name, initial value
  */

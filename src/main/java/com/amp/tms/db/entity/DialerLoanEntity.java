@@ -30,7 +30,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Entity(name = "DialerLoan")
 @Table(schema = "crm")

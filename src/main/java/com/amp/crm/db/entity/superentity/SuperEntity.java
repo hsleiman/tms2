@@ -11,7 +11,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @MappedSuperclass
 public abstract class SuperEntity extends AbstractSuperEntity {

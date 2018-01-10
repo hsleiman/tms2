@@ -7,7 +7,7 @@ package com.amp.tms.restfull.pojo;
 
 /**
  *
- * @author HS
+ * 
  */
 public class ReportData {
 

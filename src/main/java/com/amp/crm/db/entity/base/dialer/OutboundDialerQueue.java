@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 @Entity
 @DiscriminatorValue(value = DialerQueueType.OUTBOUND_TYPE)

@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Embeddable
 public class TMSDialplanKey implements Serializable {

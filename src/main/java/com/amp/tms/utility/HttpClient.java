@@ -23,7 +23,7 @@ import org.springframework.http.MediaType;
 /**
  * Java client to consume REST web service using POST or GET method
  *
- * @author HS
+ * 
  */
 public class HttpClient implements Closeable {
 

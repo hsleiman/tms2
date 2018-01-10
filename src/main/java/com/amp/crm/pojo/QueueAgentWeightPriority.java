@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
- * @author Zachary Soohoo
+ * 
  */
 
 public class QueueAgentWeightPriority {

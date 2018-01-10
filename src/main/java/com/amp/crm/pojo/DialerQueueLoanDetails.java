@@ -18,7 +18,7 @@ import org.joda.time.LocalTime;
 
 /**
  *
- * @author Bishistha
+ * 
  */
 public class DialerQueueLoanDetails implements Serializable, DataSerializable{
     

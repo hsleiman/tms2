@@ -16,7 +16,7 @@ import org.hibernate.annotations.Index;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
     @NamedQueries({
     @NamedQuery(

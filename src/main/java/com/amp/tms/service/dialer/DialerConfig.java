@@ -10,7 +10,7 @@ import com.objectbrains.hcms.hazelcast.HazelcastService;
 
 /**
  *
- * @author HS
+ * 
  */
 public class DialerConfig extends ConfigurationUtility {
 

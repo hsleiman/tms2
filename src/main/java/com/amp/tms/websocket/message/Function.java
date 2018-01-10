@@ -7,7 +7,7 @@ package com.amp.tms.websocket.message;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public enum Function {
 

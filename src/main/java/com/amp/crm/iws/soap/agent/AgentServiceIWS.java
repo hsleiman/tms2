@@ -22,7 +22,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
  * 
- * @author Hoang
+ * 
  */
 @WebService(serviceName = "AgentServiceIWS")
 public class AgentServiceIWS {

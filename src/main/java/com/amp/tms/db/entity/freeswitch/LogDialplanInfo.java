@@ -16,7 +16,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Entity
 @Table(schema = "crm")

@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public abstract class AbstractParam<V> {
 

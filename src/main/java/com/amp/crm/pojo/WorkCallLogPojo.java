@@ -15,7 +15,7 @@ import org.joda.time.LocalDateTime;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class WorkCallLogPojo  implements Comparable<WorkCallLogPojo>{
     private Long accountPk;

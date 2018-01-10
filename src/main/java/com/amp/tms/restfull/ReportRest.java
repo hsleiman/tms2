@@ -28,7 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
- * @author HS
+ * 
  */
 @Path("/report")
 @Produces(MediaType.APPLICATION_JSON)

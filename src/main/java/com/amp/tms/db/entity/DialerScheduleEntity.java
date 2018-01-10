@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author HS
+ * 
  */
 @Entity(name = "DialerScheduleTms")
 @Table(schema = "crm")

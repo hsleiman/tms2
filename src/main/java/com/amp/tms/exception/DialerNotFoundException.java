@@ -7,7 +7,7 @@ package com.amp.tms.exception;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class DialerNotFoundException extends Exception{
 

@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Hoang, J, Bishistha
+ * 
  */
 public class TodaysAgentProductivity implements Serializable {
 

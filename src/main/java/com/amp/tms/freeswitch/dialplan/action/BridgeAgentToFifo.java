@@ -9,7 +9,7 @@ import com.amp.tms.enumerated.FreeswitchContext;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 public class BridgeAgentToFifo extends AbstractAction {
 

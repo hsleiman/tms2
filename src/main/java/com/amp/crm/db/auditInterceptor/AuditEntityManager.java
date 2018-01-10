@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author hsleiman
+ * 
  */
 @Repository("auditEntityManager")
 public class AuditEntityManager {
