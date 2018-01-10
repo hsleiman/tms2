@@ -7,11 +7,7 @@ package com.amp.crm.exception;
 
 import javax.xml.ws.WebFault;
 
-/**
- *
- * 
- */
-@WebFault(targetNamespace = "http://exception.svc.objectbrains.com")
+@WebFault(targetNamespace = "http://exception.crm.com")
 public class CrmRuntimeException extends RuntimeException {
 
     protected WebFaultBean faultInfo;

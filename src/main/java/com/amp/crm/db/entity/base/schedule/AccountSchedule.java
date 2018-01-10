@@ -37,7 +37,7 @@ public class AccountSchedule extends SuperEntity{
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_pk", referencedColumnName = "pk")
-    @ForeignKey(name = "fk_sv_account_schedule")
+    @ForeignKey(name = "fk_crm_account_schedule")
     private Account account;
 
     public PaymentSchedule getSchedule() {

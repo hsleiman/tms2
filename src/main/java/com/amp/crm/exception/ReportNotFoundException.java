@@ -5,10 +5,6 @@
  */
 package com.amp.crm.exception;
 
-/**
- *
- * 
- */
 public class ReportNotFoundException extends Exception{
 
     public ReportNotFoundException(Long pk) {

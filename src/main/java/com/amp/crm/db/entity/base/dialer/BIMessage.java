@@ -31,7 +31,7 @@ public class BIMessage extends SuperEntity {
     private Boolean flagged;
     private Long callLoanPk;
     private String biAccountPk;
-    private Long urlLoanPk;
+    private Long urlAccountPk;
     private String elementType;
     private String nodeName;
     private String nodeValue;
@@ -101,11 +101,11 @@ public class BIMessage extends SuperEntity {
     }
 
     public Long getUrlLoanPk() {
-        return urlLoanPk;
+        return urlAccountPk;
     }
 
     public void setUrlLoanPk(Long urlLoanPk) {
-        this.urlLoanPk = urlLoanPk;
+        this.urlAccountPk = urlLoanPk;
     }
 
     public String getElementType() {

@@ -7,16 +7,12 @@ package com.amp.crm.exception;
 
 import javax.xml.ws.WebFault;
 
-/**
- *
- * 
- */
-@WebFault(targetNamespace = "http://exception.svc.objectbrains.com")
+@WebFault(targetNamespace = "http://exception.crm.com")
 public class ObjectNotFoundException extends CrmRuntimeException {
 
 
     public ObjectNotFoundException(long loanPk) {
-        super("Loan with pk [" + loanPk + "] could not be found");
+        super("Account with pk [" + loanPk + "] could not be found");
         faultInfo = new WebFaultBean();
         faultInfo.setLoanPk(loanPk);
     }

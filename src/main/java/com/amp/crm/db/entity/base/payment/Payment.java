@@ -44,7 +44,7 @@ public class Payment extends SuperEntity implements Comparable {
      
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="account_pk", referencedColumnName="pk")
-    @ForeignKey(name="fk_sv_payment_account")
+    @ForeignKey(name="fk_crm_payment_account")
     private Account account;
      
     @OneToOne(fetch=FetchType.LAZY, mappedBy="payment")
