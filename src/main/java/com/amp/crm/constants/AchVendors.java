@@ -8,10 +8,6 @@ package com.amp.crm.constants;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author sundeeptaachanta
- */
 public enum AchVendors {
     
     CARMEL(7, "CARMEL", "settleit", false,0);

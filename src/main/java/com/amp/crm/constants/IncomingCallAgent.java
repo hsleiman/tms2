@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author Hoang, J, Bishistha
- */
 public enum IncomingCallAgent {
     
     PRIMARY_AGENT,

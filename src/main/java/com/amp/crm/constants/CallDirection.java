@@ -10,10 +10,6 @@ import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- *
- * @author Bishistha
- */
 public enum CallDirection {
    
     INTERNAL,

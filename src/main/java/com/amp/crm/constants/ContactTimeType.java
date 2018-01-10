@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author Hoang, J, Bishistha
- */
 public enum ContactTimeType {
     LAST_CONTACT_TIME ("lastContactTime"),
     LAST_LEFT_MESSAGE_TIME("leftMessageTime"),

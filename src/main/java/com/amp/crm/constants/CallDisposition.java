@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author sundeeptaachanta
- */
 public enum CallDisposition {
     CONTACT_MADE(true),
     LEFT_VOICEMAIL(true),

@@ -8,10 +8,6 @@ package com.amp.crm.constants;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
-/**
- *
- * @author Hoang, J, Bishistha
- */
 public class WorkPortfolioType {
     //#773 Clean up servicing statuses.
     public static final int WORK_PORTFOLIO_CURRENT = 1; // Used for CCSS only. "Current" loans are portfolio-less

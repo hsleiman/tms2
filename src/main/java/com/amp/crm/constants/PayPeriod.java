@@ -5,10 +5,6 @@
  */
 package com.amp.crm.constants;
 
-/**
- *
- * @author sundeeptaachanta
- */
 public enum PayPeriod {
     MONTHLY (1),
     SEMIMONTHLY (2),
