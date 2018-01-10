@@ -15,10 +15,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * 
- */
 @Repository
 @Transactional
 public class RestfullCallRepository {
