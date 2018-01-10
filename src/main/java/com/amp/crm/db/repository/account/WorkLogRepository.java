@@ -22,7 +22,7 @@ import com.amp.crm.db.entity.log.WorkMainLog;
 import com.amp.crm.db.entity.log.WorkManagementReviewLog;
 import com.amp.crm.db.entity.log.WorkReviewLog;
 import com.amp.crm.db.entity.log.DataChangeLog;
-import com.amp.crm.db.hibernate.ThreadAttributes;
+import com.amp.crm.db.configurations.ThreadAttributes;
 import com.amp.crm.embeddable.WorkLogData;
 import com.amp.crm.exception.ObjectNotFoundException;
 import com.amp.crm.exception.TooManyObjectFoundException;

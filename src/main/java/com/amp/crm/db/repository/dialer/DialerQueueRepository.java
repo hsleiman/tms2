@@ -20,7 +20,7 @@ import com.amp.crm.db.entity.base.dialer.HoldMusic;
 import com.amp.crm.db.entity.base.dialer.OutboundDialerRecord;
 import com.amp.crm.db.entity.base.dialer.OutboundAccountDetails;
 import com.amp.crm.db.entity.base.dialer.VoiceRecording;
-import com.amp.crm.db.hibernate.ThreadAttributes;
+import com.amp.crm.db.configurations.ThreadAttributes;
 import com.amp.crm.db.repository.account.AccountRepository;
 import com.amp.crm.embeddable.DialerQueueDetails;
 import com.amp.crm.exception.ObjectNotFoundException;

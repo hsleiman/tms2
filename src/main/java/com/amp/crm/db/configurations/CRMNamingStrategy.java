@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.amp.crm.db.hibernate;
+package com.amp.crm.db.configurations;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +14,11 @@ import org.hibernate.cfg.DefaultNamingStrategy;
  *
  * @author hsleiman
  */
-public class STINamingStrategy extends DefaultNamingStrategy {
+public class CRMNamingStrategy extends DefaultNamingStrategy {
 
     private Map<String, String> standardProperties;
 
-    public STINamingStrategy() {
+    public CRMNamingStrategy() {
         super();
         initializeStandardProperties();
     }
@@ -47,10 +47,10 @@ public class STINamingStrategy extends DefaultNamingStrategy {
 
     @Override
     public String tableName(String tableName) {
-        if (tableName.startsWith("sti_")) {
+        if (tableName.startsWith("crm_")) {
             return tableName;
         }
-        return "sti_" + tableName;
+        return "crm_" + tableName;
     }
 
     @Override

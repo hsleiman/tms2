@@ -9,7 +9,7 @@ import com.amp.crm.db.entity.agent.Agent;
 import com.amp.crm.db.entity.agent.AgentDialerGroup;
 import com.amp.crm.db.entity.agent.DialerGroup;
 import com.amp.crm.db.entity.base.dialer.DialerQueueGroupAssociation;
-import com.amp.crm.db.hibernate.ThreadAttributes;
+import com.amp.crm.db.configurations.ThreadAttributes;
 import com.amp.crm.db.repository.StiAgentRepository;
 import com.amp.crm.db.repository.dialer.DialerQueueRepository;
 import com.amp.crm.embeddable.AgentDialerGroupInformation;

@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.amp.crm.db.auditInterceptor;
+package com.amp.crm.db.configurations;
 
 import com.amp.crm.constants.WorkLogConstants;
 import com.amp.crm.db.entity.base.account.Account;
 import com.amp.crm.db.entity.base.customer.Customer;
 import com.amp.crm.db.entity.superentity.SuperEntityInterface;
-import com.amp.crm.db.hibernate.ApplicationContextProvider;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -24,7 +23,9 @@ public class ChangedEntity implements Serializable{
     
     private final AuditEntityManager auditEntityManager;
     
-
+    private Long appPk;
+    private Long borrowerPk;
+    
     private Object entity;
     private Serializable id;
     private Object[] currentState;
@@ -32,9 +33,6 @@ public class ChangedEntity implements Serializable{
     private String[] propertyNames;
     private Type[] types;
     private int changeType;
-    
-    private Long appPk;
-    private Long borrowerPk;
     
 
     public ChangedEntity(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types, int changeType) {

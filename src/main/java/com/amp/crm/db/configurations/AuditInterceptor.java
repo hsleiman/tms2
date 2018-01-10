@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.amp.crm.db.auditInterceptor;
+package com.amp.crm.db.configurations;
 
 import com.amp.crm.constants.WorkLogConstants;
-import com.amp.crm.db.hibernate.ApplicationContextProvider;
-import com.amp.crm.db.hibernate.ThreadAttributes;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -20,20 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.core.task.TaskExecutor;
 
-/**
- *
- * @author hsleiman
- */
 public class AuditInterceptor extends EmptyInterceptor {
-
-    private int updates;
-    private int inserts;
-    private int selects;
-    private int deletes;
-
-    private AuditEntityManager auditEntityManager;
-    private LinkedHashMap<Integer, ChangedEntity> changedObjects;
-    private static Logger LOG = LoggerFactory.getLogger(AuditInterceptor.class);
 
     private static String sessionIdLogNote = "[Uknown session]";
 
@@ -42,6 +27,15 @@ public class AuditInterceptor extends EmptyInterceptor {
     private long transactionId;
     private long threadId;
     private TaskExecutor executor;
+    
+    private int updates;
+    private int inserts;
+    private int selects;
+    private int deletes;
+
+    private AuditEntityManager auditEntityManager;
+    private LinkedHashMap<Integer, ChangedEntity> changedObjects;
+    private static Logger LOG = LoggerFactory.getLogger(AuditInterceptor.class);
 
     /**
      * author hsleiman

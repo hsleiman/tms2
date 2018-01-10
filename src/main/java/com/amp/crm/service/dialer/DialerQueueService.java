@@ -25,7 +25,7 @@ import com.amp.crm.db.entity.base.customer.Customer;
 import com.amp.crm.db.entity.base.customer.Phone;
 import com.amp.crm.db.entity.disposition.CallDispositionCode;
 import com.amp.crm.db.entity.disposition.CallDispositionGroup;
-import com.amp.crm.db.hibernate.ThreadAttributes;
+import com.amp.crm.db.configurations.ThreadAttributes;
 import com.amp.crm.db.repository.StiAgentRepository;
 import com.amp.crm.db.repository.account.AccountRepository;
 import com.amp.crm.db.repository.account.WorkLogRepository;

@@ -1,4 +1,4 @@
-package com.amp.crm.db.hibernate;
+package com.amp.crm.db.configurations;
 
 /**
  *

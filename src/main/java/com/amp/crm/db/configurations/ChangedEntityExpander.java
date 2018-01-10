@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.amp.crm.db.auditInterceptor;
+package com.amp.crm.db.configurations;
 
 
 import com.amp.crm.db.entity.base.account.Account;
@@ -28,6 +28,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class ChangedEntityExpander implements Serializable {
 
+    private ArrayList<Object> currentStateList;
+    private ArrayList<Object> previousStateList;
+    private ArrayList<String> propertyNamesList;
+    private ArrayList<String> typesList;
+    
     private Object entity;
     private Serializable id;
     private Object[] currentState;
@@ -38,11 +43,6 @@ public class ChangedEntityExpander implements Serializable {
 
     private Long accountPk;
     private Long clientPk;
-
-    private ArrayList<Object> currentStateList;
-    private ArrayList<Object> previousStateList;
-    private ArrayList<String> propertyNamesList;
-    private ArrayList<String> typesList;
     
     @Autowired
     private AuditEntityManager auditEntityManager;
