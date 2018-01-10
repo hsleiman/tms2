@@ -15,7 +15,7 @@ import com.amp.crm.db.entity.base.dialer.BIMessage;
 import com.amp.crm.db.entity.base.dialer.DialerQueueSettings;
 import com.amp.crm.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.amp.crm.db.entity.base.dialer.OutboundDialerQueueSettings;
-import com.amp.crm.db.entity.base.dialer.StiCallerId;
+import com.amp.crm.db.entity.base.dialer.CrmCallerId;
 import com.amp.crm.db.entity.disposition.CallDispositionCode;
 import com.amp.crm.db.entity.disposition.CallDispositionGroup;
 import com.amp.crm.db.entity.qualityAssurance.QualityAssuranceForm;
@@ -548,7 +548,7 @@ public class TmsRestController {
     
     @RequestMapping(value = "/getAllCallerIds", method = GET)
     @Authorization(permission = Permission.Authenticated, noPermissionTo = "Not Authenticated.")
-    public List<StiCallerId> getAllCallerIds() {
+    public List<CrmCallerId> getAllCallerIds() {
         return dialerQueueService.getAllCallerIds();
     }
     

@@ -23,19 +23,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+/**
+ *
+ * 
+ */
 @Repository
-public class StiAgentRepository {
+public class CrmAgentRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+//    @Autowired
+//    private CollectionQueueRepository colQRepo;
     @Autowired
     private AccountManagerOWS accountManagerOWS;
 
     @Autowired
     private SQLConfigRepository sqlConfigRepo;
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(StiAgentRepository.class);
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CrmAgentRepository.class);
 
     EntityManager getEntityManager() {
         return entityManager;
@@ -77,7 +83,7 @@ public class StiAgentRepository {
         List<Agent> res = getEntityManager().createNamedQuery("Agent.locateByAgentUserName", Agent.class).
                 setParameter("userName", userName.toLowerCase()).getResultList();
         if ((res == null) || (res.isEmpty())) {
-            //If no agent found in svc but is in ams, create one from ams. Else, return null.
+            
             Agent Agent = new Agent();
             Agent.setUserName(userName);
             Agent retAgent = syncAgentWithUser(Agent);
@@ -162,13 +168,13 @@ public class StiAgentRepository {
 
     public int getMaxSortNumberInQueue(long queuePk) {
         Query query = getEntityManager().createQuery(
-                "SELECT max(s.sortNumberInQueue)FROM Account s WHERE "
+                "SELECT max(s.sortNumberInQueue)FROM SvLoan s WHERE "
                 + "s.accountWorkQueue.pk = :queuePk ");
         query.setParameter("queuePk", queuePk);
         return (int) query.getResultList().get(0);
 
     }
-    
+
     public Agent syncAgentWithUser(Agent agent) {
         AmsUser amsUser = accountManagerOWS.getUser(agent.getUserName());
         if (amsUser != null) {
@@ -187,4 +193,29 @@ public class StiAgentRepository {
         return null;
     }
 
+//    @SuppressWarnings("unchecked")
+//    public List<LoansInQueuePojo> getLoansInQueueUsingNativeQuery(Long queuePk, Integer pageNum, Integer pageSize) {
+//        WorkQueue svColQueue = colQRepo.getCollectionsQueue(queuePk);
+//        Boolean isSkip = svColQueue.getColQueueData().getPortfolioType() == WorkPortfolioType.COLL_PORTFOLIO_SKIP_TRACE;
+//        String query ="";
+//        if (isSkip){
+//            query = sqlConfigRepo.getQueryBySqlName("GetLoansInSkipQueue");
+//        }else{
+//            query = sqlConfigRepo.getQueryBySqlName("GetLoansInQueue");
+//        }
+//        if(StringUtils.isBlank(query)){
+//            return null;
+//        }
+//        if(pageNum != null && pageSize != null){
+//            int offset = pageNum*pageSize;
+//            String paginationClause = " offset "+offset+" limit "+pageSize;
+//            query = query+paginationClause;
+//        }
+//        Session session = getEntityManager().unwrap(Session.class);
+//        LOG.info("getLoansInQueueUsingNativeQuery: {}", query);
+//        org.hibernate.Query q = session.createSQLQuery(query);
+//        q.setParameter("queuePk", queuePk);
+//        q.setResultTransformer(Transformers.aliasToBean(LoansInQueuePojo.class));
+//        return q.list();
+//    }
 }

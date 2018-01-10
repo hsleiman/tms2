@@ -7,7 +7,7 @@ package com.amp.tms.websocket;
 
 
 import com.amp.crm.constants.DialerQueueType;
-import com.amp.crm.db.entity.base.dialer.StiCallerId;
+import com.amp.crm.db.entity.base.dialer.CrmCallerId;
 import com.amp.crm.embeddable.DialerQueueDetails;
 import com.amp.crm.service.dialer.DialerQueueService;
 import com.amp.tms.pojo.DialerQueueDetailPojo;
@@ -92,10 +92,10 @@ public class WebsocketCache {
     private synchronized List<Long> buildCallerIdNumbers() {
         if (isCallerIdNumbersExpired()) {
             LOG.info("Rebuilding Caller ID..");
-            List<StiCallerId> callerIds = dialerQueueService.getAllCallerIds();
+            List<CrmCallerId> callerIds = dialerQueueService.getAllCallerIds();
             ArrayList<Long> numbers = new ArrayList<>();
             for (int i = 0; i < callerIds.size(); i++) {
-                StiCallerId get = callerIds.get(i);
+                CrmCallerId get = callerIds.get(i);
                 numbers.add(get.getCallerIdNumber());
             }
             callerIdNumbers = numbers;

@@ -12,7 +12,7 @@ import com.amp.crm.constants.DialerQueueType;
 import com.amp.crm.constants.DoNotCallCodes;
 import com.amp.crm.db.entity.agent.DialerGroup;
 import com.amp.crm.db.entity.base.account.Account;
-import com.amp.crm.db.entity.base.dialer.StiCallerId;
+import com.amp.crm.db.entity.base.dialer.CrmCallerId;
 import com.amp.crm.db.entity.base.dialer.DialerQueue;
 import com.amp.crm.db.entity.base.dialer.DialerQueueGroupAssociation;
 import com.amp.crm.db.entity.base.dialer.DialerQueueSettings;
@@ -50,10 +50,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * 
- */
 @Repository
 public class DialerQueueRepository {
 
@@ -272,7 +268,6 @@ public class DialerQueueRepository {
         return ((Number) q.getSingleResult()).longValue();
     }
 
-    // @Async("svc-antideadlock-executor")
     @Async
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void updateAccountCount(long queuePk) {
@@ -338,13 +333,6 @@ public class DialerQueueRepository {
         return list;
     }
 
-//    public List<Long> getSortedDialerQueueAccounts(long queuePk) {
-//        Query q = entityManager.createNamedQuery("DialerQueue.GetAllAccountsInQueue");
-//        q.setParameter("queuePk", queuePk);
-//        @SuppressWarnings("unchecked")
-//        List<Long> list = q.getResultList();
-//        return list;
-//    }
     public void createDialerQueueGroupAssociation(DialerQueue queue, DialerGroup group, DialerGroup secondaryGroup) {
         DialerQueueGroupAssociation assoc = new DialerQueueGroupAssociation();
         assoc.setDialerQueue(queue);
@@ -391,15 +379,15 @@ public class DialerQueueRepository {
         return list.isEmpty() ? null : list.get(0);
     }
 
-    public List<StiCallerId> getAllCallerIds() {
-        TypedQuery<StiCallerId> q = entityManager.createNamedQuery("CallerId.GetAllCallerIds", StiCallerId.class);
+    public List<CrmCallerId> getAllCallerIds() {
+        TypedQuery<CrmCallerId> q = entityManager.createNamedQuery("CallerId.GetAllCallerIds", CrmCallerId.class);
         return q.getResultList();
     }
 
-    public StiCallerId getCallerIdByNumber(Long callerIdNumber) {
-        TypedQuery<StiCallerId> q = entityManager.createNamedQuery("CallerId.GetCallerIdByNumber", StiCallerId.class);
+    public CrmCallerId getCallerIdByNumber(Long callerIdNumber) {
+        TypedQuery<CrmCallerId> q = entityManager.createNamedQuery("CallerId.GetCallerIdByNumber", CrmCallerId.class);
         q.setParameter("callerIdNumber", callerIdNumber);
-        List<StiCallerId> list = q.getResultList();
+        List<CrmCallerId> list = q.getResultList();
         return list.isEmpty() ? null : list.get(0);
     }
 

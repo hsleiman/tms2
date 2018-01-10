@@ -19,17 +19,17 @@ import javax.persistence.Table;
  */
 @NamedQueries({
     @NamedQuery(
-            name = "StiCallerId.GetAllCallerIds",
-            query = "SELECT s FROM StiCallerId s"
+            name = "CrmCallerId.GetAllCallerIds",
+            query = "SELECT s FROM CrmCallerId s"
     ),
     @NamedQuery(
-            name = "StiCallerId.GetCallerIdByNumber",
-            query = "SELECT s FROM StiCallerId s where s.callerIdNumber = :callerIdNumber"
+            name = "CrmCallerId.GetCallerIdByNumber",
+            query = "SELECT s FROM CrmCallerId s where s.callerIdNumber = :callerIdNumber"
     )
 })
 @Entity
 @Table(schema = "crm")
-public class StiCallerId extends SuperEntity {
+public class CrmCallerId extends SuperEntity {
 
     @Column(nullable = false, unique = true)
     private Long callerIdNumber;
@@ -77,7 +77,7 @@ public class StiCallerId extends SuperEntity {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final StiCallerId other = (StiCallerId) obj;
+        final CrmCallerId other = (CrmCallerId) obj;
         if (!Objects.equals(this.callerIdNumber, other.callerIdNumber)) {
             return false;
         }
