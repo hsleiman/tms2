@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.amp.crm.db.auditInterceptor;
+package com.amp.crm.db.configurations;
 
 import com.objectbrains.hcms.annotation.ConfigContext;
 import com.objectbrains.hcms.configuration.ConfigurationUtility;
@@ -18,10 +18,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * 
- */
 @Repository("auditEntityManager")
 public class AuditEntityManager {
 
@@ -44,6 +40,24 @@ public class AuditEntityManager {
         }
     }
 
+    public long getLogType(String className) {
+        return config.getLong(className + ".logtype", 0L);
+    }
+
+    public String getLogDesc(String className, String attributeName) {
+        String logDesc = config.getString(className + ".*.desc", getLogDesc(className));
+        logDesc = config.getString(className + "." + attributeName + ".desc", logDesc);
+        return logDesc;
+    }
+
+    public String getLogDesc(String className) {
+        return config.getString(className + ".desc", "");
+    }
+
+    public static boolean isSetter(Method method) {
+        return method.getName().startsWith("set");
+    }
+
     public long getAccountPkFromClientPk(long borrowerPk) {
         //TODO
 //        long appPk = 0;
@@ -58,16 +72,6 @@ public class AuditEntityManager {
 //        }
 //        return appPk;
         return 0;
-    }
-
-    public boolean isActive(String className, String attributeName) {
-        boolean isActive = config.getBoolean(className + ".*", Boolean.FALSE);
-        isActive = config.getBoolean(className + "." + attributeName, isActive);
-        return isActive;
-    }
-
-    public boolean isActive(String key) {
-        return config.getBoolean(key, Boolean.FALSE);
     }
 
     public boolean isHidden(String className, String attributeName) {
@@ -86,22 +90,14 @@ public class AuditEntityManager {
         return logType;
     }
 
-    public long getLogType(String className) {
-        return config.getLong(className + ".logtype", 0L);
+    public boolean isActive(String className, String attributeName) {
+        boolean isActive = config.getBoolean(className + ".*", Boolean.FALSE);
+        isActive = config.getBoolean(className + "." + attributeName, isActive);
+        return isActive;
     }
 
-    public String getLogDesc(String className, String attributeName) {
-        String logDesc = config.getString(className + ".*.desc", getLogDesc(className));
-        logDesc = config.getString(className + "." + attributeName + ".desc", logDesc);
-        return logDesc;
-    }
-
-    public String getLogDesc(String className) {
-        return config.getString(className + ".desc", "");
-    }
-
-    public static boolean isSetter(Method method) {
-        return method.getName().startsWith("set");
+    public boolean isActive(String key) {
+        return config.getBoolean(key, Boolean.FALSE);
     }
 
 }

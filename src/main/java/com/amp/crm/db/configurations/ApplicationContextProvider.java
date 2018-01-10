@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.amp.crm.db.hibernate;
+package com.amp.crm.db.configurations;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * 
+ * @author hsleiman
  */
 @Component("applicationContextProvider")
 public class ApplicationContextProvider implements ApplicationContextAware {

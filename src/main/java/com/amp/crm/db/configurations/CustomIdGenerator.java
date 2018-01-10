@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.amp.crm.db.hibernate;
+package com.amp.crm.db.configurations;
 
 import com.amp.crm.db.entity.superentity.SuperEntityCustom;
 import java.io.Serializable;
@@ -13,7 +13,7 @@ import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 /**
  *
- * 
+ * @author hsleiman
  */
 public class CustomIdGenerator extends SequenceStyleGenerator {
 

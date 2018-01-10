@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.amp.crm.db.auditInterceptor;
+package com.amp.crm.db.configurations;
 
 
 import com.amp.crm.constants.WorkLogConstants;
 import com.amp.crm.constants.Language;
 import com.amp.crm.db.entity.log.DataChangeLog;
-import com.amp.crm.db.hibernate.ApplicationContextProvider;
-import com.amp.crm.db.hibernate.ThreadAttributes;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
@@ -24,10 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * 
- */
 @Transactional
 public class AutidInterceptorWorker implements Runnable {
 
