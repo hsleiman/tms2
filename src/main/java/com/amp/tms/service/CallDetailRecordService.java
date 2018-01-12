@@ -14,6 +14,7 @@ import com.hazelcast.spring.context.SpringAware;
 import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.objectbrains.scheduler.annotation.QuartzJob;
 import com.amp.crm.db.entity.disposition.CallDispositionCode;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.pojo.TMSBasicAccountInfo;
 import com.amp.crm.pojo.TMSCallDetails;
 import com.amp.crm.service.tms.TMSService;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import org.joda.time.LocalDateTime;
 import org.quartz.SimpleScheduleBuilder;
@@ -1167,7 +1169,12 @@ public class CallDetailRecordService {
                 mcdr.setDialerQueueId(cdr.getDialerQueueId());
             } else {
                 if (mcdr.getDialerQueueId() == null && mcdr.getBorrowerInfo() != null && mcdr.getBorrowerInfo().getLoanId() != null) {
-                    TMSCallDetails details = tmsIWS.getLoanInfoByLoanPk(mcdr.getBorrowerInfo().getLoanId());
+                    TMSCallDetails details = null;
+                    try {
+                        details = tmsIWS.getLoanInfoByLoanPk(mcdr.getBorrowerInfo().getLoanId());
+                    } catch (CrmException ex) {
+                        java.util.logging.Logger.getLogger(CallDetailRecordService.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     if (details != null && details.getDialerQueuePk() != null) {
                         mcdr.setDialerQueueId(details.getDialerQueuePk());
                     }

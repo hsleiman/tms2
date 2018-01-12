@@ -12,6 +12,7 @@ import com.amp.crm.db.entity.base.dialer.DialerQueueSettings;
 import com.amp.crm.db.entity.base.dialer.InboundDialerQueueSettings;
 import com.amp.crm.embeddable.AgentCallOrder;
 import com.amp.crm.embeddable.InboundDialerQueueRecord;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.pojo.TMSCallDetails;
 import com.amp.crm.service.dialer.DialerQueueService;
 import com.amp.crm.service.tms.TMSService;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.logging.Level;
 import org.joda.time.LocalTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,11 +88,21 @@ public class InboundCallService {
     }
 
     public AgentIncomingDistributionOrder inboundCallOrder(Long queuePk, long phoneNumber, String callUUID, Long loanPk) {
-        return inboundCallOrder(queuePk, phoneNumber, callUUID, tmsIws.getLoanInfoByLoanPk(loanPk));
+        try {
+            return inboundCallOrder(queuePk, phoneNumber, callUUID, tmsIws.getLoanInfoByLoanPk(loanPk));
+        } catch (CrmException ex) {
+            java.util.logging.Logger.getLogger(InboundCallService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public AgentIncomingDistributionOrder inboundCallOrder(Long queuePk, long phoneNumber, String callUUID) {
-        return inboundCallOrder(queuePk, phoneNumber, callUUID, tmsIws.getLoanInfoByPhoneNumber(phoneNumber));
+        try {
+            return inboundCallOrder(queuePk, phoneNumber, callUUID, tmsIws.getLoanInfoByPhoneNumber(phoneNumber));
+        } catch (CrmException ex) {
+            java.util.logging.Logger.getLogger(InboundCallService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public boolean shouldRecieveCall(int ext, boolean inline, CallDirection direction, boolean autoDialed) {
