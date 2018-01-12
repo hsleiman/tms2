@@ -85,7 +85,7 @@ public class IncomingPlaceOffHold extends DialplanBuilder {
         tMSDialplan.setDialerQueueId(dialerInfoPojo.getSettings().getDialerQueuePk());
 
         BorrowerInfo borrowerInfo = new BorrowerInfo();
-        borrowerInfo.setLoanId(dialerInfoPojo.getLoanId());
+        borrowerInfo.setLoanId(dialerInfoPojo.getAccountId());
         borrowerInfo.setBorrowerFirstName(dialerInfoPojo.getBorrowerFirstName());
         borrowerInfo.setBorrowerLastName(dialerInfoPojo.getBorrowerLastName());
         borrowerInfo.setBorrowerPhoneNumber(dialerInfoPojo.getPhoneToTypeSingle().getPhoneNumber() + "");

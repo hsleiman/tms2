@@ -22,7 +22,7 @@ public class InboundDialerInfoPojo {
     
     private InboundDialerQueueSettings settings;
     private Long agentGroupId;
-    private Long loanId;
+    private Long accountId;
     private String borrowerFirstName;
     private String borrowerLastName;
     private Integer agentExt;
@@ -62,12 +62,12 @@ public class InboundDialerInfoPojo {
         this.settings = settings;
     }
 
-    public Long getLoanId() {
-        return loanId;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setLoanId(Long loanId) {
-        this.loanId = loanId;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public String getBorrowerFirstName() {

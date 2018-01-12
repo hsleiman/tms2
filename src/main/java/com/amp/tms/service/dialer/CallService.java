@@ -389,7 +389,7 @@ public class CallService implements Dialer.CallRespondedCallback {
 //        InboundDialerInfoPojo dialerInfoPojo = new InboundDialerInfoPojo();
 //        dialerInfoPojo.setBorrowerFirstName(phoneToTypes.getFirstName());
 //        dialerInfoPojo.setBorrowerLastName(phoneToTypes.getLastName());
-//        dialerInfoPojo.setLoanId(loanId);
+//        dialerInfoPojo.setAccountId(loanId);
 //        dialerInfoPojo.setSettings(settings);
 //        dialerInfoPojo.addPhoneToTypeSingle(phoneToTypes);
 //        dialerInfoPojo.setAgentExt(ext);
@@ -446,7 +446,7 @@ public class CallService implements Dialer.CallRespondedCallback {
         InboundDialerInfoPojo dialerInfoPojo = new InboundDialerInfoPojo();
         dialerInfoPojo.setBorrowerFirstName(phoneToTypes.getFirstName());
         dialerInfoPojo.setBorrowerLastName(phoneToTypes.getLastName());
-        dialerInfoPojo.setLoanId(loanId);
+        dialerInfoPojo.setAccountId(loanId);
         dialerInfoPojo.setSettings(settings);
         dialerInfoPojo.addPhoneToTypeSingle(phoneToTypes);
         dialerInfoPojo.setAgentExt(ext);
