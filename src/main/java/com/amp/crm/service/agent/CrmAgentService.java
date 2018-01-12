@@ -13,7 +13,6 @@ import com.objectbrains.ams.iws.Permission;
 import com.objectbrains.ams.iws.PermissionNotFoundException;
 import com.objectbrains.ams.iws.Role;
 import com.objectbrains.ams.iws.RoleNotFoundException;
-import com.objectbrains.ams.iws.Status;
 import com.objectbrains.ams.iws.UpdateUserRequest;
 import com.objectbrains.ams.iws.User;
 import com.objectbrains.ams.iws.UserAlreadyExistsException;
@@ -36,9 +35,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class StiAgentService {
+public class CrmAgentService {
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(StiAgentService.class);
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CrmAgentService.class);
 
     @Autowired
     private AccountManagerIWS accountManagerIWS;

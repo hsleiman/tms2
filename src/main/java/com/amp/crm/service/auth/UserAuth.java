@@ -5,11 +5,8 @@
  */
 package com.amp.crm.service.auth;
 
-import com.hazelcast.core.IMap;
-import com.objectbrains.hcms.hazelcast.HazelcastService;
 import com.amp.crm.constants.Permission;
 import com.amp.crm.constants.RoleType;
-import com.amp.tms.hazelcast.Configs;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +15,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

@@ -10,7 +10,7 @@ import com.amp.crm.db.entity.agent.Agent;
 import com.amp.crm.db.entity.agent.DialerGroup;
 import com.amp.crm.embeddable.WeightedPriority;
 import com.amp.crm.exception.CrmException;
-import com.amp.crm.service.agent.StiAgentService;
+import com.amp.crm.service.agent.CrmAgentService;
 import com.amp.crm.service.tms.DialerGroupService;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -34,7 +34,7 @@ public class AgentServiceIWS {
     }
     
     @Autowired
-    StiAgentService agentService;
+    CrmAgentService agentService;
     @Autowired
     DialerGroupService dialerGroupService;
     
