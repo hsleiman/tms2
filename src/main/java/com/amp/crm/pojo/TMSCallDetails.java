@@ -178,37 +178,6 @@ public class TMSCallDetails {
         this.callerId = callerId;
     }
 
-//    public Boolean isIsPendingBK() {
-//        return isPendingBK;
-//    }
-//
-//    public void setIsPendingBK(Boolean isPendingBK) {
-//        this.isPendingBK = isPendingBK;
-//    }
-//
-//    public Boolean isIsChargedOff() {
-//        return isChargedOff;
-//    }
-//
-//    public void setIsChargedOff(Boolean isChargedOff) {
-//        this.isChargedOff = isChargedOff;
-//    }
-//
-//    public Integer getLoanStatus() {
-//        return loanStatus;
-//    }
-//
-//    public void setLoanStatus(Integer loanStatus) {
-//        this.loanStatus = loanStatus;
-//    }
-//
-//    public Integer getLoanServicingStatus() {
-//        return loanServicingStatus;
-//    }
-//
-//    public void setLoanServicingStatus(Integer loanServicingStatus) {
-//        this.loanServicingStatus = loanServicingStatus;
-//    }
 
     public Long getDialerQueuePk() {
         return dialerQueuePk;

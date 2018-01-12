@@ -83,15 +83,8 @@ public class Agent extends SuperEntity {
     private Integer lastReturnedSortNumberForLoan = 0;
 
 
-//    @XmlTransient
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "AgentAssignedToLoan")
-//    private Set<SvLoan> svLoans = new HashSet<>(0);
     private LocalDateTime lastAccessTime;
 
-    /* Address of an Agent is not stored anywhere currently. May be this can be implemented in phase 2 if required? 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "AgentAddress")
-    private Set<SvAddress> svAddresses = new HashSet<>(0);
-    */
     private String effectiveCallerId;
     @XmlTransient
     @JsonIgnore
@@ -347,18 +340,5 @@ public class Agent extends SuperEntity {
         this.lastReturnedSortNumberForLoan = lastReturnedSortNumberForLoan;
     }
     
-    /*public Set<SvLoan> getLoansInAgentPrimaryQueue(){
-    if(svPrimaryAgentQueue == null){
-    return null;
-    }
-    return 
-    }*/
-//    public Set<CollectionQueue> getSvPrimaryQueues() {
-//        return svPrimaryQueues;
-//    }
-//
-//    public void setSvPrimaryQueues(Set<CollectionQueue> svPrimaryQueues) {
-//        this.svPrimaryQueues = svPrimaryQueues;
-//    }
 }
 

@@ -114,15 +114,6 @@ public class WorkQueue extends SuperEntity {
     public void setWorkQueueData(WorkQueueData workQueueData) {
         this.workQueueData = workQueueData;
     }
-    
-    /*public Set<SvLoan> getSvLoans() {
-        return svLoans;
-    }
-
-    public void setSvLoans(Set<SvLoan> svLoans) {
-        this.getWorkQueueData().setQueueCount(svLoans.size());
-        this.svLoans = svLoans;
-    }*/
 
     public Set<AgentQueue> getAgentQueues() {
         return agentQueues;

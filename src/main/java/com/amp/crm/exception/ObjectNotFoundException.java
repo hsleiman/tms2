@@ -11,10 +11,10 @@ import javax.xml.ws.WebFault;
 public class ObjectNotFoundException extends CrmRuntimeException {
 
 
-    public ObjectNotFoundException(long loanPk) {
-        super("Account with pk [" + loanPk + "] could not be found");
+    public ObjectNotFoundException(long accountPk) {
+        super("Account with pk [" + accountPk + "] could not be found");
         faultInfo = new WebFaultBean();
-        faultInfo.setLoanPk(loanPk);
+        faultInfo.setAccountPk(accountPk);
     }
     
     public ObjectNotFoundException(String msg) {

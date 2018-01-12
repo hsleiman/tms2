@@ -499,7 +499,6 @@ public class TmsRestController {
     
     // ************ Inbound Call Service
     
-    // tmsIws.getLoanInfoByLoanPk(loanPk)
     
     
     @RequestMapping(value = "/getLoanInfoByPhoneNumber/{phoneNumber}", method = GET)
@@ -508,7 +507,6 @@ public class TmsRestController {
         return tmsService.getLoanInfoByPhoneNumber(phoneNumber);
     }
     
-    // tmsIws.getLoansForPhoneNumber(phoneNumber)
     
     // ************ Dialer Queue Setting
     

@@ -14,7 +14,7 @@ import java.math.BigInteger;
  */
 public class PhoneNumberAccountData {
     
-    private long loanPk;
+    private long accountPk;
     private long customerPk;
     private String firstName;
     private String lastName;
@@ -24,8 +24,8 @@ public class PhoneNumberAccountData {
     public PhoneNumberAccountData() {
     }
 
-    public PhoneNumberAccountData(long loanPk, long customerPk, String firstName, String lastName, Boolean doNotCall, PhoneNumberType phoneNumberType) {
-        this.loanPk = loanPk;
+    public PhoneNumberAccountData(long accountPk, long customerPk, String firstName, String lastName, Boolean doNotCall, PhoneNumberType phoneNumberType) {
+        this.accountPk = accountPk;
         this.customerPk = customerPk;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,8 +33,8 @@ public class PhoneNumberAccountData {
         this.phoneNumberType = phoneNumberType;
     }
     
-    public PhoneNumberAccountData(long loanPk, long customerPk, String firstName, String lastName, Boolean doNotCall, int phoneType) {
-        this.loanPk = loanPk;
+    public PhoneNumberAccountData(long accountPk, long customerPk, String firstName, String lastName, Boolean doNotCall, int phoneType) {
+        this.accountPk = accountPk;
         this.customerPk = customerPk;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,15 +43,15 @@ public class PhoneNumberAccountData {
     }  
 
     public long getLoanPk() {
-        return loanPk;
+        return accountPk;
     }
 
-    public void setLoanPk(long loanPk) {
-        this.loanPk = loanPk;
+    public void setLoanPk(long accountPk) {
+        this.accountPk = accountPk;
     }
     
      public void setLoanPkk(BigInteger loanPk) {
-        this.loanPk = loanPk != null ? loanPk.longValue() : null;
+        this.accountPk = loanPk != null ? loanPk.longValue() : null;
     }
 
     public long getCustomerPk() {
@@ -105,7 +105,7 @@ public class PhoneNumberAccountData {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + (int) (this.loanPk ^ (this.loanPk >>> 32));
+        hash = 53 * hash + (int) (this.accountPk ^ (this.accountPk >>> 32));
         return hash;
     }
 
@@ -118,7 +118,7 @@ public class PhoneNumberAccountData {
             return false;
         }
         final PhoneNumberAccountData other = (PhoneNumberAccountData) obj;
-        if (this.loanPk != other.loanPk) {
+        if (this.accountPk != other.accountPk) {
             return false;
         }
         return true;

@@ -14,7 +14,7 @@ public class WebFaultBean {
     private int faultCode;
     private String faultString;
     private String stackTrace;
-    private long loanPk;
+    private long accountPk;
     private LocalDateTime dateTime;
     
     public WebFaultBean() {
@@ -51,12 +51,12 @@ public class WebFaultBean {
         this.stackTrace = StackTrace;
     }
 
-    public long getLoanPk() {
-        return loanPk;
+    public long getAccountPk() {
+        return accountPk;
     }
 
-    public void setLoanPk(long loanPk) {
-        this.loanPk = loanPk;
+    public void setAccountPk(long loanPk) {
+        this.accountPk = loanPk;
     }
 
     public LocalDateTime getDateTime() {

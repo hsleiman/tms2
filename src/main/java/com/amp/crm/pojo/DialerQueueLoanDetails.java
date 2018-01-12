@@ -22,7 +22,7 @@ import org.joda.time.LocalTime;
  */
 public class DialerQueueLoanDetails implements Serializable, DataSerializable{
     
-    private Long loanPk;
+    private Long accountPk;
     private List<CustomerPhoneData> customerPhoneData;
     private Map<CallResponseCode, CallResponseAction> callResponseMap;
     private LocalTime bestTimeToCall;
@@ -32,29 +32,29 @@ public class DialerQueueLoanDetails implements Serializable, DataSerializable{
     }
     
     public DialerQueueLoanDetails(long loanPk){
-        this.loanPk = loanPk;
+        this.accountPk = loanPk;
     }
     
     public DialerQueueLoanDetails(DialerQueueLoanDetails dqDetails){
-        this.loanPk = dqDetails.getLoanPk();
+        this.accountPk = dqDetails.getLoanPk();
         this.bestTimeToCall = dqDetails.getBestTimeToCall();
         this.customerPhoneData = dqDetails.getCustomerPhoneData();
         //this.callResponseMap = dqDetails.getCallResponseMap();
     }
     
     public DialerQueueLoanDetails(long lPk, LocalTime bestTime, List<CustomerPhoneData> bwrData, Map<CallResponseCode, CallResponseAction> map){
-        this.loanPk = lPk;
+        this.accountPk = lPk;
         this.bestTimeToCall = bestTime;
         this.customerPhoneData = bwrData;
         //this.callResponseMap = map;
     }
     
     public long getLoanPk() {
-        return loanPk;
+        return accountPk;
     }
 
     public void setLoanPk(long loanPk) {
-        this.loanPk = loanPk;
+        this.accountPk = loanPk;
     }
 
     public List<CustomerPhoneData> getCustomerPhoneData() {
@@ -83,7 +83,7 @@ public class DialerQueueLoanDetails implements Serializable, DataSerializable{
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(this.loanPk);
+        out.writeObject(this.accountPk);
         out.writeObject(this.bestTimeToCall);
         out.writeObject(this.customerPhoneData);
         out.writeObject(this.callResponseMap);
@@ -91,7 +91,7 @@ public class DialerQueueLoanDetails implements Serializable, DataSerializable{
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        this.loanPk = in.readObject();
+        this.accountPk = in.readObject();
         this.bestTimeToCall = in.readObject();
         this.customerPhoneData = in.readObject();
         this.callResponseMap = in.readObject();
