@@ -6,6 +6,7 @@
 package com.amp.tms.freeswitch.premaid.outbound;
 
 import com.amp.crm.constants.CallerId;
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.pojo.TMSCallDetails;
 import com.amp.tms.db.entity.freeswitch.TMSDialplan;
 import com.amp.tms.enumerated.CallDirection;
@@ -22,6 +23,8 @@ import com.amp.tms.websocket.message.Function;
 import com.amp.tms.websocket.message.outbound.CallSipHeader;
 import com.amp.tms.websocket.message.outbound.RefreshSVC;
 import com.amp.tms.websocket.message.outbound.Send;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -51,15 +54,23 @@ public class ManualDial extends DialplanBuilder {
         TMSCallDetails callDetails = null;
 
         if (inVariables.getLoanId() != null && inVariables.getLoanId() != 0l) {
-            log.info("GetLoanInfoByLoanPk CALLED: ");
-            Long startTime = System.currentTimeMillis();
-            callDetails = tmsIWS.getLoanInfoByLoanPk(inVariables.getLoanId());
-            log.info("GetLoanInfoByLoanPk CALLED: " + (System.currentTimeMillis() - startTime));
+            try {
+                log.info("GetLoanInfoByLoanPk CALLED: ");
+                Long startTime = System.currentTimeMillis();
+                callDetails = tmsIWS.getLoanInfoByLoanPk(inVariables.getLoanId());
+                log.info("GetLoanInfoByLoanPk CALLED: " + (System.currentTimeMillis() - startTime));
+            } catch (CrmException ex) {
+                Logger.getLogger(ManualDial.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
-            log.info("GetLoanInfoByPhoneNumber CALLED: ");
-            Long startTime = System.currentTimeMillis();
-            callDetails = tmsIWS.getLoanInfoByPhoneNumber(inVariables.getCalleeIdLong());
-            log.info("GetLoanInfoByPhoneNumber CALLED: " + (System.currentTimeMillis() - startTime));
+            try {
+                log.info("GetLoanInfoByPhoneNumber CALLED: ");
+                Long startTime = System.currentTimeMillis();
+                callDetails = tmsIWS.getLoanInfoByPhoneNumber(inVariables.getCalleeIdLong());
+                log.info("GetLoanInfoByPhoneNumber CALLED: " + (System.currentTimeMillis() - startTime));
+            } catch (CrmException ex) {
+                Logger.getLogger(ManualDial.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         callEnteringSBC(callDetails, agent);

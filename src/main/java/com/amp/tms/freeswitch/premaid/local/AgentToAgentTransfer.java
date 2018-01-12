@@ -5,6 +5,7 @@
  */
 package com.amp.tms.freeswitch.premaid.local;
 
+import com.amp.crm.exception.CrmException;
 import com.amp.crm.pojo.TMSCallDetails;
 import com.amp.tms.db.entity.freeswitch.TMSDialplan;
 import com.amp.tms.enumerated.FreeswitchContext;
@@ -25,6 +26,8 @@ import com.amp.tms.hazelcast.entity.AgentTMS;
 import com.amp.tms.hazelcast.entity.AgentCall;
 import com.amp.tms.pojo.BorrowerInfo;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.joda.time.LocalDateTime;
 
 /**
@@ -183,7 +186,11 @@ public class AgentToAgentTransfer extends DialplanBuilder {
             Long loanId = fifoDialplan.getBorrowerInfo().getLoanId();
             TMSCallDetails callDetails = null;
             if (loanId != null) {
-                callDetails = tmsIWS.getLoanInfoByLoanPk(loanId);
+                try {
+                    callDetails = tmsIWS.getLoanInfoByLoanPk(loanId);
+                } catch (CrmException ex) {
+                    Logger.getLogger(AgentToAgentTransfer.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             if (callDetails != null) {
                 queuePk = callDetails.getDialerQueuePk();
