@@ -62,8 +62,8 @@ public class CallQualityManagementEvaluation extends QuestionnaireAnswer {
         return accountPk;
     }
 
-    public void setAccountPk(long loanPk) {
-        this.accountPk = loanPk;
+    public void setAccountPk(long accountPk) {
+        this.accountPk = accountPk;
     }
 
     public String getToPhoneNumber() {

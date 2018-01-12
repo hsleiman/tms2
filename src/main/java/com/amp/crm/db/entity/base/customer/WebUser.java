@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -20,14 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 
-//@NamedQueries({
-//        
-//})
 @Entity
 @Table(schema = "crm")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -48,29 +40,6 @@ public class WebUser extends SuperEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_pk", referencedColumnName = "pk")
     private Customer customer;
-    
-//    public void associateToLoanAndBorrower(SvLoan svLoan, SvBorrower svBorrower) {
-//        this.svLoan = svLoan;
-//        this.svBorrower = svBorrower;
-//        svLoan.setSvWebUser(this);
-//        svBorrower.setSvWebUser(this);
-//    }
-    
-//    public SvBorrower getSvBorrower() {
-//        return svBorrower;
-//    }
-//
-//    public void setSvBorrower(SvBorrower svBorrower) {
-//        this.svBorrower = svBorrower;
-//    }
-//
-//    public SvLoan getSvLoan() {
-//        return svLoan;
-//    }
-//
-//    public void setSvLoan(SvLoan svLoan) {
-//        this.svLoan = svLoan;
-//    }
 
     public String getCulture() {
         return culture;
