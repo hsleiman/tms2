@@ -83,28 +83,9 @@ public class TMSService {
         Account account = accountRepo.findAccountByPk(accountPk);
 
         //Figure out what values we actually need from STI to give to TMS
-        //SvLoanTerm svLoanTerm = loanRepo.getCurrentTerm(svLoan);
         TMSBasicAccountInfo bai = new TMSBasicAccountInfo();
         bai.setAccountPk(accountPk);
 
-//        bai.setPrincipalBalance(svLoanTerm.getCurrentBalance());
-//        SvDueAmount earliestUnpaidDueAmount = loanTermRepo.getEarliestDueAmountNotPaidAdequate(svLoanTerm.getPk());
-//        if (earliestUnpaidDueAmount != null && earliestUnpaidDueAmount.getDueAmount().getDueDate().isBefore(LocalDate.now())) {
-//            bli.setNextDueDate(earliestUnpaidDueAmount.getDueAmount().getDueDate());
-//        } else {
-//            SvDueAmount due = loanTermRepo.getNextDue(svLoanTerm.getPk());
-//            if (due != null) {
-//                bli.setNextDueDate(due.getDueAmount().getDueDate());
-//            }
-//        }
-//        if (bli.getNextDueDate() == null) {
-//            bli.setNextDueDate(new LocalDate().minusDays(1));
-//        }
-//        if (svLoan.getSvLoanStatus().getLoanStatus() != null && svLoan.getSvLoanStatus().getLoanStatus() == LoanStatusCode.STATUS_PAID_OFF) {
-//            bli.setPaidOff(true);
-//        } else {
-//            bli.setPaidOff(false);
-//        }
         return bai;
     }
 
@@ -528,33 +509,7 @@ public class TMSService {
         return getTMSCallDetails(q);
     }
 
-    public String getLoanInfoByPhoneNumberQueryWithSkip() {
-        return " FROM SvLoan loan "
-                + " join loan.svBorrowers borrower"
-                + " left outer join borrower.borrowerPhone phone WITH phone.areaCode = :areaCode AND phone.phoneNumber = :phoneNumber"
-                + " left outer join loan.svSkipReference skipRef WITH skipRef.refInfo.skipRefPhone = :fullPhone "
-                + " join loan.svLoanStatus loanStatus "
-                + " left outer join borrower.borrowerCurrentAddress addr"
-                + " left outer join loan.svInboundDialerQueue.svDialerQueueSettings settings"
-                + " left outer join loan.svLoanCollectionQueue queue"
-                + " left outer join loan.svAchInfoForLoan ach "
-                + " WHERE (borrower.pk = phone.svPhoneBorrower.pk or borrower member of loan.svPrimaryBorrowers)"
-                + " AND ((phone.areaCode = :areaCode AND phone.phoneNumber = :phoneNumber AND phone.loanPk = loan.pk)  OR (skipRef.refInfo.skipRefPhone = :fullPhone))";
-    }
-
-    public String getLoanInfoByPhoneNumberQueryWithoutSkip() {
-        return " FROM SvLoan loan "
-                + " join loan.svBorrowers borrower"
-                + " left outer join borrower.borrowerPhone phone WITH phone.areaCode = :areaCode AND phone.phoneNumber = :phoneNumber"
-                + " join loan.svLoanStatus loanStatus "
-                + " left outer join borrower.borrowerCurrentAddress addr"
-                + " left outer join loan.svInboundDialerQueue.svDialerQueueSettings settings"
-                + " left outer join loan.svLoanCollectionQueue queue"
-                + " left outer join loan.svAchInfoForLoan ach "
-                + " WHERE (borrower.pk = phone.svPhoneBorrower.pk or borrower member of loan.svPrimaryBorrowers)"
-                + " AND ((phone.areaCode = :areaCode AND phone.phoneNumber = :phoneNumber AND phone.loanPk = loan.pk))";
-    }
-
+//
     public TMSCallDetails getTMSCallDetails(TypedQuery<TMSCallDetails> q) throws CrmException {
         List<TMSCallDetails> list = (List<TMSCallDetails>) q.getResultList();
         TMSCallDetails callDetails = list.isEmpty() ? new TMSCallDetails() : list.get(0);

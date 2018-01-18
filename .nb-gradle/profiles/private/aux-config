@@ -4,13 +4,18 @@
   <auxiliary>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group name="P2">
-        <file>file:/Users/hsleiman/CloudStation/xcode/3d/tms2/build.gradle</file>
-      </group>
+      <group name="work"/>
     </open-files>
     <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group name="work"/>
+      <group name="work">
+        <file>file:/Users/Hoang/NetBeansProjects/tms2/src/main/java/com/amp/tms/freeswitch/premaid/outbound/ManualDial.java</file>
+        <file>file:/Users/Hoang/NetBeansProjects/tms2/src/main/java/com/amp/tms/freeswitch/premaid/local/AgentToAgentTransfer.java</file>
+        <file>file:/Users/Hoang/NetBeansProjects/tms2/src/main/java/com/amp/crm/service/agent/CrmAgentService.java</file>
+        <file>file:/Users/Hoang/NetBeansProjects/tms2/src/main/java/com/amp/tms/freeswitch/premaid/local/AgentToAgentTransferToP1.java</file>
+        <file>file:/Users/Hoang/NetBeansProjects/tms2/src/main/java/com/amp/tms/service/InboundCallService.java</file>
+        <file>file:/Users/Hoang/NetBeansProjects/tms2/src/main/java/com/amp/tms/service/CallDetailRecordService.java</file>
+      </group>
     </open-files>
   </auxiliary>
 </gradle-project-properties>
