@@ -8,10 +8,6 @@ package com.amp.crm.pojo;
 import com.amp.crm.constants.DoNotCallCodes;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 public class CustomerCallablePojo {
     private LocalDateTime rightNow;
     private LocalDateTime tooEarly;

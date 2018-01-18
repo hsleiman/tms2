@@ -12,10 +12,6 @@ import com.amp.crm.embeddable.EftPaymentBasicData;
 
 
 
-/**
- *
- * 
- */
 public class AchPaymentDetails {
 
     private long accountPK;

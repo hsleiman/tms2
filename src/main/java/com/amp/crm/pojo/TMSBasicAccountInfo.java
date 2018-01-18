@@ -12,10 +12,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import org.joda.time.LocalDate;
 
-/**
- *
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TMSBasicAccountInfo {
     private long accountPk;

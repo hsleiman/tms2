@@ -8,10 +8,6 @@ package com.amp.crm.pojo;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-/**
- *
- * 
- */
 public class AchPaymentResponse  {
     
     private Long achPaymentPk;

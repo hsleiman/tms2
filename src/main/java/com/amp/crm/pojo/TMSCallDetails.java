@@ -8,7 +8,6 @@ package com.amp.crm.pojo;
 
 import com.amp.crm.constants.CallerId;
 import com.amp.crm.constants.PopupDisplayMode;
-//import com.objectbrains.sti.db.entity.loan.SvCollectionQueue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,10 +15,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-/**
- *
- * 
- */
 public class TMSCallDetails {
      
     private Long accountPk;
@@ -35,22 +30,15 @@ public class TMSCallDetails {
     private Boolean doNotCall;
     private CallerId callerId;
     @XmlElement(required = true)
-//    private Boolean isPendingBK;
-//    @XmlElement(required = true)
-//    private Boolean isChargedOff;
-//    private Integer loanStatus;
-//    private Integer loanServicingStatus;
     private Long dialerQueuePk;
     @XmlElement(required = true)    
     private Boolean autoAnswerEnabled;
     private PopupDisplayMode popupDisplayMode;
     @XmlElement(required = true)
     private Boolean disableSecondaryAgentsCallRouting;
-    @XmlTransient
-//    private CollectionQueue collectionQueue;
+
     private String queueName;
     private Long portfolioType;
-//    private Integer achAutoPaymentStatus;
     
     private Integer defaultExtension;
     private String primaryAgentUsername;
@@ -61,11 +49,11 @@ public class TMSCallDetails {
     public TMSCallDetails() {
     }
 
-    public TMSCallDetails(Long loanPk, String firstName, String lastName, String ssn, String addr1, String addr2, String city, String state, String zip, 
-            Boolean doNotCall, CallerId callerId, Boolean isPendingBK, Boolean isChargedOff, Integer loanStatus, Integer loanServicingStatus, Long dialerQueuePk, 
+    public TMSCallDetails(Long accountPk, String firstName, String lastName, String ssn, String addr1, String addr2, String city, String state, String zip, 
+            Boolean doNotCall, CallerId callerId, Boolean isPendingBK, Boolean isChargedOff, Integer accountStatus, Integer accountServicingStatus, Long dialerQueuePk, 
             Boolean autoAnswerEnabled, PopupDisplayMode popupDisplayMode, Boolean disableSecondaryAgentsCallRouting, 
             String queueName, Long portfolioType, Integer achAutoPaymentStatus) {
-        this.accountPk = loanPk;
+        this.accountPk = accountPk;
         this.firstName = firstName;
         this.lastName = lastName;
         this.ssn = ssn;
@@ -76,26 +64,20 @@ public class TMSCallDetails {
         this.zip = zip;
         this.doNotCall = doNotCall;
         this.callerId = callerId;
-//        this.isPendingBK = isPendingBK;
-//        this.isChargedOff = isChargedOff;
-//        this.loanStatus = loanStatus;
-//        this.loanServicingStatus = loanServicingStatus;
         this.dialerQueuePk = dialerQueuePk;
         this.autoAnswerEnabled = autoAnswerEnabled;
         this.popupDisplayMode = popupDisplayMode;
         this.disableSecondaryAgentsCallRouting = disableSecondaryAgentsCallRouting;
-        //this.svCollectionQueue = svCollectionQueue;
         this.queueName = queueName;
         this.portfolioType = portfolioType;
-//        this.achAutoPaymentStatus = achAutoPaymentStatus;
     }
 
-    public Long getLoanPk() {
+    public Long getAccountPk() {
         return accountPk;
     }
 
-    public void setLoanPk(Long loanPk) {
-        this.accountPk = loanPk;
+    public void setAccountPk(Long accountPk) {
+        this.accountPk = accountPk;
     }
 
     public String getFirstName() {
@@ -210,14 +192,6 @@ public class TMSCallDetails {
     public void setDisableSecondaryAgentsCallRouting(Boolean disableSecondaryAgentsCallRouting) {
         this.disableSecondaryAgentsCallRouting = disableSecondaryAgentsCallRouting;
     }
-
-//    public SvCollectionQueue getSvCollectionQueue() {
-//        return svCollectionQueue;
-//    }
-//
-//    public void setSvCollectionQueue(SvCollectionQueue svCollectionQueue) {
-//        this.svCollectionQueue = svCollectionQueue;
-//    }
 
     public String getQueueName() {
         return queueName;

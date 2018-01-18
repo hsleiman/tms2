@@ -213,7 +213,7 @@ public class IVRCallerIdentity {
 
                 tmsDialplan.addAction(new Playback((RecordedPhrases.I_FOUND_A_LOAN)));
 
-                String loanID = callDetails.getLoanPk() + "";
+                String loanID = callDetails.getAccountPk() + "";
                 if (loanID.length() > 5) {
                     loanID = loanID.substring(loanID.length() - 5);
                 }
@@ -224,7 +224,7 @@ public class IVRCallerIdentity {
                 tmsDialplan.addAction(new PlayAndGetDigits(1, 1, 3, 10000, "#*", fileToPlay, invalidToPlay, "OPTION_SELECTED", "\\d", 7000, "1000 XML " + FreeswitchContext.ivr_dp));
                 tmsDialplan.addAction(new Set(FreeswitchVariables.option_selected_id, "${OPTION_SELECTED}"));
                 BorrowerInfo borrowerInfo = new BorrowerInfo();
-                borrowerInfo.setLoanId(callDetails.getLoanPk());
+                borrowerInfo.setLoanId(callDetails.getAccountPk());
                 borrowerInfo.setBorrowerFirstName(callDetails.getFirstName());
                 borrowerInfo.setBorrowerLastName(callDetails.getLastName());
                 borrowerInfo.setBorrowerPhoneNumber(tmsDialplan.getCaller());

@@ -363,7 +363,7 @@ public class TMSOutboundDialerCommand {
             dialerInfoPojo.setBorrowerFirstName(callDetails.getFirstName());
             dialerInfoPojo.setBorrowerLastName(callDetails.getLastName());
             dialerInfoPojo.setDialerMode(DialerMode.REGULAR);
-            dialerInfoPojo.setLoanId(callDetails.getLoanPk());
+            dialerInfoPojo.setLoanId(callDetails.getAccountPk());
             PhoneToType phoneToType = new PhoneToType();
             phoneToType.setPhoneNumber(phone);
             phoneToType.setPhoneType("Home");
@@ -393,7 +393,7 @@ public class TMSOutboundDialerCommand {
             dialerInfoPojo.setBorrowerFirstName(callDetails.getFirstName());
             dialerInfoPojo.setBorrowerLastName(callDetails.getLastName());
             dialerInfoPojo.setDialerMode(DialerMode.PROGRESSIVE);
-            dialerInfoPojo.setLoanId(callDetails.getLoanPk());
+            dialerInfoPojo.setLoanId(callDetails.getAccountPk());
             PhoneToType phoneToType = new PhoneToType();
             phoneToType.setPhoneNumber(phone);
             phoneToType.setPhoneType("Home");
@@ -422,7 +422,7 @@ public class TMSOutboundDialerCommand {
             dialerInfoPojo.setBorrowerFirstName(callDetails.getFirstName());
             dialerInfoPojo.setBorrowerLastName(callDetails.getLastName());
             dialerInfoPojo.setDialerMode(DialerMode.PROGRESSIVE);
-            dialerInfoPojo.setLoanId(callDetails.getLoanPk());
+            dialerInfoPojo.setLoanId(callDetails.getAccountPk());
             PhoneToType phoneToType = new PhoneToType();
             phoneToType.setPhoneNumber(phone);
             phoneToType.setPhoneType("Home");

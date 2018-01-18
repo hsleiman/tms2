@@ -13,14 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * 
- */
 public class OutboundDialerQueueRecord extends DialerQueueRecord<OutboundDialerQueueSettings> {
     
     private Map<CallResponseCode, CallResponseAction> callResponseMap;
-    private List<DialerQueueAccountDetails> loanDetails = new ArrayList<>();
+    private List<DialerQueueAccountDetails> accountDetails = new ArrayList<>();
     private OutboundDialerQueueSettings dialerQueueSettings;
     private OutboundRecordStatus status;
             
@@ -40,11 +36,11 @@ public class OutboundDialerQueueRecord extends DialerQueueRecord<OutboundDialerQ
     }
 
     public List<DialerQueueAccountDetails> getLoanDetails() {
-        return loanDetails;
+        return accountDetails;
     }
 
-    public void setLoanDetails(List<DialerQueueAccountDetails> loanDetails) {
-        this.loanDetails = loanDetails;
+    public void setLoanDetails(List<DialerQueueAccountDetails> accountDetails) {
+        this.accountDetails = accountDetails;
     }
 
     @Override

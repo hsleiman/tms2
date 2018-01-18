@@ -5,12 +5,8 @@
  */
 package com.amp.crm.pojo;
 
-/**
- *
- * 
- */
 public class AccountCustomerName {
-     private long accountPk;
+    private long accountPk;
     private String firstName;
     private String lastName;
 

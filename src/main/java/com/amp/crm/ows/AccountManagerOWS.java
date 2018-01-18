@@ -5,10 +5,6 @@
  */
 package com.amp.crm.ows;
 
-/**
- *
- * 
- */
 public interface AccountManagerOWS {
     
     public AmsUser getUser(String username);

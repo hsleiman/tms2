@@ -5,10 +5,6 @@
  */
 package com.amp.crm.pojo;
 
-/**
- *
- * 
- */
 public class NationalPhoneNumber {
     
     private Long areaCode;

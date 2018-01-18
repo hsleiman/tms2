@@ -13,10 +13,6 @@ import javax.xml.bind.annotation.XmlElement;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 public class WorkCallLogPojo  implements Comparable<WorkCallLogPojo>{
     private Long accountPk;
     

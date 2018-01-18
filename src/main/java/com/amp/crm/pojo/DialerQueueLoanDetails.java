@@ -16,10 +16,6 @@ import java.util.List;
 import java.util.Map;
 import org.joda.time.LocalTime;
 
-/**
- *
- * 
- */
 public class DialerQueueLoanDetails implements Serializable, DataSerializable{
     
     private Long accountPk;

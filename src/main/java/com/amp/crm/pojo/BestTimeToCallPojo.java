@@ -10,10 +10,6 @@ import org.joda.time.Duration;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
-/**
- *
- * 
- */
 public class BestTimeToCallPojo {
 
     private LocalDateTime bestHitRatioStartTime;

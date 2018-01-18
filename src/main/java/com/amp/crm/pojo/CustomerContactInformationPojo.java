@@ -12,10 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 public class CustomerContactInformationPojo {
     private LocalDateTime lastContactTimestamp;
     private Long phoneNumberUsedInLastContact;

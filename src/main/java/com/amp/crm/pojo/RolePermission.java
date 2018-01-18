@@ -8,10 +8,6 @@ package com.amp.crm.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * 
- */
 public class RolePermission {
     private Integer roleId;
     

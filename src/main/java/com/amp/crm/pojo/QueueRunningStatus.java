@@ -7,9 +7,6 @@ package com.amp.crm.pojo;
 
 import com.amp.crm.constants.DialerState;
 
-/**
- * 
- */
 public class QueueRunningStatus {
 
     private long queueRunningStatusId;

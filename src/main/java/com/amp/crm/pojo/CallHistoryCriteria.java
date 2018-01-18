@@ -5,16 +5,13 @@
  */
 package com.amp.crm.pojo;
 
-/**
- * 
- */
 public class CallHistoryCriteria {
 
     private long fromDate;
     private long toDate;
     private String callerPhoneNumber;
     private String calleePhoneNumber;
-    private Integer callType;//in,Out,null
+    private Integer callType;
     private Long accountPk;
     private Boolean dialerCall;
     private int userDisposition;

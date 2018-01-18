@@ -8,10 +8,6 @@ package com.amp.crm.ows;
 import com.objectbrains.ams.iws.Status;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 public class AmsUser {
 
     private String userName;

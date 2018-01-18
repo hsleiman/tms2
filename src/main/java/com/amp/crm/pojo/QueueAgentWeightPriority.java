@@ -8,10 +8,6 @@ package com.amp.crm.pojo;
 import com.amp.crm.embeddable.WeightedPriority;
 import javax.xml.bind.annotation.XmlElement;
 
-/**
- *
- * 
- */
 
 public class QueueAgentWeightPriority {
  

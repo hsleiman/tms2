@@ -273,7 +273,7 @@ public class WebsocketService {
                             PhoneCheckData borrowerInfo = new PhoneCheckData();
                             borrowerInfo.setBorrowerFirstName(data.getFirstName());
                             borrowerInfo.setBorrowerLastName(data.getLastName());
-                            borrowerInfo.setLoanId(data.getLoanPk());
+                            borrowerInfo.setLoanId(data.getAccountPk());
                             borrowerInfo.setDnc(data.getDoNotCall());
                             borrowerInfo.setBorrowerPhoneNumber(phoneNumber.toString());
                             borrowerInfoList.add(borrowerInfo);

@@ -7,10 +7,6 @@ package com.amp.crm.pojo;
 
 import com.amp.crm.db.entity.base.dialer.CallDetailRecord;
 
-/**
- *
- * 
- */
 public class BestTimeToCallCluster {
     
     

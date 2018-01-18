@@ -100,14 +100,14 @@ public class ManualDial extends DialplanBuilder {
             borrowerInfo.setBorrowerFirstName(callDetails.getFirstName());
             borrowerInfo.setBorrowerLastName(callDetails.getLastName());
             borrowerInfo.setBorrowerPhoneNumber(inVariables.getCalleeIdNumber());
-            borrowerInfo.setLoanId(callDetails.getLoanPk());
-//            if (callDetails.getLoanPk() == null) {
+            borrowerInfo.setLoanId(callDetails.getAccountPk());
+//            if (callDetails.getAccountPk() == null) {
 //                agentDialplan.setIgnore_disposition(Boolean.TRUE);
 //            }
 
             agentDialplan.getBorrowerInfo().setBorrowerFirstName(callDetails.getFirstName());
             agentDialplan.getBorrowerInfo().setBorrowerLastName(callDetails.getLastName());
-            agentDialplan.getBorrowerInfo().setLoanId(callDetails.getLoanPk());
+            agentDialplan.getBorrowerInfo().setLoanId(callDetails.getAccountPk());
 
         }
 
@@ -149,10 +149,10 @@ public class ManualDial extends DialplanBuilder {
         send.setCallSipHeader(callSipHeader);
         websocket.sendWithRetry(inVariables.getCallerIdInteger(), send);
 
-        if (callDetails.getLoanPk() != null) {
+        if (callDetails.getAccountPk() != null) {
             if (callDetails.getCallerId() != CallerId.ACTUAL) {
 //                try {
-//                    tmsIWS.resetCallerIdStatusForLoan(callDetails.getLoanPk());
+//                    tmsIWS.resetCallerIdStatusForLoan(callDetails.getAccountPk());
 //                } catch (Exception ex) {
 //                    log.info(ex.getMessage(), ex);
 //                }
@@ -181,7 +181,7 @@ public class ManualDial extends DialplanBuilder {
         if (callDetails != null) {
             sbcDialplan.getBorrowerInfo().setBorrowerFirstName(callDetails.getFirstName());
             sbcDialplan.getBorrowerInfo().setBorrowerLastName(callDetails.getLastName());
-            sbcDialplan.getBorrowerInfo().setLoanId(callDetails.getLoanPk());
+            sbcDialplan.getBorrowerInfo().setLoanId(callDetails.getAccountPk());
         }
 
         sbcDialplan.setXMLFromDialplan();

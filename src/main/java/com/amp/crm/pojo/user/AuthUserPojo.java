@@ -7,10 +7,6 @@ package com.amp.crm.pojo.user;
 
 import java.io.Serializable;
 
-/**
- *
- * 
- */
 public class AuthUserPojo implements Serializable{
     
     private String tokenKey;

@@ -7,13 +7,8 @@ package com.amp.crm.pojo;
 
 import com.google.i18n.phonenumbers.Phonenumber;
 
-/**
- *
- * 
- */
 public class PhoneNumberDetails extends NationalPhoneNumber {
-    
-   
+       
     private String extension;
     private Boolean possibleNumber;
     private Boolean validNumber;

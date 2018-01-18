@@ -12,10 +12,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WorkLogPojo {
 

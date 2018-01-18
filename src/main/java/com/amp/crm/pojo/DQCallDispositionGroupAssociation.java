@@ -5,10 +5,6 @@
  */
 package com.amp.crm.pojo;
 
-/**
- *
- * 
- */
 public class DQCallDispositionGroupAssociation {
     private long dqpk;
     private long callDispositionGroupPk;

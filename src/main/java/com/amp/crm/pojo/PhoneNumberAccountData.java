@@ -8,10 +8,6 @@ package com.amp.crm.pojo;
 import com.amp.crm.constants.PhoneNumberType;
 import java.math.BigInteger;
 
-/**
- *
- * 
- */
 public class PhoneNumberAccountData {
     
     private long accountPk;
@@ -42,16 +38,16 @@ public class PhoneNumberAccountData {
         this.phoneNumberType = PhoneNumberType.getPhoneNumberType(phoneType);
     }  
 
-    public long getLoanPk() {
+    public long getAccountPk() {
         return accountPk;
     }
 
-    public void setLoanPk(long accountPk) {
+    public void setAccountPk(long accountPk) {
         this.accountPk = accountPk;
     }
     
-     public void setLoanPkk(BigInteger loanPk) {
-        this.accountPk = loanPk != null ? loanPk.longValue() : null;
+     public void setAccountPkk(BigInteger accountPk) {
+        this.accountPk = accountPk != null ? accountPk.longValue() : null;
     }
 
     public long getCustomerPk() {

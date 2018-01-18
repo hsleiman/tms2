@@ -179,7 +179,7 @@ public class InboundCallService {
             BorrowerInfo borrowerInfo = new BorrowerInfo();
             borrowerInfo.setBorrowerFirstName(details.getFirstName());
             borrowerInfo.setBorrowerLastName(details.getLastName());
-            borrowerInfo.setLoanId(details.getLoanPk());
+            borrowerInfo.setLoanId(details.getAccountPk());
             borrowerInfo.setBorrowerPhoneNumber(String.valueOf(phoneNumber));
             aido.setBorrowerInfo(borrowerInfo);
             aido.setDefaultExtension(details.getDefaultExtension());

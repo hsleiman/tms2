@@ -16,14 +16,10 @@ import java.util.List;
 import java.util.Map;
 import org.joda.time.LocalTime;
 
-/**
- *
- * 
- */
 public class DialerQueueAccountDetails implements Serializable, DataSerializable{
     
     private Long accountPk;
-    private List<CustomerPhoneData> borrowerPhoneData;
+    private List<CustomerPhoneData> customerPhoneData;
     private Map<CallResponseCode, CallResponseAction> callResponseMap;
     private LocalTime bestTimeToCall;
 
@@ -38,14 +34,14 @@ public class DialerQueueAccountDetails implements Serializable, DataSerializable
     public DialerQueueAccountDetails(DialerQueueAccountDetails dqDetails){
         this.accountPk = dqDetails.getAccountPk();
         this.bestTimeToCall = dqDetails.getBestTimeToCall();
-        this.borrowerPhoneData = dqDetails.getCustomerPhoneData();
+        this.customerPhoneData = dqDetails.getCustomerPhoneData();
         //this.callResponseMap = dqDetails.getCallResponseMap();
     }
     
     public DialerQueueAccountDetails(long lPk, LocalTime bestTime, List<CustomerPhoneData> bwrData, Map<CallResponseCode, CallResponseAction> map){
         this.accountPk = lPk;
         this.bestTimeToCall = bestTime;
-        this.borrowerPhoneData = bwrData;
+        this.customerPhoneData = bwrData;
         //this.callResponseMap = map;
     }
     
@@ -58,11 +54,11 @@ public class DialerQueueAccountDetails implements Serializable, DataSerializable
     }
 
     public List<CustomerPhoneData> getCustomerPhoneData() {
-        return borrowerPhoneData;
+        return customerPhoneData;
     }
 
-    public void setCustomerPhoneData(List<CustomerPhoneData> borrowerPhoneData) {
-        this.borrowerPhoneData = borrowerPhoneData;
+    public void setCustomerPhoneData(List<CustomerPhoneData> customerPhoneData) {
+        this.customerPhoneData = customerPhoneData;
     }
 
     public Map<CallResponseCode, CallResponseAction> getCallResponseMap() {
@@ -85,7 +81,7 @@ public class DialerQueueAccountDetails implements Serializable, DataSerializable
     public void writeData(ObjectDataOutput out) throws IOException {
         out.writeObject(this.accountPk);
         out.writeObject(this.bestTimeToCall);
-        out.writeObject(this.borrowerPhoneData);
+        out.writeObject(this.customerPhoneData);
         out.writeObject(this.callResponseMap);
     }
 
@@ -93,7 +89,7 @@ public class DialerQueueAccountDetails implements Serializable, DataSerializable
     public void readData(ObjectDataInput in) throws IOException {
         this.accountPk = in.readObject();
         this.bestTimeToCall = in.readObject();
-        this.borrowerPhoneData = in.readObject();
+        this.customerPhoneData = in.readObject();
         this.callResponseMap = in.readObject();
                 
     }

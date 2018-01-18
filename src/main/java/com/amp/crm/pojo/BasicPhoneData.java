@@ -9,10 +9,6 @@ import com.amp.crm.constants.PhoneNumberType;
 import com.amp.crm.service.dialer.PhoneNumberCallable;
 import java.io.Serializable;
 
-/**
- *
- * 
- */
 public class BasicPhoneData extends PhoneNumberCallable implements Serializable{
  
     private Long phoneNumber;

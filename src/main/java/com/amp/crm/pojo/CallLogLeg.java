@@ -12,10 +12,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 public class CallLogLeg implements Comparable<CallLogLeg> {
 
     @XmlTransient

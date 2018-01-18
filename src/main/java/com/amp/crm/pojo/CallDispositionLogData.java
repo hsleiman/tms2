@@ -11,13 +11,9 @@ import java.math.BigDecimal;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-/**
- *
- * 
- */
 public class CallDispositionLogData {
     
-      private long accountPk;
+    private long accountPk;
     private long dispositionId;
     private String note;
     private String phoneNumber;    
