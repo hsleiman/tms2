@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @EnableAspectJAutoProxy
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.objectbrains.sti.iws.restful.rest", "com.objectbrains.sti.aop"})
+@ComponentScan(basePackages = {"com.amp.sti.iws.restful.rest", "com.amp.sti.aop"})
 public class RestConfig extends WebMvcConfigurerAdapter {
 
 }

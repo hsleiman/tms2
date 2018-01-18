@@ -50,15 +50,6 @@ public class AgentServiceIWS {
         return dialerGroupService.getAllDialerGroups();
     }
     
-   /*
-    public Long createOrUpdatePortfolioQueue(@WebParam(name = "userData") UserData userData,
-            @WebParam(name = "svColQueue") SvCollectionQueue svColQueue)
-            throws CollectionQueueNotFoundException, CollectionQueueAlreadyExistsException, SvcException {
-        ThreadAttributes.set("agent.username", userData);
-        return colQueueService.setPortfolioQueue(svColQueue);
-    }
-    */ 
-    
     public DialerGroup createOrUpdateDialerGroup(
         @WebParam(name = "dialerGroup") DialerGroup dialerGroup) throws CrmException{
         return dialerGroupService.createOrUpdateDialerGroup(dialerGroup);
